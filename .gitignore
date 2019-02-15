@@ -1,0 +1,25 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+#gitignore
+#.gitignore
+
+# setup.py egg_info
+*.egg-info
+# emacs backup files
+*~
+# hg stuff
+*.orig
+# odoo filestore
+#openerp/filestore
+#openerp-7.0-20150504/openerp/filestore
+# maintenance migration scripts
+openerp/addons/base/maintenance
+
+#bak
+*.bak
+
+# Distribution / packaging
+
