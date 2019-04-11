@@ -1,0 +1,571 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* asset
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 8.0-20170620\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-08-08 15:22+0000\n"
+"PO-Revision-Date: 2017-08-08 15:22+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: asset
+#: selection:asset.state,team:0
+msgid "Accounting"
+msgstr "Contabilidad"
+
+#. module: asset
+#: field:asset.asset,active:0
+msgid "Active"
+msgstr "Activo"
+
+#. module: asset
+#: model:ir.model,name:asset.model_asset_asset
+msgid "Asset"
+msgstr "Activo"
+
+#. module: asset
+#: field:asset.asset,property_stock_asset:0
+msgid "Asset Location"
+msgstr "Ubicación del activo"
+
+#. module: asset
+#: model:stock.location,name:asset.stock_location_locations_asset
+msgid "Asset Locations"
+msgstr "Ubicaciones del activo"
+
+#. module: asset
+#: field:asset.asset,name:0
+msgid "Asset Name"
+msgstr "Nombre"
+
+#. module: asset
+#: field:asset.asset,asset_number:0
+msgid "Asset Number"
+msgstr "Número"
+
+#. module: asset
+#: view:asset.asset:asset.assets_search
+msgid "Asset Search"
+msgstr "Búsqueda"
+
+#. module: asset
+#: model:ir.actions.act_window,name:asset.action_asset_state
+#: model:ir.ui.menu,name:asset.menu_asset_state
+msgid "Asset States"
+msgstr "Estados"
+
+#. module: asset
+#: view:asset.asset:asset.assets_form_view
+#: view:asset.asset:asset.assets_tree_view
+#: model:ir.actions.act_window,name:asset.action_assets
+#: model:ir.ui.menu,name:asset.menu_maintenance_assets
+#: model:ir.ui.menu,name:asset.menu_maintenance_assets_assets
+#: model:stock.location,name:asset.stock_location_assets
+msgid "Assets"
+msgstr "Activos"
+
+#. module: asset
+#: field:asset.asset,user_id:0
+msgid "Assigned to"
+msgstr "Asignado a"
+
+#. module: asset
+#: selection:asset.asset,maintenance_state_color:0
+#: selection:asset.state,state_color:0
+msgid "Black"
+msgstr "Negro"
+
+#. module: asset
+#: selection:asset.asset,maintenance_state_color:0
+#: selection:asset.state,state_color:0
+msgid "Blue"
+msgstr "Azul"
+
+#. module: asset
+#: model:asset.state,name:asset.asset_state_breakdown
+msgid "Breakdown"
+msgstr "Rotura"
+
+#. module: asset
+#: view:asset.state:asset.asset_state_kanban_view
+msgid "Change color"
+msgstr "Cambiar color"
+
+#. module: asset
+#: model:asset.state,name:asset.asset_state_close
+msgid "Close"
+msgstr "Cerrar"
+
+#. module: asset
+#: field:asset.asset,maintenance_state_color:0
+msgid "Color"
+msgstr "Color"
+
+#. module: asset
+#: model:ir.ui.menu,name:asset.menu_maintenance_config
+msgid "Configuration"
+msgstr "Configuración"
+
+#. module: asset
+#: field:asset.asset,create_uid:0
+#: field:asset.state,create_uid:0
+msgid "Created by"
+msgstr "Creado por"
+
+#. module: asset
+#: field:asset.asset,create_date:0
+#: field:asset.state,create_date:0
+msgid "Created on"
+msgstr "Creado el"
+
+#. module: asset
+#: selection:asset.asset,criticality:0
+msgid "Critical"
+msgstr "Crítico"
+
+#. module: asset
+#: field:asset.asset,criticality:0
+msgid "Criticality"
+msgstr "Crítico"
+
+#. module: asset
+#: model:res.groups,name:asset.group_mro_customer
+msgid "Customer"
+msgstr "Proveedor"
+
+#. module: asset
+#: selection:asset.asset,maintenance_state_color:0
+#: selection:asset.state,state_color:0
+msgid "Cyan"
+msgstr "Cian"
+
+#. module: asset
+#: help:asset.asset,message_last_post:0
+msgid "Date of the last message posted on the record."
+msgstr "Fecha del último mensaje publicado en el registro."
+
+#. module: asset
+#: model:asset.state,name:asset.asset_state_depreciation
+msgid "Depreciation"
+msgstr "Depreciación"
+
+#. module: asset
+#: model:asset.state,name:asset.asset_state_down
+msgid "Down"
+msgstr "Abajo"
+
+#. module: asset
+#: model:asset.state,name:asset.asset_state_draft
+msgid "Draft"
+msgstr "Borrador"
+
+#. module: asset
+#: model:ir.module.category,name:asset.module_category_eam
+msgid "Enterprise Asset Management"
+msgstr "Gestión de activos empresariales"
+
+#. module: asset
+#: selection:asset.state,team:0
+msgid "Finance"
+msgstr "Finanza"
+
+#. module: asset
+#: field:asset.asset,message_follower_ids:0
+msgid "Followers"
+msgstr "Seguidores"
+
+#. module: asset
+#: selection:asset.asset,criticality:0
+msgid "General"
+msgstr "General"
+
+#. module: asset
+#: selection:asset.asset,maintenance_state_color:0
+#: selection:asset.state,state_color:0
+msgid "Green"
+msgstr "Verde"
+
+#. module: asset
+#: model:ir.module.category,description:asset.module_category_eam
+msgid "Helps you manage your assets."
+msgstr "Ayuda a la gestión de los activos."
+
+#. module: asset
+#: model:ir.module.category,description:asset.module_category_maintenance
+msgid "Helps you manage your maintenance processes."
+msgstr "Ayuda a la gestión del proceso de mantenimiento."
+
+#. module: asset
+#: help:asset.asset,message_summary:0
+msgid "Holds the Chatter summary (number of messages, ...). This summary is directly in html format in order to be inserted in kanban views."
+msgstr "Holds the Chatter summary (number of messages, ...). This summary is directly in html format in order to be inserted in kanban views."
+
+#. module: asset
+#: field:asset.asset,id:0
+#: field:asset.state,id:0
+msgid "ID"
+msgstr "ID"
+
+#. module: asset
+#: help:asset.asset,message_unread:0
+msgid "If checked new messages require your attention."
+msgstr "If checked new messages require your attention."
+
+#. module: asset
+#: field:asset.asset,image:0
+msgid "Image"
+msgstr "Imagen"
+
+#. module: asset
+#: selection:asset.asset,criticality:0
+msgid "Important"
+msgstr "Importante"
+
+#. module: asset
+#: view:asset.asset:asset.assets_form_view
+msgid "Info"
+msgstr "Información"
+
+#. module: asset
+#: model:asset.state,name:asset.asset_state_installed
+msgid "Installed"
+msgstr "Instalado"
+
+#. module: asset
+#: model:ir.model,name:asset.model_stock_location
+msgid "Inventory Locations"
+msgstr "Ubicaciones de inventario"
+
+#. module: asset
+#: field:asset.asset,message_is_follower:0
+msgid "Is a Follower"
+msgstr "Es seguidor"
+
+#. module: asset
+#: field:asset.asset,message_last_post:0
+msgid "Last Message Date"
+msgstr "Fecha del último mensaje"
+
+#. module: asset
+#: field:asset.asset,write_uid:0
+#: field:asset.state,write_uid:0
+msgid "Last Updated by"
+msgstr "Última actualización por"
+
+#. module: asset
+#: field:asset.asset,write_date:0
+#: field:asset.state,write_date:0
+msgid "Last Updated on"
+msgstr "Última actualización en"
+
+#. module: asset
+#: model:asset.state,name:asset.asset_state_leased
+msgid "Leased"
+msgstr "Arrendado"
+
+#. module: asset
+#: selection:asset.asset,maintenance_state_color:0
+#: selection:asset.state,state_color:0
+msgid "Magenta"
+msgstr "Magenta"
+
+#. module: asset
+#: model:asset.state,name:asset.asset_state_maintenance
+#: selection:asset.state,team:0
+#: model:ir.module.category,name:asset.module_category_maintenance
+msgid "Maintenance"
+msgstr "Mantenimiento"
+
+#. module: asset
+#: model:ir.actions.act_window,name:asset.action_management_assets
+#: model:ir.ui.menu,name:asset.menu_maintenance_assets_management
+msgid "Manage states"
+msgstr "Estados de gestión"
+
+#. module: asset
+#: model:res.groups,name:asset.group_mro_manager
+msgid "Manager"
+msgstr "Responsable"
+
+#. module: asset
+#: selection:asset.state,team:0
+msgid "Manufacture"
+msgstr "Manufactura"
+
+#. module: asset
+#: field:asset.asset,manufacturer_id:0
+msgid "Manufacturer"
+msgstr "Manufacturador"
+
+#. module: asset
+#: view:asset.asset:asset.assets_kanban_view
+msgid "Manufacturer:"
+msgstr "Manufacturador:"
+
+#. module: asset
+#: field:asset.asset,image_medium:0
+msgid "Medium-sized image"
+msgstr "Imagen de tamaño medio"
+
+#. module: asset
+#: help:asset.asset,image_medium:0
+msgid "Medium-sized image of the asset. It is automatically resized as a 128x128px image, with aspect ratio preserved, only when the image exceeds one of those sizes. Use this field in form views or some kanban views."
+msgstr "Medium-sized image of the asset. It is automatically resized as a 128x128px image, with aspect ratio preserved, only when the image exceeds one of those sizes. Use this field in form views or some kanban views."
+
+#. module: asset
+#: field:asset.asset,message_ids:0
+msgid "Messages"
+msgstr "Mensajes"
+
+#. module: asset
+#: help:asset.asset,message_ids:0
+msgid "Messages and communication history"
+msgstr "Mensajes e historial"
+
+#. module: asset
+#: field:asset.asset,model:0
+msgid "Model"
+msgstr "Modelo"
+
+#. module: asset
+#: view:asset.asset:asset.assets_kanban_view
+msgid "Model:"
+msgstr "Modelo:"
+
+#. module: asset
+#: model:asset.state,name:asset.asset_state_moves
+msgid "Moves"
+msgstr "Movimientos"
+
+#. module: asset
+#: model:asset.state,name:asset.asset_state_operable
+msgid "Operable"
+msgstr "Operable"
+
+#. module: asset
+#: selection:asset.asset,maintenance_state_color:0
+#: selection:asset.state,state_color:0
+msgid "Orange"
+msgstr "Naranja"
+
+#. module: asset
+#: model:asset.state,name:asset.asset_state_planned
+msgid "Planned"
+msgstr "Planificado"
+
+#. module: asset
+#: field:asset.asset,purchase_date:0
+msgid "Purchase Date"
+msgstr "Fecha de compra"
+
+#. module: asset
+#: model:asset.state,name:asset.asset_state_purchased
+msgid "Purchased"
+msgstr "Comprado"
+
+#. module: asset
+#: selection:asset.asset,maintenance_state_color:0
+#: selection:asset.state,state_color:0
+msgid "Red"
+msgstr "Rojo"
+
+#. module: asset
+#: model:asset.state,name:asset.asset_state_rented
+msgid "Rented"
+msgstr "Rentado"
+
+#. module: asset
+#: model:asset.state,name:asset.asset_state_repair
+msgid "Repair"
+msgstr "Reparado"
+
+#. module: asset
+#: model:asset.state,name:asset.asset_state_retired
+msgid "Retired"
+msgstr "Retirado"
+
+#. module: asset
+#: model:asset.state,name:asset.asset_state_run
+msgid "Run"
+msgstr "Ejecutado"
+
+#. module: asset
+#: field:asset.state,team:0
+msgid "Scope Team"
+msgstr "Equipo de alcance"
+
+#. module: asset
+#: field:asset.state,sequence:0
+msgid "Sequence"
+msgstr "Secuencia"
+
+#. module: asset
+#: view:asset.asset:asset.assets_kanban_view
+msgid "Serial No:"
+msgstr "Nro de serie:"
+
+#. module: asset
+#: field:asset.asset,serial:0
+msgid "Serial no."
+msgstr "Nro de serie."
+
+#. module: asset
+#: model:asset.state,name:asset.asset_state_setup
+msgid "Setup"
+msgstr "Setup"
+
+#. module: asset
+#: model:asset.state,name:asset.asset_state_shipped
+msgid "Shipped"
+msgstr "Embarcado"
+
+#. module: asset
+#: model:asset.state,name:asset.asset_state_shutdown
+msgid "Shutdown"
+msgstr "Apagar"
+
+#. module: asset
+#: selection:asset.asset,maintenance_state_color:0
+#: selection:asset.state,state_color:0
+msgid "SkyBlue"
+msgstr "Azul cielo"
+
+#. module: asset
+#: field:asset.asset,image_small:0
+msgid "Small-sized image"
+msgstr "Imagen tamaño pequeño"
+
+#. module: asset
+#: help:asset.asset,image_small:0
+msgid "Small-sized image of the asset. It is automatically resized as a 64x64px image, with aspect ratio preserved. Use this field anywhere a small image is required."
+msgstr "Small-sized image of the asset. It is automatically resized as a 64x64px image, with aspect ratio preserved. Use this field anywhere a small image is required."
+
+#. module: asset
+#: model:asset.state,name:asset.asset_state_sold
+msgid "Sold"
+msgstr "Vendido"
+
+#. module: asset
+#: model:asset.state,name:asset.asset_state_standby
+msgid "Standby"
+msgstr "En espera"
+
+#. module: asset
+#: field:asset.asset,start_date:0
+msgid "Start Date"
+msgstr "Fecha de inicio"
+
+#. module: asset
+#: field:asset.asset,finance_state_id:0
+#: field:asset.asset,maintenance_state_id:0
+#: field:asset.asset,manufacture_state_id:0
+#: field:asset.asset,warehouse_state_id:0
+#: view:asset.state:asset.asset_state_form_view
+#: field:asset.state,name:0
+msgid "State"
+msgstr "Estado"
+
+#. module: asset
+#: field:asset.state,state_color:0
+msgid "State Color"
+msgstr "Color"
+
+#. module: asset
+#: model:ir.model,name:asset.model_asset_state
+msgid "State of Asset"
+msgstr "Estado del activo"
+
+#. module: asset
+#: model:asset.state,name:asset.asset_state_stolen
+msgid "Stolen"
+msgstr "Robado"
+
+#. module: asset
+#: model:asset.state,name:asset.asset_state_stored
+msgid "Stored"
+msgstr "Almacenado"
+
+#. module: asset
+#: field:asset.asset,message_summary:0
+msgid "Summary"
+msgstr "Resumen"
+
+#. module: asset
+#: help:asset.asset,image:0
+msgid "This field holds the image used as image for the asset, limited to 1024x1024px."
+msgstr "This field holds the image used as image for the asset, limited to 1024x1024px."
+
+#. module: asset
+#: help:asset.asset,property_stock_asset:0
+msgid "This location will be used as the destination location for installed parts during asset life."
+msgstr "This location will be used as the destination location for installed parts during asset life."
+
+#. module: asset
+#: field:asset.asset,message_unread:0
+msgid "Unread Messages"
+msgstr "Unread Messages"
+
+#. module: asset
+#: model:asset.state,name:asset.asset_state_use
+msgid "Use"
+msgstr "Uso"
+
+#. module: asset
+#: help:asset.state,sequence:0
+msgid "Used to order states."
+msgstr "Usado por el estado de la órden."
+
+#. module: asset
+#: model:res.groups,name:asset.group_mro_user
+msgid "User"
+msgstr "Usuario"
+
+#. module: asset
+#: field:asset.asset,vendor_id:0
+msgid "Vendor"
+msgstr "Vendedor"
+
+#. module: asset
+#: selection:asset.asset,criticality:0
+msgid "Very important"
+msgstr "Muy importante
+
+#. module: asset
+#: selection:asset.state,team:0
+msgid "Warehouse"
+msgstr "Almacén"
+
+#. module: asset
+#: view:asset.asset:asset.assets_form_view
+msgid "Warranty"
+msgstr "Garantía"
+
+#. module: asset
+#: field:asset.asset,warranty_end_date:0
+msgid "Warranty End"
+msgstr "Fin de garantía"
+
+#. module: asset
+#: field:asset.asset,warranty_start_date:0
+msgid "Warranty Start"
+msgstr "Inicio de garantía"
+
+#. module: asset
+#: selection:asset.asset,maintenance_state_color:0
+#: selection:asset.state,state_color:0
+msgid "White"
+msgstr "Blanco"
+
+#. module: asset
+#: selection:asset.asset,maintenance_state_color:0
+#: selection:asset.state,state_color:0
+msgid "Yellow"
+msgstr "Amarillo"
+

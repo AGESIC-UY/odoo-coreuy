@@ -1,0 +1,186 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* account_operating_unit
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 8.0-20170620\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-07-11 15:31+0000\n"
+"PO-Revision-Date: 2017-07-11 15:31+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: account_operating_unit
+#: model:ir.model,name:account_operating_unit.model_account_common_report
+msgid "Account Common Report"
+msgstr "Contabilidad. Informe común"
+
+#. module: account_operating_unit
+#: model:ir.model,name:account_operating_unit.model_account_move
+msgid "Account Entry"
+msgstr "Asiento contable"
+
+#. module: account_operating_unit
+#: model:ir.model,name:account_operating_unit.model_accounting_report
+msgid "Accounting Report"
+msgstr "Informe financiero"
+
+#. module: account_operating_unit
+#: help:res.company,ou_is_self_balanced:0
+msgid "Activate if your company is required to generate a balanced balance sheet for each operating unit."
+msgstr "Activar si la compañía está obligada a generar un balance balanceado para cada unidad ejecutora."
+
+#. module: account_operating_unit
+#: model:ir.model,name:account_operating_unit.model_res_company
+msgid "Companies"
+msgstr "Compañías"
+
+#. module: account_operating_unit
+#: code:addons\account_operating_unit\models\company.py:30
+#, python-format
+msgid "Configuration error!\n"
+"Please indicate an                Inter-operating unit clearing account."
+msgstr "Configuration error!\n"
+"Please indicate an                Inter-operating unit clearing account."
+
+#. module: account_operating_unit
+#: code:addons\account_operating_unit\models\account_move.py:56
+#, python-format
+msgid "Configuration error!\n"
+"The Company in the Move Line and in the Operating Unit must be the same."
+msgstr "Error de configuración!\n"
+"La Compañía en el Asiento y en la Unidad Ejecutora debe ser la misma."
+
+#. module: account_operating_unit
+#: code:addons\account_operating_unit\models\account_move.py:67
+#, python-format
+msgid "Configuration error!\n"
+"The Operating Unit in the Move Line and in the Move must be the same."
+msgstr "Error de configuración!\n"
+"La Unidad Ejecutora en la línea del asiento y en el asiento deben ser la misma."
+
+#. module: account_operating_unit
+#: code:addons\account_operating_unit\models\account_move.py:161
+#, python-format
+msgid "Configuration error!\n"
+"The operating                    unit must be completed for each line if the operating                    unit has been defined as self-balanced at company level."
+msgstr "Error de configuración!\n"
+"La unidad                    ejecutora debe ser completada para cada línea si                    fueron definidas como balanceadas a nivel de compañía."
+
+#. module: account_operating_unit
+#: code:addons\account_operating_unit\models\account_journal.py:25
+#, python-format
+msgid "Configuration error!\n"
+"The operating unit must be indicated in bank journals, if it has been defined as self-balanced at company level."
+msgstr "Error de configuración!\n"
+"La unidad ejecutora debe ser indicada en los diarios del banco si han sido definidas como autobalanceadas a nivel de Compañía."
+
+#. module: account_operating_unit
+#: field:account.move,operating_unit_id:0
+msgid "Default operating unit"
+msgstr "Unidad ejecutora por defecto"
+
+#. module: account_operating_unit
+#: code:addons\account_operating_unit\models\account_move.py:84
+#, python-format
+msgid "Error!\n"
+"You need to define an inter-operating                unit clearing account in the company settings"
+msgstr "Error!\n"
+"You need to define an inter-operating                unit clearing account in the company settings"
+
+#. module: account_operating_unit
+#: field:res.company,inter_ou_clearing_account_id:0
+msgid "Inter-operating unit                                                   clearing account"
+msgstr "Inter-operating unit                                                   clearing account"
+
+#. module: account_operating_unit
+#: model:ir.model,name:account_operating_unit.model_account_invoice
+msgid "Invoice"
+msgstr "Factura"
+
+#. module: account_operating_unit
+#: model:ir.model,name:account_operating_unit.model_account_invoice_line
+msgid "Invoice Line"
+msgstr "Línea factura"
+
+#. module: account_operating_unit
+#: model:ir.model,name:account_operating_unit.model_account_invoice_report
+msgid "Invoices Statistics"
+msgstr "Estadísticas de facturas"
+
+#. module: account_operating_unit
+#: model:ir.model,name:account_operating_unit.model_account_journal
+msgid "Journal"
+msgstr "Diario"
+
+#. module: account_operating_unit
+#: model:ir.model,name:account_operating_unit.model_account_move_line
+msgid "Journal Items"
+msgstr "Apuntes contables"
+
+#. module: account_operating_unit
+#: view:account.invoice:account_operating_unit.view_account_invoice_filter
+#: field:account.invoice.line,operating_unit_id:0
+#: view:account.invoice.report:account_operating_unit.view_account_invoice_report_search
+#: field:account.invoice.report,operating_unit_id:0
+#: field:account.journal,operating_unit_id:0
+#: view:account.move.line:account_operating_unit.view_account_move_line_filter
+#: field:account.move.line,operating_unit_id:0
+msgid "Operating Unit"
+msgstr "Unidad ejecutora"
+
+#. module: account_operating_unit
+#: field:account.invoice,operating_unit_id:0
+msgid "Operating Unit"
+msgstr "Unidad ejecutora responsable"
+
+#. module: account_operating_unit
+#: help:account.journal,operating_unit_id:0
+msgid "Operating Unit that will be used in payments, when this journal is used."
+msgstr "Unidad Ejecutora a usar en los pagos cuando es usado este diario."
+
+#. module: account_operating_unit
+#: field:account.balance.report,operating_unit_ids:0
+#: field:account.common.report,operating_unit_ids:0
+#: view:accounting.report:account_operating_unit.accounting_report_view
+#: field:accounting.report,operating_unit_ids:0
+msgid "Operating Units"
+msgstr "Unidades Ejecutoras"
+
+#. module: account_operating_unit
+#: field:res.company,ou_is_self_balanced:0
+msgid "Operating Units are self-balanced"
+msgstr "Las Unidades Ejecutoras están balanceadas"
+
+#. module: account_operating_unit
+#: view:website:account.report_financial
+#: view:website:account.report_trialbalance
+msgid "Operating Units:"
+msgstr "Unidades Ejecutoras:"
+
+#. module: account_operating_unit
+#: code:addons\account_operating_unit\models\invoice.py:39
+#, python-format
+msgid "The Company in the Invoice and in Operating Unit must be the same."
+msgstr "La Compañía en la Factura y en la Unidad Ejecutora debe ser la misma."
+
+#. module: account_operating_unit
+#: help:account.move,operating_unit_id:0
+msgid "This operating unit will be defaulted in the move lines."
+msgstr "Las unidades ejecutoras deben ser puestas por defecto en los apuntes."
+
+#. module: account_operating_unit
+#: code:addons\account_operating_unit\models\account_payment.py:39
+#, python-format
+msgid "Transfer from %s"
+msgstr "Transferido desde %s"
+
+#. module: account_operating_unit
+#: model:ir.model,name:account_operating_unit.model_account_balance_report
+msgid "Trial Balance Report"
+msgstr "Informe de sumas y saldos"

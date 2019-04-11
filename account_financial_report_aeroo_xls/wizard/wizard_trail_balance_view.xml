@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <!-- By irabaza:
+            We want to use implementation of reports General Ledger and Trial Balance with Webkit
+            (addons uy_account_report_general_ledger and uy_account_report_trial_balance)
+        -->
+        <!--
+        <record id="account_report_trial_balance_view_form" model="ir.ui.view">
+            <field name="name">Trail Balance</field>
+            <field name="model">account.balance.report</field>
+            <field name="inherit_id" ref="account.account_report_balance_view" />
+            <field name="arch" type="xml">
+            <xpath expr="//field[@name='target_move']" position="after">
+                <field name="currency_id" />
+                <newline/>
+            </xpath>
+            <button name="check_report" position="after">
+                Or
+                <button icon="gtk-print" name="check_report_excel" string="Print Excel" type="object" colspan="1" class="oe_highlight"/>
+            </button>
+             </field>
+        </record>
+
+        <record id="account_report_general_ledger_view_form" model="ir.ui.view">
+            <field name="name">General Ledger</field>
+            <field name="model">account.report.general.ledger</field>
+            <field name="inherit_id" ref="account.account_common_report_view" />
+            <field name="arch" type="xml">
+            <xpath expr="//field[@name='target_move']" position="after">
+                <field name="currency_id" />
+                <newline/>
+            </xpath>
+            <button name="check_report" position="after">
+                Or
+                <button icon="gtk-print" class="oe_highlight" name="check_report_excel" string="Print Excel" type="object" colspan="1"/>
+            </button>
+
+            </field>
+        </record>
+        -->
+
+        <record id="account_report_balance_sheet_view_inherit" model="ir.ui.view">
+          <field name="name">Balance Sheet</field>
+          <field name="model">accounting.report</field>
+          <field name="type">form</field>
+          <field name="inherit_id" ref="account.account_common_report_view" />
+          <field name="arch" type="xml">
+                <xpath expr="//field[@name='target_move']" position="after">
+                    <field name="currency_id" />
+                    <newline/>
+                </xpath>
+                <button name="check_report" position="after">
+                    Or
+                    <button icon="gtk-print" class="oe_highlight" name="check_report_excel" string="Print Excel" type="object" colspan="1"/>
+                </button>
+          </field>
+        </record>
+
+    </data>
+</openerp>

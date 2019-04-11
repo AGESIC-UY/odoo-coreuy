@@ -1,0 +1,46 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* account_voucher_operating_unit
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 8.0-20170620\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-07-11 15:46+0000\n"
+"PO-Revision-Date: 2017-07-11 15:46+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: account_voucher_operating_unit
+#: model:ir.model,name:account_voucher_operating_unit.model_account_voucher
+msgid "Accounting Voucher"
+msgstr "Comprobantes contables"
+
+#. module: account_voucher_operating_unit
+#: field:account.voucher,operating_unit_id:0
+#: field:account.voucher.line,operating_unit_id:0
+msgid "Operating Unit"
+msgstr "Unidad Ejecutora"
+
+#. module: account_voucher_operating_unit
+#: code:addons\account_voucher_operating_unit\models\account_voucher.py:31
+#, python-format
+msgid "The Company in the Move Line and in the Operating Unit must be the same."
+msgstr "La Compañía en el Asiento y en la Unidad Ejecutora debe ser la misma."
+
+#. module: account_voucher_operating_unit
+#: code:addons\account_voucher_operating_unit\models\account_voucher.py:59
+#: code:addons\account_voucher_operating_unit\models\account_voucher.py:74
+#, python-format
+msgid "The Voucher must have an Operating Unit."
+msgstr "El Pago debe tener una Unidad Ejecutora."
+
+#. module: account_voucher_operating_unit
+#: model:ir.model,name:account_voucher_operating_unit.model_account_voucher_line
+msgid "Voucher Lines"
+msgstr "Líneas de comprobante"
+
