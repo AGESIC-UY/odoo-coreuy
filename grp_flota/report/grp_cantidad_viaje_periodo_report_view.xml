@@ -10,7 +10,7 @@
                 <tree string="Cantidad de viajes por período" create="false" delete="false" edit="false">
                     <field name="driver_id"/>
                     <field name="travel_date"/>
-                    <field name="employee_id"/>
+                    <!--<field name="employee_id"/>-->
                     <field name="target"/>
                     <field name="cantidad_viaje"/>
                     <field name="state" invisible="1"/>
@@ -23,7 +23,7 @@
             <field name="arch" type="xml">
                 <search string="Cantidad de viajes por período">
                     <field name="driver_id"/>
-                    <field name="employee_id"/>
+                    <!--<field name="employee_id"/>-->
                     <field name="target"/>
                     <field name="travel_date" operator="&gt;=" string="Mayor igual que"/>
                     <field name="travel_date" operator="&lt;=" string="Menor igual que"/>
@@ -31,8 +31,8 @@
                     <group expand="0" string="Agrupar por...">
                         <filter string="Chofer" icon="terp-stock_effects-object-colorize" domain="[]"
                                 context="{'group_by':'driver_id'}"/>
-                        <filter string="Solicitante" icon="terp-stock_effects-object-colorize" domain="[]"
-                                context="{'group_by':'employee_id'}"/>
+                        <!--<filter string="Solicitante" icon="terp-stock_effects-object-colorize" domain="[]"-->
+                                <!--context="{'group_by':'employee_id'}"/>-->
                         <filter string="Destino" icon="terp-stock_effects-object-colorize" domain="[]"
                                 context="{'group_by':'target'}"/>
                     </group>

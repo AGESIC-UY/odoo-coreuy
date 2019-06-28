@@ -48,18 +48,18 @@ class GrpRetencionesManuales(models.Model):
     _inherit = ['mail.thread']
     _description = 'Retenciones manuales'
 
-    @api.model
-    def _domain_invoice_ids(self):
-        select_nro_afectacion = [('id', 'in', [])]
-        self.env.cr.execute("""select min(inv.id), inv.nro_afectacion from account_invoice inv
-                                inner join presupuesto_concepto con on (inv.siif_concepto_gasto = con.id)
-                                where con.concepto = '1' and con.descripcion = 'Remuneraciones'
-                                and inv.state= 'prioritized' and (inv.ret_sueldo= False or inv.ret_sueldo is null)
-                                group by inv.nro_afectacion""")
-        if self.env.cr.rowcount > 0:
-            ids = self.env.cr.fetchall()
-            select_nro_afectacion = [('id', 'in', [x[0] for x in ids if x])]
-        return select_nro_afectacion
+    # @api.model
+    # def _domain_invoice_ids(self):
+    #     select_nro_afectacion = [('id', 'in', [])]
+    #     self.env.cr.execute("""select min(inv.id), inv.nro_afectacion from account_invoice inv
+    #                             inner join presupuesto_concepto con on (inv.siif_concepto_gasto = con.id)
+    #                             where con.concepto = '1' and con.descripcion = 'Remuneraciones'
+    #                             and inv.state= 'prioritized' and (inv.ret_sueldo= False or inv.ret_sueldo is null)
+    #                             group by inv.nro_afectacion""")
+    #     if self.env.cr.rowcount > 0:
+    #         ids = self.env.cr.fetchall()
+    #         select_nro_afectacion = [('id', 'in', [x[0] for x in ids if x])]
+    #     return select_nro_afectacion
 
     @api.model
     def _get_moneda_base(self):
@@ -123,7 +123,7 @@ class GrpRetencionesManuales(models.Model):
                                      'grp.retenciones.manuales'))
     afectation_nro = fields.Integer(u'Nro afectación', required=True)
     afectation_id = fields.Many2one('account.invoice', string=u'Nro. Afectación',
-                                    domain=lambda self: self._domain_invoice_ids())
+                                    domain="[('operating_unit_id', '=', operating_unit_id), ('nro_afectacion', '=', afectation_nro), ('state', '=', 'prioritized')]")
     afectation_account_id = fields.Many2one('account.account', string=u'Cuenta de la afectación',
                                             related='afectation_id.account_id', readonly=True)
     residual = fields.Float(string=u'Saldo de obligación', related='afectation_id.residual', store=True, readonly=True)
@@ -229,12 +229,17 @@ class GrpRetencionesManuales(models.Model):
     @api.onchange('afectation_nro', 'operating_unit_id')
     def onchange_afectation_nro(self):
         if self.operating_unit_id:
-            self.env.cr.execute("""select min(inv.id), inv.nro_afectacion from account_invoice inv
-                                                inner join presupuesto_concepto con on (inv.siif_concepto_gasto = con.id)
-                                                where con.concepto = '1' and con.descripcion = 'Remuneraciones'
-                                                and inv.state in ('prioritized','open') and inv.nro_afectacion = %s and (inv.ret_sueldo= False or inv.ret_sueldo is null) and inv.operating_unit_id = %s
-                                                group by inv.nro_afectacion""" % (
-            self.afectation_nro, self.operating_unit_id.id))
+            self.env.cr.execute("""
+select 
+    inv.id, inv.nro_afectacion 
+from 
+    account_invoice inv
+where 
+    inv.state in ('prioritized') and 
+    inv.nro_afectacion = %s and 
+    (inv.ret_sueldo= False or inv.ret_sueldo is null) and 
+    inv.operating_unit_id = %s
+""" % (self.afectation_nro, self.operating_unit_id.id))
             _ids = [x[0] for x in self.env.cr.fetchall() if x]
         else:
             _ids = []

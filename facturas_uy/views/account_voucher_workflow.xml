@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+
+        <!-- nuevo estado de workflow -->
+        <record id="done_up_tc" model="workflow.activity">
+            <field name="wkf_id" ref="account_voucher.wkf"/>
+            <field name="name">done_up_tc</field>
+            <field name="action">proforma_voucher_auxiliary()</field>
+            <field name="kind">function</field>
+            <field name="flow_stop">True</field>
+        </record>
+
+        <!-- crear transiciones nuevas -->
+        <record id="trans_proforma_done_uptc" model="workflow.transition">
+            <field name="act_from" ref="account_voucher.act_proforma"/>
+            <field name="act_to" ref="done_up_tc"/>
+            <field name="signal">proforma_voucher_auxiliary</field>
+            <field name="condition">check_amount_cero_lines()</field>
+        </record>
+
+        <record id="trans_done_uptc_cancel" model="workflow.transition">
+            <field name="act_from" ref="done_up_tc"/>
+            <field name="act_to" ref="account_voucher.act_cancel"/>
+            <field name="signal">cancel_voucher</field>
+        </record>
+
+
+    </data>
+</openerp>

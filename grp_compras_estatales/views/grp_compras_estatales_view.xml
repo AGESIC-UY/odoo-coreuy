@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+
+        <!--TOP MENU-->
+        <menuitem id="menu_grp_main" name="Solicitudes - Compras" sequence="14"
+                  groups="grp_seguridad.grp_menu_compras_estatales"/>
+
+        <!-- PCARBALLO : Vista action y menu nuevos -->
+        <record model="ir.actions.act_url" id="action_catalogo_online">
+            <field name="name">Catalogo online SICE</field>
+            <field name="res_model">ir.actions.act_url</field>
+            <field name="type">ir.actions.act_url</field>
+            <field name="target">new</field>
+            <field name="nodestroy">True</field>
+            <field name="url">https://www.comprasestatales.gub.uy/sicepublic/SearchCatalogPublic.iface</field>
+        </record>
+
+        <menuitem id="menu_catalogo_online" action="action_catalogo_online" name="Catálogo online SICE"
+                  parent="stock.menu_stock_product" sequence="3"/>
+        <!-- PCARBALLO -->
+
+
+        <menuitem id="menu_conf" name="Configuración" parent="menu_grp_main" sequence="14"/>
+        <menuitem id="menu_conf_aprob" name="Montos de aprobación" parent="menu_conf" sequence="1"/>
+        <menuitem id="menu_conf_comp" name="Montos de compras" parent="menu_conf" sequence="2"/>
+
+        <!-- ====================   Menu Configuracion    ========================== -->
+        <menuitem id="menu_conf" name="Configuración" parent="menu_grp_main" sequence="14"/>
+        <!--================================================================-->
+
+    </data>
+</openerp>

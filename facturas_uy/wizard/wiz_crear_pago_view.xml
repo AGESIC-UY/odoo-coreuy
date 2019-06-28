@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="view_crear_pago_wizard" model="ir.ui.view">
+            <field name="name">Crear pago</field>
+            <field name="model">wiz_crear_pago</field>
+            <field name="arch" type="xml">
+                <form string="Crear pago" version="7.0">
+                     <group string="Datos pago" cols="4">
+                         <group>
+                             <field name="partner_id" style="width: 50%%" required="1" readonly="1" string="Proveedor"/>
+                             <field name="amount" string="Monto a pagar" help="Si se establece este monto en 0, se paga toda la factura."/>
+                         </group>
+                         <group>
+                             <field name="date"/>
+                             <field name="journal_id" style="width: 80%%"
+                                domain="[('type','in',['bank', 'cash']),('currency','=',False)]"
+                                widget="selection" required="1"
+                                string="Método de pago"/>
+                         </group>
+                     </group>
+                    <footer>
+                        <button name="button_wzrd_crear_pago" string="Aceptar" type="object" class="oe_highlight"/>
+                        or
+                        <button string="Cancelar" class="oe_link" special="cancel" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+    </data>
+</openerp>

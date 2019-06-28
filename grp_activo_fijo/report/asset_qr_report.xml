@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <report id="report_asset_qr_label"
+                model="account.asset.asset"
+                name="account.asset.asset.qr_label"
+                string="Etiquetas"
+                xml="grp_activo_fijo/report/asset_qr_label.xml"
+                xsl="grp_activo_fijo/report/asset_qr_label.xsl"/>
+
+    </data>
+</openerp>

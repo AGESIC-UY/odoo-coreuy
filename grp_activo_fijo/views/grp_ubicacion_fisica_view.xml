@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="view_grp_ubicacion_fisica_tree" model="ir.ui.view">
+            <field name="name">view_grp_ubicacion_fisica_tree</field>
+            <field name="model">grp.ubicacion.fisica</field>
+            <field name="priority" eval="1" />
+            <field name="arch" type="xml">
+                <tree string="Ubicaciones físicas">
+                    <field name="nombre_completo"/>
+                    <field name="codigo"/>
+                    <field name="ubicacion_fisica"/>
+                    <field name="ubicacion_padre"/>
+                    <field name="is_stock_location"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_grp_ubicacion_fisica_form" model="ir.ui.view">
+            <field name="name">view_grp_ubicacion_fisica_form</field>
+            <field name="model">grp.ubicacion.fisica</field>
+            <field name="priority" eval="8" />
+            <field name="arch" type="xml">
+                <form string="Ubicaciones físicas">
+                    <sheet>
+                        <group>
+                            <field name="nombre_completo" invisible="1"/>
+                            <field name="ubicacion_fisica" required="1" />
+                            <field name="ubicacion_padre" readonly="1"/>
+                            <field name="is_stock_location"/>
+                            <field name="stock_location_id" attrs="{'invisible': [('is_stock_location','=',False)], 'required': [('is_stock_location','=',True)]}" options="{'no_create': true, 'no_quick_create': true}"/>
+                            <field name="ubicaciones_hijas_ids" domain="[('ubicacion_padre','=',False)]"/>
+                            <field name="codigo" />
+                            <field name="active"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_grp_ubicacion_fisica_search" model="ir.ui.view">
+            <field name="name">view_grp_ubicacion_fisica_search</field>
+            <field name="model">grp.ubicacion.fisica</field>
+            <field name="priority" eval="8" />
+            <field name="arch" type="xml">
+                <search string="Ubicaciones físicas">
+                    <field name="nombre_completo" />
+                    <field name="codigo" />
+                    <field name="ubicacion_fisica" />
+                    <field name="ubicacion_padre" />
+                    <newline />
+                    <group expand="0" string="Group By...">
+                        <filter string="Ubicacion física" domain="[]" context="{'group_by':'ubicacion_fisica'}" />
+                        <filter string="Ubicacion padre" domain="[]" context="{'group_by':'ubicacion_padre'}" />
+                        <!--<filter string="Producto" domain="[]" context="{'group_by':'producto_id'}" />-->
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_grp_ubicacion_fisica_view">
+            <field name="name">Ubicaciones físicas</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">grp.ubicacion.fisica</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="view_grp_ubicacion_fisica_search" />
+            <field name="domain">[]</field>
+            <field name="context">{}</field>
+        </record>
+
+        <menuitem id="menu_grp_ubicacion_fisica"
+                action="action_grp_ubicacion_fisica_view"
+                name="Ubicaciones físicas"
+                parent="account_asset.menu_finance_config_assets"
+                sequence="12"
+                groups="grp_activo_fijo.grp_af_configuracion,grp_activo_fijo.grp_af_consulta,grp_activo_fijo.grp_af_responsable_financiero,grp_activo_fijo.grp_af_responsable"/>
+
+
+    </data>
+</openerp>
+

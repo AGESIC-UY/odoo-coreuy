@@ -76,7 +76,7 @@ class GrpAccountMoveLine(models.Model):
     def create(self, vals):
         # RAGU si no asume moneda poner la del diario en OPI
         _context_voucher = self._context.get('voucher')
-        if _context_voucher and _context_voucher.opi and vals['account_id']:
+        if (_context_voucher and _context_voucher.opi and vals['account_id']) or self._context.get('caja_efectivo',False):
             account_id = self.env['account.account'].browse(vals['account_id'])
             if account_id.currency_id and not vals.get('currency_id'):
                 vals['currency_id'] = account_id.currency_id.id

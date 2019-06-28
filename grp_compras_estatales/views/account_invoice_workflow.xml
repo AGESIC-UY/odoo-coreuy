@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record id="account.t4" model="workflow.transition">
+            <field name="condition">check_accounts() and check_amount()</field>
+        </record>
+
+        <!--definicion de la nueva actividad cancelar sice-->
+        <record id="act_cancel_sice" model="workflow.activity">
+            <field name="wkf_id" ref="account.wkf"/>
+            <field name="name">cancel_sice</field>
+            <field name="flow_stop">True</field>
+            <field name="action">action_invoice_cancel_sice()
+                write({'state':'cancel_sice'})</field>
+            <field name="kind">function</field>
+        </record>
+
+        <!--transicion de factura draft a cancelada siif-->
+        <record id="trans_draft_sice_cancel" model="workflow.transition">
+            <field name="act_from" ref="account.act_draft"/>
+            <field name="act_to" ref="act_cancel_sice"/>
+            <field name="signal">invoice_cancel_sice</field>
+        </record>
+
+        <!--definicion de la nueva actividad-->
+        <record model="workflow.activity" id="act_open_temp">
+            <field name="wkf_id" ref="account.wkf"/>
+            <field name="name">grp-re-open</field>
+            <field name="action">
+                action_cancel_paid()
+                write({'state':'open'})
+            </field>
+            <field name="kind">function</field>
+        </record>
+        <!--transicion de factura pagada a abierta temp-->
+        <record id="paid_open_temp" model="workflow.transition">
+            <field name="act_from" ref="account.act_paid"/>
+            <field name="act_to" ref="act_open_temp"/>
+            <field name="signal">invoice_cancel_paid</field>
+        </record>
+        <!--transicion de factura abierta temp a cancelada-->
+        <record id="open_temp_to_pay" model="workflow.transition">
+            <field name="act_from" ref="act_open_temp"/>
+            <field name="act_to" ref="account.act_cancel"/>
+            <field name="signal">invoice_cancel</field>
+        </record>
+        <!--transicion de factura abierta temp a pagada-->
+        <record id="open_temp_to_paid" model="workflow.transition">
+            <field name="act_from" ref="act_open_temp"/>
+            <field name="act_to" ref="account.act_paid"/>
+            <field name="trigger_model">account.move.line</field>
+            <field name="trigger_expr_id">move_line_id_payment_get()</field>
+            <field name="condition">test_paid()</field>
+        </record>
+    </data>
+</openerp>

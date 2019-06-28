@@ -1,0 +1,231 @@
+acreedor;agencia;banco;clase;cuenta_corriente;name;group_id/id;operacion;ruc;tipo_cuenta
+5;;;;;Licencia sin goce de sueldo;group_1;NOP;;Cuenta corriente
+6;;;;;Retención sobre sueldos (multas o reserva de cargos);group_1;NOP;;
+7;;;;;Devolución de Sueldos de Funcionarios en el Exterior;group_1;NOP;;
+9;;;;;Alquiler de equipos y locales;group_1;NOP;;
+10;;;;;Depósitos en garantía;group_1;NOP;;
+11;;;;;Impuesto a empresas transportistas;group_1;NOP;;
+12;;;;;Leyes Sociales MTOP;group_1;NOP;;
+13;;;;;Adelantos Financieros MTOP;group_1;NOP;;
+14;;;;;Suministro de material MTOP;group_1;NOP;;
+16;;;;;Versión a R.Grales.Exc.con Fdos.AE A725y726L16736Dto122/97;group_1;NOP;;
+17;;;;;Versión a R.Grales.cargos DNRegistros inc.4 Art.303L17296;group_1;NOP;;
+20;;;;;Versión a RRGG- DGI por IVA Consultores;group_1;NOP;;
+21;;;;;VersiónRRGG disp.p/Sent.Jud.,créd.Fin.distintas11, A31L17296;group_1;NOP;;
+69;;;;;Vers.RRGG-Vacante.A10L17556/Retrib.otras Fin.-OG911005;group_1;NOP;;
+70;;;;;Tope retributivo 60% Pres. de la Republica A21L17556;group_1;NOP;;
+71;;;;;10% IRAEServ.Vig.Limp.Dec.194/000lit.A) A4º Dec.394/13;group_1;NOP;;
+72;;;;;90%IVA-Serv.Vig.Limp.D194/000lit.B) A4º Dec.394/13;group_1;NOP;;
+73;;;;;DGCasinos90%IVAContr.Arrd.Bs.yS.D108/003;group_1;NOP;;
+78;;;;;Vs.a RRGGcréd.OG095/002 Cont.aTerA39 L17556(OG911/007);group_1;NOP;;
+79;;;;;60% IVA ORGANISMOS PUBLICOS EXCEPTO GOBS.DEPART.;group_1;NOP;;
+80;;;;;Tope retribut.90% Subjerarca Jerarca A105 LeyEsp.Nº7;group_1;NOP;;
+81;;;;;Versión a R.Grales.Retiro Incentivado. Art. 29 Ley 17930;group_1;NOP;;
+82;;;;;Retención IMEBA Decreto 15/996 Art.4º;group_1;NOP;;
+83;;;;;Versión a Rentas Generales Art.7 Ley 17930 Contratos Permane;group_1;NOP;;
+84;;;;;Tope Retrib.(propinas). 60% Presidente Art 21 ley 17556;group_1;NOP;;
+86;;;;;IRPF proveniente de arrendamientos;group_1;NOP;;
+87;;;;;IRPF de otros ingresos de capital inmobiliario;group_1;NOP;;
+88;;;;;IRPF trabajo relacion de dependencia p/BPS;group_1;NOP;;
+89;;;;;IRPF trabajo relacion de dependencia p/Caja Militar;group_1;NOP;;
+90;;;;;IRPF trabajo relacion de dependencia p/Caja Policial;group_1;NOP;;
+91;;;;;IRPF trabajo fuera de relacion de dependencia;group_1;NOP;;
+92;;;;;IRPF Pasivos Caja Militar;group_1;NOP;;
+95;;;;;IRNR por rendimientos de trabajo;group_1;NOP;;
+96;;;;;IRNR por rendimientos de capital;group_1;NOP;;
+97;;;;;IRPF funcionarios contratados en el exterior por MRREE;group_1;NOP;;
+98;;;;;IRPF trabajo relación dependencia ex empleados y familiares;group_1;NOP;;
+99;;;;;IRPF retenciones adicionales voluntarias;group_1;NOP;;
+100;;;;;Retención del 90% IVA de Servicios de Salud;group_1;NOP;;
+101;;;;;IRAE sobre compra bienes a productores agropecuarios;group_1;NOP;;
+102;;;;;IRPF Retiros Incentivados;group_1;NOP;;
+103;;;;;VERSION A RRGG POR IRP (DEROGADO);group_1;NOP;;
+104;;;;;IASS Impuesto de Asistencia a la Seguridad Social;group_1;NOP;;
+105;;;;;Versión a RG partida mensual MI/DNSPolicial art.146L17.296;group_1;NOP;;
+106;;;;;Versión a Rentas Grales Retiro Incentivo DNA A.179 L.18362;group_1;NOP;;
+107;;;;;Version RRGG-DGI- IVA Consultores- Gob Depart- Dto304/03;group_1;NOP;;
+108;;;;;Multas DGI;group_1;NOP;;
+109;;;;;Recargos DGI;group_1;NOP;;
+110;;;;;Retención 40%IVA ss construcción lic.pca.Decreto 363/011;group_1;NOP;;
+111;;;;;Retención 40% IVA energía eléctrica Decreto 364/011;group_1;NOP;;
+112;;;;;Versión a RRGG Contratos SCRA;group_1;NOP;;
+1;;;;;Multas por Inasistencia de la ANEP A195L16462*;group_2;NOP;;
+2;;;;;Multas por Inasis. o impuntualidad de la Corte Electoral*;group_2;NOP;;
+3;;;;;Multas por Inasis. de la Dir. Nacional de Sanidad Policial*;group_2;NOP;;
+4;;;;;Multas p/Inasist. Individual no Justificada del ASSE*;group_2;NOP;;
+5;;;;;Multas por Inasis.no Justif. Hosp.de ClínicasA409L16226*;group_2;NOP;;
+6;;;;;Sueldos y aportes patronales en Suspenso*;group_2;NOP;;
+7;;;;;Licencia sin Goce de Sueldo de la Univer. de la República*;group_2;NOP;;
+8;;;;;Multas por Inasis. Univ.Repúb.(excepto H.Clínicas)A61L16134*;group_2;NOP;;
+9;;;;;Por reserva de cargos;group_2;NOP;;
+10;;;;;Multas por Inasist.Fdo. de Descuentos INAME- A547L17296*;group_2;NOP;;
+11;;;;;Retención p/susp.preventiva-Prop.oPorc.DGCasinos D463/989;group_2;NOP;;
+12;;;;;Por reserva cargo hasta 2 años A11L17556;group_2;NOP;;
+13;;;;;Transf.ANEP Imp/i.rural OG921001R911101005-i2)A636L15809;group_2;NOP;;
+14;;;;;Préstamo BROU-Efec./Tick. a cancelar con futuro aumento;group_2;NOP;;
+15;;;;;Retención Haberes Personal con Subsidio Transit. p/Incapac.;group_2;NOP;;
+16;;;;;Licencia Extraord.personal científico p/contratos docencia;group_2;NOP;;
+1;;;T;;Montepíos;group_3;NOP;28001;
+2;;;T;;Seis meses beneficio de retiro;group_3;NOP;28001;
+3;;;T;;Subsidios por fallecimiento;group_3;NOP;28001;
+4;;;T;;Aportes patronales;group_3;NOP;28001;
+5;;;T;;Contribución patronal especial por servicios bonificados;group_3;NOP;28001;
+6;;;;;Vers.Dieta o Sueldo /opta p/pasividad A102L16134yA507L16320;group_3;NOP;;
+7;;;;;Aportes Patronales Art.92 Ley 18083;group_3;NOP;;
+1;;;T;;Montepíos;group_4;NOP;28001;
+2;;;T;;Aportes patronales;group_4;NOP;28001;
+3;;;T;;Contribución patronal especial por servicios bonificados;group_4;NOP;28001;
+4;;;;;Aportes Patronales Art.92 ley 18083;group_4;NOP;;
+1;152;1;T;249390000000;Cuotas de Ingreso a Tropa;group_5;PAG;3035;C
+2;152;1;T;249390000000;Multas Civiles;group_5;PAG;3035;C
+3;152;1;T;249390000000;Medio Sueldo Militar;group_5;PAG;3035;C
+4;152;1;T;249390000000;Montepío de Clases y Tropas;group_5;PAG;3035;C
+5;152;1;T;249390000000;Montepío de Jefes y Oficiales;group_5;PAG;3035;C
+6;152;1;T;249390000000;Reintegros;group_5;PAG;3035;C
+7;152;1;T;249390000000;Subsidio por Fallecimiento de Militares;group_5;PAG;3035;C
+8;152;1;T;266180000000;Fondo Especial Servicio Fúnebre de Militares;group_5;PAG;3034;C
+9;152;1;T;249390000000;Aportes patronales;group_5;PAG;3035;C
+10;152;1;T;364040000000;Contrib.a Dirección Nacional de Sanidad FFAA 0 a 2,5 BPC;group_5;PAG;3033;C
+11;152;1;T;364040000000;Contrib.a Dirección Nacional de Sanidad FFAA 2,5 a 5 BPC;group_5;PAG;3033;C
+12;152;1;T;364040000000;Contrib.a Dirección Nacional de Sanidad FFAA mas de 5 BPC;group_5;PAG;3033;C
+13;152;1;T;364040000000;Cuota p/hijos mayores 21 años DNSFA 0 a 2,5 BPC;group_5;PAG;3033;C
+14;152;1;T;364040000000;Cuota p/hijos mayores 21 años DNSFA 2,5 a 5 BPC;group_5;PAG;3033;C
+15;152;1;T;364040000000;Cuota p/hijos mayores 21 años DNSFA mas de 5 BPC;group_5;PAG;3033;C
+1;152;1;T;269920000000;Montepío - Caja;group_6;PAG;4025;C
+2;152;1;T;269920000000;Seis meses beneficio de retiro - Caja;group_6;PAG;4025;C
+3;152;1;T;269920000000;Subsidio por Fallecimiento - Caja;group_6;PAG;4025;C
+4;152;1;T;269840000000;Fondo de Servicio de Tutela Social Policial - Caja;group_6;PAG;4025;C
+5;184;1;T;95400000000;Servicio de Sanidad Policial - Hospital Policial;group_6;PAG;4030;C
+6;152;1;T;269920000000;Aportes Patronales;group_6;PAG;4025;C
+1;152;1;R;31870000000;Asociación Cooperativa Electoral;group_7;PAG;210362180016;C
+3;152;1;R;385480000000;Asociación de Funcionarios Portuarios;group_7;PAG;215697410014;C
+4;179;1;R;14870000000;Asociación Nacional de Afiliados(A.N.D.A.);group_7;PAG;213108740018;C
+5;152;1;R;248590000000;Banco de Seguros del Estado - seguro individual;group_7;PAG;210465050018;C
+6;152;1;R;248590000000;Banco de Seguros del Estado - seguro de agrupamiento;group_7;PAG;210465050018;C
+7;152;1;R;248910000000;Caja Profesionales Universitarios;group_7;PAG;212185740010;C
+9;186;1;R;78810000000;Cooperativa de Ahorro y Credito del Pers. Subalterno FF.AA;group_7;PAG;211971280019;C
+10;185;1;R;73820000000;Coop.deAhor.y Créd.Cincuentenario,Soc.Comercial Club ANCAP;group_7;PAG;211903410018;C
+11;;;R;;Cooperativa de Ahorro y Crédito del Uruguay - CAYCU;group_7;PAG;212840950019;
+12;;;R;;Cooperativa de Ahorro y Crédito para la Enseñanza;group_7;PAG;130068350013;
+13;152;1;R;34000000000;Cooperativa Bancaria;group_7;PAG;210003230015;C
+14;185;1;R;24400000000;Cooperativa Club ANCAP;group_7;PAG;210411330012;C
+15;;;;;Cooperativa Consumos de Funcionarios Obras Públicas;group_7;PAG;;
+16;;;R;;Cooperativa de Ahorro y Crédito José Artigas;group_7;PAG;10070970014;
+17;179;1;R;16630000000;Cooperativa de Consumo Salud Pública;group_7;PAG;210268210012;C
+18;152;1;R;42990000000;Cooperativa de las Fuerzas Armadas;group_7;PAG;210278040012;C
+19;181;1;R;12160000000;Coop. de Prod. y Consumo Personal de la A.F.E.;group_7;PAG;210540220019;C
+20;;;R;;Cooperativa Familiar;group_7;PAG;210368680010;
+22;179;1;R;20540000000;Cooperativa Magisterial;group_7;PAG;210156590018;C
+23;152;1;R;56910000000;Cooperativa Municipal;group_7;PAG;210181920018;C
+24;152;1;R;487050000000;Cooperativa Nacional de Ahorro y Crédito - COFAC;group_7;PAG;215395820015;C
+26;;;R;;Cooperativa Policial;group_7;PAG;210352670010;
+27;;;R;;Cooperativa Policial de Ahorro y Crédito;group_7;PAG;211843440013;
+28;;;R;;Cooperativa de Previsión Social;group_7;PAG;210424500019;
+29;44;1;R;60490000000;Cooperativa Salteña de Consumo;group_7;PAG;160003860019;C
+30;152;1;R;101660000000;Cooperativa de Seguridad Social de Ahorro y Crédito;group_7;PAG;211155520014;C
+31;;;R;;Federación Urug.Coop.de Ahorro y Crédito (FUCAC);group_7;PAG;211796770016;
+32;184;1;T;94940000000;Cantinas Militares Serv. de Intendencia de Ejército y Marina;group_7;PAG;99176;C
+33;;;;;Círculo Militar General Artigas;group_7;PAG;;
+35;152;1;T;288070000000;Servicio de Garantía de Alquileres;group_7;PAG;5002;C
+36;152;1;T;270840000000;Fondo de Tutela Social Policial - préstamos;group_7;PAG;4025;C
+37;179;1;R;25210000000;Sociedad de Ahorro y Crédito Cooperativa José Artigas;group_7;PAG;211758800019;C
+39;188;1;R;107600000000;Cooperativa de Ahorro y Crédito Funcionarios M.E.F.;group_7;PAG;211964430019;C
+40;179;1;R;223660000000;Organización Cooperativa de Ahorro y Crédito (O.C.A.C.);group_7;PAG;213957200018;C
+41;152;1;R;77330000000;Cooperativa de Ahorro y Crédito (FUCEREP);group_7;PAG;211252030018;C
+42;;;R;;Sociedad Coop. Ahorro y Crédito Independencia (SO.C.A.C.I.);group_7;PAG;214080870018;
+43;57;1;R;8530000000;Cooperativa de Maestros de  Ahorro y Crédito (CO.M.A.C.);group_7;PAG;200057320015;C
+44;;;R;;Coop. Uruguaya de Ahorro y Crédito (C.U.D.A.C.);group_7;PAG;214212330015;
+45;;;R;;Coop.de Ahorro y Crédito Piedra Alta(CAYCPA);group_7;PAG;70074810015;
+46;23;1;R;82870000000;Coop.Funcionar. Enseñanza de Maldonado(CO.FU.E.MA.);group_7;PAG;100163100019;C
+47;188;1;R;140800000000;Coop. de Consumos del Transporte (COTRANS);group_7;PAG;210172100011;C
+48;66;1;R;249930000000;Coop.Ahorro y Crédito  INTEPA (CINTEPA);group_7;PAG;40074580018;A
+49;179;1;R;299650000000;Coop. de Ahorro y Crédito Electoral (CAYCE);group_7;PAG;213937170016;C
+50;181;1;R;30850000000;Coop.Ahorro y Cred. para socios CLUB EMPLEADOS ANCAP;group_7;PAG;211144930011;C
+51;186;1;R;77850000000;Coop.de Ahorro y Crédito Cash (COCASH);group_7;PAG;213499310017;C
+52;196;1;R;96050000000;Servicio Médico Integral (art.406L16736 y Dec95/2001art.1);group_7;PAG;213983410016;C
+53;;;R;;Coop.Montevideo de Ahorro y Crédito(COMAYC);group_7;PAG;214432040016;
+54;152;1;T;269840000000;DNASP Fdos.delServ.deVivdas.Pol.Prest.deViv.(A149L17296);group_7;PAG;4025;C
+55;152;1;R;248240000000;BHU-Descuentos por Préstamos de Vivienda(por solicitud BHU);group_7;PAG;210639630014;C
+56;;;;;Cooperativa de Ahorro y Créd. del Transporte (COTRANS A Y C);group_7;PAG;;
+57;;;R;;Cristalind S.A. - 1727 EMERGENCIAS;group_7;PAG;213814970014;
+58;179;1;R;65800000000;Coop.Notarial de Ahorro y Crédito (CONOAC);group_7;PAG;212514340017;C
+59;59;1;R;3640000000;Coop.de Ahorro y Crédito Integral (COOPIN);group_7;PAG;200089010011;C
+60;186;1;R;8300000000;Asoc,Mutualista Evangélica del Urug.-HOSPITAL EVANGELICO;group_7;PAG;212592000016;C
+61;26;1;R;33620000000;Cooperativa Minuana de Ahorro y Crédito;group_7;PAG;214566360015;C
+62;24;28;R;566171400;EMERGENCIA UNO - GALYNER S.A.;group_7;PAG;213633280016;C
+63;;;R;;Coop. de Ahorro y Crédito Super (COSUPER);group_7;PAG;214506630016;
+64;;;R;;Cooperativa Policial Durazno (COPODUR);group_7;PAG;50072300015;
+65;190;1;R;109100000000;Cooperativa de Ahorro y Crédito al Consumo (C.O.A.C.C.);group_7;PAG;213979890017;C
+66;;;R;;Cooprerativa Oriental de Ahorro y Crédito (CODAC);group_7;PAG;214474870017;
+67;;;R;;Coop.de Empleados de Ahorro y Crédito Social (C.E.A.C.S.);group_7;PAG;214561110010;
+68;;;R;;Coop. Ah.y Crd. del Tercer Milenio(COAC 3 MIL);group_7;PAG;214518290010;
+69;;;R;;Coop.Ah. y Crd. Colon (C.O.L.O.N.);group_7;PAG;214590240016;
+70;;;R;;Coop. Ah. y Crd. del Sur (C.O.S.U.R.);group_7;PAG;214561690017;
+71;10;1;R;12520000000;Organiz.de Asist.Médica Coop. Colonia (ORAMECO);group_7;PAG;40045710014;C
+72;;;R;;Coop.Policial de Ahorro y Crédito (CO.POL.A.C.);group_7;PAG;30108970010;
+73;;;R;;Agrupación Social Coop.Canelones de Ahorro y Crédito ASCCAN;group_7;PAG;214501110014;
+74;195;1;R;625870000000;Coop.Ah. y Crd. de la Familia Uruguaya (CACFU);group_7;PAG;70118150015;A
+75;190;1;R;126320000000;Soluciones Coop. de Ah. y Crédito (SOLCOAC);group_7;PAG;214486200011;C
+76;;;R;;Coop. de Pers.Pol. de Ah. y Créd. de Cerro Largo(CACCEPOL);group_7;PAG;30142560016;
+77;188;1;R;167470000000;COOPERATIVA ACAC;group_7;PAG;120108800017;C
+78;162;1;R;10130000000;Asociación Española de Socorros Mutuos;group_7;PAG;212567060019;A
+79;;;R;;CREDINCOOP;group_7;PAG;214401720015;
+80;;;R;;Cooperativa de Ah.y Créd.(Fondo de Auxilio Policía de Salto;group_7;PAG;160189860014;
+81;58;1;R;336080000000;Cooperativa de Ahorro y Crédito (CODELSUR);group_7;PAG;60054870015;A
+82;;;R;;Sociedad de Ah. y Créd. Electoral Cooperativa (SACEC);group_7;PAG;214541770015;
+83;190;1;R;8250000000;MEDICA URUGUAYA CORPORAC.DE ASISTEN.MEDICA;group_7;PAG;212701040013;C
+84;;;R;;Coop.de Ahorro y Crédito de Rocha Tres Mil(COAC ROCHA 3M);group_7;PAG;215233260014;
+85;;;R;;Centro Policial de Cerro Largo;group_7;PAG;30150530015;
+86;186;1;R;8720000000;IMPASA Instit. Médico Previsión Asistencia yServicios Afines;group_7;PAG;212549730016;C
+87;181;1;R;166400000000;Cooperativa de Consumo  Socios Club  Empleados de ANCAP;group_7;PAG;210762480017;C
+88;;;;;Cuota Asistencia Médica DNSP Art.65 Ley 18046;group_7;PAG;;
+89;188;1;R;660620000000;Asoc Uruguaya de Contabilidad y Pto Público (ASUCYP);group_7;PAG;214706090015;A
+90;;;R;;Cooperativa de Ahorro y Crédito Solidaridad (CACSOL);group_7;PAG;100238390019;
+91;;;R;;Compañía Cooperativa de Seguros SURCO Seguro Colectivo Vida;group_7;PAG;212647100017;
+92;179;1;R;16980000000;Circulo Católico de Obreros del Uruguay Mutualista;group_7;PAG;213330070015;C
+93;189;1;R;86020000000;Cooperativa de Servicios Médicos COSEM;group_7;PAG;214206050014;C
+94;;;R;;Institución de asistencia Médica Colectiva CASA DE GALICIA;group_7;PAG;212549060010;
+95;185;1;R;26690000000;Sociedad Medica Universal;group_7;PAG;214048690018;C
+96;;;R;;CASMU (Institución de Asistencia Privada De Prof. Sin Fines);group_7;PAG;216309010011;
+97;24;1;R;11440000000;Cooperativa Asistencial Médica de Cerro Largo;group_7;PAG;30110450010;C
+98;;;R;;Cooperativa Asistencia Agrupación Médica Pando CAAMEPA;group_7;PAG;110160220010;
+99;36;1;R;46150000000;Corporación Médica de Paysandú (COMEPA);group_7;PAG;120154900010;C
+100;188;1;R;227450000000;Cooperativa de Ahorro y Crédito FAE;group_7;PAG;211552790018;C
+101;41;1;R;15340000000;Cooperativa Asistencia Médica Rivera CASMER;group_7;PAG;140097210019;C
+102;179;1;R;16512830000000;Cooperativa de la Mujer de Ahorro y Crédito (COMAC);group_7;PAG;216518860018;A
+103;196;1;R;156030000000;Cooperativa Uruguaya Solidaria de Afiliados;group_7;PAG;214822230014;C
+104;152;1;R;499800000000;Agencia Nacional de Vivienda;group_7;PAG;215913350010;C
+105;152;1;R;78050000000;Unidad Coronaria Móvil (PERSES S.A.) UCM;group_7;PAG;210271050012;C
+106;198;1;R;27990000000;EMUCAR Emergencia Móvil (UCAR Cooperativa);group_7;PAG;211752390013;C
+107;198;1;R;5021560000000;Cooperativa de la Nueva Mujer de Ahorro y Credito (CONUMAC);group_7;PAG;217066630018;A
+1;;;;;Vales A.N.C.A.P.;group_8;NOP;;
+1;;;T;;F.N.V. - Aportes patronales - Adm. Central;group_9;NOP;14002;
+7;152;1;R;300210000000;FDO.REC.LABORAL Aporte Obrero 0,125% A325L16320;group_9;PAG;216332980013;C
+8;152;1;R;300210000000;FDO.REC.LABORAL Aporte Patronal 0,125% A325L16320;group_9;PAG;216332980013;C
+9;152;1;R;248240000000;F.N.V.- Aportes patronales INTENDENCIAS-BHU;group_9;PAG;210639630014;C
+10;;;;;Intendencias- adeudos Serv.G.de Alquileres A484 L17930;group_9;PAG;;
+11;;;;;Retención Fondo MEF Art. 1º Decreto 120/006;group_9;NOP;;
+52;;;T;;Ministerio del Interior - Art. 222 Ley 13.318.;group_9;NOP;4001;
+54;;;T;;MTOP - Convenios de Arquitectura (serv.prestados);group_9;NOP;10005;
+55;;;;;MULTAS por incumplimiento- cláusulas pactadas;group_9;NOP;;
+56;;;;;ANCAP--Intendencias Oblig.corriet.PSen.PNA481 litC;group_9;PAG;;
+57;152;1;R;293020000000;ANTEL--Intendencias Oblig.corriet.PSen.PNA481 litC;group_9;PAG;211003420017;C
+58;152;1;R;248590000000;BANCO SEGUROS -IntendenciasOblig.corriet.PSen.PNA481litCA48;group_9;PAG;210465050018;C
+59;152;1;R;241460000000;OSE-Intendencias Oblig.corriet.PSen.PNA481 lit.C;group_9;PAG;211962820014;C
+60;152;1;R;243140000000;UTE-Intendencias Oblig.corriet.PSen.PNA481 litC;group_9;PAG;210778720012;C
+61;;;T;;Para pagoTickets de Alimentación;group_9;PAG;17001;
+62;;;;;FONASA Aporte Personal a cargo de Rentas Generales;group_9;NOP;;
+63;;;;;FONASA Aporte Patronal 5%;group_9;NOP;;
+64;;;;;FONASA Aporte Personal a cargo del Empleado;group_9;NOP;;
+65;;;;;Subvención FNV-PASIVOS;group_9;NOP;;
+66;;;;;Ministerio Turismo y Deporte por derogac.Imp.Deportistas;group_9;NOP;;
+67;;;;;Ministerio de Salud Pública Fondo SIDA derogac.Imp.Deport.;group_9;NOP;;
+68;;;;;Subvención FNV-ACTIVOS;group_9;NOP;;
+69;;;;;INAU (Poder Legislativo) por derogac. de IRP a RRGG;group_9;NOP;;
+70;;;;;FONASA Adicional trabajadores sin hijos 1,5%;group_9;NOP;;
+71;;;;;FONASA Adicional trabajadores con hijos 3%;group_9;NOP;;
+72;;;;;Ret. por  Canasta Fin de Año pagada por Fin 1.2 Inst 15/2007;group_9;NOP;;
+74;;;;;FONASA Adicional trabajadores c/conyuge o concubino 2%;group_9;NOP;;
+75;152;1;R;300800000000;Administración Nacional de Correos Arts.756 al 758  L.18719;group_9;PAG;214130990011;C
+76;196;1;T;660300000;Congreso de Intendentes Arts.756 al 758 Ley 18719|;group_9;PAG;99088;C
+77;;;;;FNV - Activos y Pasivos;group_9;NOP;;

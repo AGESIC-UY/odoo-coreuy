@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="grp_importar_adjudicacion_cm_wizard_form_view" model="ir.ui.view">
+            <field name="name">grp.importar.adjudicacion.cm.wizard.form</field>
+            <field name="model">grp.importar.adjudicacion.cm.wizard</field>
+            <field name="arch" type="xml">
+                <form string="Adjudicación Convenio Marco" version="7.0">
+                    <sheet>
+                        <group>
+                            <label
+                                string='Debe marcar el check "seleccionado" de las lineas que desee cargar en la Adjudicacion'/>
+                        </group>
+                        <group>
+                            <field name="adjudicacion_ids" nolabel="1" widget="one2many_list">
+                                <tree string="Lineas de Adjudicacion" editable="bottom" create="false" delete="false">
+                                    <field name="adjudicacion_cm_id" invisible="1"/>
+                                    <field name="seleccionado" />
+                                    <field name="proveedor_cot_id" readonly="1"/>
+                                    <field name="product_id" readonly="1"/>
+                                    <field name="name" readonly="1"/>
+                                    <field name="cantidad"/>
+                                    <field name="uom_id" readonly="1"/>
+                                    <field name="precio" readonly="1"/>
+                                    <field name="precio_sice" readonly="1"/>
+                                    <field name="codigo_impuesto" readonly="1"/>
+                                    <field name="codigo_articulo" readonly="1"/>
+                                    <field name="currency" readonly="1"/>
+                                    <field name="precio_total" readonly="1"/>
+                                    <field name="odg" invisible="1"/>
+                                    <field name="atributos" readonly="1"/>
+                                    <field name="id_variacion" invisible="1"/>
+                                    <field name="id_item" invisible="1"/>
+                                    <field name="desc_variacion" invisible="1"/>
+                                    <field name="cod_moneda" invisible="1"/>
+                                </tree>
+                            </field>
+                        </group>
+                    </sheet>
+                    <footer>
+                        <button name="cargar_datos_adjudicacion" string="Cargar Datos" type="object" class="oe_highlight"/>
+                        <button string="Cancelar" class="oe_link" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+
+        <act_window name="Importar Adjudicacion Convenio Marco"
+                    res_model="grp.importar.adjudicacion.cm.wizard"
+                    src_model="grp.cotizaciones"
+                    view_mode="form"
+                    target="new"
+                    multi="True"
+                    key2="client_action_multi"
+                    id="grp_importar_adjudicacion_cm_wizard_act_view"/>
+
+    </data>
+</openerp>

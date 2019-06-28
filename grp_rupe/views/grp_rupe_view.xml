@@ -1,0 +1,302 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <!-- MENU SUPERIOR Y LATERAL -->
+        <menuitem name="RUPE" id="grp_rupe_root"
+                  groups="base.group_system,grp_seguridad.grp_mant_proveedores,grp_seguridad.grp_configuracion_contabilidad,grp_seguridad.grp_group_proveedores_rupe"
+                  sequence="55"/>
+
+        <menuitem name="Codigueras" id="grp_rupe_menu_codigueras" parent="grp_rupe_root"/>
+
+
+        <!-- VISTA FORM PARA rupe_cuentas_bancarias -->
+        <record model="ir.ui.view" id="view_rupe_cuentas_bancarias_form">
+            <field name="name">rupe.cuentas.bancarias.form</field>
+            <field name="model">rupe.cuentas.bancarias</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="rupe.cuentas.bancarias">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="cnt_id"/>
+                                <field name="cnt_ciudad_banco"/>
+                                <field name="cnt_ciudad_banco_intermediario"/>
+                                <field name="cnt_codigo_swift"/>
+                                <field name="cnt_codigo_swift_banco_intermedio"/>
+                                <field name="cnt_crea_fecha"/>
+                                <field name="cnt_descripcion"/>
+                                <field name="cnt_direccion_banco_destino"/>
+                                <field name="cnt_estado_datos_descripcion"/>
+                                <field name="cnt_nombre_banco"/>
+                                <field name="cnt_nombre_banco_intermedio"/>
+                                <field name="cnt_nro_cuenta"/>
+                                <field name="cnt_numero_aba"/>
+                                <field name="cnt_sucursal"/>
+                            </group>
+                            <group>
+                                <field name="cnt_titular_cuenta"/>
+                                <field name="cnt_ultmod_fecha"/>
+                                <field name="cnt_version"/>
+                                <field name="codigo_banco"/>
+                                <field name="cnt_estado_datos"/>
+                                <field name="codigo_pais"/>
+                                <field name="codigo_pais_int"/>
+                                <field name="cnt_proveedor_prv_id"/>
+                                <field name="codigo_sucursal"/>
+                                <field name="nombre_sucursal"/>
+                                <field name="codigo_tipo_cuenta"/>
+                                <field name="codigo_moneda"/>
+                                <field name="cnt_iban"/>
+                                <field name="active"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- VISTA TREE PARA rupe_cuentas_bancarias -->
+        <record model="ir.ui.view" id="view_rupe_cuentas_bancarias_tree">
+            <field name="name">rupe.cuentas.bancarias.tree</field>
+            <field name="model">rupe.cuentas.bancarias</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="rupe.cuentas.bancarias">
+                    <field name="cnt_id"/>
+                    <field name="cnt_ciudad_banco"/>
+                    <field name="cnt_ciudad_banco_intermediario"/>
+                    <field name="cnt_codigo_swift"/>
+                    <field name="cnt_codigo_swift_banco_intermedio"/>
+                    <field name="cnt_crea_fecha"/>
+                    <field name="cnt_descripcion"/>
+                    <field name="cnt_direccion_banco_destino"/>
+                    <field name="cnt_estado_datos_descripcion"/>
+                    <field name="cnt_nombre_banco"/>
+                    <field name="cnt_nombre_banco_intermedio"/>
+                    <field name="cnt_nro_cuenta"/>
+                    <field name="cnt_numero_aba"/>
+                    <field name="cnt_sucursal"/>
+                    <field name="cnt_titular_cuenta"/>
+                    <field name="cnt_ultmod_fecha"/>
+                    <field name="cnt_version"/>
+                    <field name="codigo_banco"/>
+                    <field name="cnt_estado_datos"/>
+                    <field name="codigo_pais"/>
+                    <field name="codigo_pais_int"/>
+                    <field name="cnt_proveedor_prv_id"/>
+                    <field name="codigo_sucursal"/>
+                    <field name="nombre_sucursal"/>
+                    <field name="codigo_tipo_cuenta"/>
+                    <field name="codigo_moneda"/>
+                    <field name="cnt_iban"/>
+                    <field name="active"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- ACCION PARA rupe_cuentas_bancarias -->
+        <record model="ir.actions.act_window" id="action_rupe_cuentas_bancarias">
+            <field name="name">rupe_cuentas_bancarias</field>
+            <field name="res_model">rupe.cuentas.bancarias</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <!-- MENU PARA rupe_cuentas_bancarias -->
+        <menuitem
+                name="Cuentas bancarias"
+                id="menu_rupe_cuentas_bancarias"
+                action="action_rupe_cuentas_bancarias"
+                parent="grp_rupe_menu_codigueras"
+        />
+
+
+        <!-- VISTA FORM PARA rupe_datos_comunicacion_proveedor -->
+        <record model="ir.ui.view" id="view_rupe_datos_comunicacion_proveedor_form">
+            <field name="name">rupe.datos.comunicacion.proveedor.form</field>
+            <field name="model">rupe.datos.comunicacion.proveedor</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Datos comunicacion proveedor">
+                    <sheet>
+                        <group>
+                            <field name="dco_id"/>
+                            <field name="dco_comentario"/>
+                            <field name="dco_crea_fecha"/>
+                            <field name="dco_destino"/>
+                            <field name="dco_ultmod_fecha"/>
+                            <field name="dco_version"/>
+                            <field name="dco_proveedor_prv_id"/>
+                            <field name="codigo_tipo_comunic"/>
+                            <field name="active"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- VISTA TREE PARA rupe_datos_comunicacion_proveedor -->
+        <record model="ir.ui.view" id="view_rupe_datos_comunicacion_proveedor_tree">
+            <field name="name">rupe.datos.comunicacion.proveedor.tree</field>
+            <field name="model">rupe.datos.comunicacion.proveedor</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Datos comunicacion proveedor">
+                    <field name="dco_id"/>
+                    <field name="dco_comentario"/>
+                    <field name="dco_crea_fecha"/>
+                    <field name="dco_destino"/>
+                    <field name="dco_ultmod_fecha"/>
+                    <field name="dco_version"/>
+                    <field name="dco_proveedor_prv_id"/>
+                    <field name="codigo_tipo_comunic"/>
+                    <field name="active"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- ACCION PARA rupe_datos_comunicacion_proveedor -->
+        <record model="ir.actions.act_window" id="action_rupe_datos_comunicacion_proveedor">
+            <field name="name">rupe_datos_comunicacion_proveedor</field>
+            <field name="res_model">rupe.datos.comunicacion.proveedor</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <!-- MENU PARA rupe_datos_comunicacion_proveedor -->
+        <menuitem
+                name="Datos comunicación proveedor"
+                id="menu_rupe_datos_comunicacion_proveedor"
+                action="action_rupe_datos_comunicacion_proveedor"
+                parent="grp_rupe_menu_codigueras"
+        />
+
+
+        <!-- VISTA FORM PARA rupe_proveedores -->
+        <record model="ir.ui.view" id="view_rupe_proveedores_form">
+            <field name="name">rupe.proveedores.form</field>
+            <field name="model">rupe.proveedores</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="rupe.proveedores">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="prv_id"/>
+                                <field name="prv_cod_fiscal"/>
+                                <field name="prv_correo_electronico"/>
+                                <field name="prv_crea_fecha"/>
+                                <field name="prv_denominacion_social"/>
+                                <field name="prv_descripcion_respresentantes"/>
+                                <field name="prv_domicilio_fiscal"/>
+                                <field name="codigo_depto_fiscal"/>
+                                <field name="prv_loc_fiscal_nombre"/>
+                                <field name="prv_nombre_fantasia"/>
+                                <field name="prv_sitio_web"/>
+                                <field name="prv_ultmod_fecha"/>
+                                <field name="prv_version"/>
+                                <field name="dom_codigo_pais"/>
+                                <field name="dom_codigo_depto"/>
+                                <field name="dom_depto_exterior"/>
+                                <field name="dom_codigo_local"/>
+                                <field name="dom_ciudad_exterior"/>
+                            </group>
+                            <group>
+                                <field name="dom_codigo_tipo_vial"/>
+                                <field name="dom_nombre_vialidad"/>
+                                <field name="dom_nro_puerta"/>
+                                <field name="dom_bis"/>
+                                <field name="dom_apto"/>
+                                <field name="dom_codigo_postal"/>
+                                <field name="dom_descripcion"/>
+                                <field name="dom_ruta"/>
+                                <field name="dom_kilometro"/>
+                                <field name="dom_manzana_catastral"/>
+                                <field name="dom_solar_catastral"/>
+                                <field name="dom_desc_tipo_ent_col"/>
+                                <field name="dom_nombre_inmueble"/>
+                                <field name="dom_codigo_par"/>
+                                <field name="dom_crea_fecha"/>
+                                <field name="dom_ultmod_fecha"/>
+                                <field name="codigo_estado"/>
+                                <field name="codigo_nat_juridica"/>
+                                <field name="codigo_pais"/>
+                                <field name="codigo_tipo_documento"/>
+                                <field name="active"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- VISTA TREE PARA rupe_proveedores -->
+        <record model="ir.ui.view" id="view_rupe_proveedores_tree">
+            <field name="name">rupe.proveedores.tree</field>
+            <field name="model">rupe.proveedores</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="rupe.proveedores">
+                    <field name="prv_id"/>
+                    <field name="prv_cod_fiscal"/>
+                    <field name="prv_correo_electronico"/>
+                    <field name="prv_crea_fecha"/>
+                    <field name="prv_denominacion_social"/>
+                    <field name="prv_descripcion_respresentantes"/>
+                    <field name="prv_domicilio_fiscal"/>
+                    <field name="codigo_depto_fiscal"/>
+                    <field name="prv_loc_fiscal_nombre"/>
+                    <field name="prv_nombre_fantasia"/>
+                    <field name="prv_sitio_web"/>
+                    <field name="prv_ultmod_fecha"/>
+                    <field name="prv_version"/>
+                    <field name="dom_codigo_pais"/>
+                    <field name="dom_codigo_depto"/>
+                    <field name="dom_depto_exterior"/>
+                    <field name="dom_codigo_local"/>
+                    <field name="dom_ciudad_exterior"/>
+                    <field name="dom_codigo_tipo_vial"/>
+                    <field name="dom_nombre_vialidad"/>
+                    <field name="dom_nro_puerta"/>
+                    <field name="dom_bis"/>
+                    <field name="dom_apto"/>
+                    <field name="dom_codigo_postal"/>
+                    <field name="dom_descripcion"/>
+                    <field name="dom_ruta"/>
+                    <field name="dom_kilometro"/>
+                    <field name="dom_manzana_catastral"/>
+                    <field name="dom_solar_catastral"/>
+                    <field name="dom_desc_tipo_ent_col"/>
+                    <field name="dom_nombre_inmueble"/>
+                    <field name="dom_codigo_par"/>
+                    <field name="dom_crea_fecha"/>
+                    <field name="dom_ultmod_fecha"/>
+                    <field name="codigo_estado"/>
+                    <field name="codigo_nat_juridica"/>
+                    <field name="codigo_pais"/>
+                    <field name="codigo_tipo_documento"/>
+                    <field name="active"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- ACCION PARA rupe_proveedores -->
+        <record model="ir.actions.act_window" id="action_rupe_proveedores">
+            <field name="name">rupe_proveedores</field>
+            <field name="res_model">rupe.proveedores</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <!-- MENU PARA rupe_proveedores -->
+        <menuitem
+                name="Proveedores"
+                id="menu_rupe_proveedores"
+                action="action_rupe_proveedores"
+                parent="grp_rupe_menu_codigueras"
+        />
+
+    </data>
+</openerp>

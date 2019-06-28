@@ -1615,7 +1615,7 @@ class wizard_novedades_sice(osv.osv_memory):
             raise osv.except_osv('Error!', u'No se pudo obtener la novedad SICE')
 
         # Segmentamos en una lista
-        list_novedades = str(pool_novedades).replace('},','}*').split('*')
+        list_novedades = str(pool_novedades).replace('},','}***').split('***')
 
         # Proceso cada novedad
         for novedad_str in list_novedades:

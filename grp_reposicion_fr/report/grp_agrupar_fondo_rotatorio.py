@@ -332,7 +332,7 @@ class grp_agrupar_fondo_rotarios(models.Model):
                 if expense_id.doc_type == u'rendicion_anticipo':
                     res = mod_obj.get_object_reference(cr, uid, 'grp_tesoreria', 'view_grp_rendicion_anticipo_form1')
                 else:
-                    res = mod_obj.get_object_reference(cr, uid, 'grp_hr_expense', 'grp_view_expenses_form')
+                    res = mod_obj.get_object_reference(cr, uid, 'hr_expense', 'view_expenses_form')
                 res_id = res and res[1] or False
                 return {
                     'name': "Gastos",

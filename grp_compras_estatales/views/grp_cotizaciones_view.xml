@@ -1,0 +1,325 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+
+        <!-- ====================   Menu Cotizaciones    ========================== -->
+        <menuitem id="menu_cotiz" name="Adjudicaciones" parent="menu_grp_main" sequence="8"
+                  groups="grp_seguridad.grp_group_wf_cot_apr_cot,grp_seguridad.grp_compras_apg_Ordenador_del_gasto,grp_seguridad.grp_compras_apg_Responsable_SIIF"/>
+        <!-- Eliminada ampliacion adjudicada-->
+        <!-- ====================   Cotizaciones   ============================ -->
+
+        <!-- Accion -->
+        <record id="action_grp_cotizaciones" model="ir.actions.act_window">
+            <field name="name">Adjudicaciones</field>
+            <field name="res_model">grp.cotizaciones</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <!--Vista Tree-->
+        <record id="view_grp_cot_tree_base" model="ir.ui.view">
+            <field name="name">grp.cotizaciones.tree.base</field>
+            <field name="model">grp.cotizaciones</field>
+            <field name="arch" type="xml">
+                <tree string="Adjudicaciones">
+                    <field name="name"/>
+                    <field name="comprador_id"/>
+                    <field name="pedido_compra_id"/>
+                    <field name="operating_unit_id"/>
+                    <field name="fecha_respuesta"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+        <!--Vista Form-->
+        <record id="view_grp_cot_form" model="ir.ui.view">
+            <field name="name">Adjudicaciones</field>
+            <field name="model">grp.cotizaciones</field>
+            <field name="arch" type="xml">
+                <form string="Adjudicaciones" version="7.0">
+                    <header>
+                        <button groups="grp_seguridad.grp_compras_pc_Comprador" name="button_wkf_cotizaciones_enviar_a_aprobar" type="workflow"
+                                class="oe_highlight" string="Validar" states="draft"/><!--TODO: SPRING 6 GAP 125-->
+
+                        <!-- PCAR 24 07 el boton Crear OC queda visible solo en estado aprobado sice -->
+                        <button name="button_Crear_OC" string="Crear OC" type="object" states="aprobado_sice" groups="grp_seguridad.grp_compras_apg_Jefe_de_compras_2,grp_seguridad.grp_compras_pc_Comprador"/>
+                                <!--attrs="{'invisible':['|',('lines_ampliacion_ids','!=',[])]}"/>-->
+                        <!-- cambiado comprometido-->
+                        <!--<button name="button_Crear_OC_Select" string="Crear OC" type="object"-->
+                                <!--states="validado,aprobado_sice"-->
+                                <!--attrs="{'invisible':['|',('lines_ampliacion_ids','=',[])]}"/>-->
+                        <!--<button name="button_Crear_OC_Select" string="Crear OC" type="object"-->
+                                <!--states="aprobado_sice"/>-->
+                                <!--attrs="{'invisible':['|',('lines_ampliacion_ids','=',[])]}"/>-->
+                        <!-- cambio 28/08 para mostrar el boton correspondiente-->
+                        <button name="button_wkf_cancelar" string="Cancelar" states="authorized,aprobado_sice,refused"
+                                confirm="Esta seguro que desea cancelar el documento?"
+                                type="workflow" groups="grp_seguridad.grp_compras_pc_Responsable"/><!--TODO: SPRING 6 GAP 125-->
+
+                        <!--TODO: SPRING 6 GAP 125-->
+                        <button name="cotizaciones_in_approval" string="Enviar a aprobar" type="object" states="validado"
+                            groups="grp_seguridad.grp_compras_pc_Comprador" class="oe_highlight"/>
+
+                        <button name="cotizaciones_approved" string="Aprobar" type="object" states="in_approval"
+                            groups="grp_seguridad.grp_compras_apg_Jefe_de_compras_2" class="oe_highlight"/>
+
+                        <!--<button name="cotizaciones_refused" string="Rechazar" type="object" states="in_approval"-->
+                            <!--groups="grp_seguridad.grp_compras_apg_Jefe_de_compras_2"/>-->
+
+                        <button name="cotizaciones_draft" string="Pasar a borrador" type="workflow" states="in_approval,approved,in_authorization,refused"
+                            groups="grp_seguridad.grp_compras_apg_Jefe_de_compras_2"/>
+
+                        <button name="cotizaciones_in_authorization" string="Enviar a autorizar" class="oe_highlight" type="object" states="approved"
+                            groups="grp_seguridad.grp_compras_apg_Jefe_de_compras_2"
+                        />
+                        <!--attrs="{'invisible':['|',('tipo_compra_cod','=','CD')]}"-->
+
+                        <button name="%(grp_compras_estatales.cotizacion_refused_wizard_act)d" string="Rechazar"
+                            states="in_approval,in_authorization" type="action" groups="grp_seguridad.grp_compras_apg_Jefe_de_compras_2,grp_seguridad.grp_compras_apg_Ordenador_del_gasto"/>
+
+                        <button name="cotizaciones_authorized" string="Autorizar" class="oe_highlight" type="object" states="in_authorization"
+                            groups="grp_seguridad.grp_compras_apg_Ordenador_del_gasto"
+                            attrs="{'invisible':['|',('allow_authorized','=',False)]}"/>
+
+
+                        <field name="state" widget="statusbar" statusbar_visible="draft,validado,in_approval,approved,in_authorization,authorized,aprobado_sice,refused"
+                               statusbar_colors='{"aprobado_sice":"blue"}'/>
+                    </header>
+                    <sheet>
+                        <group>
+                            <group>
+                                <div cols="4">
+                                    <label for="name" class="oe_inline" attrs="{'invisible':[('state','=','draft')]}"/>
+                                    <h1>
+                                        <!-- CAMBIO MVARELA readonly <field name="name"  attrs="{'invisible':[('state','=','draft')], 'readonly':[('state','!=','draft')]}"/>-->
+                                        <field name="name" attrs="{'invisible':[('state','=','draft')]}" readonly="1"/>
+                                        <label string="ADJ borrador" attrs="{'invisible':[('state','!=','draft')]}"/>
+                                    </h1>
+                                </div>
+                            </group>
+                            <div class="oe_right oe_button_box" name="buttons"
+                                 style="float: right; margin-left: -30px;">
+                                <button name="button_view_OC" string="Órdenes de Compra" type="object"
+                                        class="oe_inline oe_stat_button" icon="fa-strikethrough" style="white-space: normal;"
+                                        attrs="{'invisible': ['|',('purchase_order_ids','=',[]),('state','=','cancelado')]}"/>
+                                 <!-- TODO GAP 200 SPRING 6 -->
+                                <button name="button_crear_adjudicacion" string="Crear Adjudicación" type="object"
+                                        class="oe_inline oe_stat_button" icon="fa-expand" style="white-space: normal;"
+                                        states='aprobado_sice'
+                                        attrs="{'invisible': ['|',('ampliacion','=',True)]}"/>
+                                <button name="button_adjudicacion_ampliar_pc" type="object"
+                                        class="oe_inline oe_stat_button" icon="fa-expand" style="white-space: normal;"
+                                        states='aprobado_sice' string="Ampliación"
+                                        attrs="{'invisible': ['|',('ampliacion','=',True)]}"
+                                />
+                            </div>
+                        </group>
+                        <field name="purchase_order_ids" invisible="1"/>
+                        <field name="tipo_compra_cod" invisible="1"/>
+                        <field name="allow_authorized" invisible="1"/>
+                        <field name="allow_edit" invisible="1"/>
+                        <field name="id" invisible="1"/>
+                        <group col="4" colspan="2">
+                            <group>
+                                <field name="es_migracion" invisible="1"/>
+                                <field name="company_id" style="width: 57%%" groups="base.group_multi_company"
+                                       attrs="{'readonly': [('allow_edit', '=', False),('id', '!=', False)]}"/>
+                                <field name="pedido_compra_id" style="width: 50%%"
+                                       on_change="onchage_pedido_compra(pedido_compra_id)"
+                                       required="1"
+                                       domain="[('id','in',pedido_compra_domain_ids[0][2])]"
+                                       attrs="{'readonly': [('allow_edit', '=', False),('id', '!=', False)]}"/>
+                                <field name="operating_unit_id"/>
+                                <field name="fecha_respuesta" style="width: 50%%"
+                                       attrs="{'readonly': [('allow_edit', '=', False),('id', '!=', False)]}"/>
+                                <field name="adjudicada" style="width: 50%%"
+                                       attrs="{'readonly': [('allow_edit', '=', False),('id', '!=', False)]}"/>
+                                <!--<field name="recomendada_CAA" style="width: 50%%" attrs="{'readonly': [('allow_edit', '=', False),('id', '!=', False)]}"/>-->
+				                <field name="ampliacion"/>
+                                <field name="nro_ampliacion"/>
+                                <field name="nro_pedido_original_id"/>
+                                <field name="nro_adjudicacion_original_id"/>
+                                <field name="pedido_compra_domain_ids" widget="many2many_tags" invisible="1"/>
+                                <field name="comprador_id" style="width: 57%%" invisible="1"/>
+                            </group>
+                            <group>
+                                <field name="integracion_sice" invisible="1"/>
+                                <!-- campo oculto para integracion sice-->
+                                <field name="tipo_compra" style="width: 50%%"/>
+                                <field name='sice_numeracion' style="width: 50%%" invisible="1"/>
+                                <!--cambio 19/03-->
+                                <field name="sice_descripcion" attrs="{'readonly': [('allow_edit', '=', False),('id', '!=', False)]}"/>
+                                <field name="motive" attrs="{'invisible':[('state','!=','refused')]}"/>
+                                <field name="note" attrs="{'invisible':[('state','!=','refused')]}" />
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Adjudicación">
+                                <field name='sice_page_aceptadas' nolabel="1" widget='one2many_list'
+                                       context="{'supplier':1,'customer':0,'default_customer':0,'default_supplier':1}"
+                                       attrs="{'readonly': ['|',('sice_numeracion', '>', 0),('state', '!=', 'draft')]}">
+                                    <tree string="Solicitado" editable="bottom">
+                                        <field name="proveedor_cot_id" required="1" domain="[('supplier','=',True)]"
+                                               context="{'supplier':1,'customer':0,'default_customer':0,'default_supplier':1}"/>
+                                        <field name="codigo_articulo"/>
+                                        <field name="product_id" domain="[('grp_sice_cod','=',codigo_articulo)]"
+                                               required="1" on_change="onchange_product_id( product_id )"/>
+                                        <field name="desc_variacion" readonly="1"/>
+                                        <field name="uom_id"/>
+                                        <field name="cantidad"/>
+                                        <field name="precio"/>
+                                        <field name="precio_sice" string="Precio s/imp"/>
+                                        <field name="codigo_impuesto" invisible='1'/>
+                                        <field name="iva" widget="many2many_tags"
+                                               domain="[('parent_id','=',False),('type_tax_use','!=','sale')]"/>
+                                        <field name="currency" domain="[( 'name','in',('USD','UYU','EUR'))]"
+                                               required="1"/>
+                                        <field name="cod_moneda" readonly="1"/>
+                                        <field name="odg"/>
+                                        <field name="atributos"/>
+                                        <field name="subtotal"/>
+                                        <field name="cantidad_pendiente_oc"/>
+                                        <field name="ampliar" invisible="1"/>
+                                    </tree>
+                                </field>
+
+                                <div style="height:60px;" name="bottom_div">
+                                    <group class="oe_subtotal_footer oe_right">
+                                        <field name="total_estimado" class="oe_subtotal_footer_separator_custom"
+                                               widget="monetary" options="{'currency_field': 'moneda'}"/>
+                                    </group>
+                                </div>
+                            </page>
+                            <page string="Términos y condiciones">
+                                <group>
+                                    <field name="plazo_pago" style="width: 30%%" attrs="{'readonly': [('allow_edit', '=', False),('id', '!=', False)]}"/>
+                                    <field name="terminos_condiciones" attrs="{'readonly': [('allow_edit', '=', False),('id', '!=', False)]}"/>
+                                </group>
+                            </page>
+                            <page string="APG">
+                                <field name='page_apg' nolabel="1">
+                                    <tree string="APG">
+                                        <field name='name'/>
+                                        <field name='descripcion'/>
+                                        <field name='total_estimado' string="Monto" />
+                                        <field name='moneda' string="Moneda" invisible="1"/>
+                                        <field name='fecha'/>
+                                        <field name='nro_afectacion_siif' string="Nro. de Afectacion"/>
+                                        <field name='state'/>
+                                    </tree>
+                                </field>
+                            </page>
+                            <page string="Órdenes de compra" attrs="{'invisible': [('purchase_order_ids','=',[])]}">
+                                <field name='purchase_order_ids' nolabel="1" widget='one2many_list' context=""
+                                       readonly="1" attrs="{'readonly': [('allow_edit', '=', False),('id', '!=', False)]}">
+                                    <tree string="Órdenes de compra" editable="bottom" fonts="bold:message_unread==True"
+                                          colors="grey:state=='cancel';blue:state in ('wait','confirmed');red:state in ('except_invoice','except_picking')">
+                                        <field name="message_unread" invisible="1"/>
+                                        <field name="name" string="N° OC"/>
+                                        <field name="date_order"/>
+                                        <field name="partner_id"/>
+                                        <field name="amount_untaxed" sum="Total Untaxed amount" string="Untaxed"/>
+                                        <field name="amount_total" sum="Total amount"/>
+                                        <field name="state"/>
+                                    </tree>
+                                </field>
+                            </page>
+                            <page string="Ampliación" attrs="{'invisible': [('lines_ampliacion_ids','=',[])]}">
+                                <group>
+                                    <field name='lines_ampliacion_ids' nolabel="1" widget='one2many_list' attrs="{'readonly': [('allow_edit', '=', False),('id', '!=', False)]}">
+                                        <tree string="Ampliación" editable="bottom" create="false">
+                                            <field name="proveedor_cot_id" readonly="1" domain="[('supplier','=',True)]"
+                                                   context="{'supplier':1,'customer':0,'default_customer':0,'default_supplier':1}"/>
+                                            <field name="pc_ampliado_id" readonly="1"/>
+                                            <field name="pedido_cot_id_5" invisible="1"/>
+                                            <field name="codigo_articulo" readonly="1"/>
+                                            <field name="product_id" domain="[('grp_sice_cod','=',codigo_articulo)]"
+                                                   required="1"/>
+                                            <field name="desc_variacion" readonly="1"/>
+                                            <field name="uom_id"/>
+                                            <field name="cantidad" readonly="1"/>
+                                            <field name="precio" readonly="1"/>
+                                            <field name="codigo_impuesto" invisible='1'/>
+                                            <field name="iva" widget="many2many_tags"
+                                                   domain="[('parent_id','=',False),('type_tax_use','!=','sale')]" readonly="1"/>
+                                            <field name="currency" domain="[( 'name','in',('USD','UYU','EUR'))]"
+                                                   required="1" readonly="1"/>
+                                            <field name="cod_moneda" readonly="1"/>
+                                            <field name="odg" readonly="1"/>
+                                            <field name="atributos" readonly="1"/>
+                                            <field name="subtotal"/>
+                                            <field name="sice_descripcion"/>
+                                            <!-- Incidencia, sice descripcion, objeto de la compra -->
+                                        </tree>
+                                    </field>
+                                </group>
+                            </page>
+                            <page string="Pedidos de compra en Ampliación" invisible="1">
+                                <group>
+                                    <field name='pdc_ampliacion_ids' nolabel="1" widget='one2many_list' context=""
+                                           readonly="1" attrs="{'readonly': [('allow_edit', '=', False),('id', '!=', False)]}">
+                                        <tree string="Ampliación" editable="bottom"
+                                              colors="grey:state=='cancelado';blue:state in ('inicio');red:state in ('sice')">
+                                            <field name="name" string="N° OC"/>
+                                            <field name="date_start"/>
+                                            <field name="tipo_compra"/>
+                                            <field name="total_estimado_cpy" sum="Total amount"/>
+                                            <field name="state"/>
+                                        </tree>
+                                    </field>
+                                </group>
+                            </page>
+                            <page string="Adjuntos">
+                                <group>
+                                    <field name="attachment_ids" nolabel="1">
+                                        <tree string="Adjuntos" delete="true" create="true">
+                                            <field name="res_name_computed" string="Nro doc"/>
+                                            <field name="name" string="Nombre Doc"/>
+                                            <field name="create_date"/>
+                                            <field name="res_model" string="Tipo Doc" invisible="1"/>
+                                        </tree>
+                                    </field>
+                                </group>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <record id="inherited_view_grp_cotizaciones_filter" model="ir.ui.view">
+            <field name="name">grp.cotizaciones.filter.inherit</field>
+            <field name="model">grp.cotizaciones</field>
+            <field name="arch" type="xml">
+                <search string="Adjudicaciones">
+                    <field name="name" string="Número de Adjudicación"/>
+                    <field name="tipo_compra" />
+                    <field name="state"/>
+                    <field name="operating_unit_id"/>
+                    <field name="pedido_compra_id"/>
+                    <group expand="0" string="Agrupar Por...">
+                        <filter string="Unidad ejecutora" icon="terp-partner" domain="[]"
+                                context="{'group_by':'operating_unit_id'}"/>
+                        <filter string="Estado" icon="terp-stock_effects-object-colorize" domain="[]"
+                                context="{'group_by':'state'}"/>
+                        <filter string="Pedido de compra" icon="terp-go-month" domain="[]"
+                                context="{'group_by':'pedido_compra_id'}"/>
+                        <filter string="Tipo compra" icon="terp-go-month" domain="[]"
+                                context="{'group_by':'tipo_compra'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <!-- menu -->
+        <menuitem id="menu_grp_cotiz_1" name="Adjudicaciones" action="action_grp_cotizaciones" sequence="1"
+                  parent="menu_cotiz"/>
+
+
+    </data>
+</openerp>

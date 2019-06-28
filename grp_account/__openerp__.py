@@ -35,7 +35,7 @@ GRP - Account
 * Quita restricción de multicompañía
 
 """,
-    'depends' : ['account', 'account_voucher','grp_compras_estatales'],
+    'depends' : ['account', 'account_voucher','grp_compras_estatales','analytic_operating_unit'],
     'data': [
         'security/ir.model.access.csv',
         'views/grp_inherit_account_bank_view.xml',

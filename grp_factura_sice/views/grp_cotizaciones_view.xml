@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+
+        <!--Vista Form-->
+        <record id="view_grp_cot_form_sice_inherit" model="ir.ui.view">
+            <field name="name">Adjudicaciones.form.sice_inherit</field>
+            <field name="model">grp.cotizaciones</field>
+            <field name="inherit_id" ref="grp_compras_estatales.view_grp_cot_form"/>
+            <field name="arch" type="xml">
+                <button name="button_wkf_cotizaciones_enviar_a_aprobar" position="after">
+                    <button name="button_wkf_cotizaciones_comprometer" states="authorized" string="Aprobar SICE"
+                            groups="grp_seguridad.grp_compras_pc_Responsable"/><!--TODO: SPRING 6 GAP 125-->
+                </button>
+                <button name="button_adjudicacion_ampliar_pc" position="after">
+                    <button name="button_importar_adjudicacion" string="Importar Adjudicación" type="object"
+                            states="draft" attrs="{'invisible': ['|',('integracion_sice','=',False)]}"
+                            class="oe_inline oe_stat_button" icon="fa-expand" style="white-space: normal;"
+                            groups="grp_seguridad.grp_compras_pc_Comprador"/><!--TODO: SPRING 6 GAP 125-->
+                </button>
+            </field>
+        </record>
+                        <!--<button name="button_Crear_OC" string="Crear OC" type="object" states="validado,aprobado_sice"-->
+                                <!--attrs="{'invisible':['|',('lines_ampliacion_ids','!=',[])]}"/>-->
+                        <!--&lt;!&ndash; cambiado comprometido&ndash;&gt;-->
+                        <!--<button name="button_Crear_OC_Select" string="Crear OC" type="object"-->
+                                <!--states="validado,aprobado_sice"-->
+                                <!--attrs="{'invisible':['|',('lines_ampliacion_ids','=',[])]}"/>-->
+                        <!--&lt;!&ndash; cambio 28/08 para mostrar el boton correspondiente&ndash;&gt;-->
+                        <!--<button name="button_wkf_cancelar" string="Cancelar" states="validado,aprobado_sice"-->
+                                <!--type="workflow" groups="grp_seguridad.grp_compras_pc_Responsable"/>-->
+                        <!--<field name="state" widget="statusbar" statusbar_visible="draft,validado,aprobado_sice"-->
+                               <!--statusbar_colors='{"aprobado_sice":"blue"}'/>-->
+                    <!--</header>-->
+                    <!--<sheet>-->
+                        <!--<group>-->
+                            <!--<group>-->
+                                <!--<div cols="4">-->
+                                    <!--<label for="name" class="oe_inline" attrs="{'invisible':[('state','=','draft')]}"/>-->
+                                    <!--<h1>-->
+                                        <!--&lt;!&ndash; CAMBIO MVARELA readonly <field name="name"  attrs="{'invisible':[('state','=','draft')], 'readonly':[('state','!=','draft')]}"/>&ndash;&gt;-->
+                                        <!--<field name="name" attrs="{'invisible':[('state','=','draft')]}" readonly="1"/>-->
+                                        <!--<label string="ADJ borrador" attrs="{'invisible':[('state','!=','draft')]}"/>-->
+                                    <!--</h1>-->
+                                <!--</div>-->
+                            <!--</group>-->
+                            <!--<div class="oe_right oe_button_box" name="buttons"-->
+                                 <!--style="float: right; margin-left: -30px;">-->
+                                <!--<button name="button_view_OC" string="Órdenes de Compra" type="object"-->
+                                        <!--attrs="{'invisible': ['|',('purchase_order_ids','=',[]),('state','=','cancelado')]}"/>-->
+                                <!--<button name="button_adjudicacion_ampliar_pc" type="object"-->
+                                        <!--states="validado,aprobado_sice"-->
+                                        <!--attrs="{'invisible': ['|',('state','=','cancelado')]}" string="Ampliación"-->
+                                        <!--groups=""/>-->
+                                <!--<button name="button_importar_adjudicacion" string="Importar Adjudicación" type="object"-->
+                                        <!--attrs="{'invisible': ['|',('state','=','cancelado'),('integracion_sice','=',False)]}"/>-->
+                            <!--</div>-->
+                        <!--</group>-->
+                        <!--<field name="purchase_order_ids" invisible="1"/>-->
+                        <!--<group col="4" colspan="2">-->
+                            <!--<group>-->
+                                <!--<field name="company_id" style="width: 57%%"/>-->
+                                <!--<field name="pdc" style="width: 50%%" on_change="onchage_pedido_compra(pdc)"-->
+                                       <!--domain="[('apg_ids','!=',False)]"/>-->
+                                <!--<field name="fecha_respuesta" style="width: 50%%"/>-->
+                                <!--<field name="adjudicada" style="width: 50%%"/>-->
+                                <!--<field name="recomendada_CAA" style="width: 50%%"/>-->
+                                <!--<field name="comprador_id" style="width: 57%%" invisible="1"/>-->
+                            <!--</group>-->
+                            <!--<group>-->
+                                <!--<field name="integracion_sice" invisible="1"/>-->
+                                <!--&lt;!&ndash; campo oculto para integracion sice&ndash;&gt;-->
+                                <!--<field name="tipo_compra" style="width: 50%%"/>-->
+                                <!--<field name='sice_numeracion' style="width: 50%%" invisible="1"/>-->
+                                <!--&lt;!&ndash;cambio 19/03&ndash;&gt;-->
+                                <!--<field name="sice_descripcion"/>-->
+                            <!--</group>-->
+                        <!--</group>-->
+                        <!--<notebook>-->
+                            <!--<page string="Adjudicación">-->
+                                <!--<field name='sice_page_aceptadas' nolabel="1" widget='one2many_list'-->
+                                       <!--context="{'supplier':1,'customer':0,'default_customer':0,'default_supplier':1}">-->
+                                    <!--<tree string="Solicitado" editable="bottom">-->
+                                        <!--<field name="proveedor_cot_id" required="1" domain="[('supplier','=',True)]"-->
+                                               <!--context="{'supplier':1,'customer':0,'default_customer':0,'default_supplier':1}"/>-->
+                                        <!--<field name="codigo_articulo"/>-->
+                                        <!--<field name="product_id" domain="[('grp_sice_cod','=',codigo_articulo)]"-->
+                                               <!--required="1" on_change="onchange_product_id( product_id )"/>-->
+                                        <!--<field name="uom_id"/>-->
+                                        <!--<field name="cantidad"/>-->
+                                        <!--<field name="precio"/>-->
+                                        <!--<field name="precio_sice" string="Precio s/imp"/>-->
+                                        <!--<field name="codigo_impuesto" invisible='1'/>-->
+                                        <!--<field name="iva" widget="many2many_tags"-->
+                                               <!--domain="[('type_tax_use','=','purchase')]"/>-->
+                                        <!--<field name="currency" domain="[( 'name','in',('USD','UYU','EUR'))]"-->
+                                               <!--required="1"/>-->
+                                        <!--<field name="cod_moneda" readonly="1"/>-->
+                                        <!--<field name="odg"/>-->
+                                        <!--<field name="atributos"/>-->
+                                        <!--<field name="subtotal"/>-->
+                                        <!--<field name="ampliar" invisible="1"/>-->
+                                    <!--</tree>-->
+                                <!--</field>-->
+
+                                <!--<div style="height:60px;">-->
+                                    <!--<group class="oe_subtotal_footer oe_right">-->
+                                        <!--<field name="total_estimado" class="oe_subtotal_footer_separator_custom"-->
+                                               <!--widget="monetary" options="{'currency_field': 'moneda'}"/>-->
+                                    <!--</group>-->
+                                <!--</div>-->
+                            <!--</page>-->
+                            <!--<page string="Términos y condiciones">-->
+                                <!--<group>-->
+                                    <!--<field name="plazo_pago" style="width: 30%%"/>-->
+                                    <!--<field name="terminos_condiciones"/>-->
+                                <!--</group>-->
+                            <!--</page>-->
+                            <!--<page string="APG">-->
+                                <!--<field name='page_apg' nolabel="1" widget='one2many_list' context="">-->
+                                    <!--<tree string="APG" editable="bottom">-->
+                                        <!--<field name="apg_id" on_change="onchague_apg(apg_id)"/>-->
+                                        <!--<field name="descripcion_apg"/>-->
+                                        <!--<field name="monto_apg"/>-->
+                                        <!--<field name="currency" domain="[( 'name','in',('USD','UYU','EUR'))]"/>-->
+                                        <!--<field name="fecha_apg"/>-->
+                                        <!--<field name="nro_afectacion_apg"/>-->
+                                    <!--</tree>-->
+                                <!--</field>-->
+                            <!--</page>-->
+                            <!--<page string="Órdenes de compra" attrs="{'invisible': [('purchase_order_ids','=',[])]}">-->
+                                <!--<field name='purchase_order_ids' nolabel="1" widget='one2many_list' context=""-->
+                                       <!--readonly="1">-->
+                                    <!--<tree string="Órdenes de compra" editable="bottom" fonts="bold:message_unread==True"-->
+                                          <!--colors="grey:state=='cancel';blue:state in ('wait','confirmed');red:state in ('except_invoice','except_picking')">-->
+                                        <!--<field name="message_unread" invisible="1"/>-->
+                                        <!--<field name="name" string="N° OC"/>-->
+                                        <!--<field name="date_order"/>-->
+                                        <!--<field name="partner_id"/>-->
+                                        <!--<field name="amount_untaxed" sum="Total Untaxed amount" string="Untaxed"/>-->
+                                        <!--<field name="amount_total" sum="Total amount"/>-->
+                                        <!--<field name="state"/>-->
+                                    <!--</tree>-->
+                                <!--</field>-->
+                            <!--</page>-->
+                            <!--<page string="Ampliación" attrs="{'invisible': [('lines_ampliacion_ids','=',[])]}">-->
+                                <!--<group>-->
+                                    <!--<field name='lines_ampliacion_ids' nolabel="1" widget='one2many_list'>-->
+                                        <!--<tree string="Ampliación" editable="bottom" create="false">-->
+                                            <!--<field name="proveedor_cot_id" readonly="1" domain="[('supplier','=',True)]"-->
+                                                   <!--context="{'supplier':1,'customer':0,'default_customer':0,'default_supplier':1}"/>-->
+                                            <!--<field name="pc_ampliado_id" readonly="1"/>-->
+                                            <!--<field name="pedido_cot_id_5" invisible="1"/>-->
+                                            <!--<field name="codigo_articulo" readonly="1"/>-->
+                                            <!--<field name="product_id" domain="[('grp_sice_cod','=',codigo_articulo)]"-->
+                                                   <!--required="1"/>-->
+                                            <!--<field name="uom_id"/>-->
+                                            <!--<field name="cantidad" readonly="1"/>-->
+                                            <!--<field name="precio" readonly="1"/>-->
+                                            <!--<field name="codigo_impuesto" invisible='1'/>-->
+                                            <!--<field name="iva" widget="many2many_tags"-->
+                                                   <!--domain="[('type_tax_use','=','purchase')]" readonly="1"/>-->
+                                            <!--<field name="currency" domain="[( 'name','in',('USD','UYU','EUR'))]"-->
+                                                   <!--required="1" readonly="1"/>-->
+                                            <!--<field name="cod_moneda" readonly="1"/>-->
+                                            <!--<field name="odg" readonly="1"/>-->
+                                            <!--<field name="atributos" readonly="1"/>-->
+                                            <!--<field name="subtotal"/>-->
+                                            <!--<field name="sice_descripcion"/>-->
+                                            <!--&lt;!&ndash; Incidencia, sice descripcion, objeto de la compra &ndash;&gt;-->
+                                        <!--</tree>-->
+                                    <!--</field>-->
+                                <!--</group>-->
+                            <!--</page>-->
+                            <!--<page string="Pedidos de compra en Ampliación" invisible="1">-->
+                                <!--<group>-->
+                                    <!--<field name='pdc_ampliacion_ids' nolabel="1" widget='one2many_list' context=""-->
+                                           <!--readonly="1">-->
+                                        <!--<tree string="Ampliación" editable="bottom"-->
+                                              <!--colors="grey:state=='cancelado';blue:state in ('inicio');red:state in ('sice')">-->
+                                            <!--<field name="name" string="N° OC"/>-->
+                                            <!--<field name="date_start"/>-->
+                                            <!--<field name="tipo_compra"/>-->
+                                            <!--<field name="total_estimado_cpy" sum="Total amount"/>-->
+                                            <!--<field name="state"/>-->
+                                        <!--</tree>-->
+                                    <!--</field>-->
+                                <!--</group>-->
+                            <!--</page>-->
+                        <!--</notebook>-->
+                    <!--</sheet>-->
+                <!--</form>-->
+            <!--</field>-->
+        <!--</record>-->
+
+
+    </data>
+</openerp>

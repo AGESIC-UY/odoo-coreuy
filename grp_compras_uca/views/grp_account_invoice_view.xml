@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+   <data>
+        <record model="ir.ui.view" id="compras_uca_invoice_grp_view_form_supplier">
+            <field name="name">compras.uca.account.invoice.view.form</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="grp_compras_estatales.invoice_grp_view_form_supplier"/>
+            <field name="priority" eval="20"/>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <field name="supplier_invoice_number" position="before">
+                    <field name="sin_procedimiento_sice" invisible="1" />
+                </field>
+                <button name="invoice_sice_temp" position="attributes">
+                    <attribute name="invisible">0</attribute>
+                    <attribute name="attrs">{'invisible'  :[ '|','&amp;',('tipo_ejecucion_codigo_rel','not in',['R','P']),('sin_procedimiento_sice','!=', True)]}</attribute>
+                </button>
+            </field>
+        </record>
+
+    </data>
+</openerp>

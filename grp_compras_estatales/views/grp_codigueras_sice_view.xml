@@ -1,0 +1,386 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <!-- ACCION PARA sicec_doc_proveedor -->
+        <record model="ir.actions.act_window" id="action_sicec_doc_proveedor">
+            <field name="name">Documentos del Proveedor</field>
+            <field name="res_model">sicec.doc.proveedor</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <!-- ACCION PARA sicec_estado_compra -->
+        <record model="ir.actions.act_window" id="action_sicec_estado_compra">
+            <field name="name">Estado de la compra</field>
+            <field name="res_model">sicec.estado.compra</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <!-- ACCION PARA sicec_inciso -->
+        <record model="ir.actions.act_window" id="action_sicec_inciso">
+            <field name="name">Incisos</field>
+            <field name="res_model">sicec.inciso</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <!-- ACCION PARA sicec_moneda -->
+        <record model="ir.actions.act_window" id="action_sicec_moneda">
+            <field name="name">Monedas</field>
+            <field name="res_model">sicec.moneda</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <!-- ACCION PARA sicec_subtipo_compra -->
+        <record model="ir.actions.act_window" id="action_sicec_subtipo_compra">
+            <field name="name">Subtipo de compra</field>
+            <field name="res_model">sicec.subtipo.compra</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree</field>
+        </record>
+
+        <!-- ACCION PARA sicec_tipo_compra -->
+        <record model="ir.actions.act_window" id="action_sicec_tipo_compra">
+            <field name="name">Tipo de compra</field>
+            <field name="res_model">sicec.tipo.compra</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree</field>
+        </record>
+
+        <!-- ACCION PARA sicec_uc -->
+        <record model="ir.actions.act_window" id="action_sicec_uc">
+            <field name="name">Unidades de compra</field>
+            <field name="res_model">sicec.uc</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <!-- ACCION PARA sicec_ue -->
+        <record model="ir.actions.act_window" id="action_sicec_ue">
+            <field name="name">Unidades ejecutoras</field>
+            <field name="res_model">sicec.ue</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+
+        <!-- VISTA FORM PARA sicec_doc_proveedor -->
+        <record model="ir.ui.view" id="view_sicec_doc_proveedor_form">
+            <field name="name">sicec.doc.proveedor.form</field>
+            <field name="model">sicec.doc.proveedor</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="sicec.doc.proveedor">
+                    <group>
+                        <field name="tipoDocProv"/>
+                        <field name="descTipoDocProv"/>
+                        <field name="proveedorRupe"/>
+                        <field name="propioTesoreria"/>
+                        <field name="formato"/>
+                        <field name="pcpd"/>
+                    </group>
+                </form>
+            </field>
+        </record>
+
+        <!-- VISTA TREE PARA sicec_doc_proveedor -->
+        <record model="ir.ui.view" id="view_sicec_doc_proveedor_tree">
+            <field name="name">sicec.doc.proveedor.tree</field>
+            <field name="model">sicec.doc.proveedor</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="sicec.doc.proveedor">
+                    <field name="tipoDocProv"/>
+                    <field name="descTipoDocProv"/>
+                    <field name="proveedorRupe"/>
+                    <field name="propioTesoreria"/>
+                    <field name="formato"/>
+                    <field name="pcpd"/>
+                </tree>
+            </field>
+        </record>
+
+
+        <!-- VISTA FORM PARA sicec_estado_compra -->
+        <record model="ir.ui.view" id="view_sicec_estado_compra_form">
+            <field name="name">sicec.estado.compra.form</field>
+            <field name="model">sicec.estado.compra</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="sicec.estado.compra">
+                    <group>
+                        <field name="codEstado"/>
+                        <field name="descEstado"/>
+                    </group>
+                </form>
+            </field>
+        </record>
+
+        <!-- VISTA TREE PARA sicec_estado_compra -->
+        <record model="ir.ui.view" id="view_sicec_estado_compra_tree">
+            <field name="name">sicec.estado.compra.tree</field>
+            <field name="model">sicec.estado.compra</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="sicec.estado.compra">
+                    <field name="codEstado"/>
+                    <field name="descEstado"/>
+                </tree>
+            </field>
+        </record>
+
+
+        <!-- VISTA FORM PARA sicec_inciso -->
+        <record model="ir.ui.view" id="view_sicec_inciso_form">
+            <field name="name">sicec.inciso.form</field>
+            <field name="model">sicec.inciso</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="sicec.inciso">
+                    <group>
+                        <field name="idInciso"/>
+                        <field name="descInciso"/>
+                    </group>
+                </form>
+            </field>
+        </record>
+
+        <!-- VISTA TREE PARA sicec_inciso -->
+        <record model="ir.ui.view" id="view_sicec_inciso_tree">
+            <field name="name">sicec.inciso.tree</field>
+            <field name="model">sicec.inciso</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="sicec.inciso">
+                    <field name="idInciso"/>
+                    <field name="descInciso"/>
+                </tree>
+            </field>
+        </record>
+
+
+        <!-- VISTA FORM PARA sicec_moneda -->
+        <record model="ir.ui.view" id="view_sicec_moneda_form">
+            <field name="name">sicec.moneda.form</field>
+            <field name="model">sicec.moneda</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="sicec.moneda">
+                    <group>
+                        <field name="codMoneda"/>
+                        <field name="descMoneda"/>
+                        <field name="currency_id"/>
+                    </group>
+                </form>
+            </field>
+        </record>
+
+        <!-- VISTA TREE PARA sicec_moneda -->
+        <record model="ir.ui.view" id="view_sicec_moneda_tree">
+            <field name="name">sicec.moneda.tree</field>
+            <field name="model">sicec.moneda</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="sicec.moneda">
+                    <field name="codMoneda"/>
+                    <field name="descMoneda"/>
+                    <field name="currency_id"/>
+                </tree>
+            </field>
+        </record>
+
+
+        <!-- VISTA FORM PARA sicec_subtipo_compra -->
+        <record model="ir.ui.view" id="view_sicec_subtipo_compra_form">
+            <field name="name">sicec.subtipo.compra.form</field>
+            <field name="model">sicec.subtipo.compra</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="sicec.subtipo.compra">
+                    <group>
+                        <field name="idTipoCompra"/>
+                        <field name="idSubtipoCompra"/>
+                        <field name="descSubtipoCompra"/>
+                        <field name="comprasCentralizadas"/>
+                        <field name="fondosRotatorios"/>
+                        <field name="publicacionLlamado"/>
+                        <field name="condPrecioOfertas"/>
+                        <field name="validaRupe"/>
+                        <field name="active"/>
+                    </group>
+                </form>
+            </field>
+        </record>
+
+        <!-- VISTA TREE PARA sicec_subtipo_compra -->
+        <record model="ir.ui.view" id="view_sicec_subtipo_compra_tree">
+            <field name="name">sicec.subtipo.compra.tree</field>
+            <field name="model">sicec.subtipo.compra</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="sicec.subtipo.compra" editable="top">
+                    <field name="idTipoCompra"/>
+                    <field name="idSubtipoCompra"/>
+                    <field name="descSubtipoCompra"/>
+                    <field name="comprasCentralizadas"/>
+                    <field name="fondosRotatorios"/>
+                    <field name="publicacionLlamado"/>
+                    <field name="condPrecioOfertas"/>
+                    <field name="validaRupe"/>
+                    <field name="active"/>
+                </tree>
+            </field>
+        </record>
+
+
+        <!-- VISTA FORM PARA sicec_tipo_compra -->
+        <record model="ir.ui.view" id="view_sicec_tipo_compra_form">
+            <field name="name">sicec.tipo.compra.form</field>
+            <field name="model">sicec.tipo.compra</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="sicec.tipo.compra">
+                    <group>
+                        <field name="idTipoCompra"/>
+                        <field name="descTipoCompra"/>
+                        <field name="interrelacionSIIF"/>
+                        <field name="comprasCentralizadas"/>
+                        <field name="ofertaEconomica"/>
+                        <field name="plazoMinOferta"/>
+                        <field name="actoApertura"/>
+                        <field name="resolucionObligatoria"/>
+                        <field name="solicitudesLlamado"/>
+                        <field name="ampliaciones"/>
+                        <field name="topeLegal"/>
+                        <field name="pcpd"/>
+                        <field name="active"/>
+                        <field name="urgente"/>
+                    </group>
+                </form>
+            </field>
+        </record>
+
+        <!-- VISTA TREE PARA sicec_tipo_compra -->
+        <record model="ir.ui.view" id="view_sicec_tipo_compra_tree">
+            <field name="name">sicec.tipo.compra.tree</field>
+            <field name="model">sicec.tipo.compra</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="sicec.tipo.compra" editable="top">
+                    <field name="idTipoCompra"/>
+                    <field name="descTipoCompra"/>
+                    <field name="interrelacionSIIF"/>
+                    <field name="comprasCentralizadas"/>
+                    <field name="ofertaEconomica"/>
+                    <field name="plazoMinOferta"/>
+                    <field name="actoApertura"/>
+                    <field name="resolucionObligatoria"/>
+                    <field name="solicitudesLlamado"/>
+                    <field name="ampliaciones"/>
+                    <field name="topeLegal"/>
+                    <field name="pcpd"/>
+                    <field name="active"/>
+                    <field name="urgente"/>
+                </tree>
+            </field>
+        </record>
+
+
+        <!-- VISTA FORM PARA sicec_uc -->
+        <record model="ir.ui.view" id="view_sicec_uc_form">
+            <field name="name">sicec.uc.form</field>
+            <field name="model">sicec.uc</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="sicec.uc">
+                    <group>
+                        <field name="idInciso"/>
+                        <field name="idUE"/>
+                        <field name="idUC"/>
+                        <field name="descUC"/>
+                        <field name="interrelacionSIIF"/>
+                    </group>
+                </form>
+            </field>
+        </record>
+
+        <!-- VISTA TREE PARA sicec_uc -->
+        <record model="ir.ui.view" id="view_sicec_uc_tree">
+            <field name="name">sicec.uc.tree</field>
+            <field name="model">sicec.uc</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="sicec.uc">
+                    <field name="idInciso"/>
+                    <field name="idUE"/>
+                    <field name="idUC"/>
+                    <field name="descUC"/>
+                    <field name="interrelacionSIIF"/>
+                </tree>
+            </field>
+        </record>
+
+
+        <!-- VISTA FORM PARA sicec_ue -->
+        <record model="ir.ui.view" id="view_sicec_ue_form">
+            <field name="name">sicec.ue.form</field>
+            <field name="model">sicec.ue</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="sicec.ue">
+                    <group>
+                        <field name="idInciso"/>
+                        <field name="idUE"/>
+                        <field name="descUE"/>
+                    </group>
+                </form>
+            </field>
+        </record>
+
+        <!-- VISTA TREE PARA sicec_ue -->
+        <record model="ir.ui.view" id="view_sicec_ue_tree">
+            <field name="name">sicec.ue.tree</field>
+            <field name="model">sicec.ue</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="sicec.ue">
+                    <field name="idInciso"/>
+                    <field name="idUE"/>
+                    <field name="descUE"/>
+                </tree>
+            </field>
+        </record>
+
+
+        <!-- MENU SUPERIOR Y LATERAL -->
+        <menuitem name="Codigueras SICE" id="grp_codigueras_sice_root" sequence="16"
+                  parent="grp_compras_estatales.menu_grp_main" groups="grp_seguridad.grp_compras_SICE"/>
+
+        <!-- MENU PARA sicec_ue -->
+        <menuitem name="Unidades ejecutoras" id="menu_sicec_ue" action="action_sicec_ue"
+                  parent="grp_codigueras_sice_root"/>
+        <!-- MENU PARA sicec_doc_proveedor -->
+        <menuitem name="Documentos del Proveedor" id="menu_sicec_doc_proveedor" action="action_sicec_doc_proveedor"
+                  parent="grp_codigueras_sice_root"/>
+        <!-- MENU PARA sicec_estado_compra -->
+        <menuitem name="Estado de la compra" id="menu_sicec_estado_compra" action="action_sicec_estado_compra"
+                  parent="grp_codigueras_sice_root"/>
+        <!-- MENU PARA sicec_uc -->
+        <menuitem name="Unidades de compra" id="menu_sicec_uc" action="action_sicec_uc"
+                  parent="grp_codigueras_sice_root"/>
+        <!-- MENU PARA sicec_tipo_compra -->
+        <menuitem name="Tipo de compra" id="menu_sicec_tipo_compra" action="action_sicec_tipo_compra"
+                  parent="grp_codigueras_sice_root"/>
+        <!-- MENU PARA sicec_subtipo_compra -->
+        <menuitem name="Subtipo de compra" id="menu_sicec_subtipo_compra" action="action_sicec_subtipo_compra"
+                  parent="grp_codigueras_sice_root"/>
+        <!-- MENU PARA sicec_moneda -->
+        <menuitem name="Monedas" id="menu_sicec_moneda" action="action_sicec_moneda" parent="grp_codigueras_sice_root"/>
+        <!-- MENU PARA sicec_inciso -->
+        <menuitem name="Incisos" id="menu_sicec_inciso" action="action_sicec_inciso" parent="grp_codigueras_sice_root"/>
+
+
+    </data>
+</openerp>

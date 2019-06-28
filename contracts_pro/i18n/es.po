@@ -1,0 +1,842 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* contracts_pro
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 8.0-20151128\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-12-03 01:20+0000\n"
+"PO-Revision-Date: 2015-12-02 22:24-0300\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: \n"
+"Language: es\n"
+"X-Generator: Poedit 1.7.4\n"
+
+#. module: contracts_pro
+#: model:ir.actions.act_window,help:contracts_pro.contracts_pro_sections_action
+msgid ""
+"<p class=\"oe_view_nocontent_create\">Click to Register a new Clause Section.</p>\n"
+"                <p>\n"
+"                </p>\n"
+"            "
+msgstr ""
+"<p class=\"oe_view_nocontent_create\">Click para crear una nueva Sección.</p>\n"
+"                <p>\n"
+"                </p>\n"
+"            "
+
+#. module: contracts_pro
+#: model:ir.actions.act_window,help:contracts_pro.contracts_pro_formulas_action
+msgid ""
+"<p class=\"oe_view_nocontent_create\">Click to Register a new Contract Formula.</p>\n"
+"                <p>\n"
+"                </p>\n"
+"            "
+msgstr ""
+"<p class=\"oe_view_nocontent_create\">Click para crear una nueva Fórmula de ajuste.</p>\n"
+"                <p>\n"
+"                </p>\n"
+"            "
+
+#. module: contracts_pro
+#: model:ir.actions.act_window,help:contracts_pro.contracts_pro_metrics_action
+msgid ""
+"<p class=\"oe_view_nocontent_create\">Click to Register a new Contract Metric.</p>\n"
+"                <p>\n"
+"                </p>\n"
+"            "
+msgstr ""
+"<p class=\"oe_view_nocontent_create\">Click para crear una nueva Variable de ajuste.</p>\n"
+"                <p>\n"
+"                </p>\n"
+"            "
+
+#. module: contracts_pro
+#: model:ir.actions.act_window,help:contracts_pro.contracts_pro_templates_action
+msgid ""
+"<p class=\"oe_view_nocontent_create\">Click to Register a new Contract Template.</p>\n"
+"                <p>\n"
+"                </p>\n"
+"            "
+msgstr ""
+"<p class=\"oe_view_nocontent_create\">Click para crear una nueva Plantilla de Contrato.</p>\n"
+"                <p>\n"
+"                </p>\n"
+"            "
+
+#. module: contracts_pro
+#: model:ir.actions.act_window,help:contracts_pro.contracts_pro_period_action
+msgid ""
+"<p class=\"oe_view_nocontent_create\">Click to Register a new Period.</p>\n"
+"                <p>\n"
+"                </p>\n"
+"            "
+msgstr ""
+"<p class=\"oe_view_nocontent_create\">Click para crear un nuev Período.</p>\n"
+"                <p>\n"
+"                </p>\n"
+"            "
+
+#. module: contracts_pro
+#: model:ir.actions.act_window,help:contracts_pro.contracts_pro_clauses_action
+msgid ""
+"<p class=\"oe_view_nocontent_create\">Click to create a new Contract Clause.</p>\n"
+"                <p>\n"
+"                </p>\n"
+"            "
+msgstr ""
+"<p class=\"oe_view_nocontent_create\">Click para crear una nueva Cláusula.</p>\n"
+"                <p>\n"
+"                </p>\n"
+"            "
+
+#. module: contracts_pro
+#: field:contracts_pro.clause,active:0 field:contracts_pro.formula,active:0
+#: field:contracts_pro.metric,active:0 field:contracts_pro.template,active:0
+msgid "Active?"
+msgstr "Activo?"
+
+#. module: contracts_pro
+#: view:website:contracts_pro.report_contract_format_basic
+msgid "Address"
+msgstr "Dirección"
+
+#. module: contracts_pro
+#: field:contracts_pro.formula,metric_age_tolerance:0
+msgid "Age tolerance (days)"
+msgstr "Desactualización aceptada (días)"
+
+#. module: contracts_pro
+#: view:contracts_pro.clause:contracts_pro.contracts_pro_clause_form_view
+msgid "Approve"
+msgstr "Aprobar"
+
+#. module: contracts_pro
+#: selection:contracts_pro.clause,state:0
+msgid "Approved"
+msgstr "Aprobado"
+
+#. module: contracts_pro
+#: field:contracts_pro.period,date_base_example:0
+msgid "Base date example"
+msgstr "Fecha base de ejemplo"
+
+#. module: contracts_pro
+#: view:contracts_pro.new_version:contracts_pro.contracts_pro_new_version_form_view
+msgid "Cancel"
+msgstr "Cancelar"
+
+#. module: contracts_pro
+#: view:contracts_pro.clause:contracts_pro.contracts_pro_clause_form_view
+#: field:contracts_pro.new_version,clause_id:0
+#: field:contracts_pro.template_clause,clause_id:0
+msgid "Clause"
+msgstr "Cláusula"
+
+#. module: contracts_pro
+#: model:ir.model,name:contracts_pro.model_contracts_pro_new_version
+msgid "Clause new version wizard"
+msgstr "Wizard para Nueva versión"
+
+#. module: contracts_pro
+#: field:contracts_pro.template_clause,clause_nbr:0
+msgid "Clause number"
+msgstr "Número de cláusula"
+
+#. module: contracts_pro
+#: view:contracts_pro.clause:contracts_pro.contracts_pro_clause_form_view
+msgid "Clause title..."
+msgstr "Título de cláusula..."
+
+#. module: contracts_pro
+#: view:contracts_pro.template:contracts_pro.contracts_pro_template_form_view
+#: model:ir.actions.act_window,name:contracts_pro.contracts_pro_clauses_action
+#: model:ir.model,name:contracts_pro.model_contracts_pro_clause
+#: model:ir.ui.menu,name:contracts_pro.contracts_pro_clauses_menuitem
+msgid "Clauses"
+msgstr "Cláusulas"
+
+#. module: contracts_pro
+#: field:contracts_pro.formula,code:0 field:contracts_pro.metric,code:0
+#: field:contracts_pro.period,code:0
+msgid "Code"
+msgstr "Código"
+
+#. module: contracts_pro
+#: field:contracts_pro.template,comments:0
+#: field:contracts_pro.template_clause,comments:0
+msgid "Comments"
+msgstr "Comentarios"
+
+#. module: contracts_pro
+#: model:ir.ui.menu,name:contracts_pro.contracts_pro_config_menuitem
+msgid "Configuration"
+msgstr "Configuración"
+
+#. module: contracts_pro
+#: field:contracts_pro.clause,content:0
+msgid "Content"
+msgstr "Contenido"
+
+#. module: contracts_pro
+#: view:website:contracts_pro.report_contract_format_basic
+msgid "Contract Title"
+msgstr "Título de Contrato"
+
+#. module: contracts_pro
+#: field:contracts_pro.template,clause_ids:0
+msgid "Contract clauses"
+msgstr "Cláusulas del contrato"
+
+#. module: contracts_pro
+#: field:contracts_pro.template_clause,template_id:0
+#: model:ir.model,name:contracts_pro.model_contracts_pro_template
+msgid "Contract template"
+msgstr "Plantilla de contrato"
+
+#. module: contracts_pro
+#: model:ir.ui.menu,name:contracts_pro.contracts_pro_main_root_menuitem
+msgid "Contracts"
+msgstr "Contratos"
+
+#. module: contracts_pro
+#: view:contracts_pro.clause:contracts_pro.contracts_pro_clause_form_view
+msgid "Create New version"
+msgstr "Crear nueva versión"
+
+#. module: contracts_pro
+#: view:contracts_pro.new_version:contracts_pro.contracts_pro_new_version_form_view
+msgid "Create version"
+msgstr "Crear versión"
+
+#. module: contracts_pro
+#: field:contracts_pro.clause,create_uid:0
+#: field:contracts_pro.formula,create_uid:0
+#: field:contracts_pro.formula_history_value,create_uid:0
+#: field:contracts_pro.metric,create_uid:0
+#: field:contracts_pro.metric_history_value,create_uid:0
+#: field:contracts_pro.new_version,create_uid:0
+#: field:contracts_pro.period,create_uid:0
+#: field:contracts_pro.section,create_uid:0
+#: field:contracts_pro.template,create_uid:0
+#: field:contracts_pro.template_clause,create_uid:0
+msgid "Created by"
+msgstr "Created by"
+
+#. module: contracts_pro
+#: field:contracts_pro.clause,create_date:0
+#: field:contracts_pro.formula,create_date:0
+#: field:contracts_pro.formula_history_value,create_date:0
+#: field:contracts_pro.metric,create_date:0
+#: field:contracts_pro.metric_history_value,create_date:0
+#: field:contracts_pro.new_version,create_date:0
+#: field:contracts_pro.period,create_date:0
+#: field:contracts_pro.section,create_date:0
+#: field:contracts_pro.template,create_date:0
+#: field:contracts_pro.template_clause,create_date:0
+msgid "Created on"
+msgstr "Created on"
+
+#. module: contracts_pro
+#: field:contracts_pro.formula,current_value:0
+#: field:contracts_pro.metric,current_value:0
+msgid "Current value"
+msgstr "Valor actual"
+
+#. module: contracts_pro
+#: field:contracts_pro.formula_history_value,date:0
+#: field:contracts_pro.metric_history_value,date:0
+msgid "Date"
+msgstr "Fecha"
+
+#. module: contracts_pro
+#: help:contracts_pro.clause,message_last_post:0
+#: help:contracts_pro.template,message_last_post:0
+msgid "Date of the last message posted on the record."
+msgstr "Date of the last message posted on the record."
+
+#. module: contracts_pro
+#: field:contracts_pro.period,day_fixed_end:0
+#: field:contracts_pro.period,day_fixed_start:0
+msgid "Day fixed"
+msgstr "Día fijo"
+
+#. module: contracts_pro
+#: field:contracts_pro.period,day_relative_end:0
+#: field:contracts_pro.period,day_relative_start:0
+msgid "Day relative"
+msgstr "Día relativo"
+
+#. module: contracts_pro
+#: field:contracts_pro.clause,default_sequence:0
+msgid "Default Sequence"
+msgstr "Secuencia por defecto"
+
+#. module: contracts_pro
+#: view:contracts_pro.formula:contracts_pro.contracts_pro_formula_form_view
+msgid "Definition"
+msgstr "Definición"
+
+#. module: contracts_pro
+#: field:contracts_pro.formula,description:0
+#: field:contracts_pro.metric,description:0
+msgid "Description"
+msgstr "Descripción"
+
+#. module: contracts_pro
+#: selection:contracts_pro.clause,state:0
+msgid "Draft"
+msgstr "Borrador"
+
+#. module: contracts_pro
+#: field:contracts_pro.formula,effective_date:0
+msgid "Effective Date"
+msgstr "Fecha efectiva"
+
+#. module: contracts_pro
+#: field:contracts_pro.clause,effective_date:0
+#: field:contracts_pro.template,effective_date:0
+msgid "Effective date"
+msgstr "Fecha efectiva"
+
+#. module: contracts_pro
+#: field:contracts_pro.period,date_end:0
+msgid "End"
+msgstr "Final"
+
+#. module: contracts_pro
+#: code:addons/contracts_pro/models/contracts_pro.py:490
+#: code:addons/contracts_pro/models/contracts_pro.py:494
+#: code:addons/contracts_pro/models/contracts_pro.py:524
+#: code:addons/contracts_pro/models/contracts_pro.py:541
+#: code:addons/contracts_pro/models/contracts_pro.py:767
+#: code:addons/contracts_pro/models/contracts_pro.py:769
+#, python-format
+msgid "Error!"
+msgstr "Error!"
+
+#. module: contracts_pro
+#: code:addons/contracts_pro/models/contracts_pro.py:541
+#, python-format
+msgid "Evaluation formula code: "
+msgstr "Código Python en fórmula de evaluación: "
+
+#. module: contracts_pro
+#: code:addons/contracts_pro/models/contracts_pro.py:769
+#, python-format
+msgid "Fixed day cannot be greater than 31"
+msgstr "El día no puede ser mayor a 31"
+
+#. module: contracts_pro
+#: code:addons/contracts_pro/models/contracts_pro.py:767
+#, python-format
+msgid "Fixed month must be between 1 and 12"
+msgstr "El mes debe estar entre 1 y 12"
+
+#. module: contracts_pro
+#: view:contracts_pro.period:contracts_pro.contracts_pro_period_form_view
+msgid "Fixed values"
+msgstr "Valores fijos"
+
+#. module: contracts_pro
+#: field:contracts_pro.clause,message_follower_ids:0
+#: field:contracts_pro.template,message_follower_ids:0
+msgid "Followers"
+msgstr "Followers"
+
+#. module: contracts_pro
+#: view:contracts_pro.formula:contracts_pro.contracts_pro_formula_form_view
+#: field:contracts_pro.formula,formula:0
+#: field:contracts_pro.formula_history_value,formula_id:0
+msgid "Formula"
+msgstr "Fórmula"
+
+#. module: contracts_pro
+#: view:contracts_pro.formula:contracts_pro.contracts_pro_formula_form_view
+msgid "Formula name..."
+msgstr "Nombre de fórmula..."
+
+#. module: contracts_pro
+#: model:ir.actions.act_window,name:contracts_pro.contracts_pro_formulas_action
+#: model:ir.ui.menu,name:contracts_pro.contracts_pro_formulas_menuitem
+msgid "Formulas"
+msgstr "Fórmulas"
+
+#. module: contracts_pro
+#: view:contracts_pro.formula:contracts_pro.contracts_pro_formula_form_view
+msgid "Historic Values"
+msgstr "Valores históricos"
+
+#. module: contracts_pro
+#: field:contracts_pro.formula,value_history_ids:0
+#: field:contracts_pro.metric,value_history_ids:0
+msgid "History"
+msgstr "Historia"
+
+#. module: contracts_pro
+#: help:contracts_pro.clause,message_summary:0
+#: help:contracts_pro.template,message_summary:0
+msgid "Holds the Chatter summary (number of messages, ...). This summary is directly in html format in order to be inserted in kanban views."
+msgstr "Holds the Chatter summary (number of messages, ...). This summary is directly in html format in order to be inserted in kanban views."
+
+#. module: contracts_pro
+#: field:contracts_pro.clause,id:0 field:contracts_pro.formula,id:0
+#: field:contracts_pro.formula_history_value,id:0
+#: field:contracts_pro.metric,id:0
+#: field:contracts_pro.metric_history_value,id:0
+#: field:contracts_pro.new_version,id:0 field:contracts_pro.period,id:0
+#: field:contracts_pro.section,id:0 field:contracts_pro.template,id:0
+#: field:contracts_pro.template_clause,id:0
+msgid "ID"
+msgstr "ID"
+
+#. module: contracts_pro
+#: help:contracts_pro.clause,message_unread:0
+#: help:contracts_pro.template,message_unread:0
+msgid "If checked new messages require your attention."
+msgstr "If checked new messages require your attention."
+
+#. module: contracts_pro
+#: view:contracts_pro.clause:contracts_pro.contracts_pro_clause_form_view
+msgid "In Templates"
+msgstr "En plantillas"
+
+#. module: contracts_pro
+#: view:contracts_pro.period:contracts_pro.contracts_pro_period_form_view
+msgid "Instructions"
+msgstr "Instrucciones"
+
+#. module: contracts_pro
+#: field:contracts_pro.template,intro_clause_id:0
+msgid "Introduction clause"
+msgstr "Cláusula de Introducción"
+
+#. module: contracts_pro
+#: field:contracts_pro.clause,message_is_follower:0
+#: field:contracts_pro.template,message_is_follower:0
+msgid "Is a Follower"
+msgstr "Is a Follower"
+
+#. module: contracts_pro
+#: field:contracts_pro.clause,message_last_post:0
+#: field:contracts_pro.template,message_last_post:0
+msgid "Last Message Date"
+msgstr "Last Message Date"
+
+#. module: contracts_pro
+#: field:contracts_pro.clause,write_uid:0
+#: field:contracts_pro.formula,write_uid:0
+#: field:contracts_pro.formula_history_value,write_uid:0
+#: field:contracts_pro.metric,write_uid:0
+#: field:contracts_pro.metric_history_value,write_uid:0
+#: field:contracts_pro.new_version,write_uid:0
+#: field:contracts_pro.period,write_uid:0
+#: field:contracts_pro.section,write_uid:0
+#: field:contracts_pro.template,write_uid:0
+#: field:contracts_pro.template_clause,write_uid:0
+msgid "Last Updated by"
+msgstr "Last Updated by"
+
+#. module: contracts_pro
+#: field:contracts_pro.clause,write_date:0
+#: field:contracts_pro.formula,write_date:0
+#: field:contracts_pro.formula_history_value,write_date:0
+#: field:contracts_pro.metric,write_date:0
+#: field:contracts_pro.metric_history_value,write_date:0
+#: field:contracts_pro.new_version,write_date:0
+#: field:contracts_pro.period,write_date:0
+#: field:contracts_pro.section,write_date:0
+#: field:contracts_pro.template,write_date:0
+#: field:contracts_pro.template_clause,write_date:0
+msgid "Last Updated on"
+msgstr "Last Updated on"
+
+#. module: contracts_pro
+#: field:contracts_pro.formula,last_update:0
+#: field:contracts_pro.metric,last_update:0
+msgid "Last update"
+msgstr "Última actualización"
+
+#. module: contracts_pro
+#: code:addons/contracts_pro/models/contracts_pro.py:524
+#, python-format
+msgid "Last value older than tolerance for metric: name"
+msgstr "Última actualización pasa la tolerancia para la variable:"
+
+#. module: contracts_pro
+#: field:contracts_pro.clause,message_ids:0
+#: field:contracts_pro.template,message_ids:0
+msgid "Messages"
+msgstr "Messages"
+
+#. module: contracts_pro
+#: help:contracts_pro.clause,message_ids:0
+#: help:contracts_pro.template,message_ids:0
+msgid "Messages and communication history"
+msgstr "Messages and communication history"
+
+#. module: contracts_pro
+#: view:contracts_pro.metric:contracts_pro.contracts_pro_metric_form_view
+#: field:contracts_pro.metric_history_value,metric_id:0
+#: model:ir.model,name:contracts_pro.model_contracts_pro_formula_history_value
+#: model:ir.model,name:contracts_pro.model_contracts_pro_metric
+#: model:ir.model,name:contracts_pro.model_contracts_pro_metric_history_value
+msgid "Metric"
+msgstr "Variable"
+
+#. module: contracts_pro
+#: view:contracts_pro.metric:contracts_pro.contracts_pro_metric_form_view
+msgid "Metric Values"
+msgstr "Valores de variable"
+
+#. module: contracts_pro
+#: code:addons/contracts_pro/models/contracts_pro.py:494
+#, python-format
+msgid "Metric code not found"
+msgstr "Código de variable no encontrado"
+
+#. module: contracts_pro
+#: model:ir.model,name:contracts_pro.model_contracts_pro_formula
+msgid "Metric formulas"
+msgstr "Fórmulas paramétricas"
+
+#. module: contracts_pro
+#: view:contracts_pro.metric:contracts_pro.contracts_pro_metric_form_view
+msgid "Metric name..."
+msgstr "Nombre de variable..."
+
+#. module: contracts_pro
+#: model:ir.actions.act_window,name:contracts_pro.contracts_pro_metrics_action
+#: model:ir.ui.menu,name:contracts_pro.contracts_pro_metrics_menuitem
+msgid "Metrics"
+msgstr "Variables"
+
+#. module: contracts_pro
+#: view:website:contracts_pro.report_contract_format_basic
+msgid "Mobile"
+msgstr "Celular"
+
+#. module: contracts_pro
+#: field:contracts_pro.template,model_id:0
+msgid "Model"
+msgstr "Modelo"
+
+#. module: contracts_pro
+#: field:contracts_pro.template,model_name:0
+#: field:contracts_pro.template,rel_model:0
+msgid "Model name"
+msgstr "Nombre del modelo"
+
+#. module: contracts_pro
+#: view:contracts_pro.period:contracts_pro.contracts_pro_period_form_view
+msgid "Month end:"
+msgstr "Mes final:"
+
+#. module: contracts_pro
+#: field:contracts_pro.period,month_fixed_end:0
+#: field:contracts_pro.period,month_fixed_start:0
+msgid "Month fixed"
+msgstr "Mes fijo"
+
+#. module: contracts_pro
+#: field:contracts_pro.period,month_relative_end:0
+#: field:contracts_pro.period,month_relative_start:0
+msgid "Month relative"
+msgstr "Mes relativo"
+
+#. module: contracts_pro
+#: field:contracts_pro.clause,name:0 field:contracts_pro.formula,name:0
+#: field:contracts_pro.metric,name:0 field:contracts_pro.period,name:0
+#: field:contracts_pro.section,name:0 field:contracts_pro.template,name:0
+msgid "Name"
+msgstr "Nombre"
+
+#. module: contracts_pro
+#: view:contracts_pro.period:contracts_pro.contracts_pro_period_form_view
+msgid "Negative:"
+msgstr "Negativo:"
+
+#. module: contracts_pro
+#: view:contracts_pro.new_version:contracts_pro.contracts_pro_new_version_form_view
+#: model:ir.actions.act_window,name:contracts_pro.contracts_pro_clause_new_version_action
+msgid "New Version"
+msgstr "Nueva Versión"
+
+#. module: contracts_pro
+#: view:contracts_pro.new_version:contracts_pro.contracts_pro_new_version_form_view
+msgid "New version name..."
+msgstr "Nombre de nueva versión..."
+
+#. module: contracts_pro
+#: selection:contracts_pro.clause,state:0
+msgid "Old version"
+msgstr "Versión anterior"
+
+#. module: contracts_pro
+#: view:contracts_pro.clause:contracts_pro.contracts_pro_clause_form_view
+#: model:ir.actions.act_window,name:contracts_pro.contracts_pro_clause_older_versions_action
+msgid "Older versions"
+msgstr "Versiones anteriores"
+
+#. module: contracts_pro
+#: field:contracts_pro.clause,original_clause_id:0
+msgid "Original clause"
+msgstr "Cláusula original"
+
+#. module: contracts_pro
+#: view:contracts_pro.period:contracts_pro.contracts_pro_period_form_view
+msgid "Period"
+msgstr "Período"
+
+#. module: contracts_pro
+#: code:addons/contracts_pro/models/contracts_pro.py:490
+#, python-format
+msgid "Period code not found"
+msgstr "Código de período no encontrado"
+
+#. module: contracts_pro
+#: view:contracts_pro.period:contracts_pro.contracts_pro_period_form_view
+msgid "Period end"
+msgstr "Fin del período"
+
+#. module: contracts_pro
+#: view:contracts_pro.period:contracts_pro.contracts_pro_period_form_view
+msgid "Period name..."
+msgstr "Nombre del período..."
+
+#. module: contracts_pro
+#: view:contracts_pro.period:contracts_pro.contracts_pro_period_form_view
+msgid "Period start"
+msgstr "Inicio del período"
+
+#. module: contracts_pro
+#: view:contracts_pro.period:contracts_pro.contracts_pro_period_form_view
+msgid "Period test"
+msgstr "Prueba del período"
+
+#. module: contracts_pro
+#: model:ir.actions.act_window,name:contracts_pro.contracts_pro_period_action
+#: model:ir.ui.menu,name:contracts_pro.contracts_pro_periods_menuitem
+msgid "Periods"
+msgstr "Períodos"
+
+#. module: contracts_pro
+#: view:contracts_pro.period:contracts_pro.contracts_pro_period_form_view
+msgid "Positive:"
+msgstr "Positivo:"
+
+#. module: contracts_pro
+#: view:contracts_pro.period:contracts_pro.contracts_pro_period_form_view
+msgid "Relative values"
+msgstr "Valores relativos"
+
+#. module: contracts_pro
+#: field:contracts_pro.clause,section_id:0
+msgid "Section"
+msgstr "Sección"
+
+#. module: contracts_pro
+#: model:ir.actions.act_window,name:contracts_pro.contracts_pro_sections_action
+#: model:ir.model,name:contracts_pro.model_contracts_pro_section
+#: model:ir.ui.menu,name:contracts_pro.contracts_pro_sections_menuitem
+msgid "Sections"
+msgstr "Secciones"
+
+#. module: contracts_pro
+#: view:contracts_pro.clause:contracts_pro.contracts_pro_clause_form_view
+msgid "Select section..."
+msgstr "Seleccionar sección..."
+
+#. module: contracts_pro
+#: view:contracts_pro.clause:contracts_pro.contracts_pro_clause_form_view
+msgid "Send to Review"
+msgstr "Para Aprobar"
+
+#. module: contracts_pro
+#: field:contracts_pro.template_clause,sequence:0
+msgid "Sequence"
+msgstr "Secuencia"
+
+#. module: contracts_pro
+#: view:contracts_pro.period:contracts_pro.contracts_pro_period_form_view
+msgid "Sets year, month or day fixed"
+msgstr "Establece el año, mes y día en forma fija"
+
+#. module: contracts_pro
+#: view:contracts_pro.clause:contracts_pro.contracts_pro_clause_form_view
+msgid "Show older versions"
+msgstr "Mostrar versiones anteriores"
+
+#. module: contracts_pro
+#: field:contracts_pro.period,date_start:0
+msgid "Start"
+msgstr "Inicio"
+
+#. module: contracts_pro
+#: field:contracts_pro.clause,state:0
+msgid "State"
+msgstr "Estado"
+
+#. module: contracts_pro
+#: field:contracts_pro.clause,message_summary:0
+#: field:contracts_pro.template,message_summary:0
+msgid "Summary"
+msgstr "Resumen"
+
+#. module: contracts_pro
+#: view:contracts_pro.template:contracts_pro.contracts_pro_template_form_view
+msgid "Template"
+msgstr "Plantilla"
+
+#. module: contracts_pro
+#: model:ir.actions.report.xml,name:contracts_pro.action_report_template_format_basic_html
+msgid "Template Basic format (html)"
+msgstr "Formato básico de plantilla (html)"
+
+#. module: contracts_pro
+#: model:ir.actions.report.xml,name:contracts_pro.action_report_template_format_basic_pdf
+msgid "Template Basic format (pdf)"
+msgstr "Formato básico de plantilla (pdf)"
+
+#. module: contracts_pro
+#: view:contracts_pro.template:contracts_pro.contracts_pro_template_form_view
+msgid "Template name..."
+msgstr "Nombre de plantilla..."
+
+#. module: contracts_pro
+#: model:ir.model,name:contracts_pro.model_contracts_pro_template_clause
+msgid "Template related clauses"
+msgstr "Cláusulas relacionadas a la plantilla"
+
+#. module: contracts_pro
+#: field:contracts_pro.clause,template_ids:0
+#: model:ir.actions.act_window,name:contracts_pro.contracts_pro_templates_action
+#: model:ir.ui.menu,name:contracts_pro.contracts_pro_root_menuitem
+#: model:ir.ui.menu,name:contracts_pro.contracts_pro_templates_menuitem
+msgid "Templates"
+msgstr "Plantillas"
+
+#. module: contracts_pro
+#: field:contracts_pro.clause,title:0
+msgid "Title"
+msgstr "Título"
+
+#. module: contracts_pro
+#: view:contracts_pro.clause:contracts_pro.contracts_pro_clause_form_view
+msgid "To Draft"
+msgstr "A Borrador"
+
+#. module: contracts_pro
+#: selection:contracts_pro.clause,state:0
+msgid "To Review"
+msgstr "Para Aprobar"
+
+#. module: contracts_pro
+#: view:contracts_pro.period:contracts_pro.contracts_pro_period_form_view
+msgid "To test period, use base date example field. Will show period start and end dates"
+msgstr "Para probar el período, use el campo fecha base de ejemplo. Mostrará las fechas de inicio y final del período"
+
+#. module: contracts_pro
+#: field:contracts_pro.clause,message_unread:0
+#: field:contracts_pro.template,message_unread:0
+msgid "Unread Messages"
+msgstr "Unread Messages"
+
+#. module: contracts_pro
+#: view:contracts_pro.formula:contracts_pro.contracts_pro_formula_form_view
+msgid "Update Value"
+msgstr "Actualizar valor"
+
+#. module: contracts_pro
+#: field:contracts_pro.formula,metric_ids:0
+msgid "Used Metrics"
+msgstr "Variables utilizadas"
+
+#. module: contracts_pro
+#: field:contracts_pro.formula_history_value,value:0
+#: field:contracts_pro.metric_history_value,value:0
+msgid "Value"
+msgstr "Valor"
+
+#. module: contracts_pro
+#: field:contracts_pro.clause,version:0
+msgid "Version"
+msgstr "Versión"
+
+#. module: contracts_pro
+#: field:contracts_pro.new_version,new_version_name:0
+msgid "Version name"
+msgstr "Nombre de versión"
+
+#. module: contracts_pro
+#: field:contracts_pro.period,year_fixed_end:0
+#: field:contracts_pro.period,year_fixed_start:0
+msgid "Year fixed"
+msgstr "Año fijo"
+
+#. module: contracts_pro
+#: field:contracts_pro.period,year_relative_end:0
+#: field:contracts_pro.period,year_relative_start:0
+msgid "Year relative"
+msgstr "Año relativo"
+
+#. module: contracts_pro
+#: sql_constraint:contracts_pro.formula:0
+#: sql_constraint:contracts_pro.metric:0
+msgid "You cannot have multiple records with same code!"
+msgstr "No puede tener múltiples registros con el mismo código!"
+
+#. module: contracts_pro
+#: sql_constraint:contracts_pro.formula_history_value:0
+msgid "You cannot have multiple records with same formula-date-value!"
+msgstr "No puede tener múltiples registros con la misma tupla:  fórmula-fecha-valor!"
+
+#. module: contracts_pro
+#: sql_constraint:contracts_pro.metric_history_value:0
+msgid "You cannot have multiple records with same metric-date-value!"
+msgstr "No puede tener múltiples registros con la misma tupla:  variable-fecha-valor!"
+
+#. module: contracts_pro
+#: sql_constraint:contracts_pro.template:0
+msgid "You cannot have multiple records with same name!"
+msgstr "No puede tener múltiples registros con el mismo nombre!"
+
+#. module: contracts_pro
+#: view:contracts_pro.period:contracts_pro.contracts_pro_period_form_view
+msgid "Zero value:"
+msgstr "Valor Cero:"
+
+#. module: contracts_pro
+#: view:contracts_pro.period:contracts_pro.contracts_pro_period_form_view
+msgid "current year, month or day"
+msgstr "Año, mes y día actual"
+
+#. module: contracts_pro
+#: view:website:contracts_pro.report_contract_format_basic
+msgid "eMail"
+msgstr "eMail"
+
+#. module: contracts_pro
+#: view:contracts_pro.new_version:contracts_pro.contracts_pro_new_version_form_view
+msgid "or"
+msgstr "ó"
+
+#. module: contracts_pro
+#: view:contracts_pro.period:contracts_pro.contracts_pro_period_form_view
+msgid "substract year, month or day relative."
+msgstr "resta año, mes y/o día relativos."
+
+#. module: contracts_pro
+#: view:contracts_pro.period:contracts_pro.contracts_pro_period_form_view
+msgid "sum year, month or day relative."
+msgstr "suma año, mes y/o día relativos."
+
+#. module: contracts_pro
+#: view:contracts_pro.period:contracts_pro.contracts_pro_period_form_view
+msgid "use day = 31 on any month"
+msgstr "usar día = 31 en cualquier mes"

@@ -78,13 +78,13 @@ class grpCajaChicaAccountVoucherWizard(models.TransientModel):
     def transfer_account_voucher(self):
         self.ensure_one()
         vouchers = self.mapped('account_voucher_ids')
+        vouchers.write({'date': self.payment_date, 'entry_date': self.entry_date})
         out_voucher_ids = vouchers.filtered(lambda x: not x.rendicion_viaticos_id and not x.rendicion_anticipos_id)
         in_voucher_ids = vouchers.filtered(lambda x: x.rendicion_viaticos_id or x.rendicion_anticipos_id)
 
+        # out_voucher_ids.write({'date': self.payment_date, 'entry_date': self.entry_date})
         vouchers.with_context({'in_cashbox': True}).proforma_voucher()
-        in_voucher_ids.write(
-            {'date': self.payment_date, 'entry_date': self.entry_date, 'in_cashbox': True, 'state': 'pagado'})
-        out_voucher_ids.write({'date': self.payment_date, 'entry_date': self.entry_date})
+        in_voucher_ids.write({'in_cashbox': True, 'state': 'pagado'})
 
         new_trasactions = [(0, 0, {'voucher_id': voucher.id, 'ref': self.is_vale_viatico(voucher),
                                    'account_move_id': voucher.move_id.id,

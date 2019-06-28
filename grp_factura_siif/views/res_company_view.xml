@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+
+        <!-- res.config form view, flag integracion siif -->
+        <record model="ir.ui.view" id="view_account_settings_siif_form">
+            <field name="name">account.config.settings.siif.inherit</field>
+            <field name="inherit_id" ref="grp_compras_estatales.view_account_settings_sice_form"/>
+            <field name="model">account.config.settings</field>
+            <field name="arch" type="xml">
+                <xpath expr="//div[@name='integ_sice']" position="after">
+                    <div>
+                        <field name="integracion_siif" class="oe_inline"/>
+                        <label for="integracion_siif"/>
+                    </div>
+                    <div>
+                        <field name="exceptuado_sice" class="oe_inline"/>
+                        <label for="exceptuado_sice"/>
+                    </div>
+                    <div>
+                        <field name="unverified_context" class="oe_inline"/>
+                        <label for="unverified_context"/>
+                    </div>
+                    <div>
+                        <field name="siif_concepto_gasto_lng" class="oe_inline"/>
+                        <label for="siif_concepto_gasto_lng"/>
+                    </div>
+                    <div>
+                        <field name="siif_concepto_gasto_aof" class="oe_inline"/>
+                        <label for="siif_concepto_gasto_aof"/>
+                    </div>
+                    <div>
+                        <field name="product_id_lng" class="oe_inline"/>
+                        <label for="product_id_lng"/>
+                    </div>
+                    <div>
+                        <field name="product_id_aof" class="oe_inline"/>
+                        <label for="product_id_aof"/>
+                    </div>
+                    <div>
+                        <field name="journal_id_obl_siif" class="oe_inline"/>
+                        <label for="journal_id_obl_siif"/>
+                    </div>
+                    <div>
+                        <field name="journal_id_obl_siif_lic" class="oe_inline"/>
+                        <label for="journal_id_obl_siif_lic"/>
+                    </div>
+                </xpath>
+            </field>
+        </record>
+
+        <!-- -->
+        <record id="view_grp_res_company_form_siif_inherited" model="ir.ui.view">
+            <field name="name">grp.view.res.company.form.siif.inherited</field>
+            <field name="model">res.company</field>
+            <field name="inherit_id" ref="grp_compras_estatales.view_grp_res_company_form_inherited"/>
+            <field name="arch" type="xml">
+                <group name="grp_sice" position="after">
+                    <group name="grp_siif" string="SIIF">
+                        <field name="integracion_siif"/>
+                        <field name="exceptuado_sice"/>
+                        <field name="unverified_context"/>
+                        <field name="siif_concepto_gasto_lng"/>
+                        <field name="siif_concepto_gasto_aof"/>
+                        <field name="product_id_lng"/>
+                        <field name="product_id_aof"/>
+                        <field name="journal_id_obl_siif"/>
+                        <field name="journal_id_obl_siif_lic"/>
+                    </group>
+                </group>
+            </field>
+        </record>
+
+    </data>
+</openerp>

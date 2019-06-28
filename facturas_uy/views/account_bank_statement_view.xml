@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<openerp>
+	<data>
+
+        <record id="grp_view_bank_statement_form" model="ir.ui.view">
+            <field name="name">account.bank.statement.form.grp</field>
+            <field name="model">account.bank.statement</field>
+            <field name="inherit_id" ref="account.view_bank_statement_form"/>
+            <field name="arch" type="xml">
+                <label for="date" position="attributes">
+                    <attribute name="string">Fecha</attribute>
+                </label>
+                <field name="period_id" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </field>
+                <xpath expr="//sheet/notebook/page[@string='Transactions']/field[@name='line_ids']/tree[@string='Statement lines']/field[@name='date']" position="replace">
+                    <field name="state" invisible="1"/>
+                    <field name="entry_date" on_change="onchange_date(entry_date)"/>
+                    <field name="date" string="Fecha asiento" attrs="{'readonly':[('state','=','confirm')]}"/>
+                </xpath>
+                <!--<xpath expr="//sheet/notebook/page[@string='Cash Transactions']/field[@name='line_ids']/form[@string='Statement lines']/field[@name='date']" position="replace">-->
+                    <!--<field name="entry_date" />-->
+                    <!--<field name="date" string="Fecha asiento"/>-->
+                <!--</xpath>-->
+
+            </field>
+        </record>
+
+        <record id="grp_view_bank_statement_form2" model="ir.ui.view">
+            <field name="name">account.bank.statement.form.cash.grp</field>
+            <field name="model">account.bank.statement</field>
+            <field name="inherit_id" ref="account.view_bank_statement_form2"/>
+            <field name="arch" type="xml">
+
+                <field name="period_id" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </field>
+                <xpath expr="//sheet/notebook/page[@string='Cash Transactions']/field[@name='line_ids']/tree[@string='Statement lines']/field[@name='date']" position="replace">
+                    <field name="state" invisible="1"/>
+                    <field name="journal_entry_id" invisible="1"/>
+                    <field name="entry_date" on_change="onchange_date(entry_date)"/>
+                    <field name="date" string="Fecha asiento" attrs="{'readonly':[('state','=','confirm')]}"/>
+                </xpath>
+                <xpath expr="//sheet/notebook/page[@string='Cash Transactions']/field[@name='line_ids']/form[@string='Statement lines']/group/field[@name='date']" position="replace">
+                    <field name="state" invisible="1"/>
+                    <field name="journal_entry_id" invisible="1"/>
+                    <field name="entry_date" on_change="onchange_date(entry_date)"/>
+                    <field name="date" string="Fecha asiento" attrs="{'readonly':[('state','=','confirm')]}"/>
+                </xpath>
+
+            </field>
+        </record>
+
+    </data>
+</openerp>

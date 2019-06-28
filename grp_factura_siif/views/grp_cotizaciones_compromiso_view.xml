@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+
+        <!-- Accion -->
+        <record id="action_grp_cotizaciones_compromiso_prove" model="ir.actions.act_window">
+            <field name="name">Compromisos por proveedor</field>
+            <field name="res_model">grp.cotizaciones.compromiso.proveedor</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <!--Vista Tree-->
+        <record id="view_grp_cot_compromiso_prove_tree" model="ir.ui.view">
+            <field name="name">grp.cotizaciones.compromiso.proveedor.tree</field>
+            <field name="model">grp.cotizaciones.compromiso.proveedor</field>
+            <field name="arch" type="xml">
+                <tree string="Compromisos por proveedor" create="false">
+                    <field name="name"/>
+                    <field name="cot_id"/>
+                    <field name="pc_id"/>
+                    <field name="apg_id"/>
+                    <field name="provider_id"/>
+                    <field name="fiscalyear_id"/>
+                    <field name="nro_afectacion_siif"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+        <!--Vista Form-->
+        <record id="view_grp_cot_compormiso_prove_form" model="ir.ui.view">
+            <field name="name">grp.cotizaciones.compromiso.proveedor.from</field>
+            <field name="model">grp.cotizaciones.compromiso.proveedor</field>
+            <field name="arch" type="xml">
+                <form string="Compromisos por proveedor" create="false">
+                    <header>
+                        <button name="button_comprometer" type="object"  states="draft,recalled" class="oe_highlight" string="Comprometer" groups="grp_seguridad.grp_compras_apg_Responsable_SIIF"/>
+                        <button name="button_anular" string="Anular en SIIF" type="object" states="committed" groups="grp_seguridad.grp_compras_apg_Responsable_SIIF"/>
+                        <button name="action_anular" string="Anular" type="object" states="draft,recalled" class="oe_highlight"
+                            groups="grp_seguridad.grp_compras_apg_Responsable_SIIF"/>
+                        <button name="abrir_wizard_modif_cot_compromiso_siif" string="Nueva modificación" type="object" states="committed" groups="grp_seguridad.grp_compras_apg_Responsable_SIIF"/>
+                        <field name="state" widget="statusbar" statusbar_visible="draft,committed,recalled"/>
+                    </header>
+                    <sheet>
+                        <group>
+                            <group>
+                                <div cols="4">
+                                    <label for="name" class="oe_inline" attrs="{'invisible':[('state','=','draft')]}"/>
+                                    <h1>
+                                        <field name="name" attrs="{'invisible':[('state','=','draft')]}" readonly="1"/>
+                                        <label string="COMP borrador" attrs="{'invisible':[('state','!=','draft')]}"/>
+                                    </h1>
+                                </div>
+                                <div class="oe_right oe_button_box" name="buttons" style="float: right; margin-left: -30px;">
+                                    <button name="view_obligaciones" type="object"
+                                            attrs="{'invisible':[('obligaciones_count','=',0)]}"
+                                            class="oe_inline oe_stat_button" style="white-space: normal;" icon="fa-search">
+                                            <field name="obligaciones_count" widget="statinfo" string="Obligaciones"/>
+                                    </button>
+                                </div>
+                            </group>
+                        </group>
+                        <group name="main_group" col="4" colspan="2">
+                            <group>
+                                <field name="nro_compromiso" />
+                                <field name="cot_id" />
+                                <field name="pc_id" />
+                                <field name="provider_id"/>
+                                <field name="fiscalyear_id"/>
+                                <field name="inciso_siif_id"/>
+                                <field name="ue_siif_id"/>
+                                <field name="apg_id"/>
+                                <field name="nro_afectacion_siif"/>
+                                <field name="total_number_comp" attrs="{'readonly': [('state','=','committed')]}"/>
+                                <field name="total_comprometido"/>
+                            </group>
+                            <group>
+                                <field name="date"/>
+                                <field name="siif_tipo_ejecucion" />
+                                <field name="siif_concepto_gasto" />
+                                <field name='siif_financiamiento' />
+                                <field name="filtro_sir" invisible="1"/>
+                                <field name='siif_codigo_sir' domain="[('codigo','like',filtro_sir)]"/>
+                                <field name="siif_nro_fondo_rot"/>
+                                <field name="siif_tipo_documento" required="1"/>
+                                <field name="siif_descripcion" required="1"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Llaves presupuestales">
+                                <button name="action_llpapg_reload" string="Actualizar" type="object"
+                                        confirm="Esta seguro desea actualizar las líneas de la Llave presupuestal?"
+                                        attrs="{'invisible': [('state','=', 'committed')]}"
+                                        icon="terp-stock_effects-object-colorize"
+                                        class="oe_inline"/>
+                                <field name="llpapg_ids" nolabel="1" widget="one2many_list" colspan="4" attrs="{'readonly': [('state','=','committed')]}">
+                                    <tree string="Llave Presupuestal" delete="true" edit="true" create="false" editable="bottom">
+                                        <field name="odg_id" readonly="1"/>
+                                        <field name="auxiliar_id" readonly="1"/>
+                                        <field name="fin_id" readonly="1"/>
+                                        <field name="programa_id" readonly="1"/>
+                                        <field name="proyecto_id" readonly="1"/>
+                                        <field name="mon_id" readonly="1"/>
+                                        <field name="tc_id" readonly="1"/>
+                                        <field name="disponible" readonly="1"/>
+                                        <field name="importe" required="1"/>
+                                    </tree>
+                                </field>
+                                <field name="modif_compromiso_log_ids" readonly="1" colspan="4">
+                                    <tree string="Modificaciones">
+                                        <field name="cotizacion_compromiso_id" invisible="1"/>
+                                        <field name="tipo"/>
+                                        <field name="fecha"/>
+                                        <field name="objeto_gasto"/>
+                                        <field name="auxiliar"/>
+                                        <field name="financiamiento"/>
+                                        <field name="programa"/>
+                                        <field name="proyecto"/>
+                                        <field name="moneda"/>
+                                        <field name="tipo_credito"/>
+                                        <field name="importe"/>
+                                    </tree>
+                                </field>
+                            </page>
+                            <!-- Historial anulaciones -->
+                            <page string="Historial de anulaciones" attrs="{'invisible': [('anulacion_siif_log_ids', '=', [] )]}">
+                                <field name="anulacion_siif_log_ids" nolabel="1" widget="one2many_list">
+                                    <tree string="Historial anulaciones" delete="false" edit="false" create="false">
+                                         <field name="cotizacion_compromiso_id" invisible="1"/>
+                                         <field name="nro_comp_sist_aux" invisible="1"/>
+                                         <field name="fecha"/>
+                                         <field name="nro_afectacion_siif" widget="char"/>
+                                         <field name="nro_compromiso" widget="char"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <!-- menu -->
+        <menuitem id="menu_grp_cotiz_compromiso_prove" name="Compromisos por proveedor" action="action_grp_cotizaciones_compromiso_prove" sequence="2"
+                  parent="grp_compras_estatales.menu_cotiz"/>
+
+
+    </data>
+</openerp>

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+
+        <record id="grp_af_invoice_view_inherit" model="ir.ui.view">
+            <field name="name">account.invoice.supplier.inherit.af</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="grp_compras_estatales.invoice_grp_view_form_supplier"/>
+            <field name="arch" type="xml">
+                <field name="monto_moneda_base" position="after">
+                    <field name="obra_editable" invisible="1"/>
+                    <field name="active_expense"
+                           attrs="{'readonly':['|',('product_es_activo_fijo','=',True),('obra_editable','=',True)]}"/>
+                </field>
+            </field>
+        </record>
+
+        <record id="invoice_supplier_form_af_nc_inh" model="ir.ui.view">
+            <field name="name">account.invoice.supplier.form.nc_af_inh</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_supplier_form"/>
+            <field name="arch" type="xml">
+                <field name="supplier_invoice_number" position="after">
+                    <newline/>
+                    <field name="nc_asset" attrs="{'invisible':[('type','!=','in_refund')]}"/>
+                </field>
+            </field>
+        </record>
+
+        <!-- account_asset.view_invoice_asset_category -->
+        <!-- expr="//form/field[@name='invoice_line']/tree/field[@name='asset_category_id']" -->
+        <record id="invoice_supplier_form_obras_curso_inh" model="ir.ui.view">
+            <field name="name">account.invoice.supplier.form.obras.curso.inh</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account_asset.view_invoice_asset_category"/>
+            <field name="arch" type="xml">
+                <field name="asset_category_id" position="after">
+                    <field name="obra"
+                           attrs="{'readonly':[('obra_editable','=',False)],
+                                   'required': [('obra_editable','=',True)]}"/>
+                    <field name="product_stockable" invisible="1" />
+                </field>
+                <field name="asset_category_id" position="attributes">
+                    <attribute name="attrs">{'required':[('product_es_activo_fijo','=',True),('product_stockable','=',False)], 'readonly':['|','|',('product_es_activo_fijo','=',False),('obra_editable','=',True),('product_stockable','=',True)]}</attribute>
+                    <attribute name="options">{'save_readonly': true}</attribute>
+                </field>
+            </field>
+        </record>
+
+    </data>
+</openerp>

@@ -22,7 +22,6 @@
 
 import xlwt
 from datetime import datetime
-from openerp.osv import osv
 from openerp.addons.report_xls.report_xls import report_xls
 from openerp.addons.report_xls.utils import rowcol_to_cell
 from openerp.tools.translate import _
@@ -258,16 +257,12 @@ class general_ledger_xls_ext(general_ledger_xls):
             ll_cell_format + _xs['right'],
             num_format_str=report_xls.decimal_format)
 
+        # pos_order_obj = self.pool.get('pos.order')
         account_move_obj = self.pool.get('account.move')
         account_move_line_obj = self.pool.get('account.move.line')
         account_voucher_obj = self.pool.get('account.voucher')
         invoice_obj = self.pool.get('account.invoice')
         cnt = 0
-        ## Excel 2003 Límite Número de filas => 65.536
-        rows_qty = sum([ len(v) for v in _p['ledger_lines'].values() ])
-        if rows_qty > 65535:
-            raise osv.except_osv(u'Advertencia', u'Excel (*.xls) no permite más de 65 mil filas, por favor agregue filtros para reducir la cantidad de registros.')
-        ##
         for account in objects:
 
             display_initial_balance = _p['init_balance'][account.id]
@@ -378,13 +373,13 @@ class general_ledger_xls_ext(general_ledger_xls):
                             if voucher_ids:
                                 voucher = account_voucher_obj.browse(self.cr, self.uid, voucher_ids[0])
                                 if voucher.journal_id.type in ['bank','cash'] and voucher.type=='receipt':
-                                    ref_elements.append(u"Pago Cliente %s" % (voucher.number or voucher.reference))
+                                    ref_elements.append("Pago Cliente %s" % (voucher.number or voucher.reference))
                                 if voucher.journal_id.type in ['bank','cash'] and voucher.type=='payment':
-                                    ref_elements.append(u"Pago Proveedor %s" % (voucher.number or voucher.reference))
+                                    ref_elements.append("Pago Proveedor %s" % (voucher.number or voucher.reference))
                                 if voucher.journal_id.type in ['sale','sale_refund'] and voucher.type=='sale':
-                                    ref_elements.append(u"Recibo de venta %s" % (voucher.number or voucher.reference))
+                                    ref_elements.append("Recibo de venta %s" % (voucher.number or voucher.reference))
                                 if voucher.journal_id.type in ['purchase','purchase_refund'] and voucher.type=='purchase':
-                                    ref_elements.append(u"Recibo de compra %s" % (voucher.number or voucher.reference))
+                                    ref_elements.append("Recibo de compra %s" % (voucher.number or voucher.reference))
 
                     if not ref_elements and line.get('lref', False):
                         ref_elements.append("%s" % (line['lref']))

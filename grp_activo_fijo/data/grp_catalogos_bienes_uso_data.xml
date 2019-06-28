@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data noupdate="1">
+        <!-- Datos CATEGORIAS OBRAS DE ARTE -->
+        <record model="grp.cat_obras_arte" id="cat_1">
+            <field name="name">Pintura</field>
+        </record>
+        <record model="grp.cat_obras_arte" id="cat_2">
+            <field name="name">Escultura</field>
+        </record>
+        <record model="grp.cat_obras_arte" id="cat_3">
+            <field name="name">Grabado</field>
+        </record>
+        <record model="grp.cat_obras_arte" id="cat_4">
+            <field name="name">Tapiz</field>
+        </record>
+        <record model="grp.cat_obras_arte" id="cat_5">
+            <field name="name">Dibujo</field>
+        </record>
+        <record model="grp.cat_obras_arte" id="cat_6">
+            <field name="name">Collage</field>
+        </record>
+        <record model="grp.cat_obras_arte" id="cat_7">
+            <field name="name">Ensamblado</field>
+        </record>
+        <record model="grp.cat_obras_arte" id="cat_8">
+            <field name="name">Instalación</field>
+        </record>
+        <record model="grp.cat_obras_arte" id="cat_9">
+            <field name="name">Copia de pintura</field>
+        </record>
+        <record model="grp.cat_obras_arte" id="cat_10">
+            <field name="name">Copia de escultura</field>
+        </record>
+
+
+        <!-- Datos GENEROS OBRAS DE ARTE -->
+        <record model="grp.gen_obras_arte" id="gen_1">
+            <field name="name">Abstracto/Geométrico/Simbólico</field>
+        </record>
+        <record model="grp.gen_obras_arte" id="gen_2">
+            <field name="name">Figura Alegórica</field>
+        </record>
+        <record model="grp.gen_obras_arte" id="gen_3">
+            <field name="name">Figura Animal</field>
+        </record>
+        <record model="grp.gen_obras_arte" id="gen_4">
+            <field name="name">Figura Humana/Retrato</field>
+        </record>
+        <record model="grp.gen_obras_arte" id="gen_5">
+            <field name="name">Interiores</field>
+        </record>
+        <record model="grp.gen_obras_arte" id="gen_6">
+            <field name="name">Naturaleza Muerta/Bodegón</field>
+        </record>
+        <record model="grp.gen_obras_arte" id="gen_7">
+            <field name="name">Paisaje/Marina</field>
+        </record>
+
+
+        <!-- Datos FORMAS OBRAS DE ARTE -->
+        <record model="grp.forma_obras_arte" id="forma_1">
+            <field name="name">Cuadrada</field>
+        </record>
+        <record model="grp.forma_obras_arte" id="forma_2">
+            <field name="name">Rectangular</field>
+        </record>
+        <record model="grp.forma_obras_arte" id="forma_3">
+            <field name="name">Circular</field>
+        </record>
+        <record model="grp.forma_obras_arte" id="forma_4">
+            <field name="name">Oval</field>
+        </record>
+        <record model="grp.forma_obras_arte" id="forma_5">
+            <field name="name">Irregular</field>
+        </record>
+
+        <!-- Datos ETIQUETAS OBRAS DE ARTE -->
+        <record model="grp.etiquetas_obras_arte" id="etiq_1">
+            <field name="name">Óleo</field>
+        </record>
+        <record model="grp.etiquetas_obras_arte" id="etiq_2">
+            <field name="name">Acuarela</field>
+        </record>
+        <record model="grp.etiquetas_obras_arte" id="etiq_3">
+            <field name="name">Témpera</field>
+        </record>
+        <record model="grp.etiquetas_obras_arte" id="etiq_4">
+            <field name="name">Acrílico</field>
+        </record>
+        <record model="grp.etiquetas_obras_arte" id="etiq_5">
+            <field name="name">Esmalte</field>
+        </record>
+        <record model="grp.etiquetas_obras_arte" id="etiq_6">
+            <field name="name">Pastel</field>
+        </record>
+        <record model="grp.etiquetas_obras_arte" id="etiq_7">
+            <field name="name">Encáustica</field>
+        </record>
+        <record model="grp.etiquetas_obras_arte" id="etiq_8">
+            <field name="name">Temple</field>
+        </record>
+        <record model="grp.etiquetas_obras_arte" id="etiq_9">
+            <field name="name">Técnica Mixta</field>
+        </record>
+        <record model="grp.etiquetas_obras_arte" id="etiq_10">
+            <field name="name">Pintura Mural</field>
+        </record>
+        <record model="grp.etiquetas_obras_arte" id="etiq_11">
+            <field name="name">Otra</field>
+        </record>
+        <record model="grp.etiquetas_obras_arte" id="etiq_12">
+            <field name="name">Directo</field>
+        </record>
+        <record model="grp.etiquetas_obras_arte" id="etiq_13">
+            <field name="name">Modelado</field>
+        </record>
+        <record model="grp.etiquetas_obras_arte" id="etiq_14">
+            <field name="name">Alto Relieve</field>
+        </record>
+        <record model="grp.etiquetas_obras_arte" id="etiq_15">
+            <field name="name">Bajo Relieve</field>
+        </record>
+        <record model="grp.etiquetas_obras_arte" id="etiq_16">
+            <field name="name">Metal</field>
+        </record>
+        <record model="grp.etiquetas_obras_arte" id="etiq_17">
+            <field name="name">Madera</field>
+        </record>
+        <record model="grp.etiquetas_obras_arte" id="etiq_18">
+            <field name="name">Piedra</field>
+        </record>
+        <record model="grp.etiquetas_obras_arte" id="etiq_19">
+            <field name="name">Cemento</field>
+        </record>
+        <record model="grp.etiquetas_obras_arte" id="etiq_20">
+            <field name="name">Yeso</field>
+        </record>
+        <record model="grp.etiquetas_obras_arte" id="etiq_21">
+            <field name="name">Vidrio</field>
+        </record>
+        <record model="grp.etiquetas_obras_arte" id="etiq_22">
+            <field name="name">Pasta</field>
+        </record>
+        <record model="grp.etiquetas_obras_arte" id="etiq_23">
+            <field name="name">Resina</field>
+        </record>
+        <record model="grp.etiquetas_obras_arte" id="etiq_24">
+            <field name="name">Mármol</field>
+        </record>
+
+
+        <!-- Datos TIPOS DE BIEN DE INFORMATICA -->
+        <record model="grp.tipos_bien_informatica" id="tipos_bien_1">
+            <field name="name">Impresora</field>
+        </record>
+        <record model="grp.tipos_bien_informatica" id="tipos_bien_2">
+            <field name="name">Monitores</field>
+        </record>
+        <record model="grp.tipos_bien_informatica" id="tipos_bien_3">
+            <field name="name">PC</field>
+        </record>
+        <record model="grp.tipos_bien_informatica" id="tipos_bien_4">
+            <field name="name">Otros</field>
+        </record>
+
+        <record model="grp.tipos_bien_informatica" id="tipos_bien_5">
+            <field name="name">Software</field>
+        </record>
+
+        <!-- Datos TIPOS IMPRESORAS -->
+        <record model="grp.tipos_impresoras" id="tipo_1">
+            <field name="name">Multifunción</field>
+        </record>
+        <record model="grp.tipos_impresoras" id="tipo_2">
+            <field name="name">Blanco y Negro</field>
+        </record>
+        <record model="grp.tipos_impresoras" id="tipo_3">
+            <field name="name">Otros</field>
+        </record>
+
+        <!-- Datos MOTIVOS DE BAJA -->
+        <record model="grp.motivos_baja" id="motivo_baja_1">
+            <field name="name">Venta</field>
+        </record>
+        <record model="grp.motivos_baja" id="motivo_baja_2">
+            <field name="name">Deterioro</field>
+        </record>
+        <record model="grp.motivos_baja" id="motivo_baja_3">
+            <field name="name">Donación</field>
+        </record>
+        <record model="grp.motivos_baja" id="motivo_baja_4">
+            <field name="name">Otro</field>
+        </record>
+
+    </data>
+</openerp>

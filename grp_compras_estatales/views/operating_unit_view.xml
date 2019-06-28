@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="view_operating_unit_form_inherit_location" model="ir.ui.view">
+            <field name="name">operating.unit.form.inherit_location</field>
+            <field name="model">operating.unit</field>
+            <field name="inherit_id" ref="operating_unit.view_operating_unit_form"/>
+            <field name="arch" type="xml">
+                <field name="code" position="after">
+                    <field name="unidad_ejecutora" required="1"/>
+                    <field name="location_ids" widget="many2many_tags"/>
+                </field>
+            </field>
+        </record>
+
+    </data>
+</openerp>

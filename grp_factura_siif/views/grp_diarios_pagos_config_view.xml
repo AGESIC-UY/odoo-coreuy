@@ -1,0 +1,68 @@
+<openerp>
+    <data>
+
+        <record model="ir.ui.view" id="view_grp_diarios_pagos_config_tree">
+            <field name="name">Config_Diarios_Pagos_Tree</field>
+            <field name="model">grp.diarios.pagos.config</field>
+            <field name="arch" type="xml">
+                <tree string="Config Diarios Pagos" version="7.0">
+                    <field name="journal_id"/>
+                    <field name="siif_tipo_ejecucion_id"/>
+                    <field name="siif_concepto_gasto_id"/>
+                    <field name="siif_codigo_sir"/>
+                    <field name="company_id"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="view_grp_diarios_pagos_config_form">
+            <field name="name">Config_Diarios_Pagos_Form</field>
+            <field name="model">grp.diarios.pagos.config</field>
+            <field name="arch" type="xml">
+                <form string="Config Diarios Pagos" version="7.0">
+                    <sheet>
+                        <h1>Configuración Pagos SIIF</h1>
+                        <group>
+                            <group>
+                                <field name="journal_id" domain="[('type','in',['bank'])]"/> <!-- ['cash','bank'] -->
+                                <field name="company_id" readonly="1"/>
+                            </group>
+                            <group>
+                                <field name="siif_tipo_ejecucion_id"/>
+                                <field name="siif_concepto_gasto_id"/>
+                                <field name="siif_codigo_sir"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="view_grp_diarios_pagos_config_search">
+            <field name="name">view.grp.diarios.pagos.config.search</field>
+            <field name="model">grp.diarios.pagos.config</field>
+            <field name="arch" type="xml">
+                <search string="Search">
+                    <separator/>
+                    <group expand="0" string="Agrupar Por...">
+                        <filter string="Diario" domain="[]" context="{'group_by' : 'journal_id'}"/>
+                        <filter string="Concepto de Gasto" domain="[]" context="{'group_by' : 'siif_concepto_gasto_id'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="act_config_diarios_pagos_siif">
+            <field name="name">Configuración Pagos SIIF</field>
+            <field name="res_model">grp.diarios.pagos.config</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="view_grp_diarios_pagos_config_tree"/>
+        </record>
+
+        <menuitem id="menu_config_diarios_pagos_siif" action="act_config_diarios_pagos_siif"
+                  name="Configuración Pagos SIIF" parent="menu_config_siif" sequence="12"
+                  groups="grp_seguridad.grp_compras_apg_Responsable_SIIF"/>
+
+    </data>
+</openerp>

@@ -405,6 +405,11 @@ class GrpCajaRecaudadoraTesoreria(models.Model):
         for rec in self:
             rec.total_close_balance = rec.cash_close_balance + rec.check_close_balance
 
+    @api.model
+    def recompute_total_close(self):
+        self.env.add_todo(self._fields['total_close_balance'], self.search([]))
+        self.recompute()
+
     @api.multi
     @api.depends('voucher_ids.amount','voucher_ids')
     def _compute_total_in_amount(self):
@@ -804,7 +809,7 @@ class GrpCajaRecaudadoraTesoreria(models.Model):
                                            'amount': voucher.amount}])
                 for details_line in previous_box.voucher_details_ids.filtered(
                         lambda x: x.voucher_id.id == voucher.voucher_id.id):
-                    if details_line.id not in previous_voucher_details and details_line_id.caja_recaudadora_line_id.boleto_siif_id.state != u'collection_send':
+                    if details_line.id not in previous_voucher_details and details_line.boleto_siif_id.state != u'collection_send':
                         voucher_details.append([0, 0, {'voucher_id': details_line.voucher_id.id,
                                                        'vline_id': details_line.vline_id.id,
                                                        'origin_voucher_id': voucher.origin_voucher_id.id,
@@ -1851,6 +1856,13 @@ class GrpCajaRecaudadoraTesoreriaBoletoSiif(models.Model):
     _inherit = 'grp.caja.recaudadora.tesoreria'
     _name = 'grp.caja.recaudadora.tesoreria.boleto.siif'
     _description = u"Caja recaudadora tesorería boleto SIIF"
+
+    @api.multi
+    def name_get(self):
+        ctx = self.env.context.copy()
+        if 'name_get_field' in ctx and hasattr(self[:1], ctx['name_get_field']):
+            return [(r.id, r[ctx['name_get_field']]) for r in self]
+        return super(GrpCajaRecaudadoraTesoreriaBoletoSiif, self).name_get()
 
     date = fields.Date(u'Fecha')
     state = fields.Selection(

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="view_grp_alerta_validacion_procedimiento_compra" model="ir.ui.view">
+            <field name="name">Alerta de Validación de Procedimiento de Compra</field>
+            <field name="model">grp.alerta.validacion.procedimiento.wizard</field>
+            <field name="arch" type="xml">
+                <form string="Consolidar solicitudes" version="7.0">
+                    <group>
+                        <separator
+                                string="Al validar este procedimiento, se superará el importe tope de este tipo
+                                 de compra, para este producto en este año. Desea continuar? "/>
+                    </group>
+
+                    <footer>
+                        <button name="action_continue"
+                                string="Aceptar"
+                                type="object"
+                                />
+                        o
+                        <button string="Cancelar"
+                                class="oe_highlight"
+                                special="cancel"/>
+
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <act_window name="Alerta de Validación de Procedimiento de Compra"
+                    res_model="grp.alerta.validacion.procedimiento.wizard"
+                    src_model="grp.pedido.compra"
+                    view_mode="form"
+                    target="new"
+                    multi="True"
+                    key2="client_action_multi"
+                    id="action_view_grp_alerta_validacion_procedimiento_compra"/>
+
+    </data>
+</openerp>

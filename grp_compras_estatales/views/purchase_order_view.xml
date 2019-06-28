@@ -1,0 +1,542 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+
+        <!--Se oculta accion de Merge Purchase Orders-->
+        <record id="purchase.action_view_purchase_order_group" model="ir.actions.act_window">
+             <field name="groups_id" eval="[(6,0, [ref('base.group_no_one')])]"/>
+        </record>
+
+        <!--
+        ================================================================
+        Vista extendida de Ordenes de Compra
+        ================================================================
+        -->
+        <record id="purchase_form2_action" model="ir.actions.act_window">
+            <field name="name">Órdenes de Compra</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">purchase.order</field>
+            <field name="view_mode">tree,form,graph,calendar</field>
+            <field name="context">{}</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Click to create a quotation that will be converted into a purchase order.
+                </p>
+                <p>
+                    Use this menu to search within your purchase orders by
+                    references, supplier, products, etc. For each purchase order,
+                    you can track the related discussion with the supplier, control
+                    the products received and control the supplier invoices.
+                </p>
+            </field>
+        </record>
+
+        <!-- PCAR 29 12 2015 -->
+        <record id="inherited_view_purchase_order_filter" model="ir.ui.view">
+            <field name="name">grp.purchase.order.filter.inherit</field>
+            <field name="model">purchase.order</field>
+            <field name="arch" type="xml">
+                <search string="Search Purchase Order">
+                    <field name="name" string="Número de OC"/>
+                    <filter icon="terp-mail-message-new" string="Unread Messages" name="message_unread"
+                            domain="[('message_unread','=',True)]"/>
+                    <separator/>
+                    <filter icon="terp-document-new" name="draft" string="Presupuestos" domain="[('state','=','draft')]"
+                            help="Purchase orders which are in draft state"/>
+                    <filter icon="terp-check" name="approved" string="Aprobado"
+                            domain="[('state','not in',('draft','cancel'))]" help="Approved purchase orders"/>
+                    <filter icon="terp-emblem-important" name="exception" string="Excepción"
+                            domain="[('state','in',('except_invoice','except_picking'))]"
+                            help="Purchase orders which are in exception state"/>
+                    <separator/>
+                    <filter icon="terp-gtk-go-back-rtl" name="not_invoiced" string="No facturado"
+                            domain="[('invoice_ids','=', False)]"
+                            help="Purchase orders that include lines not invoiced."/>
+                    <filter icon="terp-gtk-go-back-rtl" name="en_financiero" string="En financiero"
+                            domain="[('en_financiero','=', True)]"/>
+                    <field name="partner_id" operator="child_of"/>
+                    <field name="product_id"/>
+                    <field name="create_uid"/>
+                    <field name="pedido_compra_id"/>
+                    <group expand="0" string="Group By...">
+                        <filter string="Proveedor" icon="terp-partner" domain="[]" context="{'group_by':'partner_id'}"/>
+                        <filter string="Origen" icon="terp-gtk-jump-to-rtl" domain="[]"
+                                context="{'group_by':'origin'}"/>
+                        <filter string="Estado" icon="terp-stock_effects-object-colorize" domain="[]"
+                                context="{'group_by':'state'}"/>
+                        <filter string="Fecha pedido" icon="terp-go-month" domain="[]"
+                                context="{'group_by':'date_order'}"/>
+                        <filter string="Fecha prevista" icon="terp-go-month" domain="[]"
+                                context="{'group_by':'minimum_planned_date'}"/>
+                        <filter string="Pedido de compra" name="pedido_compra_id" icon="terp-go-month" domain="[]"
+                                context="{'group_by':'pedido_compra_id'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <!-- PCAR 29 12 2015 -->
+        <record id="inherited_view_purchase_order_form" model="ir.ui.view">
+            <field name="name">grp.purchase.order.form.inherit</field>
+            <field name="model">purchase.order</field>
+            <field name="inherit_id" ref="purchase.purchase_order_form"/>
+            <field name="arch" type="xml">
+                <data>
+                    <form string="Purchase Order" position="attributes">
+                        <attribute name="create">false</attribute>
+                    </form>
+                    <xpath expr="//div[@class='oe_title']/h1" position="replace">
+                        <h1>
+                            <label string="OC en borrador " attrs="{'invisible': [('state','not in',('draft','sent'))]}"/>
+                            <label string="Orden de Compra " attrs="{'invisible': [('state','in',('draft','sent'))]}"/>
+                            <field name="name" class="oe_inline" readonly="1" attrs="{'invisible': [('state','in',('draft','sent'))]}"/>
+                        </h1>
+                    </xpath>
+
+                    <field name="state" position="attributes">
+                        <!--<attribute name="statusbar_visible">'draft,en_aprobacion,in_auth_odg,auth_ordenador,oc_confirmado,done,closed'</attribute>-->
+                        <attribute name="statusbar_visible">'draft,confirmed,done,closed'</attribute>
+                    </field>
+
+                    <xpath expr="/form/header//button[@name='print_quotation']" position="attributes">
+                        <attribute name="invisible">1</attribute>
+                    </xpath>
+
+                    <xpath expr="/form/header//button[@name='purchase_approve']" position="attributes">
+                        <attribute name="invisible">1</attribute>
+                    </xpath>
+
+                    <!--<xpath expr="/form/header//button[@name='purchase_confirm']" position="attributes">-->
+                            <!--<attribute name="groups"></attribute>-->
+                    <!--</xpath>-->
+                    <xpath expr="/form/header//button[@name='purchase_confirm']" position="after">
+                        <!--<button name="purchase_send_approve" attrs="{'invisible': ['|','|',('es_apg_jefe_compras','!=',True),('state','not in',['draft','sent']),('mostrar_apg_no_afectada','!=',True)]}" string="Enviar a Aprobar" class="oe_highlight" groups="grp_seguridad.grp_compras_apg_Comprador" confirm="La APG no se encuentra afectada, si se continúa la factura deberá pagarse por transferencia bancaria y reponerse por Fondo Rotatorio. ¿Desea continuar de todas formas?"/>-->
+                        <!--<button name="purchase_send_approve" attrs="{'invisible': ['|','|',('es_apg_jefe_compras','!=',True),('state','not in',['draft','sent']),('mostrar_apg_no_afectada','=',True)]}" string="Enviar a Aprobar" class="oe_highlight" groups="grp_seguridad.grp_compras_apg_Comprador"/>-->
+                        <!--<button name="purchase_send_to_approve" states="en_aprobacion" type="object" string="Aprobar" class="oe_highlight"-->
+                                <!--attrs="{'invisible': ['|',('es_apg_jefe_financiero','!=',True)]}" groups="grp_seguridad.grp_compras_apg_Jefe_de_compras"/>&lt;!&ndash; attrs="{'invisible':['|',('tipo_compra_char','in',('CD'))]}" &ndash;&gt;-->
+                        <!--<button name="button_autorizar" states="in_auth_odg" string="Autorizar" type="object" class="oe_highlight" groups="grp_seguridad.grp_compras_apg_Ordenador_del_gasto"/>-->
+                        <!--<button name="purchase_rechazar" states="in_auth_odg" string="Rechazar" groups="grp_seguridad.grp_compras_apg_Ordenador_del_gasto"/> &lt;!&ndash; cambio para visibilidad solo de Ordenador de Gasto, incidencia prod 04/04&ndash;&gt;-->
+                        <!--<button name="button_confirmar_oc" states="draft" type="object"-->
+                                <!--attrs="{'invisible': ['|','|','|','&amp;',('se_envia_siif','=',True),('comprometido','=',False),-->
+                                <!--'&amp;',('se_envia_sice','=',True),('enviado_sice','=',False)]}"-->
+                                <!--string="Confirmar OC" class="oe_highlight" groups="grp_seguridad.grp_compras_apg_Jefe_de_compras_2"/>&lt;!&ndash;TODO Spring 6 GAP 468. Mostrando solo en estado borrador&ndash;&gt;-->
+                         <!--Ocultado el boton incidencia ferchu 15/04 -->
+                        <!--<button name="button_enviar_autorizar" states="approved" string="Enviar Autorizar" type="object" class="oe_highlight" groups="grp_seguridad.grp_compras_apg_Jefe_de_compras"/>-->
+                        <button name="button_enviar_financiero" states="draft" string="Enviar Financiero" class="oe_highlight" attrs="{'invisible':['|',('en_financiero','=',True)]}" invisible="1" type="object" groups="grp_seguridad.grp_compras_apg_Jefe_de_compras_2"/><!-- Quitado mensaje confirm, inc 472, 26/02--><!--TODO Spring 6 GAP 468. Ocultando botón-->
+                        <!-- modificado, 18/01 segun modificaciones del WKF-->
+                        <button name="purchase_commit" states="confirmed" type="object" string="Comprometer" attrs="{'invisible':['|',('comprometido','=',True),'|',('en_financiero','=',False)]}" invisible="1" class="oe_highlight" groups="grp_seguridad.grp_compras_apg_Responsable_SIIF"/><!--TODO Spring 6 GAP 468. Ocultando botón-->
+                        <button name="purchase_finalizar" states="done" string="Finalizar" class="oe_highlight" groups="grp_seguridad.grp_compras_apg_Responsable_SIIF" confirm="Esta acción es irreversible. Asegúrese que la OC esté completada antes de continuar con esta acción"/>
+                    </xpath>
+
+                    <!--Nuevo boton para recibir facturas, 08/01-->
+                    <xpath expr="/form/header//button[@name='view_invoice']" position="after">
+                        <button name="btn_view_create_invoice" string="Receive Invoice" type="object"
+                                groups="grp_seguridad.grp_compras_pc_Responsable,base.group_no_one,grp_seguridad.grp_grupo_recibir_facturas,grp_seguridad.grp_compras_apg_Responsable_SIIF"
+                                attrs="{'invisible': ['|','|', ('invoice_method','in', ['picking']),('state','not in', ['confirmed', 'done']), ('tiene_factura_borrador','=',True)]}"
+                                class="oe_highlight"/>
+                        <!-- incidencia 478, cancelar Autorizada Ordenador, En Aprobacion 29/02-->
+                        <!--<button name="action_cancel" states="en_aprobacion,auth_ordenador" string="Cancelar" type="object"-->
+                                <!--groups="grp_seguridad.grp_compras_apg_Jefe_de_compras,grp_seguridad.grp_compras_apg_Jefe_de_compras_2"/>-->
+                        <!-- Incidencia 619, boton finalizar-->
+                        <button name="button_finalizar" states="confirmed" string="Finalizar" type="object" groups="grp_seguridad.grp_compras_apg_Responsable_SIIF" confirm="Esta acción es irreversible. ¿Está seguro que desea continuar?"/>
+                        <!-- incidencia 79, cancelar oc en estado OC Confirmado -->
+                        <!--<button name="action_cancel" states="confirmed,done" attrs="{'invisible': ['|',('comprometido','=',True)]}" string="Anular OC" type="object"-->
+                                <!--groups="grp_seguridad.grp_compras_apg_Jefe_de_compras,grp_seguridad.grp_compras_apg_Jefe_de_compras_2"/>-->
+                    </xpath>
+
+                    <button name="action_cancel_draft" position="attributes">
+                        <attribute name="states">cancel</attribute>
+                    </button>
+                    <button name="action_cancel" position="attributes">
+                        <attribute name="confirm">Esta seguro que desea cancelar el documento?</attribute>
+                        <attribute name="groups">grp_seguridad.grp_compras_apg_Jefe_de_compras,grp_seguridad.grp_compras_apg_Jefe_de_compras_2,grp_seguridad.grp_compras_pc_Comprador</attribute>
+                    </button>
+                    <!-- Poner invisible el boton de recibir factura, cambio 19/01 -->
+                    <xpath expr="/form/header//button[@name='view_invoice']" position="attributes">
+                        <attribute name="invisible">1</attribute>
+                    </xpath>
+                    <xpath expr="/form/header//button[@name='view_picking']" position="attributes">
+                        <!-- Se le agregan las condiciones de visibilidad sobre el campo boton_recibir_prod (comprometido = False)-->
+                        <attribute name="attrs">{'invisible': ['|','|',('shipped','=',True),('boton_recibir_prod','!=',True),('state','not in',['confirmed'])]}</attribute>
+                        <attribute name="groups">grp_seguridad.grp_compras_sr_Encargado_de_almacen,grp_seguridad.grp_compras_apg_Jefe_de_compras_2,base.group_no_one</attribute>
+                    </xpath>
+                    <button name="wkf_send_rfq" string="Send PO by Email" position="attributes">
+                        <attribute name="invisible">1</attribute>
+                    </button>
+                    <button name="wkf_send_rfq" string="Send RFQ by Email" position="attributes">
+                        <attribute name="invisible">1</attribute>
+                    </button>
+                    <button name="wkf_send_rfq" string="Re-Send RFQ by Email" position="attributes">
+                        <attribute name="invisible">1</attribute>
+                    </button>
+
+
+                    <!-- cambio para incidencia 227, echaviano 02/06-->
+                    <field name="partner_id" position="after">
+                        <!--<field name="odg_cot" on_change="onchange_odg_cot(odg_cot)"-->
+                               <!--options="{'create': false, 'create_edit': false}"-->
+                               <!--attrs="{'readonly': ['|',('state','not in',['en_aprobacion']),('es_apg_jefe_financiero','!=',True)],'required':[('state','=','en_aprobacion')]}"/>-->
+                        <!--<field name="tipo_odg" invisible="1" />-->
+                        <field name="es_migracion" invisible="1"/>
+                        <field name="descripcion"/>
+                        <!--16/12 - Agregando total de lineas -->
+                        <field name="total_lineas" string="Total de lineas"/>
+
+                        <newline/>
+                        <newline/>
+                        <div style="color:#7c7bad;font-weight: bold;font-size: 20px; margin: 15px 0 10px;">
+                            <label string="Estado OC"/>
+                        </div>
+                        <newline/>
+                        <!-- Campos para control 005-->
+                        <field name="enviado_sice" readonly="1"/> <!--TODO Spring 6 GAP 468: Solo lectura-->
+                        <field name="sice_id_oc" readonly="1"/> <!--TODO Spring 6 GAP 468: Solo lectura-->
+                        <field name="is_picking_required" invisible="1"/>
+
+                        <field name="en_financiero" readonly="1" invisible="1"/> <!--TODO Spring 6 GAP 468: Ocultar-->
+                        <field name="comprometido" readonly="1" invisible="1"/> <!--TODO Spring 6 GAP 468: Ocultar-->
+                        <field name="comprometido_char" invisible="1"/>
+
+                        <field name="sice_nro_oc" invisible="1"/>
+                        <field name="nro_afectacion_siif" widget="char" invisible="1"/> <!--TODO Spring 6 GAP 468: Ocultar-->
+                        <field name="nro_compromiso" string="Nro Compromiso SIIF" style="width:38%%" readonly="1" invisible="1"/> <!--TODO Spring 6 GAP 468: Ocultar-->
+
+                        <!-- Para control de campos enviar siif y sice 15/02-->
+                        <!--<field name="es_cd_mayor_menor" invisible="1"/>-->
+                        <!--<field name="se_envia_sice" groups="base.group_no_one" invisible="1"/> &lt;!&ndash;TODO Spring 6 GAP 468: Ocultar&ndash;&gt;-->
+                        <!--<field name="se_envia_siif" invisible="1" readonly="1"/> &lt;!&ndash;TODO Spring 6 GAP 468: Ocultar&ndash;&gt;-->
+
+                        <!-- PCARBALLO Incidencia 87 -->
+                        <field name="boton_recibir_prod" invisible="1"/>
+                        <field name="tiene_factura_borrador" invisible="1"/>
+                        <field name="es_apg_jefe_compras" invisible="1" />
+                        <field name="es_apg_jefe_financiero" invisible="1" />
+                        <field name="es_almacenero" invisible="1" />
+                        <field name="mostrar_apg_no_afectada" invisible="1" />
+
+    					<field name="invoiced_grp" invisible="1"/>
+
+                    </field>
+
+                    <field name="partner_id" position="attributes">
+                        <attribute name="attrs">{'readonly': ['|',('state','not in',['draft']),('doc_origen','!=',False)]}</attribute>
+                    </field>
+
+                    <field name="partner_ref" position="attributes">
+                        <attribute name="invisible">1</attribute>
+                    </field>
+
+                    <field name="origin" position="attributes">
+                        <attribute name="invisible">1</attribute>
+                    </field>
+
+                    <field name="date_order" position="attributes">
+                        <attribute name="attrs">{'readonly': [('state','not in',['draft'])]}</attribute>
+                        <attribute name="string">Fecha</attribute>
+                    </field>
+
+                    <field name="date_order" position="after">
+                        <field name="sice_nro" invisible="1"/>
+                        <!-- on_change="onchange_origen(doc_origen)" -->
+                        <field name="pedido_compra_id"
+                               domain="[('state','not in',['inicio','cancelado','cancelado_sice'])]"
+                               attrs="{'readonly':['|',('state','not in',['draft']),'&amp;',('doc_origen','!=',False),('origin','!=',False)]}"
+                               on_change="onchange_pedido(pedido_compra_id,doc_origen)"
+                               options="{'limit': 10, 'create': false, 'create_edit': false, 'm2o_dialog': false }"
+                               required="1"/>
+                        <field name="doc_origen" domain="[('pedido_compra_id','=',pedido_compra_id),('state','not in',['draft'])]"
+                               attrs="{'readonly': ['|',('state','not in',['draft']),'&amp;',('origin','!=',False),('state','in',['draft'])]}"/>
+                        <field name="pc_apg_id" domain="[('pc_id', '=', pedido_compra_id),('state','in',['afectado'])]"
+                               attrs="{'invisible':[('pedido_compra_id','=',False)],'readonly':[('state','!=','draft')]}"
+                               options="{'create': false, 'create_edit': false}"
+                               on_change="onchange_pc_apg_id(pc_apg_id, pedido_compra_id)"/>
+                        <field name="operating_unit_id"/>
+                        <field name="currency_oc" domain="[('name','in',('USD','UYU','EUR'))]" on_change="onchange_date_currency_id(currency_oc,fecha_tipo_cambio_oc)"
+                                attrs="{'readonly': ['|',('state','not in',['draft']),'&amp;',('origin','!=',False),('state','in',['draft'])]}"/>
+                        <field name="cod_moneda" readonly="1"/>
+                        <field name="fecha_tipo_cambio_oc" on_change="onchange_date_currency_id(currency_oc,fecha_tipo_cambio_oc)" attrs="{'readonly':[('state','in',('confirmed','done','cancel')),('resp_siif_en_financiero','!=',True)]}"/>
+                        <field name="tipo_de_cambio_fnc"/>
+                        <field name="responsable_siif_editable" invisible="True"/>
+                        <field name="resp_siif_en_financiero" invisible="True"/>
+                        <field name="tipo_de_cambio" invisible="True"/>
+                    </field>
+                    <field name="company_id" position="attributes">
+                        <attribute name="attrs">{'readonly': [('state','not in',['draft'])]}</attribute>
+                    </field>
+
+                    <!--nivel de paginas-->
+                    <field name="order_line" position="attributes">
+                        <attribute name="attrs">{'readonly': [('state','not in',['draft'])]}</attribute>
+                    </field>
+                    <!--                               @string='Products'                                [@string='Purchase Order Lines']-->
+                    <xpath expr="//sheet/notebook/page[position()=1]/field[@name='order_line']/tree/field[@name='product_uom']"
+                        position="attributes">
+                        <attribute name="string">UdM</attribute>
+                    </xpath>
+                    <xpath expr="//sheet/notebook/page[position()=1]/field[@name='order_line']/tree/field[@name='price_unit']"
+                        position="attributes">
+                        <attribute name="string">Precio unitario</attribute>
+                        <attribute name="attrs">{'readonly': [('state','not in',['draft'])]}</attribute>
+                    </xpath>
+                    <xpath expr="//sheet/notebook/page[position()=1]/field[@name='order_line']/tree/field[@name='price_unit']" position="after">
+                        <field name="precio_sin_iva"/>
+                    </xpath>
+                    <xpath expr="//sheet/notebook/page[position()=1]/field[@name='order_line']/tree/field[@name='name']"
+                        position="attributes">
+                        <attribute name="attrs">{'readonly': [('state','not in',['draft'])]}</attribute>
+                    </xpath>
+                    <xpath expr="//sheet/notebook/page[position()=1]/field[@name='order_line']/tree/field[@name='date_planned']"
+                        position="attributes">
+                        <attribute name="attrs">{'readonly': [('state','not in',['draft'])]}</attribute>
+                    </xpath>
+                    <xpath expr="//sheet/notebook/page[position()=1]/field[@name='order_line']/tree/field[@name='product_qty']"
+                        position="attributes">
+                        <attribute name="attrs">{'readonly': [('state','not in',['draft'])]}</attribute>
+                    </xpath>
+                    <xpath expr="//sheet/notebook/page[position()=1]/field[@name='order_line']/tree/field[@name='product_id']"
+                        position="attributes">
+                        <attribute name="options">{'limit': 10, 'create': false, 'create_edit': false}</attribute>
+                        <attribute name="attrs">{'readonly': [('state','not in',['draft'])]}</attribute>
+                    </xpath>
+                    <xpath expr="//sheet/notebook/page[position()=1]/field[@name='order_line']/tree/field[@name='product_id']"
+                        position="after">
+                        <field name="grp_sice_cod"/>
+                        <field name="desc_variacion" readonly="1"/>
+                    </xpath>
+
+                    <!-- PCARBALLO precio iva incluido -->
+                    <field name="price_unit" position="attributes">
+                        <attribute name="string">Precio IVA incluido</attribute>
+                    </field>
+
+                    <field name="price_subtotal" position="after">
+		    		    <field name="qty_invoiced" invisible="1"/>
+	    			    <field name="qty_pendiente"/>
+                    </field>
+
+                    <!-- PCARBALLO Se ocultan los campos Plazo de pago y posicion fiscal dado que no son utiles. -->
+                    <field name="payment_term_id" position="attributes">
+                        <attribute name="invisible">1</attribute>
+                        <attribute name="attrs">{'readonly': [('state','not in',['draft'])]}</attribute>
+                    </field>
+                    <field name="fiscal_position" position="attributes">
+                        <attribute name="invisible">1</attribute>
+                        <attribute name="attrs">{'readonly': ['|',('state','not in',['draft']),('invoiced','=',True)]}</attribute>
+                    </field>
+                    <field name="company_id" position="attributes">
+                        <attribute name="invisible">1</attribute>
+                        <attribute name="required">0</attribute>
+                    </field>
+                    <field name="location_id" position="replace">
+                    </field>
+                    <field name="currency_id" position="attributes">
+                        <attribute name="options">{'limit': 10, 'create': false, 'create_edit': false}</attribute>
+                        <attribute name="invisible">1</attribute>
+                    </field>
+                    <field name="picking_type_id" position="before">
+                        <field name="location_ids_related" invisible="1"/>
+                        <field name="location_id" attrs="{'readonly' : [('state','not in',['draft'])], 'required': [('is_picking_required','=', True)]}"
+                               options="{'limit': 10, 'create': false, 'create_edit': false}"
+                               on_change="onchange_location(location_id)"
+                               domain="[('active','=',True),('usage','in',['internal']),('id','in',location_ids_related[0][2])]"
+                               string="Ubicación"/>
+                        <field name="pick_type_cpy" domain="[('code','=','incoming')]" string="Almacén"
+                               options="{'limit': 10, 'create': false, 'create_edit': false}"
+                               context="{'special_shortened_wh_name': True}"/>
+                    </field>
+                    <field name="location_id" position="before">
+                        <field name="tipo_compra_char"/>
+                    </field>
+                    <field name="picking_type_id" position="attributes">
+                        <attribute name="invisible">0</attribute>
+                        <attribute name="required">0</attribute>
+                        <attribute name="options">{'create': false, 'create_edit': false}</attribute>
+                        <attribute name="context">{'special_shortened_wh_name': True}</attribute>
+                    </field>
+
+                    <field name="dest_address_id" position="attributes">
+                        <attribute name="invisible">1</attribute>
+                        <attribute name="required">0</attribute>
+                        <attribute name="attrs">{'readonly': [('state','not in',['draft'])]}</attribute>
+                    </field>
+
+                    <field name="minimum_planned_date" position="attributes">
+                        <attribute name="attrs">{'readonly': [('state','not in',['draft'])]}</attribute>
+                    </field>
+
+                    <field name="shipped" position="after">
+                        <field name="plazo_entrega_sel" attrs="{'required': [('state','=','draft')], 'readonly': [('state','!=','draft')]}"/>
+                        <field name="forma_pago" attrs="{'required': [('state','=','draft')], 'readonly': [('state','!=','draft')]}"/>
+                        <field name="centro_de_costos" on_change="onchange_centro_de_costos(centro_de_costos)"
+                               options="{'limit': 10, 'create': false, 'create_edit': false}"/>
+                        <field name="referencia" invisible="1"/>
+                        <field name="referencia_cpy"/>
+                        <field name="horario_dir" attrs="{'required': [('state','=','draft')], 'readonly': [('state','!=','draft')]}"/>
+                    </field>
+                    <page string="RFQ &amp; Bid" position="attributes">
+                        <attribute name="invisible">1</attribute>
+                    </page>
+                    <xpath expr="//notebook">
+                        <page string="Términos y condiciones" invisible="1">
+                            <group>
+                                <field name="plazo_pago" style="width: 30%%"
+                                       attrs="{'readonly': [('state','in',['sent','except_picking','except_invoice','cancel','done','en_aprobacion','in_auth_odg','confirmed','approved'])]}"/>
+                                <field name="dependencia_lugar" style="width: 50%%"
+                                       attrs="{'readonly': [('state','in',['sent','except_picking','except_invoice','cancel','done','en_aprobacion','in_auth_odg','confirmed','approved'])]}"/>
+                                <field name="terminos_condiciones"
+                                       attrs="{'readonly': [('state','in',['sent','except_picking','except_invoice','cancel','done','en_aprobacion','in_auth_odg','confirmed','approved'])]}"/>
+                            </group>
+                        </page>
+                        <page string="APG">
+                            <group>
+                                <field name='page_apg_oc' nolabel="1" widget='one2many_list' context=""
+                                       attrs="{'readonly': ['|',('state','in',['en_aprobacion','in_auth_odg','confirmed','approved']),'&amp;',('doc_origen','!=',False),'&amp;',('origin','!=',False),('state','in',['draft'])]}"
+                                       options="{'save_readonly':True}">
+                                    <tree string="APG" editable="bottom" create="false">
+                                        <field name="nro_apg"/>
+                                        <field name="descripcion_apg"/>
+                                        <field name="monto_apg"/>
+                                        <field name="currency"
+                                               domain="['|',( 'name','=','USD' ),( 'name','=','UYU' )]"/>
+                                        <field name="fecha_apg"/>
+                                        <field name="nro_afectacion_apg"/>
+                                    </tree>
+                                </field>
+                                <!--<newline/>-->
+                                <!--<div class="oe_right oe_button_box">-->
+                                    <!--<button name="button_reset_apg_llave" string="Actualizar" type="object"-->
+                                            <!--attrs="{'invisible': [('state','=','closed')]}"-->
+                                            <!--icon="terp-stock_effects-object-colorize" class="oe_inline"/>-->
+                                <!--</div>-->
+                            </group>
+                        </page>
+                        <page string="Adjuntos">
+                            <group>
+                                <field name="attachment_ids" nolabel="1">
+                                    <!--widget="many2many_binary">-->
+                                    <tree string="Adjuntos" delete="true" create="true">
+                                        <field name="res_name_computed" string="Nro doc"/>
+                                        <field name="name" string="Nombre Doc"/>
+                                        <field name="create_date"/>
+                                        <!--<field name="datas_fname"/>-->
+                                        <field name="res_model" string="Tipo Doc" invisible="1"/>
+                                    </tree>
+                                </field>
+                            </group>
+                        </page>
+
+                    </xpath>
+                    <field name="notes" position="attributes">
+                        <attribute name="invisible">1</attribute>
+                    </field>
+
+                    <xpath expr="//page[@string='Products']/group[@class='oe_subtotal_footer oe_right']" position="replace">
+                      <group col="2">
+                        <group class="oe_subtotal_footer oe_right">
+                            <field name="amount_untaxed" widget="monetary" options="{'currency_field': 'currency_oc'}"/>
+                            <field name="amount_tax" widget="monetary" options="{'currency_field': 'currency_oc'}"/>
+                            <div class="oe_subtotal_footer_separator oe_inline">
+                                <label for="amount_total"/>
+                                <button name="button_dummy"
+                                    states="draft" string="(update)" type="object" class="oe_edit_only oe_link"/>
+                            </div>
+                            <field name="amount_total" nolabel="1" class="oe_subtotal_footer_separator" widget="monetary" options="{'currency_field': 'currency_oc'}"/>
+                            <field name="amount_total_base" class="oe_subtotal_footer_separator oe_inline" widget="monetary" options="{'currency_field': 'company_currency_id'}" /><!-- PCARBALLO: Se comenta el atributo attrs.  attrs="{'invisible':[('diference_moneda','=',False)]}"/> -->
+                            <field name="diference_moneda" invisible="1"/>
+                            <field name="company_currency_id" invisible="1"/>
+                        </group>
+                      </group>
+                    </xpath>
+
+                </data>
+            </field>
+        </record>
+
+        <record id="purchase_order_2_stock_picking_inherited" model="ir.ui.view">
+            <field name="name">grp.purchase.order.stock_picking_inherited2</field>
+            <field name="model">purchase.order</field>
+            <field name="inherit_id" ref="purchase.purchase_order_2_stock_picking"/>
+            <field name="arch" type="xml">
+                <button name="invoice_open" position="attributes">
+                    <attribute name="groups">grp_seguridad.grp_compras_apg_Responsable_SIIF,grp_seguridad.grp_compras_pc_Comprador</attribute>
+                    <attribute name="attrs">{'invisible': [('invoice_count', '=', 0)]}</attribute>
+                </button>
+                <button name="view_picking" class="oe_stat_button" position="attributes">
+                    <!--<attribute name="attrs">{'invisible': ['|','|','&amp;',('es_apg_jefe_compras','!=',True),('es_almacenero','!=',True),('shipment_count', '=', 0),('state','not in',['confirmed','done'])]}</attribute>-->
+                    <attribute name="attrs">{'invisible': ['|',('shipment_count', '=', 0),'&amp;',('es_apg_jefe_compras','!=',True),('es_almacenero','!=',True)]}</attribute>
+                </button>
+            </field>
+        </record>
+
+        <record id="inherited_view_purchase_order_tree" model="ir.ui.view">
+            <field name="name">grp.purchase.order.tree.inherit</field>
+            <field name="model">purchase.order</field>
+            <field name="type">tree</field>
+            <field name="inherit_id" ref="purchase.purchase_order_tree"/>
+            <field name="arch" type="xml">
+                <data>
+                    <tree string="Purchase Order" position="attributes">
+                        <attribute name="create">false</attribute>
+                    </tree>
+                    <field name="name" position="replace">
+                        <field name="name" string="Numero OC"/>
+                    </field>
+                    <field name="name" position="after">
+                        <field name="pedido_compra_id"/>
+                    </field>
+                    <field name="date_order" position="replace">
+                        <field name="date_order" string="Fecha OC"
+                               attrs="{'readonly' : [('state','not in',['draft'])]}"/>
+                    </field>
+                    <field name="minimum_planned_date" position="replace">
+                        <field name="minimum_planned_date" invisible="1"/>
+                    </field>
+                    <field name="amount_untaxed" position="replace">
+                        <field name="amount_untaxed" invisible="1"/>
+                    </field>
+                    <field name="amount_total" position="replace">
+                        <field name="amount_total" invisible="1"/>
+                    </field>
+                    <field name="origin" position="attributes">
+                            <attribute name="invisible">1</attribute>
+                    </field>
+                    <field name="origin" position="after">
+                        <field name="doc_origen"/>
+                        <field name="operating_unit_id"/>
+                        <field name="tipo_compra" invisible="1"/>
+                        <field name="tipo_compra_char"/>
+                    </field>
+                </data>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="purchase_order_line_form_inherit_grp">
+            <field name="name">purchase.order.line.form.inherit.grp</field>
+            <field name="model">purchase.order.line</field>
+            <field name="inherit_id" ref="purchase.purchase_order_line_form"/>
+            <field name="arch" type="xml">
+                <field name="price_unit" position="after">
+                    <field name="cotizaciones_linea_id" invisible="1"/>
+                </field>
+                <field name="price_unit" position="attributes">
+                    <attribute name="attrs">{'readonly': [('cotizaciones_linea_id', '!=', False)]}</attribute>
+                </field>
+                <field name="product_id" position="attributes">
+                    <attribute name="attrs">{'readonly': [('cotizaciones_linea_id', '!=', False)]}</attribute>
+                </field>
+                <field name="taxes_id" position="attributes">
+                    <attribute name="attrs">{'readonly': [('cotizaciones_linea_id', '!=', False)]}</attribute>
+                </field>
+            </field>
+        </record>
+
+        <menuitem id="menu_or_main" name="Órdenes de Compras" parent="menu_grp_main" sequence="10"
+                  groups="grp_seguridad.grp_compras_pc_Comprador,grp_seguridad.grp_compras_apg_Comprador,grp_seguridad.grp_compras_sr_Encargado_de_almacen"/>
+
+        <menuitem id="menu_or" parent="menu_or_main" name="Órdenes de Compra" action="purchase_form2_action"
+                  sequence="26"
+                  groups="grp_seguridad.grp_compras_pc_Comprador,grp_seguridad.grp_compras_apg_Comprador,grp_seguridad.grp_compras_sr_Encargado_de_almacen"/>
+
+
+    </data>
+</openerp>

@@ -64,24 +64,88 @@
                                     <td width="200px" style="font-size:20px;"><strong>Importes SIIF</strong></td>
                                     <td width="200px"></td>
                                 </tr>
-                                <tr>
-                                    <td width="200px"><p><b>Nro. Afectación:</b></p></td>
-                                    <td width="200px"><span t-field="o.nro_afectacion"/></td>
-                                    <td width="200px"><p><b>Total Reponer FR:</b></p></td>
-                                    <td width="200px"><span t-field="o.total_reponer"/></td>
-                                </tr>
-                                <tr>
-                                    <td width="200px"><p><b>Nro. Compromiso:</b></p></td>
-                                    <td width="200px"><span t-field="o.nro_compromiso"/></td>
-                                    <td width="200px"><p><b>Total Retenciones FR:</b></p></td>
-                                    <td width="200px"><span t-field="o.total_retenciones"/></td>
-                                </tr>
-                                <tr>
-                                    <td width="200px"><p><b>Nro. Obligación:</b></p></td>
-                                    <td width="200px"><span t-field="o.nro_obligacion"/></td>
-                                    <td width="200px"><p><b>Líquido Pagable FR:</b></p></td>
-                                    <td width="200px"><span t-field="o.liquido_pagable"/></td>
-                                </tr>
+                                <t t-if="not o.currency_id or o.currency_id.id == res_company.currency_id.id">
+                                    <tr>
+                                        <td width="200px"><p><b>Nro. Afectación:</b></p></td>
+                                        <td width="200px"><span t-field="o.nro_afectacion"/></td>
+                                        <t t-if="send_currency2siif">
+                                          <td width="200px"><p><b>Total Reponer FR:</b></p></td>
+                                          <td width="200px"><span t-field="o.total_reponer"/></td>
+                                        </t>
+                                        <t t-else="">
+                                          <td width="200px"><p><b>Total nominal manual:</b></p></td>
+                                          <td width="200px"><span t-field="o.total_nominal_comprobantes_manual"/></td>
+                                        </t>
+                                    </tr>
+                                    <tr>
+                                        <td width="200px"><p><b>Nro. Compromiso:</b></p></td>
+                                        <td width="200px"><span t-field="o.nro_compromiso"/></td>
+                                        <t t-if="send_currency2siif">
+                                          <td width="200px"><p><b>Total Retenciones FR:</b></p></td>
+                                          <td width="200px"><span t-field="o.total_retenciones"/></td>
+                                        </t>
+                                        <t t-else="">
+                                          <td width="200px"><p><b>Total retenciones manual:</b></p></td>
+                                          <td width="200px"><span t-field="o.total_retenciones_currency_manual"/></td>
+                                        </t>
+                                    </tr>
+                                    <tr>
+                                        <td width="200px"><p><b>Nro. Obligación:</b></p></td>
+                                        <td width="200px"><span t-field="o.nro_obligacion"/></td>
+                                        <t t-if="send_currency2siif">
+                                          <td width="200px"><p><b>Líquido Pagable FR:</b></p></td>
+                                          <td width="200px"><span t-field="o.liquido_pagable"/></td>
+                                        </t>
+                                        <t t-else="">
+                                          <td width="200px"><p><b>Total liquido pagable manual:</b></p></td>
+                                          <td width="200px"><span t-field="o.total_liquido_pagable_manual"/></td>
+                                        </t>
+                                    </tr>
+                                </t>
+                                <t t-if="o.currency_id and o.currency_id.id != res_company.currency_id.id">
+                                    <tr>
+                                        <td width="200px"><p><b>Nro. Afectación:</b></p></td>
+                                        <td width="200px"><span t-field="o.nro_afectacion"/></td>
+                                        <td width="200px"><p><b>Tipo de cambio presupuesto:</b></p></td>
+                                        <td width="200px"><span t-field="o.currency_rate_presupuesto"/></td>
+                                    </tr>
+                                    <tr>
+                                        <td width="200px"><p><b>Nro. Compromiso:</b></p></td>
+                                        <td width="200px"><span t-field="o.nro_compromiso"/></td>
+                                        <td width="200px"><p><b>Total nominal M/E:</b></p></td>
+                                        <td width="200px"><span t-field="o.total_nominal_comprobantes"/></td>
+                                    </tr>
+                                    <tr>
+                                        <td width="200px"><p><b>Nro. Obligación:</b></p></td>
+                                        <td width="200px"><span t-field="o.nro_obligacion"/></td>
+                                        <td width="200px"></td>
+                                        <td width="200px"></td>
+                                    </tr>
+                                    <tr>
+                                        <td width="200px"></td>
+                                        <td width="200px"></td>
+                                        <td width="200px"><p><b>Líquido pagable M/E:</b></p></td>
+                                        <td width="200px"><span t-field="o.total_liquido_pagable"/></td>
+                                    </tr>
+                                    <tr>
+                                        <td width="200px"></td>
+                                        <td width="200px"></td>
+                                        <td width="200px"><p><b>Total Reponer FR:</b></p></td>
+                                        <td width="200px"><span t-field="o.total_reponer"/></td>
+                                    </tr>
+                                    <tr>
+                                        <td width="200px"></td>
+                                        <td width="200px"></td>
+                                        <td width="200px"><p><b>Total Retenciones FR:</b></p></td>
+                                        <td width="200px"><span t-field="o.total_retenciones"/></td>
+                                    </tr>
+                                    <tr>
+                                        <td width="200px"></td>
+                                        <td width="200px"></td>
+                                        <td width="200px"><p><b>Líquido Pagable FR:</b></p></td>
+                                        <td width="200px"><span t-field="o.liquido_pagable"/></td>
+                                    </tr>
+                                </t>
                             </table>
                             <p>
                             </p>

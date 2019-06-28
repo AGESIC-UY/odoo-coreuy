@@ -1,0 +1,118 @@
+<openerp>
+    <data>
+
+        <record model="ir.ui.view" id="view_grp_integracion_intervenidas">
+            <field name="name">view.integracion.intervenidas</field>
+            <field name="model">grp.integracion.intervenidas</field>
+            <field name="priority" eval="14"/>
+            <field name="arch" type="xml">
+                <tree string="Facturas intervenidas" version="7.0" create="false" edit="false" colors="red:state=='error';blue:state=='processed'">
+                    <field name="factura_grp_id"/>
+                    <field name="nro_doc_afectacion"/>
+                    <field name="nro_doc_compromiso"/>
+                    <field name="nro_doc_obligacion"/>
+                    <field name="nro_lote_oblig"/>
+                    <field name="sec_obligacion"/>
+                    <field name="anio_fiscal"/>
+                    <field name="ruc"/>
+                    <field name="concepto_de_gasto"/>
+                    <field name="inciso"/>
+                    <field name="moneda"/>
+                    <field name="unidad_ejecutora"/>
+                    <field name="state"/>
+                    <field name="resultado"/>
+                    <field name="fecha_aprobado_date"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="view_grp_integracion_intervenidas_form">
+            <field name="name">view.integracion.intervenidas.form</field>
+            <field name="model">grp.integracion.intervenidas</field>
+            <field name="priority" eval="15"/>
+            <field name="arch" type="xml">
+                <form string="Facturas intervenidas" version="7.0" edit="false">
+                    <group>
+                        <group>
+                            <field name="factura_grp_id"/>
+                            <field name="nro_doc_afectacion"/>
+                            <field name="nro_doc_compromiso"/>
+                            <field name="nro_doc_obligacion"/>
+                            <field name="nro_lote_oblig"/>
+                            <field name="sec_obligacion"/>
+                            <field name="state"/>
+                            <field name="timestamp_aprobado"/>
+                            <field name="timestamp"/>
+                            <field name="usuario_aprobador"/>
+                        </group>
+                        <group>
+                            <field name="anio_fiscal"/>
+                            <field name="ruc"/>
+                            <field name="concepto_de_gasto"/>
+                            <field name="inciso"/>
+                            <field name="moneda"/>
+                            <field name="monto_obligacion"/>
+                            <field name="monto_retenciones"/>
+                            <field name="liquido_a_pagar"/>
+                            <field name="unidad_ejecutora"/>
+                        </group>
+                    </group>
+                </form>
+            </field>
+        </record>
+
+        <!--<record model="ir.actions.server" id="act_serv_integracion_intervenidas">-->
+            <!--<field name="name">Procesar facturas</field>-->
+            <!--<field name="model_id" ref="model_grp_integracion_intervenidas"/>-->
+            <!--<field name="state">code</field>-->
+            <!--<field name="code">obj.ejecutarme(context=context)</field>-->
+        <!--</record>-->
+
+        <!--<record id="ir_value_integracion_intervenidas" model="ir.values">-->
+            <!--<field eval="'client_action_multi'" name="key2"/>-->
+            <!--<field eval="'grp.integracion.intervenidas'" name="model"/>-->
+            <!--<field name="name">Procesar facturas intervenidas</field>-->
+            <!--<field eval="'ir.actions.server,%d'%act_serv_integracion_intervenidas" name="value"/>-->
+        <!--</record>-->
+
+        <record model="ir.ui.view" id="integracion_intervenidas_search">
+            <field name="name">grp.integracion.intervenidas.search</field>
+            <field name="model">grp.integracion.intervenidas</field>
+            <field name="arch" type="xml">
+                <search string="Search Request">
+                    <filter icon="terp-mail-message-new" string="Pendientes" name="filter_pendants"
+                            domain="[('state','=','pendant')]"/>
+                    <filter icon="terp-mail-message-new" string="Procesadas" name="filter_processed"
+                            domain="[('state','=','processed')]"/>
+                    <separator/>
+                    <group expand="0" string="Agrupar por...">
+                        <filter string="Estado" domain="[]" context="{'group_by' : 'state'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record id="action_integracion_intervenidas_search" model="ir.actions.act_window">
+            <field name="name">Consulta facturas intervenidas</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">grp.integracion.intervenidas</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="integracion_intervenidas_search"/>
+        </record>
+
+        <!-- Cron para actualizar facturas intervenidas -->
+		<record forcecreate="True" id="ir_cron_facturas_intervenidas" model="ir.cron">
+			<field name="name">Actualizar facturas intervenidas</field>
+			<!--<field eval="False" name="active" />-->
+			<field name="user_id" ref="base.user_root" />
+			<field name="interval_number">1</field>
+			<field name="interval_type">days</field>
+			<field name="numbercall">-1</field>
+			<field eval="False" name="doall" />
+			<field eval="'grp.integracion.intervenidas'" name="model" />
+			<field eval="'actualizar_intervenidas_cron'" name="function" />
+			<field eval="'()'" name="args" />
+		</record>
+    </data>
+</openerp>

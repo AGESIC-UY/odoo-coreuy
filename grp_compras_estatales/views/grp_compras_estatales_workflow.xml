@@ -1,0 +1,931 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data noupdate="0">
+
+        <!-- ================================================================ -->
+        <!--                      Pedido de Compra                            -->
+        <!-- ================================================================ -->
+
+
+        <!--==================Workflow====================-->
+
+        <record model="workflow" id="wkf_pedido_compra">
+            <field name="name">grp.compras.wkf_pc</field>
+            <field name="osv">grp.pedido.compra</field>
+            <field name="on_create">True</field>
+        </record>
+
+        <!--==================Activity====================-->
+
+        <record model="workflow.activity" id="act_pc_inicio">
+            <field name="wkf_id" ref="wkf_pedido_compra"/>
+            <field name="name">inicio</field>
+            <field name="flow_start">True</field>
+            <field name="kind">function</field>
+            <field name="action">act_pc_inicio()</field>
+        </record>
+
+        <record model="workflow.activity" id="act_pc_confirmado">
+            <field name="wkf_id" ref="wkf_pedido_compra"/>
+            <field name="name">confirmado</field>
+            <field name="kind">function</field>
+            <field name="action">act_pc_confirmado()</field>
+        </record>
+
+        <record model="workflow.activity" id="act_pc_sice">
+            <field name="wkf_id" ref="wkf_pedido_compra"/>
+            <field name="name">sice</field>
+            <field name="kind">function</field>
+            <field name="flow_stop" eval="False"/>
+            <field name="action">act_pc_sice()</field>
+        </record>
+
+        <record model="workflow.activity" id="act_pc_cancelado">
+            <field name="wkf_id" ref="wkf_pedido_compra"/>
+            <field name="name">cancelado</field>
+            <field name="flow_stop"/>
+            <field name="kind">function</field>
+            <field name="action">act_pc_cancelado()</field>
+        </record>
+
+        <!--==================Transition====================-->
+
+
+        <!-- transiciones desde "nuevo" -->
+        <!--<record model="workflow.transition" id="trans_pc_nuevo_confirmado">-->
+        <record model="workflow.transition" id="trans_pc_inicio_confirmado">
+            <!--<field name="act_from" ref="act_pc_nuevo"/>-->
+            <field name="act_from" ref="act_pc_inicio"/>
+            <field name="act_to" ref="act_pc_confirmado"/>
+            <field name="signal">button_pc_inicio_validado</field>
+            <field name="condition">True</field>
+        </record>
+
+        <!-- transiciones desde "confirmado" -->
+        <record model="workflow.transition" id="trans_pc_confirmado_cancelado">
+            <field name="act_from" ref="act_pc_confirmado"/>
+            <field name="act_to" ref="act_pc_cancelado"/>
+            <field name="signal">button_wkf_pc_cancelar</field>
+            <field name="condition">True</field>
+        </record>
+
+        <!-- transiciones desde "confirmado" -->
+        <record model="workflow.transition" id="trans_pc_confirmado_inicio">
+            <field name="act_from" ref="act_pc_confirmado"/>
+            <field name="act_to" ref="act_pc_inicio"/>
+            <field name="signal">button_wkf_pc_borrador</field>
+            <!--<field name="condition">trans_pc_confirmado_sice()</field>-->
+        </record>
+
+        <!--<record model="workflow.transition" id="trans_pc_cancelado_inicio">-->
+            <!--<field name="act_from" ref="act_pc_cancelado"/>-->
+            <!--<field name="act_to" ref="act_pc_inicio"/>-->
+            <!--<field name="signal">button_wkf_cancelado_borrador</field>-->
+            <!--&lt;!&ndash;<field name="condition">act_cancelado_borrador()</field>&ndash;&gt;-->
+        <!--</record>-->
+
+
+        <!--TODO Spring 6 GAP 121.193.194-->
+
+         <!--================= Activities =================-->
+        <record model="workflow.activity" id="act_enviar_aprobar">
+            <field name="wkf_id" ref="wkf_pedido_compra"/>
+            <field name="name">enviar_aprobar</field>
+            <field name="kind">function</field>
+            <field name="action">act_enviar_aprobar()</field>
+        </record>
+
+        <record model="workflow.activity" id="act_aprobar">
+            <field name="wkf_id" ref="wkf_pedido_compra"/>
+            <field name="name">aprobar</field>
+            <field name="kind">function</field>
+            <field name="action">act_aprobar()</field>
+        </record>
+
+        <record model="workflow.activity" id="act_enviar_autorizar">
+            <field name="wkf_id" ref="wkf_pedido_compra"/>
+            <field name="name">enviar_autorizar</field>
+            <field name="kind">function</field>
+            <field name="action">act_enviar_autorizar()</field>
+        </record>
+
+        <record model="workflow.activity" id="act_autorizar">
+            <field name="wkf_id" ref="wkf_pedido_compra"/>
+            <field name="name">autorizar</field>
+            <field name="kind">function</field>
+            <field name="action">act_autorizar()</field>
+        </record>
+
+        <record model="workflow.activity" id="act_rechazar">
+            <field name="wkf_id" ref="wkf_pedido_compra"/>
+            <field name="name">rechazar</field>
+            <field name="kind">function</field>
+            <field name="action">act_rechazar()</field>
+        </record>
+
+        <record model="workflow.activity" id="act_cancelar_sice">
+            <field name="wkf_id" ref="wkf_pedido_compra"/>
+            <field name="name">cancelar_sice</field>
+            <field name="kind">function</field>
+            <field name="flow_stop" eval="True"/>
+            <field name="action">act_cancel_sice()</field>
+        </record>
+
+        <!--================= Transitions =================-->
+        <record model="workflow.transition" id="trans_enviar_aprobar">
+            <field name="act_from" ref="act_pc_confirmado"/>
+            <field name="act_to" ref="act_enviar_aprobar"/>
+            <field name="signal">button_wkf_enviar_aprobar</field>
+        </record>
+
+        <record model="workflow.transition" id="trans_aprobar">
+            <field name="act_from" ref="act_enviar_aprobar"/>
+            <field name="act_to" ref="act_aprobar"/>
+            <field name="signal">button_wkf_aprobar</field>
+             <!--<field name="condition">trans_en_eprobacion_aprobar()</field>&lt;!&ndash;TODO: GAP 340 SPRING 6&ndash;&gt;-->
+            <field name="condition">True</field>
+        </record>
+
+        <record model="workflow.transition" id="trans_enviar_autorizar">
+            <field name="act_from" ref="act_aprobar"/>
+            <field name="act_to" ref="act_enviar_autorizar"/>
+            <field name="signal">button_wkf_enviar_autorizar</field>
+            <!--<field name="condition">trans_enviar_autorizar()</field>-->
+            <field name="condition">True</field>
+        </record>
+
+        <!-- PCAR 31 08 2017 incidente 463 inicio -->
+        <record model="workflow.transition" id="grp_pedido_compra_trans_aprobar_a_borrador">
+            <field name="act_from" ref="act_aprobar"/>
+            <field name="act_to" ref="act_pc_inicio"/>
+            <field name="signal">button_wkf_pedido_compra_aprobar_inicio</field>
+            <field name="condition">True</field>
+        </record>
+        <!-- PCAR 31 08 2017 incidente 463 fin -->
+
+        <record model="workflow.transition" id="trans_autorizar">
+            <field name="act_from" ref="act_enviar_autorizar"/>
+            <field name="act_to" ref="act_autorizar"/>
+            <field name="signal">button_wkf_autorizar</field>
+        </record>
+
+        <record model="workflow.transition" id="trans_autorizar_sice">
+            <field name="act_from" ref="act_enviar_autorizar"/>
+            <field name="act_to" ref="act_pc_sice"/>
+            <field name="signal">button_wkf_autorizar_licitacion_ampliacion</field>
+        </record>
+
+        <record model="workflow.transition" id="trans_envi_aprob_rechazar">
+            <field name="act_from" ref="act_enviar_aprobar"/>
+            <field name="act_to" ref="act_rechazar"/>
+            <field name="signal">button_wkf_rechazar</field>
+        </record>
+
+        <record model="workflow.transition" id="trans_envi_autorizar_rechazar">
+            <field name="act_from" ref="act_enviar_autorizar"/>
+            <field name="act_to" ref="act_rechazar"/>
+            <field name="signal">button_wkf_rechazar</field>
+        </record>
+
+        <!--TODO Transition para pasar de estado Autorizado Ordenador a SICE, confirmar si se desea mantener esta logica-->
+        <record model="workflow.transition" id="trans_pc_autorizar_sice">
+            <field name="act_from" ref="act_autorizar"/>
+            <field name="act_to" ref="act_pc_sice"/>
+            <field name="signal">button_wkf_pc_sice</field>
+            <field name="condition">True</field>
+        </record>
+
+        <!--TODO Spring 6 GAP 199-->
+        <!--TODO Transition para pasar del estado Confirmar a En autorización Ordenador, solo para cuando el pedido tiene ampliacion=True-->
+        <record model="workflow.transition" id="trans_confirmar_autorizar">
+            <field name="act_from" ref="act_pc_confirmado"/>
+            <field name="act_to" ref="act_enviar_autorizar"/>
+            <field name="signal">button_wkf_enviar_autorizar</field>
+            <!--<field name="condition">trans_enviar_autorizar()</field>-->
+            <field name="condition">True</field>
+        </record>
+        <!--TODO Spring 6 GAP 121-->
+        <record model="workflow.transition" id="trans_pc_rechazado_cancelado">
+            <field name="act_from" ref="act_rechazar"/>
+            <field name="act_to" ref="act_pc_cancelado"/>
+            <field name="signal">button_wkf_pc_cancelar</field>
+            <field name="condition">True</field>
+        </record>
+
+        <record model="workflow.transition" id="trans_pc_rechazado_inicio">
+            <field name="act_from" ref="act_rechazar"/>
+            <field name="act_to" ref="act_pc_inicio"/>
+            <field name="signal">button_wkf_pc_borrador</field>
+        </record>
+
+        <record model="workflow.transition" id="trans_pc_autorizar_cancelado">
+            <field name="act_from" ref="act_autorizar"/>
+            <field name="act_to" ref="act_pc_cancelado"/>
+            <field name="signal">button_wkf_pc_cancelar</field>
+        </record>
+
+        <!-- transiciones desde "sice" -->
+        <record model="workflow.transition" id="trans_pc_sice_cancelado">
+            <field name="act_from" ref="act_pc_sice"/>
+            <field name="act_to" ref="act_cancelar_sice"/>
+            <field name="signal">button_wkf_pc_cancel_sice</field>
+            <field name="condition">True</field>
+        </record>
+
+        <!-- ================================================================ -->
+        <!--                    Solicitud de Recursos                         -->
+        <!-- ================================================================ -->
+
+
+        <!--==================Workflow====================-->
+
+        <record id="wkf_solicitud_recursos" model="workflow">
+            <field name="name">grp.compras.wkf_sr_almacen</field>
+            <field name="osv">grp.compras.solicitud.recursos.almacen</field>
+            <field name="on_create">True</field>
+        </record>
+
+        <!--====================Activities=========================-->
+
+        <record id="act_sr_almacen_inicio" model="workflow.activity">
+            <field name="wkf_id" ref="wkf_solicitud_recursos"/>
+            <field name="name">inicio</field>
+            <field name="flow_start">True</field>
+            <field name="kind">dummy</field>
+            <!-- <field name="kind">function</field>
+            <field name="action">act_sr_almacen_inicio()</field> -->
+        </record>
+
+        <record id="act_sr_almacen_en_aprobacion" model="workflow.activity" >
+            <field name="wkf_id" ref="wkf_solicitud_recursos"/>
+            <field name="name">en_aprobacion</field>
+            <field name="kind">function</field>
+            <field name="action">act_sr_almacen_aprobacion()</field>
+        </record>
+
+        <record id="act_sr_almacen_codificando" model="workflow.activity">
+            <field name="wkf_id" ref="wkf_solicitud_recursos"/>
+            <field name="name">codificando</field>
+            <field name="kind">function</field>
+            <field name="action">act_sr_almacen_codificando()</field>
+        </record>
+
+        <record id="act_sr_almacen_esperando_almacen" model="workflow.activity">
+            <field name="wkf_id" ref="wkf_solicitud_recursos"/>
+            <field name="name">esperando_almacen</field>
+            <field name="kind">function</field>
+            <field name="action">act_sr_almacen_esperando_almacen()</field>
+        </record>
+
+        <!-- verificar si es esperando almacen, incidencia 69 esperando almacen es el mismo comportamiento que en Proceso -->
+        <record id="act_sr_almacen_en_proceso_tmp" model="workflow.activity">
+            <field name="wkf_id" ref="wkf_solicitud_recursos"/>
+            <field name="name">en_proceso_tmp</field>
+            <field name="kind">function</field>
+            <field name="action">act_sr_generar_sc()
+            </field>
+        </record>
+
+        <record id="act_sr_almacen_rechazado" model="workflow.activity">
+            <field name="wkf_id" ref="wkf_solicitud_recursos"/>
+            <field name="name">rechazado</field>
+            <field name="flow_stop">True</field>
+            <field name="kind">function</field>
+            <field name="action">act_sr_almacen_rechazado()</field>
+        </record>
+
+        <record id="act_sr_almacen_aprobado" model="workflow.activity">
+            <field name="wkf_id" ref="wkf_solicitud_recursos"/>
+            <field name="name">aprobado</field>
+            <field name="flow_stop" eval="False"/>
+            <field name="kind">function</field>
+            <field name="action">act_sr_almacen_aprobado()</field>
+        </record>
+
+        <!--=================Transitions=================-->
+        <!-- transiciones desde "inicio" -->
+        <record id="trans_sr_almacen_inicio_aprobar" model="workflow.transition">
+            <field name="act_from" ref="act_sr_almacen_inicio"/>
+            <field name="act_to" ref="act_sr_almacen_en_aprobacion"/>
+            <field name="signal">button_wkf_sr_almacen_enviar_a_aprobar</field>
+            <field name="condition">True</field>
+        </record>
+        <!-- transiciones desde "en_aprobacion" -->
+        <record id="trans_sr_almacen_en_aprobacion_rechazado" model="workflow.transition">
+            <field name="act_from" ref="act_sr_almacen_en_aprobacion"/>
+            <field name="act_to" ref="act_sr_almacen_rechazado"/>
+            <field name="signal">button_wkf_sr_almacen_rechazar</field>
+            <field name="condition">True</field>
+        </record>
+
+        <record id="trans_sr_almacen_en_aprobacion_codificando" model="workflow.transition">
+            <field name="act_from" ref="act_sr_almacen_en_aprobacion"/>
+            <field name="act_to" ref="act_sr_almacen_codificando"/>
+            <field name="signal">button_wkf_sr_almacen_codificar</field>
+            <field name="condition">True</field>
+        </record>
+
+        <record id="trans_sr_almacen_en_aprobacion_en_proceso_tmp" model="workflow.transition">
+            <field name="act_from" ref="act_sr_almacen_en_aprobacion"/>
+            <field name="act_to" ref="act_sr_almacen_en_proceso_tmp"/>
+            <field name="signal">button_wkf_sr_almacen_aprobar_servicio_o_protocolo</field>
+            <field name="condition">True</field>
+        </record>
+
+        <!--<record id="trans_sr_almacen_en_proceso_tmp_generando_sc" model="workflow.transition">
+            <field name="act_from" ref="act_sr_almacen_en_proceso_tmp"/>
+            <field name="act_to" ref="act_sr_almacen_aprobado"/>
+            <field name="condition">get_tipo_sc()</field>
+        </record>-->
+
+        <record id="trans_sr_serv_almacen_en_proceso_tmp_generando_sc" model="workflow.transition">
+            <field name="act_from" ref="act_sr_almacen_en_proceso_tmp"/>
+            <field name="act_to" ref="act_sr_almacen_aprobado"/>
+            <field name="signal">button_wkf_sr_cerrar_sr_almacen</field>
+            <field name="condition">True</field>
+        </record>
+
+        <!--solo se invoca desde el action regresar en proceso desde el python-->
+        <!--<record id="trans_sr_almacen_en_aprobacion_codificando" model="workflow.transition">
+            <field name="act_from" ref="act_sr_almacen_en_aprobacion"/>
+            <field name="act_to" ref="act_sr_almacen_codificando"/>
+            <field name="signal">button_wkf_sr_almacen_codificar</field>
+            <field name="condition">True</field>
+        </record>-->
+
+        <!-- transiciones desde "codificando" -->
+        <record id="trans_sr_almacen_codificando_esperando_almacen" model="workflow.transition">
+            <field name="act_from" ref="act_sr_almacen_codificando"/>
+            <field name="act_to" ref="act_sr_almacen_esperando_almacen"/>
+            <field name="signal">button_wkf_sr_almacen_aprobar_almacen</field>
+            <field name="condition">trans_sr_almacen_codificando_esperando_almacen()</field>
+        </record>
+
+        <record id="trans_sr_alm_cod_esperando_almacen_automatic" model="workflow.transition">
+            <field name="act_from" ref="act_sr_almacen_codificando"/>
+            <field name="act_to" ref="act_sr_almacen_esperando_almacen"/>
+            <field name="trigger_model"/>
+            <field name="trigger_expr_id"/>
+            <field name="condition">all_products_no_stockable()</field>
+        </record>
+
+        <!-- transiciones desde "esperando_almacen" -->
+        <record id="trans_sr_almacen_esperando_almacen_aprobado" model="workflow.transition">
+            <field name="act_from" ref="act_sr_almacen_esperando_almacen"/>
+            <field name="act_to" ref="act_sr_almacen_aprobado"/>
+            <field name="signal">verificar_stock</field>
+            <field name="condition">cumple_stock</field>
+        </record>
+
+        <!-- Incidente ID 327 Inicio -->
+        <record id="trans_sr_almacen_en_aprobacion_aprobado" model="workflow.transition">
+            <field name="act_from" ref="act_sr_almacen_en_aprobacion"/>
+            <field name="act_to" ref="act_sr_almacen_aprobado"/>
+            <field name="signal">aprobar_planificada</field>
+            <field name="condition">True</field>
+        </record>
+        <!-- Incidente ID 327 Fin -->
+
+
+        <!-- transiciones desde aprobar almacen es "cerrar almacen" -->
+        <record id="trans_sr_almacen_cerrar_almacen" model="workflow.transition">
+            <field name="act_from" ref="act_sr_almacen_esperando_almacen"/>
+            <field name="act_to" ref="act_sr_almacen_aprobado"/>
+            <field name="signal">button_wkf_sr_cerrar_sr_almacen</field>
+            <field name="condition">True</field>
+        </record>
+
+        <record id="trans_sr_almacen_aprobado_esperando_almacen" model="workflow.transition">
+            <field name="act_from" ref="act_sr_almacen_aprobado"/>
+            <field name="act_to" ref="act_sr_almacen_esperando_almacen"/>
+            <field name="signal">button_wkf_sr_aprobado_esperando_almacen</field>
+            <field name="condition">True</field>
+        </record>
+
+        <!-- ================================================================ -->
+        <!--                    Autorizacion para gastar                      -->
+        <!-- ================================================================ -->
+
+        <!--&lt;!&ndash; workflow &ndash;&gt;-->
+        <!--<record model="workflow" id="wkf_grp_compras_apg">-->
+            <!--<field name="name">grp.compras.wkf_apg</field>-->
+            <!--<field name="osv">grp.compras.apg</field>-->
+            <!--<field name="on_create">True</field>-->
+        <!--</record>-->
+
+        <!--&lt;!&ndash; actividades &ndash;&gt;-->
+        <!--<record model="workflow.activity" id="act_apg_inicio">-->
+            <!--<field name="wkf_id" ref="wkf_grp_compras_apg"/>-->
+            <!--<field name="name">inicio</field>-->
+            <!--<field name="flow_start">True</field>-->
+            <!--<field name="kind">function</field>-->
+            <!--<field name="action">act_apg_inicio()</field>-->
+            <!--&lt;!&ndash; <field name="group_id" ref=""/> &ndash;&gt;-->
+        <!--</record>-->
+
+        <!--<record model="workflow.activity" id="act_apg_nuevo">-->
+            <!--<field name="wkf_id" ref="wkf_grp_compras_apg"/>-->
+            <!--<field name="name">nuevo</field>-->
+            <!--<field name="kind">function</field>-->
+            <!--<field name="action">act_apg_nuevo()</field>-->
+        <!--</record>-->
+
+        <!--&lt;!&ndash;TODO Spring 6 GAP 123&ndash;&gt;-->
+        <!--<record model="workflow.activity" id="act_apg_en_financiero">-->
+            <!--<field name="wkf_id" ref="wkf_grp_compras_apg"/>-->
+            <!--<field name="name">en_financiero</field>-->
+            <!--<field name="kind">function</field>-->
+            <!--<field name="action">act_apg_en_financiero()</field>-->
+        <!--</record>-->
+
+        <!--<record model="workflow.activity" id="act_apg_en_aprobacion">-->
+            <!--<field name="wkf_id" ref="wkf_grp_compras_apg"/>-->
+            <!--<field name="name">en_aprobacion</field>-->
+            <!--<field name="kind">function</field>-->
+            <!--<field name="action">act_apg_en_aprobacion()</field>-->
+        <!--</record>-->
+
+        <!--<record model="workflow.activity" id="act_apg_aprobado">-->
+            <!--<field name="wkf_id" ref="wkf_grp_compras_apg"/>-->
+            <!--<field name="name">aprobado</field>-->
+            <!--<field name="kind">function</field>-->
+            <!--<field name="action">act_apg_aprobado()</field>-->
+        <!--</record>-->
+
+        <!--<record model="workflow.activity" id="act_apg_en_autorizacion_ODG">-->
+            <!--<field name="wkf_id" ref="wkf_grp_compras_apg"/>-->
+            <!--<field name="name">en_autorizacion_ODG</field>-->
+            <!--<field name="kind">function</field>-->
+            <!--<field name="action">act_apg_en_autorizacion_ODG()</field>-->
+        <!--</record>-->
+
+        <!--<record model="workflow.activity" id="act_apg_autorizado_ODG">-->
+            <!--<field name="wkf_id" ref="wkf_grp_compras_apg"/>-->
+            <!--<field name="name">autorizado_ODG</field>-->
+            <!--<field name="kind">function</field>-->
+            <!--<field name="action">act_apg_autorizado_ODG()</field>-->
+        <!--</record>-->
+
+        <!--<record model="workflow.activity" id="act_apg_anulada">-->
+            <!--<field name="wkf_id" ref="wkf_grp_compras_apg"/>-->
+            <!--<field name="name">anulada</field>-->
+            <!--<field name="flow_stop">True</field>-->
+            <!--<field name="kind">function</field>-->
+            <!--<field name="action">act_apg_anular()</field>-->
+        <!--</record>-->
+
+        <!--<record model="workflow.activity" id="act_apg_afectado">-->
+            <!--<field name="wkf_id" ref="wkf_grp_compras_apg"/>-->
+            <!--<field name="name">afectado</field>-->
+            <!--<field name="kind">function</field>-->
+            <!--<field name="action">act_apg_afectado()</field>-->
+        <!--</record>-->
+
+        <!--<record model="workflow.activity" id="act_apg_desafectado">-->
+            <!--<field name="wkf_id" ref="wkf_grp_compras_apg"/>-->
+            <!--<field name="name">desafectado</field>-->
+            <!--&lt;!&ndash;  <field name="flow_stop">True</field> &ndash;&gt;-->
+            <!--<field name="kind">function</field>-->
+            <!--<field name="action">act_apg_desafectado()</field>-->
+        <!--</record>-->
+
+        <!--<record model="workflow.activity" id="act_apg_rechazado">-->
+            <!--<field name="wkf_id" ref="wkf_grp_compras_apg"/>-->
+            <!--<field name="name">rechazado</field>-->
+            <!--<field name="flow_stop">True</field>-->
+            <!--<field name="kind">function</field>-->
+            <!--<field name="action">act_apg_rechazado()</field>-->
+        <!--</record>-->
+
+        <!--&lt;!&ndash; transiciones &ndash;&gt;-->
+        <!--&lt;!&ndash; transiciones desde "inicio" &ndash;&gt;-->
+        <!--<record model="workflow.transition" id="trans_apg_inicio_nuevo">-->
+            <!--<field name="act_from" ref="act_apg_inicio"/>-->
+            <!--<field name="act_to" ref="act_apg_nuevo"/>-->
+            <!--&lt;!&ndash; <field name="signal">button_wkf_grp_compras_apg_grabar</field> &ndash;&gt;-->
+            <!--<field name="condition">trans_apg_inicio_nuevo()</field>-->
+        <!--</record>-->
+
+        <!--&lt;!&ndash; transiciones desde "nuevo" &ndash;&gt;-->
+        <!--<record model="workflow.transition" id="trans_apg_nuevo_en_aprobacion">-->
+            <!--<field name="act_from" ref="act_apg_nuevo"/>-->
+            <!--<field name="act_to" ref="act_apg_en_aprobacion"/>-->
+            <!--<field name="signal">button_wkf_grp_compras_apg_enviar_a_aprobar</field>-->
+            <!--<field name="condition">trans_apg_nuevo_en_aprobacion()</field>-->
+            <!--<field name="group_id" ref="grp_seguridad.grp_compras_apg_Comprador"/>-->
+        <!--</record>-->
+
+        <!--&lt;!&ndash;TODO Spring 6 GAP 123&ndash;&gt;-->
+        <!--<record model="workflow.transition" id="trans_apg_nuevo_en_financiero">-->
+            <!--<field name="act_from" ref="act_apg_nuevo"/>-->
+            <!--<field name="act_to" ref="act_apg_en_financiero"/>-->
+            <!--<field name="signal">button_wkf_grp_compras_apg_enviar_a_financiero</field>-->
+            <!--<field name="condition">True</field>-->
+            <!--<field name="group_id" ref="grp_seguridad.grp_compras_apg_Comprador"/>-->
+        <!--</record>-->
+
+        <!--&lt;!&ndash; transiciones desde "en_financiero" &ndash;&gt;-->
+        <!--<record model="workflow.transition" id="trans_apg_en_financiero_afectado">-->
+            <!--<field name="act_from" ref="act_apg_en_financiero"/>-->
+            <!--<field name="act_to" ref="act_apg_afectado"/>-->
+            <!--<field name="signal">button_wkf_grp_compras_apg_afectar</field>-->
+            <!--<field name="condition">True</field>-->
+            <!--<field name="group_id" ref="grp_seguridad.grp_compras_apg_Responsable_SIIF"/>-->
+        <!--</record>-->
+
+        <!--<record model="workflow.transition" id="trans_apg_en_financiero_anulada">-->
+            <!--<field name="act_from" ref="act_apg_en_financiero"/>-->
+            <!--<field name="act_to" ref="act_apg_anulada"/>-->
+            <!--<field name="signal">button_wkf_grp_compras_apg_anular</field>-->
+            <!--<field name="condition">True</field>-->
+            <!--<field name="group_id" ref="grp_seguridad.grp_compras_pc_Responsable"/>-->
+        <!--</record>-->
+
+        <!--&lt;!&ndash; transiciones desde "en_aprobacion" &ndash;&gt;-->
+        <!--<record model="workflow.transition" id="trans_apg_en_aprobacion_aprobado">-->
+            <!--<field name="act_from" ref="act_apg_en_aprobacion"/>-->
+            <!--<field name="act_to" ref="act_apg_aprobado"/>-->
+            <!--<field name="signal">button_wkf_grp_compras_apg_aprobar</field>-->
+            <!--<field name="condition">trans_apg_en_aprobacion_aprobado()</field>-->
+            <!--&lt;!&ndash;<field name="group_id" ref="grp_seguridad.grp_compras_apg_Jefe_de_compras"/> Quitar grupo&ndash;&gt;-->
+        <!--</record>-->
+
+        <!--<record model="workflow.transition" id="trans_apg_en_aprobacion_rechazado">-->
+            <!--<field name="act_from" ref="act_apg_en_aprobacion"/>-->
+            <!--<field name="act_to" ref="act_apg_rechazado"/>-->
+            <!--<field name="signal">button_wkf_grp_compras_apg_rechazar</field>-->
+            <!--<field name="condition">trans_apg_en_aprobacion_rechazado()</field>-->
+            <!--&lt;!&ndash;<field name="group_id" ref="grp_seguridad.grp_compras_apg_Jefe_de_compras"/>&ndash;&gt;-->
+        <!--</record>-->
+
+        <!--&lt;!&ndash;Incidencia 279 drive, volver a estado borrador&ndash;&gt;-->
+        <!--<record model="workflow.transition" id="trans_apg_en_aprobacion_nuevo">-->
+            <!--<field name="act_from" ref="act_apg_en_aprobacion"/>-->
+            <!--<field name="act_to" ref="act_apg_nuevo"/>-->
+            <!--<field name="signal">button_wkf_grp_compras_apg_cancelar</field>-->
+            <!--<field name="condition">trans_apg_en_aprobacion_nuevo()</field>-->
+            <!--&lt;!&ndash;<field name="group_id" ref="grp_seguridad.grp_compras_apg_Jefe_de_compras"/>-->
+            <!--grp_seguridad.grp_compras_pc_Responsable"/> Quitar este grupo del WKF manualmente&ndash;&gt;-->
+        <!--</record>-->
+        <!--<record model="workflow.transition" id="trans_apg_en_auth_ordenador_nuevo">-->
+            <!--<field name="act_from" ref="act_apg_en_autorizacion_ODG"/>-->
+            <!--<field name="act_to" ref="act_apg_nuevo"/>-->
+            <!--<field name="signal">button_wkf_grp_compras_apg_cancelar</field>-->
+            <!--<field name="condition">True</field>-->
+        <!--</record>-->
+        <!--&lt;!&ndash;Incidencia 306 Cambio de estado par APG&ndash;&gt;-->
+        <!--<record model="workflow.transition" id="trans_apg_aprobado_ordenador_nuevo">-->
+            <!--<field name="act_from" ref="act_apg_aprobado"/>-->
+            <!--<field name="act_to" ref="act_apg_nuevo"/>-->
+            <!--<field name="signal">button_wkf_grp_compras_aprobado_cancelar</field>-->
+            <!--<field name="condition">True</field>-->
+        <!--</record>-->
+
+        <!--&lt;!&ndash; transiciones desde "aprobado" &ndash;&gt;-->
+        <!--<record model="workflow.transition" id="trans_apg_aprobado_en_autorizacion_ODG">-->
+            <!--<field name="act_from" ref="act_apg_aprobado"/>-->
+            <!--<field name="act_to" ref="act_apg_en_autorizacion_ODG"/>-->
+            <!--<field name="signal">button_wkf_grp_compras_apg_enviar_a_autorizacion_ODG</field>-->
+            <!--<field name="condition">trans_apg_en_aprobacion_en_autorizacion_ODG()</field>-->
+            <!--<field name="group_id" ref="grp_seguridad.grp_compras_apg_Jefe_de_compras"/>-->
+        <!--</record>-->
+
+        <!--&lt;!&ndash; transiciones desde "en_aprobacion_ODG" &ndash;&gt;-->
+        <!--<record model="workflow.transition" id="trans_apg_en_autorizacion_ODG_autorizado_ODG">-->
+            <!--<field name="act_from" ref="act_apg_en_autorizacion_ODG"/>-->
+            <!--<field name="act_to" ref="act_apg_autorizado_ODG"/>-->
+            <!--<field name="signal">button_wkf_grp_compras_apg_autorizar</field>-->
+            <!--<field name="condition">trans_apg_en_autorizacion_ODG_autorizado_ODG()</field>-->
+            <!--<field name="group_id" ref="grp_seguridad.grp_compras_apg_Ordenador_del_gasto"/>-->
+        <!--</record>-->
+
+        <!--<record model="workflow.transition" id="trans_apg_en_autorizacion_ODG_rechazado">-->
+            <!--<field name="act_from" ref="act_apg_en_autorizacion_ODG"/>-->
+            <!--<field name="act_to" ref="act_apg_rechazado"/>-->
+            <!--<field name="signal">button_wkf_grp_compras_apg_rechazar</field>-->
+            <!--<field name="condition">trans_apg_en_autorizacion_ODG_rechazado()</field>-->
+            <!--<field name="group_id" ref="grp_seguridad.grp_compras_apg_Ordenador_del_gasto"/>-->
+        <!--</record>-->
+
+        <!--&lt;!&ndash; transiciones desde "autorizado_ODG" &ndash;&gt;-->
+        <!--<record model="workflow.transition" id="trans_apg_autorizado_ODG_afectado">-->
+            <!--<field name="act_from" ref="act_apg_autorizado_ODG"/>-->
+            <!--<field name="act_to" ref="act_apg_afectado"/>-->
+            <!--<field name="signal">button_wkf_grp_compras_apg_afectar</field>-->
+            <!--<field name="condition">trans_apg_autorizado_ODG_afectado()</field>-->
+            <!--<field name="group_id" ref="grp_seguridad.grp_compras_apg_Responsable_SIIF"/>-->
+        <!--</record>-->
+
+        <!--&lt;!&ndash; Anular &ndash;&gt;-->
+        <!--<record model="workflow.transition" id="trans_apg_autorizado_ODG_anulada">-->
+            <!--<field name="act_from" ref="act_apg_autorizado_ODG"/>-->
+            <!--<field name="act_to" ref="act_apg_anulada"/>-->
+            <!--<field name="signal">button_wkf_grp_compras_apg_anular</field>-->
+            <!--<field name="condition">True</field>-->
+            <!--<field name="group_id" ref="grp_seguridad.grp_compras_pc_Responsable"/>-->
+        <!--</record>-->
+
+        <!--&lt;!&ndash; transiciones desde "afectado" &ndash;&gt;-->
+        <!--<record model="workflow.transition" id="trans_apg_afectado_desafectado">-->
+            <!--<field name="act_from" ref="act_apg_afectado"/>-->
+            <!--<field name="act_to" ref="act_apg_desafectado"/>-->
+            <!--<field name="signal">button_wkf_grp_compras_apg_desafectar</field>-->
+            <!--<field name="condition">trans_apg_afectado_desafectado()</field>-->
+            <!--<field name="group_id" ref="grp_seguridad.grp_compras_apg_Responsable_SIIF"/>-->
+        <!--</record>-->
+
+        <!--&lt;!&ndash; transicion desde "desafectado" ya no es estado final 11/06&ndash;&gt;-->
+        <!--<record model="workflow.transition" id="trans_apg_desafectado_afectado">-->
+            <!--<field name="act_from" ref="act_apg_desafectado"/>-->
+            <!--<field name="act_to" ref="act_apg_afectado"/>-->
+            <!--<field name="signal">button_wkf_grp_compras_apg_afectar</field>-->
+            <!--<field name="condition">trans_apg_autorizado_ODG_afectado()</field>-->
+            <!--<field name="group_id" ref="grp_seguridad.grp_compras_apg_Responsable_SIIF"/>-->
+        <!--</record>-->
+
+        <!--<record model="workflow.transition" id="trans_apg_desafectado_nuevo">-->
+            <!--<field name="act_from" ref="act_apg_desafectado"/>-->
+            <!--<field name="act_to" ref="act_apg_nuevo"/>-->
+            <!--<field name="signal">button_wkf_grp_compras_apg_nuevo</field>-->
+            <!--<field name="condition">True</field>-->
+        <!--</record>-->
+
+        <!--<record model="workflow.transition" id="trans_apg_desafectada_anular">-->
+            <!--<field name="act_from" ref="act_apg_desafectado"/>-->
+            <!--<field name="act_to" ref="act_apg_anulada"/>-->
+            <!--<field name="signal">button_wkf_grp_compras_apg_anular</field>-->
+            <!--<field name="condition">True</field>-->
+        <!--</record>-->
+
+
+        <!-- ================================================================ -->
+        <!--                       Cotizaciones                               -->
+        <!-- ================================================================ -->
+
+        <!-- workflow -->
+        <record model="workflow" id="wkf_cotizaciones">
+            <field name="name">grp.wkf_cotizaciones</field>
+            <field name="osv">grp.cotizaciones</field>
+            <field name="on_create">True</field>
+        </record>
+
+        <!-- actividades -->
+        <record model="workflow.activity" id="act_cotizaciones_inicio">
+            <field name="wkf_id" ref="wkf_cotizaciones"/>
+            <field name="name">inicio</field>
+            <field name="flow_start">True</field>
+            <field name="kind">function</field>
+            <field name="action">write({'state': 'draft'})</field>
+        </record>
+
+        <record model="workflow.activity" id="act_cotizaciones_validado">
+            <field name="wkf_id" ref="wkf_cotizaciones"/>
+            <field name="name">en_aprobacion</field>
+            <field name="kind">function</field>
+            <field name="action">act_cotizaciones_validado()</field>
+        </record>
+
+        <record model="workflow.activity" id="act_cotizaciones_comprometido">
+            <field name="wkf_id" ref="wkf_cotizaciones"/>
+            <field name="name">aprobado_sice</field>
+            <field name="kind">function</field>
+            <field name="action">act_cot_aprobar_sice()</field>
+        </record>
+
+        <record model="workflow.activity" id="act_cotizaciones_cancelado">
+            <field name="wkf_id" ref="wkf_cotizaciones"/>
+            <field name="name">cancelado</field>
+            <field name="flow_stop">True</field>
+            <field name="kind">function</field>
+            <field name="action">act_cotizaciones_cancelado()</field>
+        </record>
+
+        <!-- transiciones inicio a validado -->
+        <record model="workflow.transition" id="trans_cotizaciones_inicio_en_validado">
+            <field name="act_from" ref="act_cotizaciones_inicio"/>
+            <field name="act_to" ref="act_cotizaciones_validado"/>
+            <field name="signal">button_wkf_cotizaciones_enviar_a_aprobar</field>
+            <field name="condition">trans_validar()</field>
+        </record>
+
+        <!-- transiciones validado a cancelado -->
+        <record model="workflow.transition" id="trans_cotizaciones_validado_cancelado">
+            <field name="act_from" ref="act_cotizaciones_validado"/>
+            <field name="act_to" ref="act_cotizaciones_cancelado"/>
+            <field name="signal">button_wkf_cancelar</field>
+            <field name="condition">True</field>
+        </record>
+
+        <!-- transiciones desde "autorizado_ODG"-->
+        <record model="workflow.transition" id="trans_cotizaciones_validado_comprometido">
+            <field name="act_from" ref="act_cotizaciones_validado"/>
+            <field name="act_to" ref="act_cotizaciones_comprometido"/>
+            <field name="signal">button_wkf_cotizaciones_comprometer</field>
+            <field name="condition">True</field>
+        </record>
+
+        <!-- transiciones desde "comprometido" a cancelado-->
+        <record model="workflow.transition" id="trans_cotizaciones_comprometido_cancelado">
+            <field name="act_from" ref="act_cotizaciones_comprometido"/>
+            <field name="act_to" ref="act_cotizaciones_cancelado"/>
+            <field name="signal">button_wkf_cancelar</field>
+            <field name="condition">True</field>
+        </record>
+
+        <!-- transiciones validado a inicio -->
+        <record model="workflow.transition" id="trans_cotizaciones_validado_inicio">
+            <field name="act_from" ref="act_cotizaciones_validado"/>
+            <field name="act_to" ref="act_cotizaciones_inicio"/>
+            <field name="signal">cotizaciones_draft</field>
+        </record>
+        <!-- ================================================================ -->
+        <!--                  Ampliacion adjudicada                           -->
+        <!-- ================================================================ -->
+
+        <!-- workflow -->
+        <record model="workflow" id="wkf_ampladj">
+            <field name="name">grp.wkf_ampladj</field>
+            <field name="osv">grp.ampliacion.adjudicada</field>
+            <field name="on_create">True</field>
+        </record>
+
+        <!-- actividades -->
+        <!-- primera -->
+        <record model="workflow.activity" id="act_ampladj_inicio">
+            <field name="wkf_id" ref="wkf_ampladj"/>
+            <field name="name">inicio</field>
+            <field name="flow_start">True</field>
+            <field name="kind">function</field>
+            <field name="action">act_ampladj_inicio()</field>
+        </record>
+
+        <record model="workflow.activity" id="act_ampladj_nuevo">
+            <field name="wkf_id" ref="wkf_ampladj"/>
+            <field name="name">nuevo</field>
+            <field name="kind">function</field>
+            <field name="action">act_ampladj_nuevo()</field>
+        </record>
+
+        <record model="workflow.activity" id="act_ampladj_conciliar_articulos">
+            <field name="wkf_id" ref="wkf_ampladj"/>
+            <field name="name">conciliar_articulos</field>
+            <!--        <field name="flow_start">True</field> -->
+            <field name="kind">function</field>
+            <field name="action">act_ampladj_conciliar_articulos()</field>
+        </record>
+
+        <record model="workflow.activity" id="act_ampladj_en_aprobacion">
+            <field name="wkf_id" ref="wkf_ampladj"/>
+            <field name="name">en_aprobacion</field>
+            <field name="kind">function</field>
+            <field name="action">act_ampladj_en_aprobacion()</field>
+        </record>
+
+        <record model="workflow.activity" id="act_ampladj_aprobado">
+            <field name="wkf_id" ref="wkf_ampladj"/>
+            <field name="name">aprobado</field>
+            <field name="kind">function</field>
+            <field name="action">act_ampladj_aprobado()</field>
+        </record>
+
+        <record model="workflow.activity" id="act_ampladj_en_autorizacion_ODG">
+            <field name="wkf_id" ref="wkf_ampladj"/>
+            <field name="name">en_autorizacion_ODG</field>
+            <field name="kind">function</field>
+            <field name="action">act_ampladj_en_autorizacion_ODG()</field>
+        </record>
+
+        <!-- segunda -->
+        <record model="workflow.activity" id="act_ampladj_autorizado_ODG">
+            <field name="wkf_id" ref="wkf_ampladj"/>
+            <field name="name">autorizado_ODG</field>
+            <field name="kind">function</field>
+            <field name="action">act_ampladj_autorizado_ODG()</field>
+        </record>
+
+        <record model="workflow.activity" id="act_ampladj_comprometido">
+            <field name="wkf_id" ref="wkf_ampladj"/>
+            <field name="name">comprometido</field>
+            <field name="kind">function</field>
+            <field name="action">act_ampladj_comprometido()</field>
+        </record>
+
+        <record model="workflow.activity" id="act_ampladj_descomprometido">
+            <field name="wkf_id" ref="wkf_ampladj"/>
+            <field name="name">descomprometido</field>
+            <field name="kind">function</field>
+            <field name="action">act_ampladj_descomprometido()</field>
+        </record>
+
+        <record model="workflow.activity" id="act_ampladj_anulado">
+            <field name="wkf_id" ref="wkf_ampladj"/>
+            <field name="name">anulado</field>
+            <field name="kind">function</field>
+            <field name="flow_stop">True</field>
+            <field name="action">act_ampladj_anulado()</field>
+        </record>
+
+        <record model="workflow.activity" id="act_ampladj_rechazado">
+            <field name="wkf_id" ref="wkf_ampladj"/>
+            <field name="name">rechazado</field>
+            <field name="kind">function</field>
+            <field name="action">act_ampladj_rechazado()</field>
+        </record>
+
+        <!-- transiciones -->
+        <!-- transiciones desde "inicio" -->
+        <record model="workflow.transition" id="trans_ampladj_inicio_nuevo">
+            <field name="act_from" ref="act_ampladj_inicio"/>
+            <field name="act_to" ref="act_ampladj_nuevo"/>
+            <!-- <field name="signal">button_wkf_ampladj_grabar</field> -->
+            <field name="condition">trans_ampladj_inicio_nuevo()</field>
+        </record>
+
+        <!-- transiciones desde "nuevo" -->
+        <record model="workflow.transition" id="trans_ampladj_nuevo_en_aprobacion">
+            <field name="act_from" ref="act_ampladj_nuevo"/>
+            <field name="act_to" ref="act_ampladj_en_aprobacion"/>
+            <field name="signal">button_wkf_ampladj_enviar_a_aprobar</field>
+            <field name="condition">trans_ampladj_nuevo_en_aprobacion()</field>
+        </record>
+
+        <!-- transiciones desde "conciliar_articulos" -->
+        <record model="workflow.transition" id="trans_ampladj_conciliar_articulos_en_aprobacion">
+            <field name="act_from" ref="act_ampladj_conciliar_articulos"/>
+            <field name="act_to" ref="act_ampladj_en_aprobacion"/>
+            <field name="signal">button_wkf_ampladj_enviar_a_aprobar</field>
+            <field name="condition">trans_ampladj_conciliar_articulos_en_aprobacion()</field>
+        </record>
+
+        <!-- transiciones desde "en_aprobacion" -->
+        <record model="workflow.transition" id="trans_ampladj_en_aprobacion_aprobado">
+            <field name="act_from" ref="act_ampladj_en_aprobacion"/>
+            <field name="act_to" ref="act_ampladj_aprobado"/>
+            <field name="signal">button_wkf_ampladj_aprobar</field>
+            <field name="condition">trans_ampladj_en_aprobacion_aprobado()</field>
+        </record>
+
+        <record model="workflow.transition" id="trans_ampladj_en_aprobacion_anulado">
+            <field name="act_from" ref="act_ampladj_en_aprobacion"/>
+            <field name="act_to" ref="act_ampladj_anulado"/>
+            <field name="signal">button_wkf_ampladj_anular</field>
+            <field name="condition">trans_ampladj_en_aprobacion_anulado()</field>
+        </record>
+
+        <!-- transiciones desde "aprobado" -->
+        <record model="workflow.transition" id="trans_ampladj_aprobado_en_autorizacion_ODG">
+            <field name="act_from" ref="act_ampladj_aprobado"/>
+            <field name="act_to" ref="act_ampladj_en_autorizacion_ODG"/>
+            <field name="signal">button_wkf_ampladj_enviar_a_autorizacion_ODG</field>
+            <field name="condition">trans_ampladj_aprobado_en_autirizacion_ODG()</field>
+        </record>
+
+
+        <!-- transiciones desde "en_autorizacion_ODG" -->
+        <record model="workflow.transition" id="trans_ampladj_en_autorizacion_ODG_autorizado_ODG">
+            <field name="act_from" ref="act_ampladj_en_autorizacion_ODG"/>
+            <field name="act_to" ref="act_ampladj_autorizado_ODG"/>
+            <field name="signal">button_wkf_ampladj_autorizar_ODG</field>
+            <field name="condition">trans_ampladj_en_autorizacion_ODG_autorizado_ODG()</field>
+        </record>
+
+        <record model="workflow.transition" id="trans_ampladj_en_autorizacion_ODG_rechazado">
+            <field name="act_from" ref="act_ampladj_en_autorizacion_ODG"/>
+            <field name="act_to" ref="act_ampladj_rechazado"/>
+            <field name="signal">button_wkf_ampladj_rechazar</field>
+            <field name="condition">trans_ampladj_en_autorizacion_ODG_rechazado()</field>
+        </record>
+
+        <!-- transiciones desde "rechazado" -->
+        <record model="workflow.transition" id="trans_ampladj_rechazado_en_autorizacion_ODG">
+            <field name="act_from" ref="act_ampladj_rechazado"/>
+            <field name="act_to" ref="act_ampladj_en_autorizacion_ODG"/>
+            <field name="signal">button_wkf_ampladj_reenviar_a_ODG</field>
+            <field name="condition">trans_ampladj_rechazado_en_autorizacion_ODG()</field>
+        </record>
+
+        <!-- transiciones desde "autorizado_ODG" -->
+        <record model="workflow.transition" id="trans_ampladj_autorizado_ODG_comprometido">
+            <field name="act_from" ref="act_ampladj_autorizado_ODG"/>
+            <field name="act_to" ref="act_ampladj_comprometido"/>
+            <field name="signal">button_wkf_ampladj_comprometer</field>
+            <field name="condition">trans_ampladj_autorizado_ODG_comprometido()</field>
+        </record>
+
+        <!-- transiciones desde "comprometido" -->
+        <record model="workflow.transition" id="trans_ampladj_comprometido_descomprometido">
+            <field name="act_from" ref="act_ampladj_comprometido"/>
+            <field name="act_to" ref="act_ampladj_descomprometido"/>
+            <field name="signal">button_wkf_ampladj_descomprometer</field>
+            <field name="condition">trans_ampladj_comprometido_descomprometido()</field>
+        </record>
+
+        <!-- transiciones desde "descomprometido" -->
+        <record model="workflow.transition" id="trans_ampladj_descomprometido_comprometido">
+            <field name="act_from" ref="act_ampladj_descomprometido"/>
+            <field name="act_to" ref="act_ampladj_comprometido"/>
+            <field name="signal">button_wkf_ampladj_comprometer</field>
+            <field name="condition">trans_ampladj_descomprometido_comprometido()</field>
+        </record>
+    </data>
+</openerp>

@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+		<record id="view_regularizacion_clearing_form" model="ir.ui.view">
+            <field name="name">regularizacion.clearing.form</field>
+            <field name="model">regularizacion.clearing</field>
+            <field name="arch" type="xml">
+                <form string="Regularización clearing" create="false">
+                <header>
+                    <button name="btn_obligar" states="confirm" string="Obligar" type="object" class="oe_highlight" groups="grp_seguridad.grp_compras_apg_Responsable_SIIF"/>
+                    <button name="btn_cancel_draft" states="cancel" string="Volver a borrador" type="object" class="oe_highlight" groups="grp_seguridad.grp_compras_apg_Responsable_SIIF"/>
+                    <button name="btn_confirm" states="draft" string="Confirmar" type="object" groups="grp_seguridad.grp_compras_apg_Responsable_SIIF"/>
+                    <button name="btn_cancel" states="draft,confirm" string="Cancelar" type="object" groups="grp_seguridad.grp_compras_apg_Responsable_SIIF"/>
+                    <button name="btn_borrar_obligacion" states="forced" string="Borrar obligación SIIF" type="object" groups="grp_seguridad.grp_compras_apg_Responsable_SIIF"/>
+                    <button name="btn_cancel_obligacion" states="intervened,prioritized" string="Anular obligación SIIF" type="object" groups="grp_seguridad.grp_compras_apg_Responsable_SIIF"/>
+                    <button name="btn_observ_tribunal" type="object" string="Consulta Observaciones Tribunal" states="intervened" groups="grp_seguridad.grp_compras_apg_Responsable_SIIF"/>
+					<field name="state" widget="statusbar" statusbar_visible="draft,confirm,forced,intervened,cancel" />
+                </header>
+                <sheet string="Regularización clearing">
+                    <div class="oe_title">
+                        <label for="name" class="oe_inline" attrs="{'invisible':[('state','=','draft')]}"/>
+                        <h1>
+                            <label string="RC borrador" attrs="{'invisible': [('state','&lt;&gt;','draft')]}"/>
+                            <div class="oe_form_field oe_form_field_char oe_inline">
+                                <field name="name" attrs="{'invisible':[('state','=','draft')]}" readonly="1"/>
+                            </div>
+                        </h1>
+                    </div>
+                    <!--<group>-->
+                        <group>
+                            <group>
+                                <field name="beneficiario_siif_id"
+                                        attrs="{'readonly': [('nro_obligacion','>',0)]}"/>
+                                <field name="rupe_cuenta_bancaria_id" domain="[('cnt_proveedor_prv_id','=',id_rupe_benef),('codigo_moneda','in',('UYU',))]"
+                                       options="{'create': false, 'create_edit': false}"
+                                       required="1"
+                                       attrs="{'readonly': [('nro_obligacion','>',0)]}"
+                                       groups="grp_seguridad.grp_compras_apg_Responsable_SIIF"/>
+
+                                <field name="id_rupe_benef" invisible="1"/>
+                            </group>
+                            <group>
+                                <field name="date" required="1"/>
+                                <field name="fecha_vencimiento" required="1"/>
+                                <field name="fiscalyear_id" options="{'create': false, 'create_edit': false}"/>
+                                <field name="operating_unit_id" />
+                                <field name="total_llavep" invisible="1"/>
+                            </group>
+                        </group>
+                        <group string="Datos SIIF">
+                            <group>
+                                <field name="nro_afectacion" readonly="1"/>
+                                <field name="monto_autorizado" readonly="1"/>
+                                <field name="nro_compromiso" readonly="1"/>
+                                <field name="monto_comprometido" readonly="1"/>
+                                <field name="nro_obligacion" readonly="1"/>
+                                <field name="papa_tng" readonly="1"/>
+                                <field name="intervenido_con_observ" readonly="1"/>
+                            </group>
+                            <group>
+                                <field name="siif_tipo_ejecucion" required="1" readonly="1"/>
+                                <field name="siif_concepto_gasto" required="1"/>
+                                <field name="siif_financiamiento" required="1"/>
+                                <field name="siif_tipo_documento" required="1"/>
+                                <field name="siif_descripcion" required="1"/>
+                            </group>
+                         </group>
+                    <!--</group>-->
+                    <notebook>
+                        <page string="Comprobantes">
+                            <field name="account_invoice_ids" domain="[('id','in',[])]" options="{'no_create': 1}">
+                                <tree string="Facturas de suministro" editable="bottom" create="false">
+                                    <field name="date_invoice" />
+                                    <field name="supplier_invoice_number" />
+                                    <field name="siif_concepto_gasto" readonly="1"/>
+                                    <field name="total_nominal" />
+                                    <field name="state" invisible="1"/>
+                                    <button name="get_invoice" string="Documento original" type="object" icon="gtk-find"/>
+                                </tree>
+                            </field>
+                            <group col="6">
+                                <group class="oe_subtotal_footer oe_right" colspan="6">
+                                    <separator string="Importes SIIF" colspan="2" style="text-align:center"/>
+                                    <field name="total_nominal" widget="monetary" options="{'currency_field': 'company_currency_id'}"/>
+                                    <field name="amount_ttal_impuestos_pesos" widget="monetary" options="{'currency_field': 'company_currency_id'}"/>
+                                    <field name="amount_ttal_ret_pesos" widget="monetary" options="{'currency_field': 'company_currency_id'}"/>
+                                    <field name="amount_ttal_liq_pesos" class="oe_subtotal_footer_separator" widget="monetary" options="{'currency_field': 'company_currency_id'}"/>
+                                </group>
+                             </group>
+                        </page>
+
+                        <page string="Llave Presupuestal">
+                            <group>
+                                <group>
+                                    <field name="inciso_siif_id" domain="[('fiscal_year_id','=', fiscalyear_id)]" style="width:20%%"/>
+                                    <field name="ue_siif_id" domain="[('inciso_id','=', inciso_siif_id)]" style="width:20%%"/>
+                                </group>
+                                <field name="llpapg_ids" nolabel="1" colspan="4" widget="one2many_list">
+                                    <tree string="Llave Presupuestal" delete="true" edit="true" create="true" editable="bottom">
+                                        <field name="odg_id" domain="[('ue_id','=',parent.ue_siif_id)]" on_change="onchange_objeto_del_gasto(odg_id)"/>
+                                        <field name="auxiliar_id" domain="[('odg_id','=',odg_id)]" on_change="onchange_auxiliar(auxiliar_id)"/>
+                                        <field name="fin_id" required="1" domain="[('aux_id','=',auxiliar_id)]" on_change="onchange_fuente_de_financiamiento(fin_id)"/>
+                                        <field name="programa_id" required="1" domain="[('ff_id','=',fin_id)]" on_change="onchange_programa(programa_id)"/>
+                                        <field name="proyecto_id" required="1" domain="[('programa_id','=',programa_id)]" on_change="onchange_proyecto(proyecto_id)"/>
+                                        <field name="mon_id" required="1" domain="[('proyecto_id','=',proyecto_id)]" on_change="onchange_moneda(mon_id)"/>
+                                        <field name="tc_id" required="1" domain="[('moneda_id','=',mon_id)]"/>
+                                        <field name="disponible"/>
+                                        <field name="importe"/>
+                                    </tree>
+                                </field>
+                                <field name="modif_regularizacion_log_ids" nolabel="1" readonly="1" colspan="4">
+                                    <tree string="Modificaciones">
+                                        <field name="tipo"/>
+                                        <field name="fecha"/>
+                                        <field name="objeto_gasto"/>
+                                        <field name="auxiliar"/>
+                                        <field name="financiamiento"/>
+                                        <field name="programa"/>
+                                        <field name="proyecto"/>
+                                        <field name="moneda"/>
+                                        <field name="tipo_credito"/>
+                                        <field name="importe"/>
+                                    </tree>
+                                </field>
+                            </group>
+                        </page>
+
+                        <!-- Observaciones de Intervenciones del Tribunal de Cuentas -->
+                        <page string="Observaciones">
+                            <field name="observacion_ids" readonly="1">
+                                <tree>
+                                    <field name="descripcion"/>
+                                    <field name="observacion"/>
+                                </tree>
+                            </field>
+                        </page>
+
+                        <page string="Historial de anulaciones" attrs="{'invisible': [('anulacion_siif_log_ids', '=', [] )]}">
+                            <field name="anulacion_siif_log_ids" nolabel="1" widget="one2many_list">
+                                <tree string="Historial anulaciones" delete="false" edit="false" create="false">
+                                     <field name="regularizacion_id" invisible="1"/>
+                                     <field name="nro_obl_sist_aux" invisible="1"/>
+                                     <field name="fecha"/>
+                                     <field name="nro_afectacion_siif" widget="char"/>
+                                     <field name="nro_compromiso" widget="char"/>
+                                    <field name="nro_obligacion" widget="char"/>
+                                </tree>
+                              </field>
+                        </page>
+
+                    </notebook>
+                </sheet>
+                </form>
+            </field>
+        </record>
+
+
+	  <!-- Filtros -->
+        <record id="view_regularizacion_clearing_filter" model="ir.ui.view">
+            <field name="name">regularizacion.clearing.filter</field>
+            <field name="model">regularizacion.clearing</field>
+            <field name="arch" type="xml">
+                <search string="Search Regularización clearing">
+
+                    <field name="state" />
+                    <field name="date" />
+                    <group expand="0" string="Group By...">
+                        <filter string="Estado" icon="terp-stock_effects-object-colorize" domain="[]"  context="{'group_by':'state'}"/>
+                        <!--<filter string="Fecha" icon="terp-go-month" domain="[]"  context="{'group_by':'date'}"/>-->
+                        <filter string="Día" icon="terp-go-today" context="{'group_by':'date:day'}"/>
+                        <filter string="Mes" icon="terp-go-month" context="{'group_by':'date:month'}"/>
+                        <filter string="Año" icon="terp-go-year" context="{'group_by':'date:year'}"/>
+                    </group>
+               </search>
+            </field>
+        </record>
+
+	<!-- VISTA TREE -->
+		<record id="view_regularizacion_clearing_tree" model="ir.ui.view">
+			<field name="name">regularizacion.clearing.tree</field>
+			<field name="model">regularizacion.clearing</field>
+			<field name="arch" type="xml">
+				<tree string="Regularización clearing" create="false">
+					<field name="date"/>
+					<field name="nro_afectacion"/>
+					<field name="total_nominal"/>
+					<field name="state"/>
+					<field name="papa_tng"/>
+				</tree>
+			</field>
+	    </record>
+
+
+	    <record id="action_regularizacion_clearing" model="ir.actions.act_window">
+			<field name="name">Regularización clearing</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">regularizacion.clearing</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="view_regularizacion_clearing_filter"/>
+		</record>
+
+        <menuitem id="menu_suministros" name="Suministros" sequence="500"
+                  parent="account.menu_finance_payables"
+                  groups="grp_seguridad.grp_compras_apg_Responsable_SIIF"/>
+
+        <menuitem id="menu_regularizacion_clearing" name="Regularización clearing"
+                  parent="menu_suministros" action="action_regularizacion_clearing"
+                  groups="grp_seguridad.grp_compras_apg_Responsable_SIIF" sequence="2"/>
+
+
+    </data>
+</openerp>

@@ -1,0 +1,8 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# * grp_factura_siif
+#
+#. module: account
+#: view:account.invoice.refund:account.view_account_invoice_refund
+msgid "Create Refund"
+msgstr "Crear ajuste de obligación"

@@ -1,0 +1,458 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <!-- Actions -->
+        <record id="contracts_pro_templates_action" model="ir.actions.act_window">
+            <field name="name">Templates</field>
+            <field name="res_model">contracts_pro.template</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">Click to Register a new Contract Template.</p>
+                <p>
+                </p>
+            </field>
+        </record>
+        <record id="contracts_pro_sections_action" model="ir.actions.act_window">
+            <field name="name">Sections</field>
+            <field name="res_model">contracts_pro.section</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">Click to Register a new Clause Section.</p>
+                <p>
+                </p>
+            </field>
+        </record>
+        <record id="contracts_pro_clauses_action" model="ir.actions.act_window">
+            <field name="name">Clauses</field>
+            <field name="res_model">contracts_pro.clause</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="context">{'search_default_filter_active_version': 1}</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">Click to create a new Contract Clause.</p>
+                <p>
+                </p>
+            </field>
+        </record>
+        <record id="contracts_pro_metrics_action" model="ir.actions.act_window">
+            <field name="name">Metrics</field>
+            <field name="res_model">contracts_pro.metric</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">Click to Register a new Contract Metric.</p>
+                <p>
+                </p>
+            </field>
+        </record>
+        <record id="contracts_pro_metrics_value_action" model="ir.actions.act_window">
+            <field name="name">Values</field>
+            <field name="res_model">contracts_pro.metric_history_value</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree</field>
+        </record>
+
+        <record id="contracts_pro_formulas_action" model="ir.actions.act_window">
+            <field name="name">Formulas</field>
+            <field name="res_model">contracts_pro.formula</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">Click to Register a new Contract Formula.</p>
+                <p>
+                </p>
+            </field>
+        </record>
+        <record id="contracts_pro_period_action" model="ir.actions.act_window">
+            <field name="name">Periods</field>
+            <field name="res_model">contracts_pro.period</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">Click to Register a new Period.</p>
+                <p>
+                </p>
+            </field>
+        </record>
+        <record id="contracts_pro_clause_new_version_action" model="ir.actions.act_window">
+            <field name="name">New Version</field>
+            <field name="res_model">contracts_pro.new_version</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="context">{'default_clause_id': active_id}</field>
+            <field name="target">new</field>
+        </record>
+        <record id="contracts_pro_clause_older_versions_action" model="ir.actions.act_window">
+            <field name="name">Older versions</field>
+            <field name="res_model">contracts_pro.clause</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('original_clause_id','=',active_id),('active','=',False),('state','=','old')]</field>
+        </record>
+
+        <!-- New Views -->
+        <record id="contracts_pro_template_form_view" model="ir.ui.view">
+			<field name="name">contracts_pro.template.form</field>
+			<field name="model">contracts_pro.template</field>
+            <field name="arch" type="xml">
+                <form string="Template" version="7.0">
+                <sheet>
+                        <div class="oe_right oe_button_box">
+                        </div>
+                        <div class="oe_title">
+                            <group>
+                                <h1><field name="name" placeholder="Template name..." required="1"/></h1>
+                            </group>
+                        </div>
+                        <group>
+                            <field name="id" invisible="1"/>
+                            <field name="active"/>
+                            <field name="effective_date"/>
+                            <field name="model_id"/>
+                            <field name="rel_model"/>
+                        </group>
+                        <notebook>
+                            <page string="Clauses">
+                                <group>
+                                    <field name="intro_clause_id"/>
+                                </group>
+                                <field name="clause_ids" context="{'default_template_id': id}" attrs="{'readonly': [('id','=',False)]}">
+                                    <tree editable="bottom">
+                                        <field name="template_id" invisible="1"/>
+                                        <field name="sequence" />
+                                        <field name="id" invisible="1"/>
+                                        <field name="clause_nbr"/>
+                                        <field name="clause_id" domain="[('state','=','done')]" />
+                                        <field name="comments"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+
+                </form>
+            </field>
+        </record>
+        <record id="contracts_pro_template_tree_view" model="ir.ui.view">
+			<field name="name">contracts_pro.template.tree</field>
+			<field name="model">contracts_pro.template</field>
+            <field name="arch" type="xml">
+                <tree  >
+                    <field name="name"/>
+                    <field name="effective_date"/>
+                    <field name="active"/>
+                    <field name="comments"/>
+                </tree>
+            </field>
+        </record>
+        <record id="contracts_pro_clause_form_view" model="ir.ui.view">
+			<field name="name">contracts_pro.clause.form</field>
+			<field name="model">contracts_pro.clause</field>
+            <field name="arch" type="xml">
+                <form string="Clause" version="7.0">
+                    <header>
+                        <field name="state" readonly="1" widget="statusbar" statusbar_visible="draft,to_approve,done"/>
+                        <button name="set_to_approve" string="Send to Review" type="object" states="draft" class="oe_highlight" groups=""/>
+                        <button name="set_to_done" string="Approve" type="object" states="to_approve" class="oe_highlight" groups="base.group_hr_user"/>
+                        <button name="set_to_draft" string="To Draft" type="object" states="to_approve,done,to_update" groups=""/>
+                        <button name="%(contracts_pro.contracts_pro_clause_new_version_action)d" string="Create New version" type='action' states="done" class="oe_highlight" groups=""/>
+                    </header>
+                <sheet>
+                        <div class="oe_right oe_button_box">
+                            <button
+                                name="%(contracts_pro_clause_older_versions_action)d"
+                                type="action"
+                                help="Show older versions"
+                                class="oe_stat_button"
+                                icon="fa-archive"
+                                attrs="{'invisible': [('version','=',False)]}"
+                                string="Older versions">
+                            </button>
+
+                        </div>
+                        <div class="oe_title">
+                            <group>
+                                <h1> <field name="name" place_holder="Clause name..."/></h1>
+                            </group>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="section_id" placeholder="Select section..." />
+                                <field name="title" placeholder="Clause title..." />
+                                <field name="id" invisible="1"/>
+
+                            </group>
+                            <group>
+                                <field name="active"/>
+                                <field name="version" readonly="1"/>
+                                <field name="effective_date"/>
+                                <field name="default_sequence"/>
+                            </group>
+                        </group>
+                        <group>
+                            <field name="content"/>
+                        </group>
+                    <notebook>
+                        <page string="In Templates">
+                            <field name="template_ids">
+                                <tree create="false" edit="false" delete="false">
+                                    <field name="name"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+
+                </form>
+            </field>
+        </record>
+        <record id="contracts_pro_clause_tree_view" model="ir.ui.view">
+			<field name="name">contracts_pro.clause.tree</field>
+			<field name="model">contracts_pro.clause</field>
+            <field name="arch" type="xml">
+                <tree  >
+                    <field name="name"/>
+                    <field name="version"/>
+                    <field name="title"/>
+                    <field name="effective_date"/>
+                    <field name="active"/>
+                    <field name="content"/>
+                    <field name="default_sequence"/>
+                </tree>
+            </field>
+        </record>
+        <record id="contracts_pro_new_version_form_view" model="ir.ui.view">
+            <field name="name">contracts_pro.new_version.form</field>
+            <field name="model">contracts_pro.new_version</field>
+            <field name="arch" type="xml">
+                <form string="New Version">
+                    <group>
+                        <field name="new_version_name" placeholder="New version name..."/>
+                        <field name="clause_id" invisible="1"/>
+                    </group>
+                    <footer>
+                        <button string="Create version" name="create_new_version" type="object" class="oe_highlight"/>
+                        or
+                        <button string="Cancel" class="oe_link" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+		<record id="contracts_pro_period_form_view" model="ir.ui.view">
+			<field name="name">contracts_pro.period.form</field>
+			<field name="model">contracts_pro.period</field>
+            <field name="arch" type="xml">
+                <form string="Period" version="7.0">
+                <sheet>
+                        <div class="oe_title">
+                            <group>
+                                <h1><field name="name" placeholder="Period name..."/></h1>
+                            </group>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="code"/>
+                            </group>
+                        </group>
+                        <group></group>
+                        <group>
+                            <group string="Period start">
+                                <field name="year_relative_start" on_change="on_change_date(year_fixed_start, year_relative_start, month_fixed_start, month_relative_start, day_fixed_start, day_relative_start, year_fixed_end, year_relative_end, month_fixed_end, month_relative_end, day_fixed_end, day_relative_end, date_base_example)"/>
+                                <field name="year_fixed_start" on_change="on_change_date(year_fixed_start, year_relative_start, month_fixed_start, month_relative_start, day_fixed_start, day_relative_start, year_fixed_end, year_relative_end, month_fixed_end, month_relative_end, day_fixed_end, day_relative_end, date_base_example)"/>
+                                <field name="month_relative_start" on_change="on_change_date(year_fixed_start, year_relative_start, month_fixed_start, month_relative_start, day_fixed_start, day_relative_start, year_fixed_end, year_relative_end, month_fixed_end, month_relative_end, day_fixed_end, day_relative_end, date_base_example)"/>
+                                <field name="month_fixed_start" on_change="on_change_date(year_fixed_start, year_relative_start, month_fixed_start, month_relative_start, day_fixed_start, day_relative_start, year_fixed_end, year_relative_end, month_fixed_end, month_relative_end, day_fixed_end, day_relative_end, date_base_example)"/>
+                                <field name="day_relative_start" on_change="on_change_date(year_fixed_start, year_relative_start, month_fixed_start, month_relative_start, day_fixed_start, day_relative_start, year_fixed_end, year_relative_end, month_fixed_end, month_relative_end, day_fixed_end, day_relative_end, date_base_example)"/>
+                                <field name="day_fixed_start" on_change="on_change_date(year_fixed_start, year_relative_start, month_fixed_start, month_relative_start, day_fixed_start, day_relative_start, year_fixed_end, year_relative_end, month_fixed_end, month_relative_end, day_fixed_end, day_relative_end, date_base_example)"/>
+                            </group>
+                            <group string="Period end">
+                                <field name="year_relative_end" on_change="on_change_date(year_fixed_start, year_relative_start, month_fixed_start, month_relative_start, day_fixed_start, day_relative_start, year_fixed_end, year_relative_end, month_fixed_end, month_relative_end, day_fixed_end, day_relative_end, date_base_example)"/>
+                                <field name="year_fixed_end" on_change="on_change_date(year_fixed_start, year_relative_start, month_fixed_start, month_relative_start, day_fixed_start, day_relative_start, year_fixed_end, year_relative_end, month_fixed_end, month_relative_end, day_fixed_end, day_relative_end, date_base_example)"/>
+                                <field name="month_relative_end" on_change="on_change_date(year_fixed_start, year_relative_start, month_fixed_start, month_relative_start, day_fixed_start, day_relative_start, year_fixed_end, year_relative_end, month_fixed_end, month_relative_end, day_fixed_end, day_relative_end, date_base_example)"/>
+                                <field name="month_fixed_end" on_change="on_change_date(year_fixed_start, year_relative_start, month_fixed_start, month_relative_start, day_fixed_start, day_relative_start, year_fixed_end, year_relative_end, month_fixed_end, month_relative_end, day_fixed_end, day_relative_end, date_base_example)"/>
+                                <field name="day_relative_end" on_change="on_change_date(year_fixed_start, year_relative_start, month_fixed_start, month_relative_start, day_fixed_start, day_relative_start, year_fixed_end, year_relative_end, month_fixed_end, month_relative_end, day_fixed_end, day_relative_end, date_base_example)"/>
+                                <field name="day_fixed_end" on_change="on_change_date(year_fixed_start, year_relative_start, month_fixed_start, month_relative_start, day_fixed_start, day_relative_start, year_fixed_end, year_relative_end, month_fixed_end, month_relative_end, day_fixed_end, day_relative_end, date_base_example)"/>
+                            </group>
+                        </group>
+                        <group string="Period test">
+                            <field name="date_base_example" on_change="on_change_date(year_fixed_start, year_relative_start, month_fixed_start, month_relative_start, day_fixed_start, day_relative_start, year_fixed_end, year_relative_end, month_fixed_end, month_relative_end, day_fixed_end, day_relative_end, date_base_example)" class="oe_inline"/>
+                            <field name="date_start" readonly="1" class="oe_inline"/>
+                            <field name="date_end" readonly="1" class="oe_inline"/>
+                        </group>
+                        <br/><br/>
+                        <separator string="Instructions"/>
+                        <p><strong>Relative values</strong></p>
+                        <p><strong>Positive:</strong> sum year, month or day relative. <strong>Zero value: </strong>current year, month or day</p>
+                        <p><strong>Negative: </strong>substract year, month or day relative.</p><br/>
+                        <p><strong>Fixed values</strong></p>
+                        <p>Sets year, month or day fixed</p>
+                        <p><strong>Month end: </strong> use day = 31 on any month</p><br/>
+                        <p>To test period, use base date example field. Will show period start and end dates </p>
+                </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="contracts_pro_period_tree_view" model="ir.ui.view">
+			<field name="name">contracts_pro.period.tree</field>
+			<field name="model">contracts_pro.period</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="code"/>
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+        <record id="contracts_pro_metric_form_view" model="ir.ui.view">
+			<field name="name">contracts_pro.metric.form</field>
+			<field name="model">contracts_pro.metric</field>
+            <field name="arch" type="xml">
+                <form string="Metric" version="7.0">
+                <sheet>
+                        <div class="oe_right oe_button_box">
+                        </div>
+                        <div class="oe_title">
+                            <group>
+                                <h1><field name="name" placeholder="Metric name..." /></h1><br/>
+                                <h1><field name="current_value" readonly="True"/></h1>
+                            </group>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="id" invisible="1"/>
+                                <field name="active"/>
+                                <field name="code"/>
+                            </group>
+                            <group>
+                                <field name="last_update" readonly="1"/>
+                            </group>
+                        </group>
+                        <group>
+                            <field name="description"/>
+                        </group>
+                    <notebook>
+                        <page string="Metric Values">
+                            <field name="value_history_ids" context="{'default_metric_id': active_id}" attrs="{'readonly': [('id','=',False)]}">
+                                <tree editable="bottom">
+                                    <field name="date"/>
+                                    <field name="value"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+
+                </form>
+            </field>
+        </record>
+
+        <record id="contracts_pro_metric_values_tree_view" model="ir.ui.view">
+			<field name="name">contracts_pro.metric.values.tree</field>
+			<field name="model">contracts_pro.metric_history_value</field>
+            <field name="arch" type="xml">
+                <tree  >
+                    <field name="metric_id"/>
+                    <field name="date"/>
+                    <field name="value"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="contracts_pro_metric_tree_view" model="ir.ui.view">
+			<field name="name">contracts_pro.metric.tree</field>
+			<field name="model">contracts_pro.metric</field>
+            <field name="arch" type="xml">
+                <tree  >
+                    <field name="name"/>
+                    <field name="code"/>
+                    <field name="last_update"/>
+                    <field name="current_value"/>
+                    <field name="active"/>
+                </tree>
+            </field>
+        </record>
+        <record id="contracts_pro_formula_form_view" model="ir.ui.view">
+			<field name="name">contracts_pro.formula.form</field>
+			<field name="model">contracts_pro.formula</field>
+            <field name="arch" type="xml">
+                <form string="Formula" version="7.0">
+                <header>
+                    <button name="button_update_value" string="Update Value" type="object" class="oe_highlight" groups=""/>
+                </header>
+                <sheet>
+                        <div class="oe_right oe_button_box">
+                        </div>
+                        <div class="oe_title">
+                            <group>
+                                <h1><field name="name" placeholder="Formula name..." /></h1><br/>
+                                <h1><field name="current_value" readonly="True"/></h1>
+                            </group>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="id" invisible="1"/>
+                                <field name="active"/>
+                                <field name="code"/>
+                                <field name="description"/>
+                            </group>
+                            <group>
+                                <field name="last_update" readonly="1"/>
+                                <field name="metric_age_tolerance"/>
+                                <field name="metric_ids" widget="many2many_tags"/>
+                            </group>
+                        </group>
+                        <group string="Definition">
+                            <field name="formula"/>
+                        </group>
+                    <notebook>
+                        <page string="Historic Values">
+                            <field name="value_history_ids">
+                                <tree create="false" edit="false" delete="false">
+                                    <field name="date"/>
+                                    <field name="value"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+
+                </form>
+            </field>
+        </record>
+        <record id="contracts_pro_formula_tree_view" model="ir.ui.view">
+			<field name="name">contracts_pro.formula.tree</field>
+			<field name="model">contracts_pro.formula</field>
+            <field name="arch" type="xml">
+                <tree  >
+                    <field name="name"/>
+                    <field name="code"/>
+                    <field name="last_update"/>
+                    <field name="current_value"/>
+                    <field name="active"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- Menu items -->
+        <menuitem name="Contracts" id="contracts_pro_main_root_menuitem" parent="grp_compras_estatales.menu_conf" sequence="50"/>
+        <!--<menuitem name="Templates" id="contracts_pro_root_menuitem" parent="contracts_pro_main_root_menuitem" sequence="10"/>-->
+        <!--<menuitem name="Templates" id="contracts_pro_templates_menuitem" parent="contracts_pro_root_menuitem" action="contracts_pro_templates_action" sequence="10"/>-->
+        <!--<menuitem name="Sections" id="contracts_pro_sections_menuitem" action="contracts_pro_sections_action" parent="contracts_pro_root_menuitem" sequence="20"/>-->
+        <!--<menuitem name="Clauses" id="contracts_pro_clauses_menuitem" action="contracts_pro_clauses_action" parent="contracts_pro_root_menuitem" sequence="30"/>-->
+        <!--<menuitem name="Configuration" id="contracts_pro_config_menuitem" parent="contracts_pro_main_root_menuitem" sequence="40"/>-->
+        <menuitem name="Metrics" id="contracts_pro_metrics_menuitem" action="contracts_pro_metrics_action" parent="contracts_pro_main_root_menuitem" sequence="10"/>
+        <menuitem name="Values" id="contracts_pro_metrics_value_menuitem" action="contracts_pro_metrics_value_action" parent="contracts_pro_main_root_menuitem" sequence="40"/>
+        <menuitem name="Formulas" id="contracts_pro_formulas_menuitem" action="contracts_pro_formulas_action" parent="contracts_pro_main_root_menuitem" sequence="20"/>
+        <menuitem name="Periods" id="contracts_pro_periods_menuitem" action="contracts_pro_period_action" parent="contracts_pro_main_root_menuitem" sequence="30"/>
+
+    </data>
+</openerp>

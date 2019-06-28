@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+
+        <record id="view_pedidos_compra_form_siif_inherit" model="ir.ui.view">
+            <field name="name">Pedidos de Compra-form.siif_inherit</field>
+            <field name="model">grp.pedido.compra</field>
+            <field name="inherit_id" ref="grp_compras_estatales.view_pedidos_compra_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//notebook/page/field[@name='apg_ids']/tree/field[@name='monto_divisa']" position="after">
+                     <field name="total_llavep" string="Monto afectado"/>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</openerp>
+	 

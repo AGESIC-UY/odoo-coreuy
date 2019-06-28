@@ -1,0 +1,401 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <!-- CATEGORIAS OBRAS DE ARTE -->
+        <!-- Vista tree -->
+        <record model="ir.ui.view" id="view_grp_cat_obras_arte_tree">
+            <field name="name">grp.cat_obras_arte.tree</field>
+            <field name="model">grp.cat_obras_arte</field>
+            <field name="priority" eval="1"/>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Categoría de obras de arte">
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- Vista form  -->
+        <record model="ir.ui.view" id="view_grp_cat_obras_arte_form">
+            <field name="name">grp.cat_obras_arte.form</field>
+            <field name="model">grp.cat_obras_arte</field>
+            <field eval="1" name="priority"/>
+            <field name="arch" type="xml">
+                <form string="Categoría de obras de arte" version="7.0">
+                    <sheet>
+                        <group colspan="2" col="2">
+                            <field name="name" style="width: 50%%"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- Vista search -->
+        <record id="view_grp_cat_obras_arte_search" model="ir.ui.view">
+            <field name="name">grp.cat_obras_arte.search</field>
+            <field name="model">grp.cat_obras_arte</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <search string="Categoría de obras de arte">
+                    <field name="name"/>
+                </search>
+            </field>
+        </record>
+
+        <!-- Vista action -->
+        <record model="ir.actions.act_window" id="action_grp_cat_obras_arte_view">
+            <field name="name">Categorías obras de arte</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">grp.cat_obras_arte</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="view_grp_cat_obras_arte_search"/>
+            <field name="domain">[]</field>
+            <field name="context">{}</field>
+        </record>
+
+        <!-- GENEROS OBRAS DE ARTE -->
+        <!-- Vista tree -->
+        <record model="ir.ui.view" id="view_grp_gen_obras_arte_tree">
+            <field name="name">grp.gen_obras_arte.tree</field>
+            <field name="model">grp.gen_obras_arte</field>
+            <field name="priority" eval="1"/>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Género de obras de arte">
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- Vista form  -->
+        <record model="ir.ui.view" id="view_grp_gen_obras_arte_form">
+            <field name="name">grp.gen_obras_arte.form</field>
+            <field name="model">grp.gen_obras_arte</field>
+            <field eval="1" name="priority"/>
+            <field name="arch" type="xml">
+                <form string="Género de obras de arte" version="7.0">
+                    <sheet>
+                        <group colspan="2" col="2">
+                            <field name="name" style="width: 50%%"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- Vista search -->
+        <record id="view_grp_gen_obras_arte_search" model="ir.ui.view">
+            <field name="name">grp.gen_obras_arte.search</field>
+            <field name="model">grp.gen_obras_arte</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <search string="Género de obras de arte">
+                    <field name="name"/>
+                </search>
+            </field>
+        </record>
+
+        <!-- Vista action -->
+        <record model="ir.actions.act_window" id="action_grp_gen_obras_arte_view">
+            <field name="name">Géneros obras de arte</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">grp.gen_obras_arte</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="view_grp_gen_obras_arte_search"/>
+            <field name="domain">[]</field>
+            <field name="context">{}</field>
+        </record>
+
+        <!-- FORMAS OBRAS DE ARTE -->
+        <!-- Vista tree -->
+        <record model="ir.ui.view" id="view_grp_forma_obras_arte_tree">
+            <field name="name">grp.forma_obras_arte.tree</field>
+            <field name="model">grp.forma_obras_arte</field>
+            <field name="priority" eval="1"/>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Formas de obras de arte">
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- Vista form  -->
+        <record model="ir.ui.view" id="view_grp_forma_obras_arte_form">
+            <field name="name">grp.forma_obras_arte.form</field>
+            <field name="model">grp.forma_obras_arte</field>
+            <field eval="1" name="priority"/>
+            <field name="arch" type="xml">
+                <form string="Forma de obras de arte" version="7.0">
+                    <sheet>
+                        <group colspan="2" col="2">
+                            <field name="name" style="width: 50%%"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- Vista search -->
+        <record id="view_grp_forma_obras_arte_search" model="ir.ui.view">
+            <field name="name">grp.forma_obras_arte.search</field>
+            <field name="model">grp.forma_obras_arte</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <search string="Forma de obras de arte">
+                    <field name="name"/>
+                </search>
+            </field>
+        </record>
+
+        <!-- Vista action -->
+        <record model="ir.actions.act_window" id="action_grp_forma_obras_arte_view">
+            <field name="name">Formas obras de arte</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">grp.forma_obras_arte</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="view_grp_forma_obras_arte_search"/>
+            <field name="domain">[]</field>
+            <field name="context">{}</field>
+        </record>
+
+        <!-- ETIQUETAS TECNICAS OBRAS DE ARTE -->
+        <!-- Vista tree -->
+        <record model="ir.ui.view" id="view_grp_etiquetas_obras_arte_tree">
+            <field name="name">grp.etiquetas_obras_arte.tree</field>
+            <field name="model">grp.etiquetas_obras_arte</field>
+            <field name="priority" eval="1"/>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Etiqueta técnica de obras de arte">
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- Vista form  -->
+        <record model="ir.ui.view" id="view_grp_etiquetas_obras_arte_form">
+            <field name="name">grp.etiquetas_obras_arte.form</field>
+            <field name="model">grp.etiquetas_obras_arte</field>
+            <field eval="1" name="priority"/>
+            <field name="arch" type="xml">
+                <form string="Etiqueta técnica de obras de arte" version="7.0">
+                    <sheet>
+                        <group colspan="2" col="2">
+                            <field name="name" style="width: 50%%"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- Vista search -->
+        <record id="view_grp_etiquetas_obras_arte_search" model="ir.ui.view">
+            <field name="name">grp.etiquetas_obras_arte.search</field>
+            <field name="model">grp.etiquetas_obras_arte</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <search string="Etiqueta técnica de obras de arte">
+                    <field name="name"/>
+                </search>
+            </field>
+        </record>
+
+        <!-- Vista action -->
+        <record model="ir.actions.act_window" id="action_grp_etiquetas_obras_arte_view">
+            <field name="name">Técnicas obras de arte</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">grp.etiquetas_obras_arte</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="view_grp_etiquetas_obras_arte_search"/>
+            <field name="domain">[]</field>
+            <field name="context">{}</field>
+        </record>
+
+        <!-- TIPOS DE BIEN DE INFORMATICA -->
+        <!-- Vista tree -->
+        <record model="ir.ui.view" id="view_grp_tipos_bien_informatica_tree">
+            <field name="name">grp.tipos_bien_informatica.tree</field>
+            <field name="model">grp.tipos_bien_informatica</field>
+            <field name="priority" eval="1"/>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Tipos de bien de informática">
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- Vista form  -->
+        <record model="ir.ui.view" id="view_grp_tipos_bien_informatica_form">
+            <field name="name">grp.tipos_bien_informatica.form</field>
+            <field name="model">grp.tipos_bien_informatica</field>
+            <field eval="1" name="priority"/>
+            <field name="arch" type="xml">
+                <form string="Tipos de bien de informática" version="7.0">
+                    <sheet>
+                        <group colspan="2" col="2">
+                            <field name="name" style="width: 50%%"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- Vista search -->
+        <record id="view_grp_tipos_bien_informatica_search" model="ir.ui.view">
+            <field name="name">grp.tipos_bien_informatica.search</field>
+            <field name="model">grp.tipos_bien_informatica</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <search string="Tipos de bien de informática">
+                    <field name="name"/>
+                </search>
+            </field>
+        </record>
+
+        <!-- Vista action -->
+        <record model="ir.actions.act_window" id="action_grp_tipos_bien_informatica_view">
+            <field name="name">Tipos bienes informática</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">grp.tipos_bien_informatica</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="view_grp_tipos_bien_informatica_search"/>
+            <field name="domain">[]</field>
+            <field name="context">{}</field>
+        </record>
+
+        <!-- TIPOS DE IMPRESORAS -->
+        <!-- Vista tree -->
+        <record model="ir.ui.view" id="view_grp_tipos_impresoras_tree">
+            <field name="name">grp.tipos_impresoras.tree</field>
+            <field name="model">grp.tipos_impresoras</field>
+            <field name="priority" eval="1"/>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Tipos de impresoras">
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- Vista form  -->
+        <record model="ir.ui.view" id="view_grp_tipos_impresoras_form">
+            <field name="name">grp.tipos_impresoras.form</field>
+            <field name="model">grp.tipos_impresoras</field>
+            <field eval="1" name="priority"/>
+            <field name="arch" type="xml">
+                <form string="Tipos de impresoras" version="7.0">
+                    <sheet>
+                        <group colspan="2" col="2">
+                            <field name="name" style="width: 50%%"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- Vista search -->
+        <record id="view_grp_tipos_impresoras_search" model="ir.ui.view">
+            <field name="name">grp.tipos_impresoras.search</field>
+            <field name="model">grp.tipos_impresoras</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <search string="Tipos de impresoras">
+                    <field name="name"/>
+                </search>
+            </field>
+        </record>
+
+        <!-- Vista action -->
+        <record model="ir.actions.act_window" id="action_grp_tipos_impresoras_view">
+            <field name="name">Tipos impresoras</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">grp.tipos_impresoras</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="view_grp_tipos_impresoras_search"/>
+            <field name="domain">[]</field>
+            <field name="context">{}</field>
+        </record>
+
+        <!-- MOTIVOS DE BAJA -->
+        <!-- Vista tree -->
+        <record model="ir.ui.view" id="view_grp_motivos_baja_tree">
+            <field name="name">grp.motivos_baja.tree</field>
+            <field name="model">grp.motivos_baja</field>
+            <field name="priority" eval="1"/>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Motivos de baja">
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- Vista form  -->
+        <record model="ir.ui.view" id="view_grp_motivos_baja_form">
+            <field name="name">grp.motivos_baja.form</field>
+            <field name="model">grp.motivos_baja</field>
+            <field eval="1" name="priority"/>
+            <field name="arch" type="xml">
+                <form string="Motivos de baja" version="7.0">
+                    <sheet>
+                        <group colspan="2" col="2">
+                            <field name="name" style="width: 50%%"/>
+                            <field name="account_id" style="width: 50%%" options="{'no_create':True}" required="1"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- Vista search -->
+        <record id="view_grp_motivos_baja_search" model="ir.ui.view">
+            <field name="name">grp.motivos_baja.search</field>
+            <field name="model">grp.motivos_baja</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <search string="Motivos de baja">
+                    <field name="name"/>
+                </search>
+            </field>
+        </record>
+
+        <!-- Vista action -->
+        <record model="ir.actions.act_window" id="action_grp_motivos_baja_view">
+            <field name="name">Motivos de baja</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">grp.motivos_baja</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="view_grp_motivos_baja_search"/>
+            <field name="domain">[]</field>
+            <field name="context">{}</field>
+        </record>
+
+
+        <!-- menuitem de categoria de obras de arte -->
+        <menuitem id="menu_grp_cat_obras_arte1" action="action_grp_cat_obras_arte_view" name="Categorías obras de arte"
+                  parent="account_asset.menu_finance_config_assets" sequence="1"/>
+        <menuitem id="menu_grp_gen_obras_arte1" action="action_grp_gen_obras_arte_view" name="Géneros obras de arte"
+                  parent="account_asset.menu_finance_config_assets" sequence="2"/>
+        <menuitem id="menu_grp_forma_obras_arte1" action="action_grp_forma_obras_arte_view" name="Formas obras de arte"
+                  parent="account_asset.menu_finance_config_assets" sequence="3"/>
+        <menuitem id="menu_grp_etiquetas_obras_arte1" action="action_grp_etiquetas_obras_arte_view"
+                  name="Técnicas obras de arte" parent="account_asset.menu_finance_config_assets" sequence="4"/>
+        <menuitem id="menu_grp_tipos_bien_informatica1" action="action_grp_tipos_bien_informatica_view"
+                  name="Tipos bienes informática" parent="account_asset.menu_finance_config_assets" sequence="5"/>
+        <menuitem id="menu_grp_tipos_impresoras1" action="action_grp_tipos_impresoras_view" name="Tipos de impresoras"
+                  parent="account_asset.menu_finance_config_assets" sequence="6"/>
+        <menuitem id="menu_grp_motivos_baja1" action="action_grp_motivos_baja_view" name="Motivos de baja"
+                  parent="account_asset.menu_finance_config_assets" sequence="8"/>
+
+    </data>
+</openerp>

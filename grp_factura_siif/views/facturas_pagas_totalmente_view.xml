@@ -1,0 +1,200 @@
+<openerp>
+    <data>
+        <!--<record model="ir.ui.view" id="view_grp_integracion_pagas_totalmente_busqueda_tree">-->
+            <!--<field name="name">Integracion Pagas Totalmente</field>-->
+            <!--<field name="model">grp.integracion.pagas_totalmente.busqueda</field>-->
+            <!--<field name="arch" type="xml">-->
+                <!--<tree string="Busqueda de pagas totalmente" version="7.0">-->
+                    <!--<field name="create_date"/>-->
+                    <!--<field name="anio_fiscal"/>-->
+                    <!--<field name="inciso"/>-->
+                    <!--<field name="fecha_desde"/>-->
+                    <!--<field name="fecha_hasta"/>-->
+                <!--</tree>-->
+            <!--</field>-->
+        <!--</record>-->
+
+        <!--<record model="ir.ui.view" id="view_grp_integracion_pagas_totalmente_busqueda_form">-->
+            <!--<field name="name">Integracion Pagas Totalmente</field>-->
+            <!--<field name="model">grp.integracion.pagas_totalmente.busqueda</field>-->
+            <!--<field name="arch" type="xml">-->
+                <!--<form string="Busqueda de pagas totalmente" version="7.0">-->
+                    <!--<sheet>-->
+                        <!--<h1>Facturas SIIF Pagas totalmente</h1>-->
+                        <!--<group>-->
+                            <!--<group>-->
+                                <!--<field name="anio_fiscal"/>-->
+                                <!--<field name="inciso"/>-->
+                                <!--<field name="fecha_desde"/>-->
+                                <!--<field name="fecha_hasta"/>-->
+                            <!--</group>-->
+                            <!--<button-->
+                                    <!--name="grp_integracion_pagas_totalmente_buscar"-->
+                                    <!--type="object"-->
+                                    <!--string="Buscar"-->
+                                    <!--icon="gtk-find"-->
+                                    <!--/>-->
+                        <!--</group>-->
+                    <!--</sheet>-->
+                    <!--<group>-->
+                        <!--<notebook>-->
+                            <!--<page string="Facturas">-->
+                                <!--<group col="4" colspan="4">-->
+                                    <!--<field name="facturas_ids" readonly="1" nolabel="1">-->
+                                        <!--&lt;!&ndash;<tree String="Facturas SIIF" colors="blue:incluido == True"-->
+                                              <!--fonts="bold:incluido == True">&ndash;&gt;-->
+                                        <!--<tree String="Facturas SIIF">-->
+                                            <!--&lt;!&ndash;<button-->
+                                                    <!--type="object"-->
+                                                    <!--name="set_attrib"-->
+                                                    <!--string="Importar factura"-->
+                                                    <!--icon="gtk-edit"-->
+                                                    <!--attrs="{'invisible':[('False','=',True)]}"-->
+                                                    <!--/>&ndash;&gt;-->
+                                            <!--<field name="anio_fiscal"/>-->
+                                            <!--<field name="clase_id"/>-->
+                                            <!--<field name="concepto_gasto"/>-->
+                                            <!--<field name="fecha_enviado"/>-->
+                                            <!--<field name="financiamiento"/>-->
+                                            <!--<field name="inciso"/>-->
+                                            <!--<field name="num_doc_afectacion"/>-->
+                                            <!--<field name="num_doc_compromiso"/>-->
+                                            <!--<field name="num_doc_obligacion"/>-->
+                                            <!--<field name="nro_lote_oblig"/>-->
+                                            <!--<field name="ruc"/>-->
+                                            <!--<field name="tipo_ejecucion"/>-->
+                                            <!--<field name="unidad_ejecutora"/>-->
+                                            <!--<field name="factura_grp_id"/>-->
+                                        <!--</tree>-->
+                                    <!--</field>-->
+                                <!--</group>-->
+                            <!--</page>-->
+                        <!--</notebook>-->
+                    <!--</group>-->
+                <!--</form>-->
+            <!--</field>-->
+        <!--</record>-->
+
+        <!--INICIO-->
+        <record model="ir.ui.view" id="view_grp_integracion_pagas_totalmente_tree">
+            <field name="name">view.grp.integracion.pagas_totalmente.tree</field>
+            <field name="model">grp.integracion.pagas_totalmente</field>
+            <!--<field name="priority" eval="14"/>-->
+            <field name="arch" type="xml">
+                <tree string="Facturas pagas totalmente" version="7.0" create="false" edit="false" colors="red:state=='error';blue:state=='processed'">
+                    <field name="factura_grp_id"/>
+                    <field name="num_doc_afectacion"/>
+                    <field name="num_doc_compromiso"/>
+                    <field name="num_doc_obligacion"/>
+                    <field name="nro_lote_oblig"/>
+                    <field name="anio_fiscal"/>
+                    <field name="fecha_enviado"/>
+                    <field name="financiamiento"/>
+                    <field name="inciso"/>
+                    <field name="unidad_ejecutora"/>
+                    <field name="tipo_ejecucion"/>
+                    <field name="clase_id"/>
+                    <field name="concepto_gasto"/>
+                    <field name="ruc"/>
+                    <field name="state"/>
+                    <field name="resultado"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="view_grp_integracion_pagas_totalmente_form">
+            <field name="name">view.grp.integracion.pagas_totalmente.tree</field>
+            <field name="model">grp.integracion.pagas_totalmente</field>
+            <!--<field name="priority" eval="15"/>-->
+            <field name="arch" type="xml">
+                <form string="Facturas pagas totalmente" version="7.0" edit="false">
+                    <group>
+                        <group>
+                            <field name="factura_grp_id"/>
+                            <field name="num_doc_afectacion"/>
+                            <field name="num_doc_compromiso"/>
+                            <field name="num_doc_obligacion"/>
+                            <field name="nro_lote_oblig"/>
+                            <field name="state"/>
+                            <field name="resultado"/>
+
+                        </group>
+                        <group>
+                            <field name="anio_fiscal"/>
+                            <field name="fecha_enviado"/>
+                            <field name="financiamiento"/>
+                            <field name="inciso"/>
+                            <field name="unidad_ejecutora"/>
+                            <field name="tipo_ejecucion"/>
+                            <field name="clase_id"/>
+                            <field name="concepto_gasto"/>
+                            <field name="ruc"/>
+                        </group>
+                    </group>
+                </form>
+            </field>
+        </record>
+
+
+
+        <record model="ir.ui.view" id="view_grp_integracion_pagas_totalmente_search">
+            <field name="name">view.grp.integracion.pagas_totalmente.search</field>
+            <field name="model">grp.integracion.pagas_totalmente</field>
+            <field name="arch" type="xml">
+                <search string="Search Request">
+                    <filter icon="terp-mail-message-new" string="Pendientes" name="filter_pendants"
+                            domain="[('state','=','pendant')]"/>
+                    <filter icon="terp-mail-message-new" string="Procesadas" name="filter_processed"
+                            domain="[('state','=','processed')]"/>
+                    <separator/>
+                    <group expand="0" string="Agrupar Por...">
+                        <filter string="State" domain="[]" context="{'group_by' : 'state'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record id="action_grp_integracion_pagas_totalmente" model="ir.actions.act_window">
+            <field name="name">Action facturas pagas totalmente</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">grp.integracion.pagas_totalmente</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="view_grp_integracion_pagas_totalmente_search"/>
+        </record>
+
+         <!--Cron para actualizar facturas pagas totalmente -->
+		<record forcecreate="True" id="ir_cron_facturas_pagas_totalmente" model="ir.cron">
+			<field name="name">Actualizar facturas pagas totalmente</field>
+			<!--<field eval="True" name="active" />-->
+			<!--<field eval="False" name="active" />-->
+			<field name="user_id" ref="base.user_root" />
+			<field name="interval_number">1</field>
+			<field name="interval_type">days</field>
+			<field name="numbercall">-1</field>
+			<field eval="False" name="doall" />
+			<field eval="'grp.integracion.pagas_totalmente'" name="model" />
+			<field eval="'actualizar_pagas_totalmente'" name="function" />
+			<field eval="'()'" name="args" />
+		</record>
+
+        <!--<record model="ir.actions.act_window" id="open_pagas_totalmente">-->
+            <!--<field name="name">Action Facturas Pagas Totalmente</field>-->
+            <!--<field name="res_model">grp.integracion.pagas_totalmente.busqueda</field>-->
+            <!--<field name="view_type">form</field>-->
+            <!--<field name="view_mode">tree,form</field>-->
+            <!--<field name="view_id" ref="view_grp_integracion_pagas_totalmente_busqueda_form"/>-->
+        <!--</record>-->
+
+        <!-- Eliminar 23/11-->
+        <!--<menuitem id="menu_integracion_pagas_totalmente" name="Consulta de Facturas Pagas Totalmente"-->
+                  <!--action="open_pagas_totalmente"-->
+                  <!--parent="menu_pagos_siif_root"/>-->
+
+        <!-- groups="grp_seguridad.grp_compras_apg_Responsable_SIIF"-->
+        <menuitem id="menu_grp_pagas_totalmente" name="Facturas Pagas Totalmente"
+                  action="action_grp_integracion_pagas_totalmente"
+                  parent="menu_pagos_siif_root"/>
+
+    </data>
+</openerp>

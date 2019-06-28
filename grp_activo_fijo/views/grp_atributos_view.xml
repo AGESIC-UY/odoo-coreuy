@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <!-- Vista TREE de Atributos de activo fijo -->
+        <record id="view_grp_atributos_tree" model="ir.ui.view">
+            <field name="name">grp.atributos.tree</field>
+            <field name="model">grp.atributos</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <tree string="Atributos de activo fijo">
+                    <field name="name"/>
+                    <field name="category_id"/>
+                    <field name="company_related"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- Vista FORM de Atributos de activo fijo -->
+        <record id="view_grp_atributos_form" model="ir.ui.view">
+            <field name="name">grp.atributos.form</field>
+            <field name="model">grp.atributos</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <form string="Atributos de activo fijo" version="7.0">
+                    <sheet>
+                        <separator colspan="4" string="Atributos de activo fijo"/>
+                        <group colspan="4" col="4">
+                            <field name="name"/>
+                            <field name="category_id"/>
+                            <field name="company_related"/>
+                        </group>
+                        <notebook colspan="4">
+                            <page string="Valores" colspan="4">
+                                <field name="valor_ids" colspan="4" nolabel="1">
+                                    <tree string="Valores" editable="bottom">
+                                        <field name="name"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <!-- Vista SEARCH de Atributos de activo fijo -->
+        <record id="view_grp_atributos_search" model="ir.ui.view">
+            <field name="name">grp.atributos.search</field>
+            <field name="model">grp.atributos</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <search string="Atributos de activo fijo">
+                    <field name="name"/>
+                    <field name="category_id"/>
+                    <newline/>
+                    <group expand="0" string="Group By...">
+                        <filter string="Atributo" domain="[]" context="{'group_by':'name'}"/>
+                        <filter string="Categoría" domain="[]" context="{'group_by':'category_id'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <!-- Vista ACTION de Atributos de activo fijo -->
+        <record model="ir.actions.act_window" id="action_grp_atributos_view">
+            <field name="name">Atributos de activo</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">grp.atributos</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="view_grp_atributos_search"/>
+            <field name="domain">[]</field>
+            <field name="context">{}</field>
+        </record>
+        <!-- MENUITEM de Atributos de activo fijo -->
+        <menuitem id="menu_grp_atributos" action="action_grp_atributos_view" name="Atributos"
+                  parent="account_asset.menu_finance_config_assets" sequence="10"/>
+
+    </data>
+</openerp>

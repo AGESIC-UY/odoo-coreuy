@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="view_asset_depreciation_confirmation_wizard_inherited" model="ir.ui.view">
+            <field name="name">asset.depreciation.confirmation.wizard.inherited</field>
+            <field name="model">asset.depreciation.confirmation.wizard</field>
+            <field name="inherit_id" ref="account_asset.view_asset_depreciation_confirmation_wizard" />
+            <field name="arch" type="xml">
+                <field name="period_id" position="after">
+                    <field name="cancelar_amortizacion"
+                           on_change="onchange_cancelar_amortizacion(cancelar_amortizacion,period_id)" />
+                    <field name="fecha_asiento"
+                           attrs="{'invisible': [('cancelar_amortizacion','=',False)],
+                           'required': [('cancelar_amortizacion','=',True)]}" />
+                </field>
+                <footer position="replace">
+                    <footer>
+                        <button string="Calcular" name="asset_compute"
+                                attrs="{'invisible': [('cancelar_amortizacion','=',True)]}"
+                                type="object" class="oe_highlight"/>
+                        <button string="Cancelar amortizaciones"
+                                name="action_cancelar_amortizaciones"
+                                type="object" class="oe_highlight"
+                                attrs="{'invisible': [('cancelar_amortizacion','=',False)]}"
+                                groups="grp_activo_fijo.grp_af_responsable_financiero"/>
+                            or
+                        <button string="Cancelar" class="oe_link" special="cancel"/>
+                    </footer>
+                </footer>
+                <!--<form string="Compute Asset">-->
+                    <!--<group>-->
+                        <!--<field name="period_id"/>-->
+                    <!--</group>-->
+                    <!--<footer>-->
+                        <!--<button string="Compute" name="asset_compute" type="object" class="oe_highlight"/>-->
+                        <!--or-->
+                        <!--<button string="Cancel" class="oe_link" special="cancel"/>-->
+                    <!--</footer>-->
+                <!--</form>-->
+             </field>
+        </record>
+    </data>
+</openerp>

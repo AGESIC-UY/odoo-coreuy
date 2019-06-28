@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+        <record model="ir.ui.view" id="grp_baja_activo_form">
+            <field name="name">grp.baja_activo.form</field>
+            <field name="model">grp.baja_activo</field>
+            <field name="arch" type="xml">
+                <form string="Baja de Activo">
+                    <sheet>
+                        <group>
+                            <field name="fecha_baja"/>
+                            <field name="motivo_baja" style="width: 30%%"/>
+                            <field name="descripcion_motivo" style="width: 50%%"/>
+                            <field name="nro_expediente" style="width: 20%%"/>
+                        </group>
+                        <group invisible="context.get('form_state','')!='open'">
+                            <separator string="Cálculo de amortización" colspan="6"/>
+                            <field name="amortizacion"/>
+                            <field name="amortizacion_form" invisible="1"/>
+                        </group>
+                    </sheet>
+                    <footer>
+                        <button name="baja_activo" type="object" string="Dar de Baja" class="oe_highlight"/>
+                        o
+                        <button string="Cancelar" class="oe_link" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+
+        <record model="ir.actions.act_window" id="grp_baja_activo_act">
+            <field name="name">Baja de Activo</field>
+            <field name="res_model">grp.baja_activo</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="grp_baja_activo_form"/>
+            <field name="target">new</field>
+        </record>
+
+
+    </data>
+</openerp>

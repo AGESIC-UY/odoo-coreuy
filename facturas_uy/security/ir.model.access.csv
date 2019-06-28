@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_grp_ajuste_redondeo_config_contabilidad,access_name_grp_ajuste_redondeo_config_contabilidad,model_grp_ajuste_redondeo,grp_seguridad.grp_configuracion_contabilidad,1,1,1,1
+access_grp_ajuste_redondeo_rrhh_empleado,access_name_grp_ajuste_redondeo_rrhh_empleado,model_grp_ajuste_redondeo,base.group_user,1,0,0,0

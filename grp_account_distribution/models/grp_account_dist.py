@@ -20,7 +20,7 @@
 #
 ##############################################################################
 
-from openerp import models, fields, api, exceptions, _
+from openerp import models, fields, api
 from openerp.exceptions import ValidationError
 from lxml import etree
 
@@ -434,47 +434,6 @@ class account_move_line(models.Model):
                 'target': 'new',
                 'res_id': self.analytics_id.id
             }
-        return True
-
-    # Sobreescritura del metodo create_analytic_lines de account_analytic_plans
-    # Las lineas analiticas deben tomar la UO a partir de las lineas de la distribucion del asiento generado
-    @api.multi
-    def create_analytic_lines(self):
-        super(account_move_line, self).create_analytic_lines()
-        analytic_line_obj = self.env['account.analytic.line']
-        for line in self:
-           if line.analytics_id:
-               if not line.journal_id.analytic_journal_id:
-                   raise exceptions.ValidationError(_('No Analytic Journal!'),
-                                                    _("You have to define an analytic journal on the '%s' journal.")
-                                                    % (line.journal_id.name,))
-
-               toremove = analytic_line_obj.search([('move_id','=',line.id)])
-               if toremove:
-                    toremove.unlink()
-               for line2 in line.analytics_id.account_ids:
-                   val = (line.credit or  0.0) - (line.debit or 0.0)
-                   amt=val * (line2.rate/100)
-                   al_vals={
-                       'name': line.name,
-                       'date': line.date,
-                       'account_id': line2.analytic_account_id.id,
-                       'unit_amount': line.quantity,
-                       'product_id': line.product_id and line.product_id.id or False,
-                       'product_uom_id': line.product_uom_id and line.product_uom_id.id or False,
-                       'amount': amt,
-                       'general_account_id': line.account_id.id,
-                       'move_id': line.id,
-                       'journal_id': line.journal_id.analytic_journal_id.id,
-                       'ref': line.ref,
-                       'percentage': line2.rate
-                   }
-                   # Si la linea de la distribucion tiene UO agregarle la UO a la linea analitica
-                   if line2.hr_department_id:
-                       al_vals.update({'hr_department_id': line2.hr_department_id.id})
-                   if line2.dim_multi_id:
-                       al_vals.update({'dim_multi_id': line2.dim_multi_id.id})
-                   analytic_line_obj.create(al_vals)
         return True
 
 class account_move(models.Model):

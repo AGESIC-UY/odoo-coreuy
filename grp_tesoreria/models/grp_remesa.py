@@ -65,6 +65,13 @@ class GrpRemesa(models.Model):
     move_ids = fields.Many2many('account.move', 'grp_remesa_account_move', 'grp_remesa_id', 'account_move_id',
                                 string='Asiento contable remesa')
 
+    @api.multi
+    def name_get(self):
+        ctx = self.env.context.copy()
+        if 'name_get_field' in ctx and hasattr(self[:1], ctx['name_get_field']):
+            return [(r.id, r[ctx['name_get_field']]) for r in self]
+        return super(GrpRemesa, self).name_get()
+
     # TODO: K SPRING 15
     def _create_move_remesa(self):
         move_a_crear = defaultdict(lambda: [])

@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <!--<record id="act_aprobacion_jc" model="workflow.activity">-->
+            <!--<field name="wkf_id" ref="purchase.purchase_order"/>-->
+            <!--<field name="name">aprobacion_jc</field>-->
+            <!--<field name="kind">function</field>-->
+            <!--<field name="action">-->
+                <!--purchase_send_approve_btn()-->
+            <!--</field>-->
+        <!--</record>-->
+
+        <!--<record id="act_autorizacion_odg" model="workflow.activity">-->
+            <!--<field name="wkf_id" ref="purchase.purchase_order"/>-->
+            <!--<field name="name">autorizacion_odg</field>-->
+            <!--<field name="kind">function</field>-->
+            <!--<field name="action">-->
+                <!--purchase_action_en_auth_ordenador()-->
+            <!--</field>-->
+        <!--</record>-->
+
+        <!--<record id="trans_draft_aprobacionjc" model="workflow.transition">-->
+            <!--<field name="act_from" ref="purchase.act_draft"/>-->
+            <!--<field name="act_to" ref="act_aprobacion_jc"/>-->
+            <!--<field name="signal">purchase_send_approve</field>-->
+        <!--</record>-->
+
+        <!--&lt;!&ndash; nueva transaccion &ndash;&gt;-->
+        <!--<record id="trans_aprobacionjc_confirmed" model="workflow.transition">-->
+            <!--<field name="act_from" ref="act_aprobacion_jc"/>-->
+            <!--<field name="act_to" ref="purchase.act_confirmed"/>-->
+            <!--<field name="signal">automatic_confirm</field>-->
+        <!--</record>-->
+
+        <!--<record id="trans_aprob_cancel" model="workflow.transition">-->
+            <!--<field name="act_from" ref="act_aprobacion_jc"/>-->
+            <!--<field name="act_to" ref="purchase.act_cancel"/>-->
+            <!--<field name="signal">purchase_rechazar</field>-->
+        <!--</record>-->
+
+        <!--<record id="act_aprobacion_jc" model="workflow.activity">-->
+            <!--<field name="wkf_id" ref="purchase.purchase_order"/>-->
+            <!--<field name="name">aprobacion_jc</field>-->
+            <!--<field name="kind">function</field>-->
+            <!--<field name="action">-->
+                <!--purchase_send_approve_btn()-->
+            <!--</field>-->
+        <!--</record>-->
+
+        <!-- Agregado esta condicion 08/01-->
+        <record id="purchase.trans_invoice_end_done" model="workflow.transition">
+            <field name="condition" eval="'invoiced_grp'"/>
+        </record>
+
+        <!-- nuevos cambios a introducir 08/01-->
+        <!-- invoice_done modificando proceso original-->
+        <record id="purchase.act_done" model="workflow.activity">
+            <field name="flow_stop" eval="False"/>
+        </record>
+
+        <!-- Descomentado para cambiar el wkf 08/01-->
+        <record id="purchase.act_invoice_end" model="workflow.activity">
+        <!--    <field name="action" eval="'invoice_commit()'"/> -->
+            <field name="kind" eval="'dummy'"/>
+        </record>
+
+        <!-- nueva senal de wkf -->
+        <record id="trans_inv_end_cancel" model="workflow.transition">
+            <field name="act_from" ref="purchase.act_invoice_end"/>
+            <field name="act_to" ref="purchase.act_cancel"/>
+            <field name="signal">purchase_cancel</field>
+        </record>
+
+        <!-- actividad done tmp-->
+        <record id="act_done_tmp" model="workflow.activity">
+            <field name="wkf_id" ref="purchase.purchase_order"/>
+            <field name="name">done_tmp</field>
+            <field name="action">write({'state':'done'})</field>
+            <field name="kind">function</field>
+        </record>
+
+        <record id="trans_done_donetmp" model="workflow.transition">
+            <field name="act_from" ref="purchase.act_done"/>
+            <field name="act_to" ref="act_done_tmp"/>
+        </record>
+
+        <!-- Act factura_tmp para cuando se cancelan facturas-->
+        <record id="act_invoiced_tmp" model="workflow.activity">
+            <field name="wkf_id" ref="purchase.purchase_order"/>
+            <field name="name">invoice_end_tmp</field>
+            <field name="action">write({'state':'confirmed'})</field>
+            <field name="kind">function</field>
+        </record>
+
+        <record id="trans_donetmp_invoice_end_tmp" model="workflow.transition">
+            <field name="act_from" ref="act_done_tmp"/>
+            <field name="act_to" ref="act_invoiced_tmp"/>
+            <field name="signal">invoice_canceled</field>
+            <field name="condition">check_invoices()</field>
+        </record>
+
+        <record id="trans_invoice_end_tmp_donetmp" model="workflow.transition">
+            <field name="act_from" ref="act_invoiced_tmp"/>
+            <field name="act_to" ref="act_done_tmp"/>
+            <field name="condition">invoiced_grp</field>
+        </record>
+        <!-- Fin de actividades y transiciones para temp 08/01-->
+
+        <!-- Actividad para finalizar proceso-->
+        <record id="act_closed" model="workflow.activity">
+            <field name="wkf_id" ref="purchase.purchase_order"/>
+            <field name="name">close</field>
+            <field name="action">write({'state':'closed'})</field>
+            <field name="kind">function</field>
+            <field name="flow_stop">True</field>
+        </record>
+
+        <record id="trans_done_tmp_close" model="workflow.transition">
+            <field name="act_from" ref="act_done_tmp"/>
+            <!-- Dejado igual que el ministerio para recibir varias facturas-->
+            <!--<field name="act_from" ref="purchase.act_done"/> 08/01-->
+            <field name="act_to" ref="act_closed"/>
+            <field name="signal">purchase_finalizar</field>
+        </record>
+
+        <!-- Asegurarse que no pase nunca al estado ´´sent´´ -->
+        <record id="purchase.act_sent" model="workflow.activity">
+            <field name="condition">False</field>
+        </record>
+
+    </data>
+</openerp>

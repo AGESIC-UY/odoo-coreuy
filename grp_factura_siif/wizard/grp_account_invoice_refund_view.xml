@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <!-- TODO: R SPRING 9 GAP 65-->
+        <record id="view_account_invoice_refund" model="ir.ui.view">
+            <field name="name">account.invoice.refund.form.credit.note</field>
+            <field name="model">account.invoice.refund</field>
+            <field name="inherit_id" ref="account.view_account_invoice_refund"/>
+            <field name="arch" type="xml">
+                <field name="filter_refund" position="attributes">
+                    <attribute name="attrs">{'readonly': True}</attribute>
+                </field>
+                <field name="description" position="after">
+                    <field name="tipo_nota_credito" invisible="not context.get('ajuste_siif',False)" required="context.get('ajuste_siif',False)"/>
+                </field>
+            </field>
+        </record>
+    </data>
+</openerp>

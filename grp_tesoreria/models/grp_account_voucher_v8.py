@@ -1044,6 +1044,7 @@ class grp_account_voucher_line(models.Model):
             # 28/12/2018 ASM renombrar sequence (nombre reservado) a x_sequence
             # _supplier_invoice_number = self.origin_voucher_id.rendicion_anticipos_id.sequence
             _supplier_invoice_number = self.origin_voucher_id.rendicion_anticipos_id.x_sequence
+            _nro_afectacion = self.origin_voucher_id.rendicion_anticipos_id.fondo_rotatorio_id.nro_afectacion
             #
         elif self.origin_voucher_id.solicitud_anticipos_id:
             _related_model = self.origin_voucher_id.solicitud_anticipos_id._name
@@ -1053,7 +1054,9 @@ class grp_account_voucher_line(models.Model):
             _related_document = self.origin_voucher_id.solicitud_anticipos_id.name
             _invoice_id = False
             _supplier_invoice_number = self.origin_voucher_id.solicitud_anticipos_id.name
+            _nro_afectacion = 0
         elif self.origin_voucher_id.opi:
+            # NO TIENE NRO AFECTACION
             _related_model = self.origin_voucher_id._name
             _related_id = self.origin_voucher_id.id
             _view_id = u'view_internal_pay_order_form'
@@ -1061,7 +1064,9 @@ class grp_account_voucher_line(models.Model):
             _related_document = self.origin_voucher_id._name
             _invoice_id = False
             _supplier_invoice_number = self.origin_voucher_id.number
+            _nro_afectacion = 0
         else:
+            # NO TIENE NRO AFECTACION
             _invoice_id = self.invoice_id.id or self.move_line_id.invoice.id
             vale_caja_id = self.env['grp.vale.caja'].search([('aprobacion_pago_id', '=', _invoice_id)], limit=1)
             if vale_caja_id:
@@ -1072,6 +1077,7 @@ class grp_account_voucher_line(models.Model):
                 _related_document = vale_caja_id._name
                 _invoice_id = False
                 _supplier_invoice_number = u'Vale de caja'
+                _nro_afectacion = 0
             else:
                 retencion_manual_id = self.env['grp.lineas.retenciones.manuales.resumen'].search([('move_id','=',self.move_line_id.move_id.id)], limit=1).retencion_manual_id
                 if retencion_manual_id and self.move_line_id:
@@ -1082,6 +1088,7 @@ class grp_account_voucher_line(models.Model):
                     _related_document = retencion_manual_id._name
                     _invoice_id = False
                     _supplier_invoice_number = u'Retención de Sueldo de Habilitaciones'
+                    _nro_afectacion = retencion_manual_id.afectation_nro
                 else:
                     return super(grp_account_voucher_line, self)._get_origin_dict()
 
@@ -1091,7 +1098,9 @@ class grp_account_voucher_line(models.Model):
                 'module_name': _module_name,
                 'view_id': _view_id,
                 'invoice_id': _invoice_id,
-                'supplier_invoice_number': _supplier_invoice_number}
+                'supplier_invoice_number': _supplier_invoice_number,
+                'nro_afectacion': _nro_afectacion
+                }
 
 
     # TODO: C SPRING 10 GAP_266

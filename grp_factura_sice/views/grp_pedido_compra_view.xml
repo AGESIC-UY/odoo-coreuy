@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+
+        <record id="view_pedidos_compra_form_sice_inherit" model="ir.ui.view">
+            <field name="name">Pedidos de Compra-form.sice_inherit</field>
+            <field name="model">grp.pedido.compra</field>
+            <field name="inherit_id" ref="grp_compras_estatales.view_pedidos_compra_form"/>
+            <field name="arch" type="xml">
+                <button name="button_crear_apg" position="before">
+                    <!--TODO Spring 6 GAP 121.193.194-->
+                    <button name="button_wkf_pc_sice" states="aut_ordenador" type="workflow" string="Enviar SICE"
+                            attrs="{'invisible': ['|','|',('tipo_licitacion','!=',False),('es_migracion','!=',False)]}"
+                            class="oe_inline oe_stat_button" icon="fa-send" style="white-space: normal;"
+                            groups="grp_seguridad.grp_compras_pc_Responsable,grp_seguridad.grp_compras_pc_Comprador"/>
+                    <button name="button_wkf_importar_sice" states="inicio" type="workflow" string="Importar desde SICE"
+                            attrs="{'invisible': ['|',('es_migracion','=',False)]}"
+                            class="oe_inline oe_stat_button" icon="fa-send" style="white-space: normal;"
+                            groups="grp_seguridad.grp_compras_pc_Responsable,grp_seguridad.grp_compras_pc_Comprador"/>
+                    <button name="button_enviar_sice" states="aprobado" type="object" string="Enviar SICE"
+                            attrs="{'invisible': ['|','|',('tipo_licitacion','=',False),('sice_id_compra','!=',0)]}"
+                            class="oe_inline oe_stat_button" icon="fa-send" style="white-space: normal;"
+                            groups="grp_seguridad.grp_compras_pc_Responsable,grp_seguridad.grp_compras_pc_Comprador"/>
+                    <button name="button_enviar_sice_ampliacion" states="confirmado" type="object" string="Enviar SICE"
+                            attrs="{'invisible': ['|','|',('ampliacion','=',False),('sice_id_compra','!=',0)]}"
+                            class="oe_inline oe_stat_button" icon="fa-send" style="white-space: normal;"
+                            groups="grp_seguridad.grp_compras_pc_Responsable,grp_seguridad.grp_compras_pc_Comprador"/>
+                </button>
+                <button name="button_pc_inicio_validado" position="attributes">
+                    <attribute name="attrs">{'invisible': ['|',('es_migracion','!=',False)]}</attribute>
+                </button>
+            </field>
+        </record>
+
+    </data>
+</openerp>
+	 

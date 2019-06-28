@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="view_importar_adjudicacion_wizard" model="ir.ui.view">
+            <field name="name">Importar adjudicación</field>
+            <field name="model">grp.wiz.importar.adjudicacion</field>
+            <field name="arch" type="xml">
+                <form string="Pedido de compra" version="7.0">
+                    <group cols="4">
+                        <group string="Pedido de compras original">
+                            <field name="pedido_compra_origen_id" readonly="1"/>
+                        </group>
+                        <group string="Pedidos ampliados" colspan="1">
+                            <p class="oe_inline" colspan="2">
+                                Seleccione el pedido de compras ampliado a enviar a sice
+                            </p>
+                            <newline/>
+                            <field name="pedido_compra_ampliado_id" style="width: 80%%"
+                                   on_change="onchange_pedido_ampliado(pedido_compra_ampliado_id)"
+                                   nolabel="1"
+                                   domain="[('pc_origen_ampliacion_id','=',pedido_compra_origen_id),('state','not in',['inicio'])]"
+                                   options="{'create': False, 'create_edit': False, 'm2o_dialog':True}"/>
+                            <field name="nro_ampliacion" nolabel="1" class="oe_inline" readonly="1"/>
+                        </group>
+                    </group>
+                    <footer>
+                        <button name="button_wzrd_importar_adjudicacion" string="Importar" type="object"
+                                class="oe_highlight"/>
+                        or
+                        <button string="Cancel" class="oe_link" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+    </data>
+</openerp>

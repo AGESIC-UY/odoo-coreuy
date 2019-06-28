@@ -1,0 +1,338 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+
+        <!-- 001 -Inicio SIIF 1.1 - Pantalla financiamientos-->
+        <record model="ir.ui.view" id="view_financiamiento_siif_tree">
+            <field name="name">financiamiento.siif.tree</field>
+            <field name="model">financiamiento.siif</field>
+            <field name="priority" eval="5"/>
+            <field name="arch" type="xml">
+                <tree string="Financiamiento SIIF">
+                    <field name="codigo"/>
+                    <field name="descripcion"/>
+                    <field name="visible_documento"/>
+                    <field name="exceptuado_sice"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="view_financiamiento_siif_form">
+            <field name="name">financiamiento.siif.form</field>
+            <field name="model">financiamiento.siif</field>
+            <field name="priority" eval="5"/>
+            <field name="arch" type="xml">
+                <form string="Financiamiento SIIF" version="7.0">
+                    <sheet string="Financiamiento SIIF">
+                        <group>
+                            <field name="name" invisible="1"/>
+                            <field name="codigo"/>
+                            <field name="descripcion"/>
+                            <field name="visible_documento"/>
+                            <field name="exceptuado_sice"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_financiamiento_siif">
+            <field name="name">Financiamientos</field>
+            <field name="res_model">financiamiento.siif</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="view_financiamiento_siif_tree"/>
+        </record>
+
+
+        <record model="ir.ui.view" id="view_codigo_sir_siif_tree">
+            <field name="name">codigo.sir.tree</field>
+            <field name="model">codigo.sir.siif</field>
+            <field name="priority" eval="5"/>
+            <field name="arch" type="xml">
+                <tree string="Codigos SIR">
+                    <field name="codigo"/>
+                    <field name="descripcion"/>
+                    <field name="visible_documento"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="view_codigo_sir_siif_form">
+            <field name="name">codigo.sir.siif.form</field>
+            <field name="model">codigo.sir.siif</field>
+            <field name="priority" eval="5"/>
+            <field name="arch" type="xml">
+                <form string="Codigos SIR" version="7.0">
+                    <sheet string="Codigos SIR">
+                        <group>
+                            <field name="codigo"/>
+                            <field name="name" invisible="1"/>
+                            <field name="descripcion"/>
+                            <field name="visible_documento"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_codigo_sir_siif_tree_siif">
+            <field name="name">Códigos SIR</field>
+            <field name="res_model">codigo.sir.siif</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="view_codigo_sir_siif_tree"/>
+        </record>
+
+
+        <record model="ir.ui.view" id="view_tipo_documento_siif_tree">
+            <field name="name">tipo.documento.siif.tree</field>
+            <field name="model">tipo.documento.siif</field>
+            <field name="priority" eval="5"/>
+            <field name="arch" type="xml">
+                <tree string="Tipos de documento">
+                    <field name="name"/>
+                    <field name="codigo"/>
+                    <field name="descripcion"/>
+                    <field name="visible_documento_afectacion"/>
+                    <field name="visible_documento_compromiso"/>
+                    <field name="visible_documento_obligacion"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="view_tipo_documento_siif_form">
+            <field name="name">tipo.documento.siif.form</field>
+            <field name="model">tipo.documento.siif</field>
+            <field name="priority" eval="5"/>
+            <field name="arch" type="xml">
+                <form string="Tipos de documento" version="7.0">
+                    <sheet string="Tipos de documento">
+                        <group>
+                            <group>
+                                <field name="name"/>
+                                <field name="codigo"/>
+                                <field name="descripcion"/>
+
+                            </group>
+
+                            <group>
+                                <field name="visible_documento_afectacion"/>
+                                <field name="visible_documento_compromiso"/>
+                                <field name="visible_documento_obligacion"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_tipo_documento_siif">
+            <field name="name">Tipos de documento</field>
+            <field name="res_model">tipo.documento.siif</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="view_tipo_documento_siif_tree"/>
+        </record>
+
+        <record model="ir.ui.view" id="view_tipo_ejecucion_siif_tree">
+            <field name="name">tipo.ejecucion.siif.tree</field>
+            <field name="model">tipo.ejecucion.siif</field>
+            <field name="priority" eval="5"/>
+            <field name="arch" type="xml">
+                <tree string="Tipos de ejecución">
+                    <field name="codigo"/>
+                    <field name="descripcion"/>
+                    <field name="visible_documento"/>
+                    <field name="exceptuado_sice"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="view_tipo_ejecucion_siif_form">
+            <field name="name">tipo.ejecucion.siif.form</field>
+            <field name="model">tipo.ejecucion.siif</field>
+            <field name="priority" eval="5"/>
+            <field name="arch" type="xml">
+                <form string="Tipos de ejecución" version="7.0">
+                    <sheet string="Tipos de ejecución">
+                        <group>
+                            <field name="codigo"/>
+                            <field name="name" invisible="1"/>
+                            <field name="descripcion"/>
+                            <field name="visible_documento"/>
+                            <field name="exceptuado_sice"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_tipo_ejecucion_siif">
+            <field name="name">Tipos de ejecución</field>
+            <field name="res_model">tipo.ejecucion.siif</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="view_tipo_ejecucion_siif_tree"/>
+        </record>
+
+        <record model="ir.ui.view" id="view_fondo_rotatorio_siif_tree">
+            <field name="name">fondo.rotatorio.siif.tree</field>
+            <field name="model">fondo.rotatorio.siif</field>
+            <field name="priority" eval="5"/>
+            <field name="arch" type="xml">
+                <tree string="Números de FR">
+                    <field name="fiscal_year"/>
+                    <field name="inciso"/>
+                    <field name="ue"/>
+                    <field name="financiamiento_id"/>
+                    <field name="moneda"/>
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="view_fondo_rotatorio_siif_form">
+            <field name="name">fondo.rotatorio.siif.form</field>
+            <field name="model">fondo.rotatorio.siif</field>
+            <field name="priority" eval="5"/>
+            <field name="arch" type="xml">
+                <form string="Números de FR" version="7.0">
+                    <sheet string="Números de FR">
+                        <group>
+
+                            <group>
+                                <field name="fiscal_year" on_change="onchange_fiscal_year()"/>
+                                <field name="inciso" on_change="onchange_inciso()"/>
+                                <field name="ue"/>
+                            </group>
+
+                            <group>
+                                <field name="financiamiento_id"/>
+                                <field name="moneda"/>
+                                <field name="name"/>
+                            </group>
+
+
+                        </group>
+
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_fondo_rotatorio_siif">
+            <field name="name">Números de FR</field>
+            <field name="res_model">fondo.rotatorio.siif</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="view_fondo_rotatorio_siif_tree"/>
+        </record>
+
+
+        <!--Motivos de intervención del Tribunal de Cuentas        -->
+        <record model="ir.ui.view" id="view_motivo_intervencion_tc_tree">
+            <field name="name">motivo.intervencion.tc.tree</field>
+            <field name="model">motivo.intervencion.tc</field>
+            <field name="priority" eval="5"/>
+            <field name="arch" type="xml">
+                <tree string="Motivo intervenciones">
+                    <field name="codigo"/>
+                    <field name="descripcion"/>
+                    <field name="impacta_documento"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="view_motivo_intervencion_tc_form">
+            <field name="name">motivo.intervencion.tc.form</field>
+            <field name="model">motivo.intervencion.tc</field>
+            <field name="priority" eval="5"/>
+            <field name="arch" type="xml">
+                <form string="Motivo intervenciones" version="7.0">
+                    <sheet string="Motivo intervenciones">
+                        <group>
+                            <field name="codigo"/>
+                            <field name="name" invisible="1"/>
+                            <field name="descripcion"/>
+                            <field name="impacta_documento"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_motivo_intervencion_tc">
+            <field name="name">Motivo intervenciones</field>
+            <field name="res_model">motivo.intervencion.tc</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="view_motivo_intervencion_tc_tree"/>
+        </record>
+
+
+        <menuitem id="menu_config_siif" name="SIIF" parent="account.menu_finance_configuration"/>
+
+        <menuitem action="action_account_retention_creditors" sequence="1"
+                  id="menu_list_finance_retention_creditors_tree" parent="menu_config_siif"
+                  groups="account.group_account_user,grp_seguridad.grp_group_configuracion_siif"/>
+
+        <menuitem action="action_account_group_creditors" name="Grupo acreedores" sequence="2"
+                  id="menu_list_finance_group_creditors_tree" parent="menu_config_siif" groups="base.group_no_one"/>
+
+        <menuitem id="menu_presupuesto_grp_grupo_list" name="Grupos de ODG"
+                  action="open_presupuesto_grp_grupo"
+                  parent="menu_config_siif" sequence="3"
+                  groups="grp_seguridad.grp_compras_apg_Responsable_SIIF"/>
+
+        <menuitem id="menu_grupo_list" name="Conceptos de gasto"
+                  action="open_presupuesto_grp_concepto"
+                  parent="menu_config_siif" sequence="4"
+                  groups="grp_seguridad.grp_compras_apg_Responsable_SIIF"/>
+
+        <menuitem id="menu_presupuesto_grp_odg_list" name="Objetos del gasto"
+                  action="open_objeto_gasto"
+                  parent="menu_config_siif" sequence="5"
+                  groups="grp_seguridad.grp_compras_apg_Responsable_SIIF"/>
+
+        <menuitem id="menu_financiamiento_list" name="Financiamientos"
+                  action="action_financiamiento_siif"
+                  parent="menu_config_siif" sequence="7"
+                  groups="grp_seguridad.grp_compras_apg_Responsable_SIIF"/>
+
+        <menuitem id="menu_codigo_sir_list" name="Códigos SIR"
+                  action="action_codigo_sir_siif_tree_siif"
+                  parent="menu_config_siif" sequence="8"
+                  groups="grp_seguridad.grp_compras_apg_Responsable_SIIF"/>
+
+        <menuitem id="menu_tipo_doc_list" name="Tipos de documento"
+                  action="action_tipo_documento_siif"
+                  parent="menu_config_siif" sequence="9"
+                  groups="grp_seguridad.grp_compras_apg_Responsable_SIIF"/>
+
+        <menuitem id="menu_tipo_ejec_list" name="Tipos de ejecución"
+                  action="action_tipo_ejecucion_siif"
+                  parent="menu_config_siif" sequence="10"
+                  groups="grp_seguridad.grp_compras_apg_Responsable_SIIF"/>
+
+        <menuitem id="menu_fondo_rotatorio_list" name="Números de FR"
+                  action="action_fondo_rotatorio_siif"
+                  parent="menu_config_siif" sequence="11"
+                  groups="grp_seguridad.grp_compras_apg_Responsable_SIIF"/>
+
+        <menuitem id="menu_motivo_intervencion_tc_list" name="Motivo intervenciones"
+                  action="action_motivo_intervencion_tc"
+                  parent="menu_config_siif" sequence="100"
+                  groups="grp_seguridad.grp_compras_apg_Responsable_SIIF"/>
+
+        <!-- Menu GRP Presupuestos -->
+        <menuitem id="menu_grp_presupuesto" name="GRP Presupuestos"
+                  parent="account.menu_finance"
+                  groups="grp_seguridad.grp_compras_apg_Responsable_SIIF"/>
+
+        <menuitem id="menu_presupuesto_grp_config_list" name="Control Presupuestal"
+                  action="open_presupuesto_grp_config"
+                  parent="menu_grp_presupuesto" sequence="50"/>
+
+    </data>
+</openerp>

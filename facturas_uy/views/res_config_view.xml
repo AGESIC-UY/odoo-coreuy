@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="view_account_config_settings_inherited" model="ir.ui.view">
+            <field name="name">view.account.settings.inherited</field>
+            <field name="model">account.config.settings</field>
+            <field name="inherit_id" ref="account.view_account_config_settings"/>
+            <field name="arch" type="xml">
+                <field name="expense_currency_exchange_account_id" position="after">
+                    <field name="cuenta_a_cobrar_me" />
+                    <field name="cuenta_a_pagar_me" />
+                </field>
+                <field name="income_currency_exchange_account_id" position="before">
+                    <field name="income_rounding_adjust_account_id" required="1" />
+                    <field name="expense_rounding_adjust_account_id" required="1" />
+                </field>
+
+                <!-- GAPF0020_220 Inicio -->
+                <xpath expr="//div[@name='account_config']" position="replace">
+                    <div name="account_config">
+                        <div>
+                            <label for="currency_id"/>
+                            <field name="currency_id" class="oe_inline"/>
+                        </div>
+                        <div>
+                            <label for="decimal_precision"/>
+                            <field name="decimal_precision" class="oe_inline"/>
+                        </div>
+                        <div>
+                            <label for="tax_calculation_rounding_method"/>
+                            <field name="tax_calculation_rounding_method" class="oe_inline"/>
+                        </div>
+                    </div>
+                </xpath>
+                <!-- GAPF0020_220 Fin -->
+            </field>
+        </record>
+
+    </data>
+</openerp>

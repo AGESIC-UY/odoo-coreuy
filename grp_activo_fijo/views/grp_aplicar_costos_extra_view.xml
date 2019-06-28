@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <!-- PCAR 21 03 2017 vistas nuevas relacionadas a la pantalla de Aplicar Costos Extras Inicio -->
+        <record id="view_grp_aplicar_costos_extras_tree" model="ir.ui.view">
+			<field name="name">grp.aplicar.costos.extra.tree.view</field>
+			<field name="model">grp.aplicar.costos.extra</field>
+			<field name="priority" eval="8" />
+			<field name="arch" type="xml">
+				<tree string="Aplicar Costos Extra">
+					<field name="proveedor_id" domain="[('supplier','=',True)]" />
+					<field name="factura_id" domain="[('doc_type','in',['in_invoice','in_refund'])]" />
+					<field name="producto_id" />
+					<field name="estado" />
+				</tree>
+			</field>
+		</record>
+
+        <record id="view_grp_aplicar_costos_extras_invoice_line_tree" model="ir.ui.view">
+			<field name="name">grp.aplicar.costos.extras.activo.fijo.tree.view</field>
+			<field name="model">account.invoice.line</field>
+			<field name="priority" eval="1" />
+			<field name="arch" type="xml">
+				<tree string="Lineas de Factura">
+                    <field name="costos_extra_id" invisible="1"/>
+                    <field name="invoice_id"/>
+                    <field name="product_id"/>
+                    <field name="name"/>
+                    <field name="account_id"/>
+                    <field name="analytics_id"/>
+                    <field name="asset_category_id"/>
+                    <field name="quantity"/>
+                    <field name="uos_id"/>
+                    <field name="price_unit"/>
+                    <field name="invoice_line_tax_id"/>
+                    <field name="price_subtotal"/>
+                </tree>
+			</field>
+		</record>
+
+        <record id="view_grp_aplicar_costos_extras_invoice_line_filter" model="ir.ui.view">
+			<field name="name">grp.aplicar.costos.extras.activo.fijo.filter.view</field>
+			<field name="model">account.invoice.line</field>
+			<field name="priority" eval="1" />
+			<field name="arch" type="xml">
+				<search string="Lineas de Factura">
+                    <field name="invoice_id" string="Factura"/>
+                    <field name="product_id"/>
+                    <field name="name"/>
+                    <field name="account_id"/>
+                    <field name="analytics_id"/>
+                    <field name="asset_category_id"/>
+                    <field name="quantity"/>
+                    <field name="uos_id"/>
+                    <field name="price_unit"/>
+                    <field name="invoice_line_tax_id"/>
+                    <field name="price_subtotal"/>
+                    <field name="importe_imp_incl"/>
+                </search>
+			</field>
+		</record>
+
+        <!-- Vista FORM de Atributos de grp_aplicar_costos_extras -->
+        <record id="view_grp_aplicar_costos_extras_form" model="ir.ui.view">
+			<field name="name">grp.aplicar.costos.extra.form.view</field>
+			<field name="model">grp.aplicar.costos.extra</field>
+			<field name="priority" eval="8" />
+			<field name="arch" type="xml">
+				<form string="Aplicar Costos Extra" version="7.0">
+                    <header>
+                        <button name="action_confirmar"
+                                attrs="{'invisible': ['|','|',('cargo_montos','!=',True),('estado','not in',['draft']),'&amp;',('advertencia_nc','!=',True),
+                                ('advertencia_nc_cancel','!=',True)]}"
+                                string="Confirmar" type="object" class="oe_highlight"
+                                confirm="Por favor,
+                                revise las lineas de depreciacion del activo luego de aplicados los cambios"/>
+                        <button name="action_confirmar"
+                                attrs="{'invisible': ['|','|','|',('advertencia_nc','=',True),
+                                ('advertencia_nc_cancel','=',True),('estado','not in',['draft']),('cargo_montos','!=',True)]}"
+                                string="Confirmar"
+                                type="object" class="oe_highlight"/>
+                        <field name="estado" widget="statusbar"/>
+                    </header>
+					<sheet>
+						<group>
+                            <group>
+                                <field name="proveedor_id" attrs="{'readonly': [('estado','not in',['draft'])]}" />
+                                <field name="factura_id"
+                                       domain="[('state', 'in', ['open'])]"
+                                       attrs="{'readonly': [('estado','not in',['draft'])]}"/>
+                                <field name="producto_id" attrs="{'readonly': [('estado','not in',['draft'])]}" />
+                            </group>
+                            <group>
+                                <button name="action_actualizar" string="Actualizar" type="object" attrs="{'invisible': [('estado','not in',['draft'])]}" />
+                                <field name="advertencia_nc" invisible="1" />
+                                <field name="advertencia_nc_cancel" invisible="1" />
+                                <field name="confirmado" invisible="1" />
+                                <field name="cargo_montos" invisible="1" />
+                            </group>
+						</group>
+                        <notebook>
+                            <page name="facturas" string="Facturas">
+                                <group colspan="4" col="4">
+                                    <field name="account_invoice_ids" colspan="4" nolabel="1"
+                                            attrs="{'readonly': [('estado','not in',['draft'])]}">
+                                        <tree string="Lineas de Factura" editable="bottom" create="false" delete="false">
+                                            <field name="costos_extra_id" invisible="1"/>
+                                            <field name="seleccionar" />
+                                            <field name="invoice_id" readonly="1"/>
+                                            <field name="product_id" readonly="1"/>
+                                            <field name="name" readonly="1"/>
+                                            <field name="account_id" readonly="1"/>
+                                            <field name="analytics_id" readonly="1"/>
+                                            <field name="asset_category_id" readonly="1"/>
+                                            <field name="quantity" readonly="1"/>
+                                            <field name="uos_id" readonly="1"/>
+                                            <field name="price_unit" readonly="1"/>
+                                            <field name="invoice_line_tax_id" widget="many2many_tags" readonly="1"/>
+                                            <field name="price_subtotal" />
+                                            <field name="product_es_activo_fijo" invisible="1"/>
+                                            <field name="importe_imp_incl" invisible="1"/>
+                                        </tree>
+                                    </field>
+                                </group>
+                                <!--<button name="action_asignar_activos" string="Asignar Activo" type="object"/>-->
+                            </page>
+                            <page name="activos" string="Activos Fijos">
+                                <group>
+                                    <button name="action_vista_previa" string="Cargar montos" type="object" attrs="{'invisible': [('estado','not in',['draft'])]}" />
+                                    <field name="account_asset_ids" colspan="4" nolabel="1" attrs="{'readonly': [('estado','not in',['draft'])]}" >
+                                        <tree string="Activos Fijos" editable="bottom">
+                                            <field name="costos_extra_id" invisible="1"/>
+                                            <field name="account_asset_id" domain="[('state', 'not in', ['close', 'baja'])]"/>
+                                            <field name="name" invisible="1"/>
+                                            <field name="note" invisible="1"/>
+                                            <field name="asignacion_ids" readonly="1"
+                                                   domain="[('costos_extra_id','=',costos_extra_id)]"
+                                                   colspan="2" invisible="1" >
+                                                <tree>
+                                                    <field name="invoice_id"/>
+                                                    <field name="product_id"/>
+                                                </tree>
+                                            </field>
+                                            <field name="department_id" readonly="1"/>
+                                            <field name="category_id" readonly="1"/>
+                                            <field name="state" invisible="1"/>
+                                            <field name="resultado" readonly="1"/>
+                                        </tree>
+                                    </field>
+                                </group>
+                            </page>
+                        </notebook>
+
+
+					</sheet>
+				</form>
+			</field>
+		</record>
+
+	    <!-- Vista SEARCH de Atributos de activo fijo -->
+		<record id="view_grp_aplicar_costos_extras_search" model="ir.ui.view">
+			<field name="name">grp.aplicar.costos.extra.search.view</field>
+			<field name="model">grp.aplicar.costos.extra</field>
+			<field name="priority" eval="8" />
+			<field name="arch" type="xml">
+				<search string="Aplicar Costos Extra">
+					<field name="proveedor_id" />
+                    <field name="factura_id" />
+                    <field name="producto_id" />
+					<newline />
+					<group expand="0" string="Group By...">
+						<filter string="Proveedor" domain="[]" context="{'group_by':'proveedor_id'}" />
+						<filter string="Nro. De Factura" domain="[]" context="{'group_by':'factura_id'}" />
+						<filter string="Producto" domain="[]" context="{'group_by':'producto_id'}" />
+					</group>
+				</search>
+			</field>
+		</record>
+
+	    <!-- Vista ACTION de Atributos de activo fijo -->
+		<record model="ir.actions.act_window" id="action_grp_aplicar_costos_extras_view">
+			<field name="name">Aplicar Costos Extra</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">grp.aplicar.costos.extra</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="search_view_id" ref="view_grp_aplicar_costos_extras_search" />
+			<field name="domain">[]</field>
+			<field name="context">{}</field>
+		</record>
+	    <!-- MENUITEM de Atributos de activo fijo -->
+		<menuitem id="menu_grp_aplicar_costos_extras" action="action_grp_aplicar_costos_extras_view"
+                  name="Aplicar Costos Extra" string="Aplicar Costos Extra"
+                  parent="account_asset.menu_finance_assets" sequence="11"/>
+		<!-- PCAR 21 03 2017 Fin -->
+
+        <record model="ir.ui.view" id="view_grp_account_asset_asset_facturas_form_inherited">
+            <field name="name">grp.account_asset_asset_facturas.form.inherited</field>
+            <field name="model">account.asset.asset</field>
+            <field name="inherit_id" ref="account_asset.view_account_asset_asset_form" />
+            <field name="arch" type="xml">
+                <!--<page string="Historial responsable / ubicación" position="after">-->
+                    <field name="category_id" position="after">
+                        <field name="product_id" domain="[('categ_id.asset_category_id','=',category_id)]" attrs="{'readonly': [('invoice_id','!=',False)]}"/>
+                    </field>
+                <!--</page>-->
+            </field>
+        </record>
+
+
+        <record id="grp_product_form_atributos_activos_costos_extra_inh" model="ir.ui.view">
+            <field name="name">grp.product.form.atributos.activos.costos.extra.inherit</field>
+            <field name="model">product.product</field>
+            <field name="inherit_id" ref="product.product_normal_form_view"/>
+            <field name="arch" type="xml">
+                <data>
+                    <xpath expr="//form/sheet/notebook/page[@string='Sales']" position="after">
+                        <page string="AF">
+                            <button name="action_ver_activos" type="object" string="Ver activos" attrs="{'invisible': [('account_asset_ids','=',[])]}" />
+                            <field name="account_asset_ids">
+                                <tree string="Activos Fijos">
+                                    <field name="name"/>
+                                    <field name="department_id"/>
+                                    <field name="user_id"/>
+                                    <field name="state"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </xpath>
+                </data>
+            </field>
+        </record>
+
+    </data>
+</openerp>

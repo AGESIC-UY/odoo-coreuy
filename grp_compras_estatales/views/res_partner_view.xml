@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <!-- MVARELA 29-01 Se modifica la vista solo para cancilleria y se cambian los campos de RUPE -->
+        <record id="inherited_view_supplier_leads_form" model="ir.ui.view">
+            <field name="name">supplier.form.leads.inherit</field>
+            <field name="model">res.partner</field>
+            <field name="type">form</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+                <label for="street" string="Address" position="replace">
+                    <label for="street" string="Domicilio fiscal"/>
+                </label>
+                <field name="website" position="before">
+                    <field name="domicilio_constituido" placeholder="Street..." required="1"/>
+                    <!-- requerido, incidencia 579-->
+                </field>
+                <!-- INICIO ITU 09/06/2015 -->
+                <field name="email" position="after">
+                    <field name="tipo_doc_siif"/>
+                    <field name="id_rubro"/>
+                    <!-- chg 4/09  inc 339-->
+                </field>
+                <!-- FIN ITU 09/06/2015 -->
+                <xpath expr="//notebook">
+                    <page string="RUPE">
+                        <group>
+                            <group>
+                                <field name="id_rupe"/>
+                                <field name="fecha_creacion_rupe"/>
+                                <field name="fecha_modif_rupe"/>
+                                <field name="version_rupe"/>
+                                <field name="estado_rupe"/>
+                            </group>
+                            <group>
+                                <field name="tipo_doc_rupe" attrs="{'required': [('supplier','=', True)]}"/>
+                                <field name="nro_doc_rupe" attrs="{'required': [('tipo_doc_rupe','not in',['O',False])]}"/>
+                            </group>
+                        </group>
+                    </page>
+                </xpath>
+                <xpath expr="//page[@string='Sales &amp; Purchases']/group/group/field[@name='supplier']"
+                       position="after">
+                    <field name="funcionario"/>
+                </xpath>
+
+            </field>
+        </record>
+
+        <record id="res_partner_opt_out_search_modificado" model="ir.ui.view">
+            <field name="name">res.partner.opt_out.search.modificado</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="email_template.res_partner_opt_out_search"/>
+            <field name="arch" type="xml">
+                <xpath expr="//filter[@name='not_opt_out']" position="replace">
+                    <filter string="Empresas" name='empresas' domain="[('is_company', '=', True)]"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_res_partner_filter_modificado" model="ir.ui.view">
+            <field name="name">search.partner.modificado</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_res_partner_filter"/>
+            <field name="arch" type="xml">
+                <field name="name" position="replace">
+                    <field name="name" filter_domain="['|',('name','ilike',self),('ref','=',self)]"/>
+                </field>
+                <xpath expr="//group[@string='Group By']" position="replace">
+                    <group expand="0" string="Group By">
+                        <filter string="Company" context="{'group_by': 'company_id'}"/>
+                        <filter string="Rubro" context="{'group_by': 'id_rubro'}"/>
+                    </group>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="res_partner_view_purchase_account_buttons" model="ir.ui.view">
+            <field name="name">res.partner.view.purchase.account.buttons</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="purchase.res_partner_view_purchase_account_buttons" />
+            <field name="arch" type="xml">
+                <button name="%(purchase.act_res_partner_2_supplier_invoices)d" position="attributes">
+                    <attribute name="context">{'search_default_partner_id': active_id, 'default_type': 'in_invoice', 'type': 'in_invoice', 'journal_type': 'purchase'}</attribute>
+                </button>
+            </field>
+        </record>
+
+        <record id="purchase.act_res_partner_2_supplier_invoices" model="ir.actions.act_window">
+            <field name="search_view_id" ref="account.view_account_invoice_filter" />
+        </record>
+
+    </data>
+</openerp>

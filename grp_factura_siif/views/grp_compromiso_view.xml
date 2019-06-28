@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+
+        <!-- VISTAS -->
+    <record id="view_grp_compromiso_form" model="ir.ui.view">
+        <field name="name">view.grp.compromiso.form</field>
+        <field name="model">grp.compromiso</field>
+        <field name="priority" eval="1"/>
+        <field name="arch" type="xml">
+            <form string="Compromiso" version="7.0">
+                <header>
+                    <button name="button_comprometer" states="draft,anulada_siif" type="object" class="oe_highlight" string="Comprometer" groups="grp_seguridad.grp_compras_apg_Responsable_SIIF" />
+                    <button name="button_anular" states="anulada_siif" type="object" class="oe_highlight" string="Anular"
+                            confirm="Esta seguro que desea anular el documento?"
+                            groups="grp_compras_estatales.grp_compras_apg_Comprador" />
+                    <button name="button_anular_compromiso" states="comprometido" type="object" string="Anular Compromiso SIIF"
+                            confirm="Esta seguro que desea anular el documento?"
+                            groups="grp_seguridad.grp_compras_apg_Responsable_SIIF"/>
+                    <button type="object" name="abrir_wizard_modif_compromiso_siif" string="Nueva modificación"
+                            attrs="{'invisible': [('state','!=','comprometido')]}"/>
+                    <field name="state" widget="statusbar"
+                        statusbar_visible="draft,comprometido"/>
+                </header>
+                <sheet string="Compromiso">
+                    <group id="Cabezal">
+                        <div>
+                            <label for="name" class="oe_inline"/>
+                            <h1>
+                                <field name="name" readonly="1"/>
+                            </h1>
+                        </div>
+                        <div class="oe_right oe_button_box" name="buttons" style="float: right; margin-left: -30px;">
+                            <button name="view_obligaciones" type="object"
+                                    attrs="{'invisible':[('obligaciones_count','=',0)]}"
+                                    class="oe_inline oe_stat_button" style="white-space: normal;" icon="fa-search">
+                                    <field name="obligaciones_count" widget="statinfo" string="Obligaciones"/>
+                            </button>
+                        </div>
+                    </group>
+					<group>
+						<group>
+                            <group>
+                                <field name="partner_id"
+                                       attrs="{'readonly': [('state','in',('comprometido','cancel'))]}"
+                                       on_change="onchange_partner_id(partner_id)"/>
+                                <field name="benef_es_inciso_default" invisible="1"/>
+                                <field name="unidad_ejecutora_id"
+                                       attrs="{'readonly': [('state','in',('comprometido','cancel'))],
+                                               'required':[('state','not in',('comprometido','cancel')),('partner_id','!=',False),('benef_es_inciso_default','!=',False)],
+                                               'invisible':['|',('benef_es_inciso_default','=',False),('partner_id','=',False)]}"
+                                       options="{'create': false, 'create_edit': false}"/>
+                                <field name="descripcion" attrs="{'readonly': [('state','in',('comprometido','cancel'))]}"/>
+                                <field name="pedido_compra_id" invisible="1"/>
+                                <!--<field name="tipo_afectacion" on_change="onchange_tipo_afectacion(tipo_afectacion)" attrs="{'readonly': [('state','in',('comprometido','cancel'))]}"/>-->
+                                <field name="tipo_afectacion" invisible="1"/>
+                                <field name="apg_id" on_change="onchange_apg_id(apg_id, tipo_afectacion)" domain="[('state','in',('aprobado','en_autorizacion_ODG','afectado','autorizado_ODG'))]" attrs="{'readonly': [('state','in',('comprometido','cancel'))], 'required': [('tipo_afectacion','=','apg')], 'invisible': [('tipo_afectacion','!=','apg')]}"/>
+                                <field name="afectacion_id" on_change="onchange_afectacion_id(afectacion_id, tipo_afectacion)" domain="[('state','=','afectado')]" attrs="{'readonly': [('state','in',('comprometido','cancel'))], 'required': [('tipo_afectacion','=','afectacion')], 'invisible': [('tipo_afectacion','!=','afectacion')]}"/>
+                            </group>
+
+                            <newline/>
+                            <!--CAMPOS PARA FACTURA FINANCIERO-->
+                            <group string="Datos SIIF">
+                                <!--<field name="nro_afectacion" attrs="{'readonly':['|','&amp;',('state','=','forced'),('state','not in',['draft']),('responsable_siif_editable','=',False)]}"/>-->
+                                <!--<field name="monto_afectado" attrs="{'readonly':['|','&amp;',('state','=','forced'),('state','not in',['draft']),('responsable_siif_editable','=',False)]}"/>-->
+                                <!--<field name="nro_compromiso" attrs="{'readonly':['|','&amp;',('state','=','forced'),('state','not in',['draft']),('responsable_siif_editable','=',False)]}"/>-->
+                                <!--<field name="monto_comprometido" attrs="{'readonly':['|','&amp;',('state','=','forced'),('state','not in',['draft']),('responsable_siif_editable','=',False)]}"/>-->
+
+                                <field name="siif_tipo_ejecucion"/>
+                                <field name="siif_concepto_gasto"/>
+                                <field name="siif_financiamiento"/>
+                                <field name="filtro_sir" invisible="1"/>
+                                <field name="siif_codigo_sir" domain="[('codigo','like',filtro_sir)]"/>
+                                <field name="siif_nro_fondo_rot" domain="[('fiscal_year','=',fiscalyear_siif_id)]" attrs="{'required': [('tipo_ejecucion_codigo_rel','=','P')]}"/>
+                                <field name="siif_tipo_documento" required="1" attrs="{'readonly': [('state','in',('comprometido','cancel'))]}"/>
+                                <!-- cambiados invisible-->
+                                <field name="siif_sec_compromiso" invisible="1"/>
+                                <field name="siif_ult_modif" invisible="1"/>
+                                <field name="nro_afectacion_siif" readonly="1" widget="char"/>
+                                <field name="monto_afectado" readonly="1"/>
+                                <field name="nro_compromiso" readonly="1" widget="char"/>
+                                <field name="tipo_ejecucion_codigo_rel" readonly="1" invisible="1"/>
+                                <!--<label for="reference_type"/>
+                                <div>
+                                    <field name="reference_type" class="oe_inline oe_edit_only" invisible="1"/>
+                                    <field name="reference" class="oe_inline" invisible="1"/>
+                                </div>-->
+                            </group>
+                        </group>
+						<group>
+                            <field name="date" required="1" attrs="{'readonly': [('state','in',('comprometido','cancel'))]}"/>
+                            <field name="fiscalyear_siif_id"/>
+                            <field name="operating_unit_id"/>
+                            <field name="currency_oc" domain="[( 'name','in',('USD','UYU','EUR'))]" required="1" attrs="{'readonly': [('state','in',('comprometido','cancel'))]}"/>
+                            <!--<field name="currency_oc" domain="[( 'name','in',('USD','UYU','EUR'))]" on_change="onchange_date_currency_id_apg(currency_oc,fecha_tipo_cambio, company_currency_id)"/>-->
+                            <field name="monto_autorizado_apg" attrs="{'readonly': [('state','in',('comprometido','cancel'))]}"/>
+                            <field name="fecha_tipo_cambio" required="1" attrs="{'readonly': [('state','in',('comprometido','cancel'))]}"/>
+                            <!-- campos siif-->
+                            <field name="siif_descripcion" required="1" attrs="{'readonly': [('state','in',('comprometido','cancel'))]}"/>
+                            <!--<field name="comprometido"/>-->
+                            <field name="monto_a_comprometer"/>
+
+                            <!--<field name="fecha_tipo_cambio" on_change="onchange_date_currency_id_apg(moneda,fecha_tipo_cambio, company_currency_id, monto_divisa)" attrs="{'readonly':[('state','not in',('inicio','nuevo','en_aprobacion','aprobado','en_autorizacion_ODG','autorizado_ODG'))],'invisible': [('diferente_divisa','!=',True),('state','!=','autorizado_ODG')], 'required': [('diferente_divisa','=',True),('state','=','autorizado_ODG')] }"/>-->
+
+                            <!--<field name="tipo_de_cambio_fnc" attrs="{'readonly': True}" />-->
+                            <!--<field name="tipo_de_cambio" invisible="1"/>-->
+                            <field name="company_id" readonly="1" groups="base.group_multi_company"/>
+                            <field name="company_currency_id" invisible="1" />
+						</group>
+                    </group>
+                    <notebook>
+                        <page string="Llave presupuestal">
+                            <group>
+                                <field name="inciso_siif_id" domain="[('fiscal_year_id','=', fiscalyear_siif_id)]" style="width:20%%"/>
+                                <field name="ue_siif_id" domain="[('inciso_id','=', inciso_siif_id)]" style="width:20%%"/>
+                            </group>
+							<field name="llpapg_ids" nolabel="1" widget="one2many_list" attrs="{'readonly': [('state','in',('comprometido','cancel'))]}">
+								<tree string="Llave Presupuestal" delete="true" edit="true" create="true" editable="bottom">
+                                    <field name="odg_id" domain="[('ue_id','=',parent.ue_siif_id)]" on_change="onchange_objeto_del_gasto(odg_id)"/>
+                                    <field name="auxiliar_id" domain="[('odg_id','=',odg_id)]" on_change="onchange_auxiliar(auxiliar_id)"/>
+                                    <field name="fin_id" required="1" domain="[('aux_id','=',auxiliar_id)]" on_change="onchange_fuente_de_financiamiento(fin_id)"/>
+                                    <field name="programa_id" required="1" domain="[('ff_id','=',fin_id)]" on_change="onchange_programa(programa_id)"/>
+                                    <field name="proyecto_id" required="1" domain="[('programa_id','=',programa_id)]" on_change="onchange_proyecto(proyecto_id)"/>
+                                    <field name="mon_id" required="1" domain="[('proyecto_id','=',proyecto_id)]" on_change="onchange_moneda(mon_id)"/>
+                                    <field name="tc_id" required="1" domain="[('moneda_id','=',mon_id)]"/>
+                                    <field name="disponible"/>
+                                    <field name="importe"/>
+                                </tree>
+							</field>
+                            <field name="modif_compromiso_log_ids" readonly="1" colspan="4">
+                                <tree string="Modificaciones">
+                                    <field name="compromiso_id" invisible="1"/>
+                                    <field name="tipo"/>
+                                    <field name="fecha"/>
+                                    <field name="objeto_gasto"/>
+                                    <field name="auxiliar"/>
+                                    <field name="financiamiento"/>
+                                    <field name="programa"/>
+                                    <field name="proyecto"/>
+                                    <field name="moneda"/>
+                                    <field name="tipo_credito"/>
+                                    <field name="importe"/>
+                                </tree>
+                            </field>
+						</page>
+                        <!-- cambios historial anulaciones 20/10-->
+                        <page string="Historial de anulaciones" attrs="{'invisible': [('anulacion_siif_log_ids', '=', [] )]}">
+                            <field name="anulacion_siif_log_ids" nolabel="1" widget="one2many_list">
+                                <tree string="Historial anulaciones" delete="false" edit="false" create="false">
+                                     <field name="compromiso_id" invisible="1"/>
+                                     <field name="nro_comp_sist_aux" invisible="1"/>
+                                     <field name="fecha"/>
+                                     <field name="nro_afectacion_siif" widget="char"/>
+                                     <field name="nro_compromiso" widget="char"/>
+                                </tree>
+                            </field>
+                        </page>
+					</notebook>
+				</sheet>
+			</form>
+		</field>
+	</record>
+
+	<record id="view_compromiso_tree" model="ir.ui.view">
+		<field name="name">view.compromiso.tree</field>
+		<field name="model">grp.compromiso</field>
+		<field name="priority" eval="1"/>
+		<field name="arch" type="xml">
+			<tree string="Compromiso" version="7.0">
+				<field name='date' />
+                <field name="partner_id" />
+                <field name="descripcion"/>
+                <!--<field name="pedido_compra_id"/>-->
+                 <field name="afectacion_id"/>
+				<field name="currency_oc" />
+				<field name="siif_tipo_ejecucion" />
+				<field name="monto_a_comprometer"/>
+				<field name="state" readonly="1"/>
+			</tree>
+		</field>
+	</record>
+
+        <!-- ACCIONES -->
+    <record id="action_compromisos" model="ir.actions.act_window">
+        <field name="name">Compromisos</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">grp.compromiso</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+		<!--<field name="search_view_id" ref="view_apg_filter"/>-->
+    </record>
+
+    <menuitem id="menu_compromiso" parent="grp_compras_estatales.menu_or_main" name="Compromisos" action="action_compromisos" sequence="27" groups="grp_seguridad.grp_compras_apg_Responsable_SIIF"/>
+
+</data>
+</openerp>

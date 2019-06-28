@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <!--&lt;!&ndash;TODO:SPRING 8 236.237 M&ndash;&gt;-->
+        <!--<record id="account.t4" model="workflow.transition">-->
+            <!--<field name="condition">check_accounts() and check_amount() and check_llavep()</field>-->
+        <!--</record>-->
+
+        <!--<record id="account.t12" model="workflow.transition">-->
+            <!--<field name="condition">check_regulation()</field>-->
+        <!--</record>-->
+
+        <!--<record id="account.t9" model="workflow.transition">-->
+            <!--<field name="condition">check_regulation()</field>-->
+        <!--</record>-->
+
+    </data>
+</openerp>

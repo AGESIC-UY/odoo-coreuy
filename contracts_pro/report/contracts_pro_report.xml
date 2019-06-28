@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <report
+            id="action_report_template_format_basic_pdf"
+            string="Template Basic format (pdf)"
+            model="contracts_pro.template"
+            report_type="qweb-pdf"
+            name="contracts_pro.report_contract_format_basic"
+            file="Contract template"
+        />
+        <report
+            id="action_report_template_format_basic_html"
+            string="Template Basic format (html)"
+            model="contracts_pro.template"
+            report_type="qweb-html"
+            name="contracts_pro.report_contract_format_basic"
+            file="Contract template"
+        />
+
+
+    </data>
+</openerp>

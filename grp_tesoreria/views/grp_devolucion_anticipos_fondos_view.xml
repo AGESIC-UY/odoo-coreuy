@@ -137,7 +137,7 @@
             <field name="name">Devoluciones de anticipos de fondos</field>
             <field name="res_model">account.voucher</field>
             <field name="view_type">form</field>
-            <field name="domain">[('journal_id.type','in',['sale','sale_refund']), ('type','=','sale'), ('rendicion_anticipos_id','!=',False)]</field>
+            <field name="domain">[('journal_id.type','in',['sale','sale_refund']), ('type','=','sale'),'|',('solicitud_anticipos_id','!=',False),('rendicion_anticipos_id','!=',False)]</field>
             <field name="context">{'default_type': 'sale', 'type': 'sale'}</field>
             <field name="view_id" eval="view_grp_devolucion_anticipos_fondos_tree"/>
             <!--<field name="search_view_id" ref="view_voucher_filter_sale"/>-->

@@ -1,0 +1,262 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+
+        <!--
+        ================================================================
+        Autorizacion para gastar INICIO
+        ================================================================
+        -->
+        <!-- VISTAS -->
+        <record id="view_apg_form" model="ir.ui.view">
+            <field name="name">view.apg.form</field>
+            <field name="model">grp.compras.apg</field>
+            <field name="priority" eval="1"/>
+            <field name="arch" type="xml">
+                <form string="Autorizacion para gastar" version="7.0" create="false">
+                    <header>
+                        <!--<button name="button_wkf_grp_compras_apg_enviar_a_aprobar" invisible="1" type="workflow" states="nuevo"-->
+                                <!--string="Enviar a aprobar" class="oe_highlight"-->
+                                <!--groups="grp_seguridad.grp_compras_apg_Comprador"/> &lt;!&ndash;TODO Spring 6 GAP 123 invisible="1"&ndash;&gt;-->
+
+                        <!--<button name="button_wkf_grp_compras_apg_aprobar" invisible="1" type="workflow" states="en_aprobacion"-->
+                                <!--string="Aprobar" class="oe_highlight"-->
+                                <!--attrs="{'invisible':['|',('gestor_pasaje','=',False)]}"-->
+                                <!--groups="grp_seguridad.grp_compras_apg_Jefe_de_compras,grp_seguridad.grp_compras_apg_Gestor_pasajes"/> &lt;!&ndash;TODO Spring 6 GAP 123 invisible="1"&ndash;&gt;-->
+                        <!--TODO Spring 6 GAP 123-->
+                        <button name="act_apg_en_financiero" type="object" states="nuevo"
+                            string="Enviar a financiero" class="oe_highlight"
+                            groups="grp_seguridad.grp_compras_apg_Comprador,grp_seguridad.grp_compras_apg_Jefe_de_compras_2,grp_seguridad.grp_compras_apg_Responsable_SIIF"/><!--TODO Spring 6 GAP 123-->
+
+                        <!--&lt;!&ndash; Rechazar, cuando es el jefe de compras&ndash;&gt; &lt;!&ndash; Modificaciones &ndash;&gt;-->
+                        <!--<button name="button_wkf_grp_compras_apg_rechazar" type="workflow" states="en_aprobacion"-->
+                                <!--string="Rechazar" attrs="{'invisible':['|',('gestor_pasaje','=',False)]}"-->
+                                <!--groups="grp_seguridad.grp_compras_apg_Gestor_pasajes,grp_seguridad.grp_compras_apg_Jefe_de_compras"/>-->
+                        <!-- inicidencia cambiar a borrador por Modificar, ademas se muestra en estado en aprobacion ordenador-->
+                        <!-- Incidencia, gestor de pasajes + gestor_pasaje-->
+                        <!-- Cambiar label de boton Modificar por Volver a borrador, 02/02-->
+                        <!--<button name="button_wkf_grp_compras_apg_cancelar" type="workflow" states="en_aprobacion"-->
+                                <!--string="Volver a borrador" attrs="{'invisible':['|',('gestor_pasaje','=',False)]}"-->
+                                <!--groups="grp_seguridad.grp_compras_apg_Gestor_pasajes,grp_seguridad.grp_compras_apg_Jefe_de_compras,grp_seguridad.grp_compras_pc_Responsable"/>-->
+
+                        <!--<button name="button_wkf_grp_compras_apg_enviar_a_autorizacion_ODG" invisible="1" type="workflow"-->
+                                <!--states="aprobado" string="Enviar a autorizar" class="oe_highlight"-->
+                                <!--groups="grp_seguridad.grp_compras_apg_Jefe_de_compras"/> &lt;!&ndash;TODO Spring 6 GAP 123 invisible="1"&ndash;&gt;-->
+
+                        <!--<button name="button_wkf_grp_compras_aprobado_cancelar" type="workflow" states="aprobado"-->
+                                <!--string="Volver a borrador"-->
+                                <!--groups="grp_seguridad.grp_compras_apg_Jefe_de_compras"/>-->
+                        <!--&lt;!&ndash; incidencia, cambiar label cancelar por volver a borrador, feb &ndash;&gt;-->
+
+                        <!--<button name="button_wkf_grp_compras_apg_autorizar" invisible="1" type="workflow" states="en_autorizacion_ODG"-->
+                                <!--string="Autorizar" class="oe_highlight"-->
+                                <!--groups="grp_seguridad.grp_compras_apg_Ordenador_del_gasto"/> &lt;!&ndash;TODO Spring 6 GAP 123 invisible="1"&ndash;&gt;-->
+                        <!--16/12 - inicidencia cambiar a Modificar por Borrador, se muestra en estado en aprobacion ordenador-->
+                        <!--<button name="button_wkf_grp_compras_apg_cancelar" type="workflow" states="en_autorizacion_ODG"-->
+                                <!--string="Pasar a Borrador"-->
+                                <!--groups="grp_seguridad.grp_compras_apg_Jefe_de_compras,grp_seguridad.grp_compras_pc_Responsable,grp_seguridad.grp_compras_apg_Ordenador_del_gasto"/>-->
+                        <!-- acceso al ordenador, inc 77 apg-->
+                        <!--<button name="button_wkf_grp_compras_apg_rechazar" type="workflow" states="en_autorizacion_ODG"-->
+                                <!--string="Rechazar" groups="grp_seguridad.grp_compras_apg_Ordenador_del_gasto"/> &lt;!&ndash;TODO Spring 6 GAP 123 invisible="1"&ndash;&gt;-->
+
+                        <button name="act_apg_afectado" type="object"
+                                states="desafectado,en_financiero" string="Afectar" class="oe_highlight"
+                                groups="grp_seguridad.grp_compras_apg_Responsable_SIIF,grp_seguridad.grp_compras_apg_Jefe_de_compras"/> <!--TODO Spring 6 GAP 123 añadir estado en_financiero-->
+
+                        <button name="act_apg_anular" type="object" states="desafectado,en_financiero"
+                                confirm="Esta seguro que desea anular el documento?"
+                                string="Anular" groups="grp_seguridad.grp_compras_pc_Responsable,grp_seguridad.grp_compras_apg_Responsable_SIIF"/> <!--TODO Spring 6 GAP 123 añadir estado en_financiero-->
+
+                        <!--&lt;!&ndash;Desafectadao a nuevo&ndash;&gt;-->
+                        <!--<button name="button_wkf_grp_compras_apg_nuevo" type="workflow" states="desafectado"-->
+                                <!--string="Modificar"-->
+                                <!--groups="grp_seguridad.grp_compras_apg_Responsable_SIIF,grp_seguridad.grp_compras_apg_Jefe_de_compras,grp_seguridad.grp_compras_pc_Responsable"/>-->
+                        <button name="act_apg_desafectado" type="object" states="afectado"
+                                string="Desafectar" groups="grp_seguridad.grp_compras_apg_Responsable_SIIF"/>
+
+                        <field name="state" widget="statusbar"
+                               statusbar_visible="nuevo,en_financiero,afectado,desafectado"
+                               statusbar_colors='{ "closed_total" : "green" }'/> <!--TODO Spring 6 GAP 123 cambiar statusbar_visible-->
+                    </header>
+
+                    <!-- Campos para control de acceso -->
+                    <!--<field name="odg_editable" invisible="1"/>-->
+                    <field name="default_editable" invisible="1"/>
+                    <field name="responsable_siif_editable" invisible="1"/>
+                    <!--  -->
+                    <sheet string="APG">
+                        <group id="Cabezal">
+                            <div>
+                                <label for="name" class="oe_inline"/>
+                                <h1>
+                                    <field name="name" readonly="1"/>
+                                </h1>
+                            </div>
+                        </group>
+                        <group>
+                            <group>
+                                <field name="gestor_pasaje" invisible="1"/>
+                                <field name="descripcion" attrs="{'readonly': [('state','not in',['nuevo','en_financiero','desafectado'])]}"/>
+                                <field name="tipo_de_compra"/>
+                                <field name="sub_tipo_compra"/>
+                                <field name="pc_id" readonly="1"/>
+                                <field name="origen_es_ampliacion" invisible="1"/>
+                                <!-- Incidencia numero de ampliacion -->
+                                <field name="nro_ampliacion" attrs="{'invisible': [('origen_es_ampliacion','!=',True)]}"
+                                       readonly="1"/>
+                                <field name="nro_adj" style="width:50%%"
+                                       attrs="{'readonly': [('state','!=','nuevo')]}" invisible="1"/>
+                                <field name="nro_afectacion_siif" readonly="1"/>
+                                <field name='sice_nro' readonly="1" invisible="1"/>
+                                <!-- incidencia poner invisible campo numero sice-->
+                                <field name="company_id" readonly="1" groups="base.group_multi_company"/>
+                                <!-- 021 - 16/12 Sacar campo unidad para Utec -->
+                            </group>
+                            <group>
+                                <field name="diferente_divisa" invisible="1"/>
+                                <field name="fecha" attrs="{'readonly':[('default_editable','!=',True)]}"/>
+                                <field name="operating_unit_id" attrs="{'readonly':[('state','not in',['nuevo','en_financiero','desafectado'])]}"/>
+                                <field name="moneda" domain="[('name','in',('USD','UYU','EUR'))]"
+                                       on_change="onchange_date_currency_id_apg(moneda,fecha_tipo_cambio, company_currency_id, monto_divisa)"
+                                       attrs="{'readonly':[('default_editable','!=',True)]}"/>
+                                <field name="monto_divisa" string="Monto a autorizar divisa" required="1"
+                                       on_change="onchange_date_currency_id_apg(moneda,fecha_tipo_cambio, company_currency_id, monto_divisa)"
+                                        attrs="{'readonly': [('state','not in',['nuevo','en_financiero','desafectado'])]}"/>
+                                <field name="fecha_tipo_cambio"
+                                       on_change="onchange_date_currency_id_apg(moneda,fecha_tipo_cambio,company_currency_id,monto_divisa)"
+                                       attrs="{'readonly':[('state','not in',('nuevo','en_financiero'))],'invisible': [('diferente_divisa','!=',True)], 'required': [('diferente_divisa','=',True),('state','=','en_financiero')] }"/>
+                                <field name="tipo_de_cambio_fnc" attrs="{'readonly': True}"/>
+                                <field name="tipo_de_cambio" invisible="1"/>
+                                <field name="monto" invisible="1"/>
+                                <field name="monto_fnc"
+                                       attrs="{'invisible': [('diferente_divisa','!=',True)]}"/>
+                                <field name="company_currency_id" invisible="1"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Resumen">
+                                <field name="lprapg_ids" nolabel="1" widget="one2many_list" context=""
+                                       options="{'always_reload': true }"
+                                       attrs="{'readonly':[('state','!=','nuevo')]}">
+                                    <!-- Este tree no debe permitir agregar ni quitar lineas, por eso se le agregan los atributos create y delete -->
+                                    <!-- MVARELA 22_05 cambio solicitado, se puede editar en estado borrador -->
+                                    <tree editable="bottom" create="false" delete="false">
+                                        <field name="product_tmpl_id"/>
+                                        <field name="product_id" invisible="1"/>
+                                        <field name='sice_cod_articulo'/>
+                                        <field name='objeto_del_gasto'/>
+                                        <field name='uom_id'/>
+                                        <field name='cantidad_a_comprar'/>
+                                        <field name='precio_estimado'/>
+                                        <field name="iva" widget="many2many_tags"/>
+                                        <field name='subtotal_divisa'/>
+                                        <field name='subtotal'/>
+                                    </tree>
+                                </field>
+                                <div style="height:60px;">
+                                    <group class="oe_subtotal_footer oe_right">
+                                        <field name="total_importe_divisa" class="oe_subtotal_footer_separator_custom"
+                                               widget="monetary" options="{'currency_field': 'moneda'}"/>
+                                        <field name="total_estimado" class="oe_subtotal_footer_separator_custom"
+                                               widget="monetary" options="{'currency_field': 'company_currency_id'}"/>
+                                    </group>
+                                </div>
+                            </page>
+                            <page string="Ordenes de compra">
+                                <field name="purchase_order_ids" nolabel="1">
+                                    <tree string="Orden de compra" delete="false" edit="true" create="false">
+                                        <field name="name"/>
+                                        <field name="date_order"/>
+                                        <field name="partner_id" readonly="1"/>
+                                        <field name="descripcion"/>
+                                        <field name="state" invisible="1"/>
+                                        <field name="amount_total"/>
+                                    </tree>
+                                </field>
+                            </page>
+                            <page string="Adjuntos">
+                                <group>
+                                    <field name="attachment_ids" nolabel="1">
+                                        <tree string="Adjuntos" delete="true" create="true">
+                                            <field name="res_name_computed" string="Nro doc"/>
+                                            <field name="name" string="Nombre Doc"/>
+                                            <field name="create_date"/>
+                                            <field name="res_model" string="Tipo Doc" invisible="1"/>
+                                        </tree>
+                                    </field>
+                                </group>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_apg_tree" model="ir.ui.view">
+            <field name="name">view.apg.tree</field>
+            <field name="model">grp.compras.apg</field>
+            <field name="priority" eval="1"/>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Autorización para gastar" version="7.0" create="false">
+                    <field name="name"/>
+                    <field name='fecha'/>
+                    <field name='descripcion'/>
+                    <!--<field name='odg' invisible="1"/>-->
+                    <field name='sice_nro' invisible="1"/>
+                    <!--incidencia quitar campo numero sice vista tree -->
+                    <field name="pc_id" string="Nro. PC"/>
+                    <field name="moneda"/>
+                    <field name="tipo_de_compra"/>
+                    <field name="monto"/>
+                    <field name="state" readonly="1"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- Vista Busqueda -->
+        <record id="view_apg_filter" model="ir.ui.view">
+            <field name="name">view.apg.filter</field>
+            <field name="model">grp.compras.apg</field>
+            <field name="arch" type="xml">
+                <search string="Search Datos">
+                    <field name="name"/>
+                    <field name="descripcion"/>
+                    <group expand="0" string="Agrupar por...">
+                        <filter string="Fecha" icon="terp-stock_effects-object-colorize" domain="[]"
+                                context="{'group_by':'fecha'}"/>
+                        <filter string="Tipo de compra" icon="terp-stock_effects-object-colorize" domain="[]"
+                                context="{'group_by':'tipo_de_compra'}"/>
+                        <filter name="estado" string="Estado" icon="terp-stock_effects-object-colorize" domain="[]"
+                                context="{'group_by':'state'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <!-- ACCIONES -->
+        <record id="action_apg" model="ir.actions.act_window">
+            <field name="name">Autorización para gastar</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">grp.compras.apg</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="context">{'search_default_estado' : 1}</field>
+            <field name="search_view_id" ref="view_apg_filter"/>
+        </record>
+
+        <!-- MENU -->
+        <menuitem id="menu_apg_1"
+                  name="Autorización para gastar"
+                  action="action_apg"
+                  sequence="3"
+                  parent="menu_pedido_de_compra"
+                  groups="grp_seguridad.grp_compras_pc_Comprador,grp_seguridad.grp_compras_apg_Comprador"
+                />
+
+    </data>
+</openerp>

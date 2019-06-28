@@ -1,0 +1,280 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+
+        <!-- INCISOS -->
+        <record model="ir.ui.view" id="view_presup_estruct_inciso">
+            <field name="name">grp.estruc_pres.inciso.tree</field>
+            <field name="model">grp.estruc_pres.inciso</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Incisos" editable="top">
+                    <field name="fiscal_year_id"/>
+                    <field name="inciso"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_presup_estruct_inciso">
+            <field name="res_model">grp.estruc_pres.inciso</field>
+            <field name="name">grp.estruc_pres.inciso.action</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree</field>
+            <field name="name">Estructura incisos de presupuesto</field>
+            <field name="view_id" ref="view_presup_estruct_inciso"/>
+        </record>
+
+        <!-- UNIDADES EJECUTORAS -->
+        <record model="ir.ui.view" id="view_presup_estruct_ue">
+            <field name="name">grp.estruc_pres.ue.tree</field>
+            <field name="model">grp.estruc_pres.ue</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Unidades ejecutoras" editable="top">
+                    <field name="fiscal_year_id"/>
+                    <field name="inciso_id"/>
+                    <field name="ue"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_presup_estruct_ue">
+            <field name="res_model">grp.estruc_pres.ue</field>
+            <field name="name">grp.estruc_pres.ue.action</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree</field>
+            <field name="name">Estructura UE de presupuesto</field>
+            <field name="view_id" ref="view_presup_estruct_ue"/>
+        </record>
+
+        <!-- OBJETOS DEL GASTO -->
+        <record model="ir.ui.view" id="view_presup_estruct_odg">
+            <field name="name">grp.estruc_pres.odg.tree</field>
+            <field name="model">grp.estruc_pres.odg</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Objetos del gasto" editable="top">
+                    <field name="fiscal_year_id"/>
+                    <field name="inciso_id"/>
+                    <field name="ue_id"/>
+                    <field name="odg"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_presup_estruct_odg">
+            <field name="res_model">grp.estruc_pres.odg</field>
+            <field name="name">grp.estruc_pres.odg.action</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree</field>
+            <field name="name">Estructura ODG de presupuesto</field>
+            <field name="view_id" ref="view_presup_estruct_odg"/>
+        </record>
+
+        <!-- AUXILIAR -->
+        <record model="ir.ui.view" id="view_presup_estruct_aux">
+            <field name="name">grp.estruc_pres.aux.tree</field>
+            <field name="model">grp.estruc_pres.aux</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Auxiliares" editable="top">
+                    <field name="fiscal_year_id"/>
+                    <field name="inciso_id"/>
+                    <field name="ue_id"/>
+                    <field name="odg_id"/>
+                    <field name="aux"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_presup_estruct_aux">
+            <field name="res_model">grp.estruc_pres.aux</field>
+            <field name="name">grp.estruc_pres.aux.action</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree</field>
+            <field name="name">Estructura Auxiliares de presupuesto</field>
+            <field name="view_id" ref="view_presup_estruct_aux"/>
+        </record>
+
+        <!-- FINANCIAMIENTOS -->
+        <record model="ir.ui.view" id="view_presup_estruct_ff">
+            <field name="name">grp.estruc_pres.ff.tree</field>
+            <field name="model">grp.estruc_pres.ff</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Financiamientos" editable="top">
+                    <field name="fiscal_year_id"/>
+                    <field name="inciso_id"/>
+                    <field name="ue_id"/>
+                    <field name="odg_id"/>
+                    <field name="aux_id"/>
+                    <field name="ff"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_presup_estruct_ff">
+            <field name="res_model">grp.estruc_pres.ff</field>
+            <field name="name">grp.estruc_pres.ff.action</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree</field>
+            <field name="name">Estructura Financiamientos de presupuesto</field>
+            <field name="view_id" ref="view_presup_estruct_ff"/>
+        </record>
+
+        <!-- PROGRAMAS -->
+        <record model="ir.ui.view" id="view_presup_estruct_programa">
+            <field name="name">grp.estruc_pres.programa.tree</field>
+            <field name="model">grp.estruc_pres.programa</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Programas" editable="top">
+                    <field name="fiscal_year_id"/>
+                    <field name="inciso_id"/>
+                    <field name="ue_id"/>
+                    <field name="odg_id"/>
+                    <field name="aux_id"/>
+                    <field name="ff_id"/>
+                    <field name="programa"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_presup_estruct_programa">
+            <field name="res_model">grp.estruc_pres.programa</field>
+            <field name="name">grp.estruc_pres.programa.action</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree</field>
+            <field name="name">Estructura Programas de presupuesto</field>
+            <field name="view_id" ref="view_presup_estruct_programa"/>
+        </record>
+
+        <!-- PROYECTOS -->
+        <record model="ir.ui.view" id="view_presup_estruct_proyecto">
+            <field name="name">grp.estruc_pres.proyecto.tree</field>
+            <field name="model">grp.estruc_pres.proyecto</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Proyectos" editable="top">
+                    <field name="fiscal_year_id"/>
+                    <field name="inciso_id"/>
+                    <field name="ue_id"/>
+                    <field name="odg_id"/>
+                    <field name="aux_id"/>
+                    <field name="ff_id"/>
+                    <field name="programa_id"/>
+                    <field name="proyecto"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_presup_estruct_proyecto">
+            <field name="res_model">grp.estruc_pres.proyecto</field>
+            <field name="name">grp.estruc_pres.proyecto.action</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree</field>
+            <field name="name">Estructura Proyectos de presupuesto</field>
+            <field name="view_id" ref="view_presup_estruct_proyecto"/>
+        </record>
+
+        <!-- MONEDAS -->
+        <record model="ir.ui.view" id="view_presup_estruct_moneda">
+            <field name="name">grp.estruc_pres.moneda.tree</field>
+            <field name="model">grp.estruc_pres.moneda</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Monedas" editable="top">
+                    <field name="fiscal_year_id"/>
+                    <field name="inciso_id"/>
+                    <field name="ue_id"/>
+                    <field name="odg_id"/>
+                    <field name="aux_id"/>
+                    <field name="ff_id"/>
+                    <field name="programa_id"/>
+                    <field name="proyecto_id"/>
+                    <field name="moneda"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_presup_estruct_moneda">
+            <field name="res_model">grp.estruc_pres.moneda</field>
+            <field name="name">grp.estruc_pres.moneda.action</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree</field>
+            <field name="name">Estructura Monedas de presupuesto</field>
+            <field name="view_id" ref="view_presup_estruct_moneda"/>
+        </record>
+
+        <!-- TIPOS DE CREDITO -->
+        <record model="ir.ui.view" id="view_presup_estruct_tc">
+            <field name="name">grp.estruc_pres.tc.tree</field>
+            <field name="model">grp.estruc_pres.tc</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="TC" editable="top">
+                    <field name="fiscal_year_id"/>
+                    <field name="inciso_id"/>
+                    <field name="ue_id"/>
+                    <field name="odg_id"/>
+                    <field name="aux_id"/>
+                    <field name="ff_id"/>
+                    <field name="programa_id"/>
+                    <field name="proyecto_id"/>
+                    <field name="moneda_id"/>
+                    <field name="tc"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_presup_estruct_tc">
+            <field name="res_model">grp.estruc_pres.tc</field>
+            <field name="name">grp.estruc_pres.tc.action</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree</field>
+            <field name="name">Estructura TC de presupuesto</field>
+            <field name="view_id" ref="view_presup_estruct_tc"/>
+        </record>
+
+        <!-- cambio para grupo Configuración SIIF 02/01 -->
+        <menuitem id="menu_presup_estruct_combinaciones" name="Combinaciones válidas de presupuesto" parent="menu_grp_presupuesto"
+                  groups="grp_seguridad.grp_compras_apg_Responsable_SIIF" sequence="40"/>
+
+        <menuitem id="menu_presup_estruct_inciso" name="Incisos de presupuesto"
+                  action="action_presup_estruct_inciso" sequence="10"
+                  parent="menu_presup_estruct_combinaciones"/>
+
+        <menuitem id="menu_presup_estruct_ue" name="UE de presupuesto"
+                  action="action_presup_estruct_ue" sequence="20"
+                  parent="menu_presup_estruct_combinaciones"/>
+
+        <menuitem id="menu_presup_estruct_odg" name="ODG de presupuesto"
+                  action="action_presup_estruct_odg" sequence="30"
+                  parent="menu_presup_estruct_combinaciones"/>
+
+        <menuitem id="menu_presup_estruct_aux" name="Auxiliares de presupuesto"
+                  action="action_presup_estruct_aux" sequence="40"
+                  parent="menu_presup_estruct_combinaciones"/>
+
+        <menuitem id="menu_presup_estruct_ff" name="Financiamientos de presupuesto"
+                  action="action_presup_estruct_ff" sequence="50"
+                  parent="menu_presup_estruct_combinaciones"/>
+
+        <menuitem id="menu_presup_estruct_programa" name="Programas de presupuesto"
+                  action="action_presup_estruct_programa" sequence="60"
+                  parent="menu_presup_estruct_combinaciones"/>
+
+        <menuitem id="menu_presup_estruct_proyecto" name="Proyectos de presupuesto"
+                  action="action_presup_estruct_proyecto" sequence="70"
+                  parent="menu_presup_estruct_combinaciones"/>
+
+        <menuitem id="menu_presup_estruct_moneda" name="Monedas de presupuesto"
+                  action="action_presup_estruct_moneda" sequence="80"
+                  parent="menu_presup_estruct_combinaciones"/>
+
+        <menuitem id="menu_presup_estruct_tc" name="TC de presupuesto"
+                  action="action_presup_estruct_tc" sequence="90"
+                  parent="menu_presup_estruct_combinaciones"/>
+
+    </data>
+</openerp>

@@ -87,13 +87,30 @@ class siif_fr_xml_generator(models.TransientModel):
         etree.SubElement(e_movimiento_presup, 'tipo_modificacion').text = tipo_modificacion
         etree.SubElement(e_movimiento_presup, 'fecha_elaboracion').text = time.strftime('%Y%m%d')
 
-        etree.SubElement(e_movimiento_presup, 'monto_obligacion').text = str(int(round(fondo_rotatorio.total_reponer,0))) if not es_modif else _monto
-        etree.SubElement(e_movimiento_presup, 'total_retenciones').text = str(int(round(fondo_rotatorio.total_retenciones,0)))
-        etree.SubElement(e_movimiento_presup, 'liquido_pagable').text = str(int(round(fondo_rotatorio.liquido_pagable,0))) if not es_modif else _monto
+        if fondo_rotatorio.currency_id.name <> 'UYU' and fondo_rotatorio.send_currency2siif:
+            monto_obligacion = fondo_rotatorio.total_reponer
+        else:
+            monto_obligacion = fondo_rotatorio.total_nominal_comprobantes_manual
 
-        #FR siempre es Moneda Nacional
+        etree.SubElement(e_movimiento_presup, 'monto_obligacion').text = str(int(round(monto_obligacion,0))) if not es_modif else _monto
+        etree.SubElement(e_movimiento_presup, 'total_retenciones').text = str(int(round(fondo_rotatorio.total_retenciones_currency_manual,0)))
+
+
+        if fondo_rotatorio.currency_id.name <> 'UYU' and fondo_rotatorio.send_currency2siif:
+            liquido_pagable = fondo_rotatorio.liquido_pagable
+        else:
+            liquido_pagable = fondo_rotatorio.total_liquido_pagable_manual
+        etree.SubElement(e_movimiento_presup, 'liquido_pagable').text = str(int(round(liquido_pagable,0))) if not es_modif else _monto
+
         etree.SubElement(e_movimiento_presup, 'partidas_mon_ext').text = 'N' if llaves_presupuestales[0].mon == '0' else 'S'
-        etree.SubElement(e_movimiento_presup, 'monto_mon_ext')
+
+        # if fondo_rotatorio.currency_id.name <> 'UYU' and fondo_rotatorio.send_currency2siif:
+        #     monto_mon_ext = str(round(fondo_rotatorio.liquido_pagable / fondo_rotatorio.currency_rate_presupuesto))
+        # else:
+        #     monto_mon_ext = ''
+
+
+        etree.SubElement(e_movimiento_presup, 'monto_mon_ext').text = str(int(round(fondo_rotatorio.liquido_pagable / fondo_rotatorio.currency_rate_presupuesto))) if (fondo_rotatorio.currency_id.name <> 'UYU' and fondo_rotatorio.send_currency2siif) else ''
 
         etree.SubElement(e_movimiento_presup, 'tipo_ejecucion').text = fondo_rotatorio.siif_tipo_ejecucion.codigo
         etree.SubElement(e_movimiento_presup, 'tipo_programa').text = 'T'
@@ -124,7 +141,7 @@ class siif_fr_xml_generator(models.TransientModel):
                                      (u'Debe especificar el código de la cuenta bancaria.'))
             etree.SubElement(e_movimiento_presup, 'banco_cta_benef').text = fondo_rotatorio.res_partner_bank_id.bank_bic
             etree.SubElement(e_movimiento_presup, 'agencia_cta_benef').text = fondo_rotatorio.res_partner_bank_id.agencia or ''
-            etree.SubElement(e_movimiento_presup, 'nro_cta_benef').text = fondo_rotatorio.res_partner_bank_id.acc_number
+            etree.SubElement(e_movimiento_presup, 'nro_cta_benef').text = fondo_rotatorio.res_partner_bank_id.acc_number.replace('-','').replace(' ','')
             etree.SubElement(e_movimiento_presup, 'tipo_cta_benef').text = 'A' if fondo_rotatorio.res_partner_bank_id.state == 'caja de ahorros' else 'C'
             etree.SubElement(e_movimiento_presup, 'moneda_cta_benef').text = '0' if not fondo_rotatorio.res_partner_bank_id.currency_id else '1'
         else:
@@ -145,9 +162,18 @@ class siif_fr_xml_generator(models.TransientModel):
         etree.SubElement(e_movimiento_presup, 'nro_proc_compra')
         etree.SubElement(e_movimiento_presup, 'nro_amp_proc_compra')
 
-        etree.SubElement(e_movimiento_presup, 'tipo_cambio')
+        if fondo_rotatorio.currency_id.name <> 'UYU' and fondo_rotatorio.send_currency2siif:
+            monto_cambio = int(round(fondo_rotatorio.currency_rate_presupuesto * 10000))
+            tipo_cambio = str(monto_cambio)
+        else:
+            tipo_cambio = ''
+        etree.SubElement(e_movimiento_presup, 'tipo_cambio').text = tipo_cambio
         etree.SubElement(e_movimiento_presup, 'anticipo').text = 'N'
-        etree.SubElement(e_movimiento_presup, 'moneda').text = '0'
+        if fondo_rotatorio.currency_id.name == 'UYU' or (fondo_rotatorio.currency_id.name <> 'UYU' and fondo_rotatorio.send_currency2siif):
+            _moneda = str(fondo_rotatorio.currency_id.codigo_siif)
+        else:
+            _moneda = '0'
+        etree.SubElement(e_movimiento_presup, 'moneda').text = _moneda
 
         etree.SubElement(e_movimiento_presup, 'resumen').text = fondo_rotatorio.siif_descripcion or '' if not es_modif else motivo
         etree.SubElement(e_movimiento_presup, 'nro_doc_fondo_rotatorio').text = fondo_rotatorio.siif_nro_fondo_rot.name or ''
@@ -167,30 +193,31 @@ class siif_fr_xml_generator(models.TransientModel):
 
         e_detalle = etree.SubElement(e_movimiento_presup, 'Detalle')
         for llave in llaves_presupuestales:
-            estructura = estructura_obj.obtener_estructura(cr, uid, fondo_rotatorio.fiscal_year_id.id, fondo_rotatorio.inciso_siif_llp_id.inciso,
-                                                                       fondo_rotatorio.ue_siif_llp_id.ue,
-                                                                       llave.programa, llave.proyecto, llave.mon, llave.tc,
-                                                                       llave.fin, llave.odg, llave.auxiliar)
-            e_detalle_siif = etree.SubElement(e_detalle, 'DetalleSIIF')
-            if estructura:
-                etree.SubElement(e_detalle_siif, 'tipo_registro').text = '02'
-                etree.SubElement(e_detalle_siif, 'tipo_registracion').text = _tipo_registracion
-                etree.SubElement(e_detalle_siif, 'programa').text = estructura.linea_programa
-                etree.SubElement(e_detalle_siif, 'desc_tipo_mov').text='PART_OBL_ORIG_Y_MODIF_GRP'
-                etree.SubElement(e_detalle_siif, 'proyecto').text = estructura.linea_proyecto
-                etree.SubElement(e_detalle_siif, 'objeto_gasto').text = estructura.linea_og
-                etree.SubElement(e_detalle_siif, 'auxiliar').text = estructura.linea_aux
-                etree.SubElement(e_detalle_siif, 'financiamiento').text = estructura.linea_ff
-                etree.SubElement(e_detalle_siif, 'moneda').text = estructura.linea_moneda
-                etree.SubElement(e_detalle_siif, 'tipo_credito').text = estructura.linea_tc
-            if es_modif:
-                if tipo_modificacion == 'N':
-                    monto = str(int(-llave.importe))
+            if llave.importe:
+                estructura = estructura_obj.obtener_estructura(cr, uid, fondo_rotatorio.fiscal_year_id.id, fondo_rotatorio.inciso_siif_llp_id.inciso,
+                                                                           fondo_rotatorio.ue_siif_llp_id.ue,
+                                                                           llave.programa, llave.proyecto, llave.mon, llave.tc,
+                                                                           llave.fin, llave.odg, llave.auxiliar)
+                e_detalle_siif = etree.SubElement(e_detalle, 'DetalleSIIF')
+                if estructura:
+                    etree.SubElement(e_detalle_siif, 'tipo_registro').text = '02'
+                    etree.SubElement(e_detalle_siif, 'tipo_registracion').text = _tipo_registracion
+                    etree.SubElement(e_detalle_siif, 'programa').text = estructura.linea_programa
+                    etree.SubElement(e_detalle_siif, 'desc_tipo_mov').text='PART_OBL_ORIG_Y_MODIF_GRP'
+                    etree.SubElement(e_detalle_siif, 'proyecto').text = estructura.linea_proyecto
+                    etree.SubElement(e_detalle_siif, 'objeto_gasto').text = estructura.linea_og
+                    etree.SubElement(e_detalle_siif, 'auxiliar').text = estructura.linea_aux
+                    etree.SubElement(e_detalle_siif, 'financiamiento').text = estructura.linea_ff
+                    etree.SubElement(e_detalle_siif, 'moneda').text = estructura.linea_moneda
+                    etree.SubElement(e_detalle_siif, 'tipo_credito').text = estructura.linea_tc
+                if es_modif:
+                    if tipo_modificacion == 'N':
+                        monto = str(int(-llave.importe))
+                    else:
+                        monto = _monto
                 else:
-                    monto = _monto
-            else:
-                monto = str(int(llave.importe))
-            etree.SubElement(e_detalle_siif, 'importe').text = monto
+                    monto = str(int(llave.importe))
+                etree.SubElement(e_detalle_siif, 'importe').text = monto
 
         e_retencion = etree.SubElement(e_movimiento_presup, 'Retenciones')
         for retencion in retenciones:

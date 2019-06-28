@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <openerp>
+    <data>
+
+        <record model="ir.ui.view" id="view_grp_presupuesto_estructura_list">
+            <field name="name">grp.presupuesto.estructura.list</field>
+            <field name="model">presupuesto.estructura</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Historial" create="false" edit="false" delete="false" >
+                    <field name="linea_proy_fiscal_year"/>
+		            <field name="linea_proy_inciso"/>
+					<field name="linea_ue"/>
+                    <field name="linea_programa"/>
+                    <field name="linea_proyecto"/>
+                    <field name="linea_moneda"/>
+                    <field name="linea_tc"/>
+                    <field name="linea_ff"/>
+                    <field name="linea_og"/>
+                    <field name="linea_aux"/>
+                    <!--<field name="linea_inicial" widget="integer"/>-->
+                    <!--<field name="linea_ajuste" string="Ajustes" widget="integer"/>-->
+                    <field name="linea_planificado" string="Crédito vigente" widget="integer"/>
+                    <field name="afectado" widget="integer"/>
+                    <field name="comprometido" widget="integer"/>
+                    <field name="obligado" widget="integer"/>
+                    <!--<field name="pagado" widget="integer"/>-->
+                    <!--<field name="porc_ejecutado"/>-->
+                    <field name="disponible" widget="integer"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="view_grp_presupuesto_estructura_form">
+            <field name="name">grp.presupuesto.estructura.form</field>
+            <field name="model">presupuesto.estructura</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Historial" edit="false" create="false" delete="false">
+                    <group colspan="8" col="8" string="Historial de estructura">
+                        <field name="linea_proy_fiscal_year"/>
+                        <field name="linea_proy_inciso"/>
+                        <newline/>
+                        <field name="linea_moneda"/>
+						<field name="linea_ue"/>
+                        <newline/>
+                        <field name="linea_programa"/>
+                        <field name="linea_proyecto"/>
+                        <newline/>
+                        <field name="linea_tc"/>
+                        <field name="linea_ff"/>
+                        <newline/>
+                        <field name="linea_og"/>
+                        <field name="linea_aux"/>
+                    </group>
+                    <notebook>
+                        <page string="Historial">
+                            <field name="log" nolabel="1" mode="tree">
+                                <tree edit="false" create="false" delete="false">
+                                    <field name="create_date"></field>
+                                    <field name="id_objeto"></field>
+                                    <field name="tipo_objeto"></field>
+                                    <field name="monto_afectado"></field>
+                                    <field name="monto_comprometido"></field>
+                                    <field name="monto_obligado"></field>
+                                    <field name="monto_pagado"></field>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_grp_presupuesto_estructura_search" model="ir.ui.view">
+            <field name="name">grp.presupuesto.estructura.search</field>
+            <field name="model">presupuesto.estructura</field>
+            <field name="arch" type="xml">
+                <search string="Estructura">
+                    <field name="linea_proy_fiscal_year"/>
+                    <field name="linea_proy_inciso"/>
+                    <field name="linea_ue"/>
+                    <field name="linea_programa"/>
+                    <field name="linea_proyecto"/>
+                    <field name="linea_moneda"/>
+                    <field name="linea_tc"/>
+                    <field name="linea_ff"/>
+                    <field name="linea_og"/>
+                    <field name="linea_aux"/>
+                    <group expand="0" string="Group By...">
+					    <filter string="Año fiscal" domain="[]" context="{'group_by' : 'linea_proy_fiscal_year'}"/>
+                        <filter string="Inciso" domain="[]" context="{'group_by' : 'linea_proy_inciso'}"/>
+                        <filter string="Unidad Ejecutora" domain="[]" context="{'group_by' : 'linea_ue'}"/>
+                        <filter string="Programa" domain="[]" context="{'group_by' : 'linea_programa'}"/>
+                        <filter string="Proyecto" domain="[]" context="{'group_by' : 'linea_proyecto'}"/>
+                        <filter string="Moneda" domain="[]" context="{'group_by' : 'linea_moneda'}"/>
+                        <filter string="Tipo credito" domain="[]" context="{'group_by' : 'linea_tc'}"/>
+                        <filter string="Financiamiento" domain="[]" context="{'group_by' : 'linea_ff'}"/>
+			            <filter string="OG / Auxiliar" domain="[]" context="{'group_by' : ['linea_og', 'linea_aux']}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="open_grp_presupuesto_estructura">
+            <field name="res_model">presupuesto.estructura</field>
+            <field name="view_type">form</field>
+            <field name="name">Estructura presupuesto</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="view_grp_presupuesto_estructura_search"/>
+            <field name="view_id" ref="view_grp_presupuesto_estructura_list"/>
+        </record>
+
+        <menuitem id="menu_grp_presupuesto_estructura" name="Estructura Presupuesto"
+                  action="open_grp_presupuesto_estructura" parent="menu_grp_presupuesto" sequence="30"/>
+
+    </data>
+</openerp>

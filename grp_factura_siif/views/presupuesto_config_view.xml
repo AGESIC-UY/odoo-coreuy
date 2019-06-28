@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+
+        <record model="ir.ui.view" id="view_presupuesto_grp_config_tree">
+            <field name="name">presupuesto.config.tree</field>
+            <field name="model">presupuesto.config</field>
+            <field name="priority" eval="5"/>
+            <field name="arch" type="xml">
+                <tree string="Control Presupuestal">
+                    <field name="name"/>
+                    <field name="anio_fiscal"/>
+                    <field name="create_date"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="view_presupuesto_grp_config_form">
+            <field name="name">presupuesto.config.form</field>
+            <field name="model">presupuesto.config</field>
+            <field name="type">form</field>
+            <field name="priority" eval="5"/>
+            <field name="arch" type="xml">
+                <form string="Control Presupuestal">
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                            <field name="create_date"/>
+                            <field name="anio_fiscal"/>
+                            <field name="tipo_control"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="open_presupuesto_grp_config">
+            <field name="name">Configuración presupuesto</field>
+            <field name="res_model">presupuesto.config</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="view_presupuesto_grp_config_tree"/>
+        </record>
+
+        <record model="ir.ui.view" id="view_presupuesto_grp_grupo_tree">
+            <field name="name">presupuesto.grupo.tree</field>
+            <field name="model">presupuesto.grupo</field>
+            <field name="priority" eval="5"/>
+            <field name="arch" type="xml">
+                <tree string="Grupos">
+                    <field name="name"/>
+                    <field name="descripcion"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="view_presupuesto_grp_grupo_form">
+            <field name="name">presupuesto.grupo.form</field>
+            <field name="model">presupuesto.grupo</field>
+            <field name="type">form</field>
+            <field name="priority" eval="5"/>
+            <field name="arch" type="xml">
+                <form string="Grupos" version="7.0">
+                    <sheet string="Grupos">
+                        <group>
+                            <group>
+                                <field name="name"/>
+                                <field name="descripcion"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Subgrupo">
+                                <field name="subgrupo_ids" nolabel="1">
+                                    <tree string="Subrupo" editable="1" widget="one2many_list">
+                                        <field name="grupo_id" invisible="1"/>
+                                        <field name="name"/>
+                                        <field name="descripcion"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="open_presupuesto_grp_grupo">
+            <field name="name">Grupos de ODG</field>
+            <field name="res_model">presupuesto.grupo</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="view_presupuesto_grp_grupo_tree"/>
+        </record>
+
+        <record model="ir.ui.view" id="view_presupuesto_grp_concepto_tree">
+            <field name="name">presupuesto.concepto.tree</field>
+            <field name="model">presupuesto.concepto</field>
+            <field name="priority" eval="5"/>
+            <field name="arch" type="xml">
+                <tree string="Concepto">
+                    <field name="concepto"/>
+                    <field name="descripcion"/>
+                    <field name="visible_documento"/>
+                    <field name="exceptuado_sice"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="view_presupuesto_grp_concepto_form">
+            <field name="name">presupuesto.concepto.form</field>
+            <field name="model">presupuesto.concepto</field>
+            <field name="type">form</field>
+            <field name="priority" eval="5"/>
+            <field name="arch" type="xml">
+                <form string="Concepto" version="7.0">
+                    <sheet string="Concepto">
+                        <group>
+                            <field name="concepto"/>
+                            <field name="name" invisible="1"/>
+                            <field name="descripcion"/>
+                            <field name="visible_documento"/>
+                            <field name="exceptuado_sice"/>
+                        </group>
+                        <notebook>
+                            <page string="Lineas">
+                                <field name="linea_concepto_ids" nolabel="1">
+                                    <tree string="Grupo" editable="1">
+                                        <field name="concepto_id" invisible="1"/>
+                                        <field name="grupo_id" on_change="onchange_grupo(grupo_id)"/>
+                                        <field name="descripcion" readonly="1"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="open_presupuesto_grp_concepto">
+            <field name="name">Conceptos de gasto</field>
+            <field name="res_model">presupuesto.concepto</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="view_presupuesto_grp_concepto_tree"/>
+        </record>
+
+        <record model="ir.ui.view" id="view_objeto_gasto_tree">
+            <field name="name">presupuesto.objeto.gasto.tree</field>
+            <field name="model">presupuesto.objeto.gasto</field>
+            <field name="priority" eval="5"/>
+            <field name="arch" type="xml">
+                <tree string="Objetos de gasto">
+                    <field name="name"/>
+                    <field name="auxiliar"/>
+                    <field name="descripcion"/>
+                    <field name="grupo_id"/>
+                    <field name="subgrupo_id"/>
+                    <field name="exceptuado_sice"/>
+                    <field name="objeto_especifico"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="view_objeto_gasto_form">
+            <field name="name">presupuesto.objeto.gasto.form</field>
+            <field name="model">presupuesto.objeto.gasto</field>
+            <field name="type">form</field>
+            <field name="priority" eval="5"/>
+            <field name="arch" type="xml">
+                <form string="Objetos de gasto" version="7.0">
+                    <sheet string="Objetos de gasto">
+                        <group>
+                            <group>
+                                <!-- PCAR 15 05 2017 Inicio GAPF0020_211 -->
+                                <field name="odg_aux"/>
+                                <!-- PCAR 15 05 2017 Fin GAPF0020_211 -->
+                                <field name="name"/>
+                                <field name="descripcion"/>
+                                <field name="auxiliar"/>
+                                <field name="exceptuado_sice"/>
+                                <field name="objeto_especifico"/>
+                            </group>
+                            <group>
+                                <field name="grupo_id" on_change="onchange_grupo(grupo_id)"/>
+                                <field name="descripcion_grupo" readonly="1"/>
+                                <field name="domain_ids" invisible="1"/>
+                                <field name="subgrupo_id" domain="[('id', 'in', domain_ids[0][2])]"
+                                       on_change="onchange_subgrupo(subgrupo_id)"/>
+                                <field name="descripcion_subgrupo" readonly="1"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="open_objeto_gasto_search" model="ir.ui.view">
+            <field name="name">presupuesto.objeto.gasto.search</field>
+            <field name="model">presupuesto.objeto.gasto</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <search string="Objetos de gasto">
+                    <field name="name"/>
+                    <field name="auxiliar"/>
+                    <field name="grupo_id"/>
+                    <field name="subgrupo_id"/>
+                    <group expand="0" string="Agrupar por...">
+                        <filter string="Grupo" domain="[]" context="{'group_by':'grupo_id'}"/>
+                        <filter string="Subgrupo" domain="[]" context="{'group_by':'subgrupo_id'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="open_objeto_gasto">
+            <field name="name">Objetos del gasto</field>
+            <field name="res_model">presupuesto.objeto.gasto</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="view_objeto_gasto_tree"/>
+            <field name="search_view_id" ref="open_objeto_gasto_search"/>
+        </record>
+
+    </data>
+</openerp>

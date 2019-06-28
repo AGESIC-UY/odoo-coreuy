@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record id="view_motivo_alta_activo_form" model="ir.ui.view">
+            <field name="name">Motivo de alta</field>
+            <field name="model">motivo.alta.activo</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="motivo_alta"/>
+                                <field name="migracion"/>
+                                <field name="account_id" attrs="{'required': [('migracion','=',False)]}"/>
+                                <field name="journal_id" attrs="{'required': [('migracion','=',False)]}"/>
+                            </group>
+                            <group/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_motivo_alta_activo_tree" model="ir.ui.view">
+            <field name="name">Motivos de alta</field>
+            <field name="model">motivo.alta.activo</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="motivo_alta"/>
+                    <field name="account_id"/>
+                    <field name="journal_id"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_motivo_alta_activo_filter" model="ir.ui.view">
+            <field name="name">Motivos de alta</field>
+            <field name="model">motivo.alta.activo</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="motivo_alta"/>
+                    <field name="migracion"/>
+                    <field name="account_id"/>
+                    <field name="journal_id"/>
+                </search>
+            </field>
+        </record>
+
+        <act_window
+                id="action_motivo_alta_activo"
+                name="Motivos de alta"
+                res_model="motivo.alta.activo"
+                view_mode="tree,form"
+        />
+
+        <menuitem
+                id="menu_motivo_alta_activo"
+                name="Motivos de alta"
+                parent="account_asset.menu_finance_config_assets"
+                sequence="7"
+                action="action_motivo_alta_activo"
+        />
+    </data>
+</openerp>

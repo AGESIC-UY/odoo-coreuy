@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <!-- TODO Spring 6 GAP 126-->
+        <record id="cotizaciones_comprometer_wizard_view" model="ir.ui.view">
+            <field name="name">grp.cotizaciones.comprometer.wizard.form</field>
+            <field name="model">grp.cotizaciones.comprometer.wizard</field>
+            <field name="arch" type="xml">
+            <form string="Rechazar" version="7.0">
+                <group name="main_group">
+                    <group>
+                        <field name="fiscalyear_id" widget="selection"/>
+                        <field name="provider_id" options="{'no_create':True,'no_open': True}"/>
+                        <field name="apg_id" options="{'no_create':True,'no_open': True}"/>
+                    </group>
+                    <group>
+                        <field name="estimate_fiscalyear_temp"/>
+                        <field name="amount_compromise"/>
+                        <field name="estimate_fiscalyear" invisible="1"/>
+                        <field name="cot_id" invisible="1"/>
+                    </group>
+                </group>
+                <footer>
+                    <button name="confirm_compromise" default_focus="1" string="Confirmar" type="object" class="oe_highlight"/>
+                    o
+                    <button string="Cancelar" class="oe_link" special="cancel"/>
+                </footer>
+            </form>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="cotizacion_comprometer_wizard_act">
+            <field name="name">Comprometer</field>
+            <field name="res_model">grp.cotizaciones.comprometer.wizard</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="cotizaciones_comprometer_wizard_view"/>
+            <field name="target">new</field>
+        </record>
+
+    </data>
+</openerp>

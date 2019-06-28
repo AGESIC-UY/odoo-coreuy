@@ -38,8 +38,7 @@
         'views/grp_account_asset_asset_view.xml',
         'views/grp_cotizaciones_view.xml',
         'views/grp_hr_expense_view.xml',
-        'views/grp_stock_view.xml',
-        'report/report_analyticjournal.xml',
+        'views/grp_stock_view.xml'
     ],
     'auto_install': False,
     'installable': True,

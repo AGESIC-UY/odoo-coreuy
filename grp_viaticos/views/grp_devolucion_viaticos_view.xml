@@ -164,7 +164,7 @@
         <menuitem id="menu_action_grp_devolucion_viaticos" icon="STOCK_JUSTIFY_FILL"
             action="action_grp_devolucion_viaticos"
             parent="account.menu_finance_payables"
-            sequence="251" groups="grp_tesoreria.group_grp_tesoreria"/>
+            sequence="251"/>
 
     </data>
 </openerp>

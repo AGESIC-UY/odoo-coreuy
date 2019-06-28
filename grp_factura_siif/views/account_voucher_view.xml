@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<openerp>
+	<data>
+
+		<record id="view_vendor_receipt_dialog_tc_up_siif_form" model="ir.ui.view">
+			<field name="name">account.voucher.tc.siif</field>
+			<field name="model">account.voucher</field>
+			<field name="inherit_id" ref="facturas_uy.view_vendor_receipt_dialog_tc_up_form"/>
+			<field name="arch" type="xml">
+				<field name="writeoff_acc_aux_id" position="after">
+                    <field name="company_currency_id" invisible="1"/>
+                    <field name="usd_fondo_rot" invisible="1"/>
+					<field name="paid_amount_pend_base" widget="monetary" options="{'currency_field': 'company_currency_id'}" attrs="{'invisible': [('usd_fondo_rot', '=', False)]}"/>
+					<field name="rate_currency" attrs="{'invisible': [('usd_fondo_rot', '=', False)]}"/>
+				</field>
+			</field>
+		</record>
+
+        <record model="ir.ui.view" id="view_grp_vendor_payment_form">
+            <field name="name">grp.account.voucher.payment.form</field>
+            <field name="model">account.voucher</field>
+            <field name="sequence">50</field>
+            <field name="inherit_id" ref="account_voucher.view_vendor_payment_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='line_dr_ids']/tree/field[@name='account_id']" position="after">
+                    <field name="supplier_invoice_number"/>
+                    <field name="invoice_id"/>
+                </xpath>
+                <xpath expr="//field[@name='line_cr_ids']/tree/field[@name='account_id']" position="after">
+                    <field name="supplier_invoice_number"/>
+                    <field name="invoice_id"/>
+                </xpath>
+                <xpath expr="//field[@name='line_dr_ids']/tree" position="inside">
+                    <button name="action_link_related_document" type="object" icon="gtk-find"/>
+                </xpath>
+                <xpath expr="//field[@name='line_cr_ids']/tree" position="inside">
+                    <button name="action_link_related_document" type="object" icon="gtk-find"/>
+                </xpath>
+                <xpath expr="//field[@name='line_dr_ids']/tree/field[@name='account_id']" position="after">
+                    <field name="operating_unit_id" readonly="1"/>
+                </xpath>
+                <xpath expr="//field[@name='line_cr_ids']/tree/field[@name='account_id']" position="after">
+                    <field name="operating_unit_id" readonly="1"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="view_vendor_receipt_form">
+            <field name="name">grp.account.voucher.payment.form</field>
+            <field name="model">account.voucher</field>
+            <field name="sequence">50</field>
+            <field name="inherit_id" ref="account_voucher.view_vendor_receipt_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='line_dr_ids']/tree/field[@name='account_id']" position="after">
+                    <field name="supplier_invoice_number"/>
+                </xpath>
+                <xpath expr="//field[@name='line_cr_ids']/tree/field[@name='account_id']" position="after">
+                    <field name="supplier_invoice_number"/>
+                </xpath>
+                <xpath expr="//field[@name='line_dr_ids']/tree" position="inside">
+                    <button name="action_link_related_document" type="object" icon="gtk-find"/>
+                </xpath>
+                <xpath expr="//field[@name='line_cr_ids']/tree" position="inside">
+                    <button name="action_link_related_document" type="object" icon="gtk-find"/>
+                </xpath>
+            </field>
+        </record>
+
+</data>
+</openerp>

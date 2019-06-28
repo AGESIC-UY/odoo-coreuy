@@ -227,12 +227,16 @@ class grp_fondo_rotatorio(models.Model):
     currency_rate_presupuesto = fields.Float(u'Tipo de cambio presupuesto', digits=(12, 6),
                                               compute='_compute_currency_rate',multi='_compute_currency_rate',
                                               store=True)
-    total_nominal_comprobantes = fields.Float(u'Total nominal comprobantes', compute='_compute_total_moneda',
-                                              multi='_compute_total_moneda', store=True)
-    total_retenciones_me = fields.Float(u'Total retenciones', compute='_compute_total_moneda',
-                                     multi='_compute_total_moneda', store=True)
-    total_liquido_pagable = fields.Float(u'Total liquido pagable', compute='_compute_total_moneda',
-                                         multi='_compute_total_moneda', store=True)
+    total_nominal_comprobantes = fields.Float(u'Total nominal comprobantes', compute='_compute_total_nominal_comprobantes', store=True)
+    total_retenciones_currency = fields.Float(u'Total retenciones', compute='_compute_total_retenciones_currency', store=True)
+    total_liquido_pagable = fields.Float(u'Total liquido pagable', compute='_compute_total_liquido_pagable', store=True)
+
+    total_nominal_comprobantes_manual = fields.Float(u'Total nominal manual', readonly="True", states={'draft': [('readonly', False)], 'confirmado': [('readonly', False)]})
+    total_retenciones_currency_manual = fields.Float(u'Total retenciones manual', readonly="True", states={'draft': [('readonly', False)], 'confirmado': [('readonly', False)]})
+    total_liquido_pagable_manual = fields.Float(u'Total liquido pagable manual', readonly="True", states={'draft': [('readonly', False)], 'confirmado': [('readonly', False)]})
+
+    send_currency2siif = fields.Boolean(u'Enviar FR en dólares a SIIF', readonly="True", states={'draft': [('readonly', False)], 'confirmado': [('readonly', False)]})
+
 
     @api.multi
     @api.depends('company_currency_id', 'currency_id')
@@ -241,23 +245,26 @@ class grp_fondo_rotatorio(models.Model):
             rec.moneda_extranjera = rec.currency_id.id and rec.currency_id.id != rec.company_currency_id.id
 
     @api.multi
-    @api.depends('moneda_extranjera', 'line_ids.amount_retentions_currency', 'line_ids.liquido_pagable_currency',
-                 'line_ids.liquido_pagable_ajustado_currency')
-    def _compute_total_moneda(self):
+    @api.depends('moneda_extranjera', 'line_ids.liquido_pagable_currency','line_ids.amount_retentions_currency')
+    def _compute_total_nominal_comprobantes(self):
         for rec in self:
             if rec.moneda_extranjera:
-                _total_retenciones = sum(rec.line_ids.mapped('amount_retentions_currency'))
-                _total_nominal_comprobantes = sum(rec.line_ids.mapped('liquido_pagable_currency')) + _total_retenciones
-                _total_liquido_pagable = sum(rec.line_ids.mapped('liquido_pagable_ajustado_currency'))
+                _total_nominal_comprobantes = sum(rec.line_ids.mapped('liquido_pagable_currency')) + sum(rec.line_ids.mapped('amount_retentions_currency'))
             else:
-                _total_retenciones = 0
                 _total_nominal_comprobantes = 0
-                _total_liquido_pagable = 0
-            rec.total_retenciones_me = _total_retenciones
             rec.total_nominal_comprobantes = _total_nominal_comprobantes
-            rec.total_liquido_pagable = _total_liquido_pagable
 
+    @api.multi
+    @api.depends('moneda_extranjera','line_ids.amount_retentions_currency')
+    def _compute_total_retenciones_currency(self):
+        for rec in self:
+            rec.total_retenciones_currency = rec.moneda_extranjera and sum(rec.line_ids.mapped('amount_retentions_currency')) or 0
 
+    @api.multi
+    @api.depends('moneda_extranjera', 'line_ids.liquido_pagable_ajustado_currency')
+    def _compute_total_liquido_pagable(self):
+        for rec in self:
+            rec.total_liquido_pagable = rec.moneda_extranjera and sum(rec.line_ids.mapped('liquido_pagable_ajustado_currency')) or 0
 
     @api.multi
     @api.depends('currency_id','currency_rate_date')
@@ -313,10 +320,10 @@ class grp_fondo_rotatorio(models.Model):
             self.ue_siif_llp_id = ue_siif_llp_id
             self.inciso_siif_llp_id = inciso_siif_llp_id
 
-    @api.constrains('state', 'liquido_pagable', 'llpapg_ids')
-    def _check_totales(self):
-        if self.state not in ['draft', 'confirmado'] and sum(map(lambda x: x.importe, self.llpapg_ids)) != round(self.liquido_pagable, 0):
-            raise ValidationError(u'La sumatoria de importes de llaves presupuestales no es igual al monto a pagar!')
+    # @api.constrains('state', 'liquido_pagable', 'llpapg_ids')
+    # def _check_totales(self):
+    #     if self.state not in ['draft', 'confirmado'] and sum(map(lambda x: x.importe, self.llpapg_ids)) != round(self.liquido_pagable, 0):
+    #         raise ValidationError(u'La sumatoria de importes de llaves presupuestales no es igual al monto a pagar!')
 
     @api.one
     @api.constrains('date_invoice','fecha_vencimiento')
@@ -402,33 +409,48 @@ class grp_fondo_rotatorio(models.Model):
 
     # TODO: SPRING 8 GAP 111.228.339 K
     @api.multi
-    @api.depends('line_invoice_fr_ids.liquido_pagable', 'line_expense_ids.liquido_pagable', 'line_expense_vales_ids.liquido_pagable', 'line_statement_ids.liquido_pagable', 'line_expense_abonos_ids.liquido_pagable')
+    def _get_dict_total_importe_pago(self):
+        self.ensure_one()
+        total_retenciones = round(sum(map(lambda x: x.amount_ttal_ret_pesos,self.line_invoice_fr_ids.mapped(lambda x: x.supplier_invoice_id))), 0)
+        if self.moneda_extranjera:
+            # total_retenciones = sum(map(lambda x: x.total_retenciones_factura, self.line_invoice_fr_ids))
+            # total_retenciones += round(sum(map(lambda x: x.amount_ttal_ret_pesos,
+            #                                    self.line_invoice_fr_ids.mapped(
+            #                                        lambda x: x.supplier_invoice_id))), 0)
+            total_importe_pago = round(self.total_liquido_pagable) * self.currency_rate_presupuesto
+        else:
+            # total_retenciones = 0
+            total_importe_pago = 0
+            if self.line_invoice_fr_ids:
+                total_importe_pago += sum(map(lambda x: x.liquido_pagable, self.line_invoice_fr_ids))
+                # total_retenciones += round(sum(map(lambda x: x.amount_ttal_ret_pesos,
+                #                                    self.line_invoice_fr_ids.mapped(
+                #                                        lambda x: x.supplier_invoice_id))), 0)
+            if self.line_expense_ids:
+                total_importe_pago += sum(map(lambda x: x.liquido_pagable, self.line_expense_ids))
+            if self.line_expense_vales_ids:
+                total_importe_pago += sum(map(lambda x: x.liquido_pagable, self.line_expense_vales_ids))
+            if self.line_expense_abonos_ids:
+                total_importe_pago += sum(map(lambda x: x.liquido_pagable, self.line_expense_abonos_ids))
+            if self.line_statement_ids:
+                total_importe_pago += sum(map(lambda x: x.liquido_pagable, self.line_statement_ids))
+        return {'total_importe_pago': round(total_importe_pago),
+                'total_retenciones': total_retenciones}
+            
+
+    @api.multi
+    @api.depends('total_liquido_pagable','currency_rate_presupuesto','line_invoice_fr_ids.liquido_pagable', 'line_expense_ids.liquido_pagable', 'line_expense_vales_ids.liquido_pagable', 'line_statement_ids.liquido_pagable', 'line_expense_abonos_ids.liquido_pagable', 'moneda_extranjera')
     def _get_totales(self):
         for rec in self:
-            total_importe_pago = 0
-            total_retenciones = 0
-            total_impuestos = 0
-            if rec.line_invoice_fr_ids:
-                total_importe_pago += sum(map(lambda x: x.liquido_pagable, rec.line_invoice_fr_ids))
-                total_retenciones += round(sum(map(lambda x: x.amount_ttal_ret_pesos,
-                                                   rec.line_invoice_fr_ids.mapped(
-                                                       lambda x: x.supplier_invoice_id))), 0)
-                total_impuestos += sum(map(lambda x: x.amount_ttal_impuestos_pesos,
-                                           rec.line_invoice_fr_ids.mapped(lambda x: x.supplier_invoice_id)))
-            if rec.line_expense_ids:
-                total_importe_pago += sum(map(lambda x: x.liquido_pagable, rec.line_expense_ids))
-            if rec.line_expense_vales_ids:
-                total_importe_pago += sum(map(lambda x: x.liquido_pagable, rec.line_expense_vales_ids))
-            if rec.line_expense_abonos_ids:
-                total_importe_pago += sum(map(lambda x: x.liquido_pagable, rec.line_expense_abonos_ids))
-            if rec.line_statement_ids:
-                total_importe_pago += sum(map(lambda x: x.liquido_pagable, rec.line_statement_ids))
-            total_importe_pago = round(total_importe_pago, 0)
+
+            _totales = rec._get_dict_total_importe_pago()
+            total_importe_pago = _totales['total_importe_pago']
+            total_retenciones = _totales['total_retenciones']
             rec.total_importe_pago = total_importe_pago
             rec.total_retenciones = total_retenciones
             rec.total_reponer = total_importe_pago + total_retenciones
             rec.liquido_pagable = total_importe_pago
-            rec.total_impuestos = total_impuestos
+            rec.total_impuestos = 0
 
     # TODO: SPRING 8 GAP 111.228.339 K
     @api.multi
@@ -670,6 +692,10 @@ class grp_fondo_rotatorio(models.Model):
                                                domain[1][2],
                                                domain[2][2]
                                                ))
+                    if self.moneda_extranjera:
+                        _importe = line.total_amount * self.currency_rate_presupuesto
+                    else:
+                        _importe = line.total_amount
                     if len(dlineas_llavep_hr_expense_ids) > 0:
                         encontrado = False
                         for record in dlineas_llavep_hr_expense_ids:
@@ -687,7 +713,7 @@ class grp_fondo_rotatorio(models.Model):
                                     'fondo_rotarios_line_id': line_expense.id,
                                     'odg_id': aux.odg_id.id,
                                     'auxiliar_id': aux.id,
-                                    'importe': round(line.total_amount),
+                                    'importe': _importe,
                                     'tipo_documento': line_expense.tipo_documento,
                                     'descripcion_gasto': line_expense.descripcion_gasto
                             })
@@ -700,7 +726,7 @@ class grp_fondo_rotatorio(models.Model):
                             'fondo_rotarios_line_id': line_expense.id,
                             'odg_id': aux.odg_id.id,
                             'auxiliar_id': aux.id,
-                            'importe': round(line.total_amount),
+                            'importe': round(_importe),
                             'tipo_documento': line_expense.tipo_documento,
                             'descripcion_gasto': line_expense.descripcion_gasto
                         })
@@ -770,16 +796,17 @@ class grp_fondo_rotatorio(models.Model):
         return llpapg_ids_return
 
     # TODO R RESTRICCION PARA MONTOS DE LA LLAVE PRESUPUESTAL
+    # TODO: Se comenta temporalmente por una solución parcial, luego reponer
     # no es un constrains, debe ser llamado por botones
-    @api.multi
-    def _check_totales(self):
-        for rec in self:
-            if rec.state != 'draft' and sum(map(lambda x: x.importe, rec.llpapg_ids)) != rec.total_reponer:
-                raise ValidationError(u'La sumatoria de importes de llaves presupuestales no es igual al Total a reponer FR!')
+    # @api.multi
+    # def _check_totales(self):
+    #     for rec in self:
+    #         if rec.state != 'draft' and sum(map(lambda x: x.importe, rec.llpapg_ids)) != rec.total_reponer:
+    #             raise ValidationError(u'La sumatoria de importes de llaves presupuestales no es igual al Total a reponer FR!')
 
     @api.multi
     def act_fr_confirmado(self):
-        self._check_totales() #TODO: R Verificando totales
+        # self._check_totales() #TODO: R Verificando totales
         for rec in self:
             if rec.name == '3 en 1-FR Borrador':
                 rec.name = self.env['ir.sequence'].with_context(fiscalyear_id=rec.fiscal_year_id.id).get('fr.number')
@@ -791,8 +818,9 @@ class grp_fondo_rotatorio(models.Model):
         for fondo_rotatorio in self:
 
             # Control: que la sumatoria de llave sea igual al total a reponer
-            if fondo_rotatorio.total_llavep <> round(fondo_rotatorio.total_reponer):
-                raise exceptions.ValidationError('La sumatoria de importes de llaves presupuestales no es igual al total a reponer.')
+            # TODO: RAGU sacado temporalmente
+            # if fondo_rotatorio.total_llavep <> round(fondo_rotatorio.total_reponer):
+            #     raise exceptions.ValidationError('La sumatoria de importes de llaves presupuestales no es igual al total a reponer.')
 
             for llave in fondo_rotatorio.llpapg_ids:
                 estructura = estructura_obj.obtener_estructura(fondo_rotatorio.fiscal_year_id.id,
@@ -894,7 +922,7 @@ class grp_fondo_rotatorio(models.Model):
             nro_obl_sist_aux = nro_obl_sist_aux[4:]
 
             xml_obligacion = generador_xml.gen_xml_obligacion_3en1_fr(fondo_rotatorio=fondo_rotatorio, llaves_presupuestales=fondo_rotatorio.llpapg_ids,
-                                                                      importe=fondo_rotatorio.liquido_pagable, nro_carga=nro_carga, tipo_doc_grp=tipo_doc_grp,
+                                                                      importe=fondo_rotatorio.total_liquido_pagable_manual, nro_carga=nro_carga, tipo_doc_grp=tipo_doc_grp,
                                                                       nro_modif_grp=0,
                                                                       tipo_modificacion='A',
                                                                       retenciones=retenciones,
@@ -947,8 +975,8 @@ class grp_fondo_rotatorio(models.Model):
 
             # Enviar factura como 3 en 1, actualizar Monto Autorizado y Comprometido, condicion de factura y etapa del gasto = 3en1
 
-            dicc_modif['monto_afectado'] = int(round(fondo_rotatorio.total_reponer, 0))
-            dicc_modif['monto_comprometido'] = int(round(fondo_rotatorio.total_reponer, 0))
+            dicc_modif['monto_afectado'] = int(round(fondo_rotatorio.total_nominal_comprobantes_manual, 0))
+            dicc_modif['monto_comprometido'] = int(round(fondo_rotatorio.total_nominal_comprobantes_manual, 0))
             dicc_modif['nro_obl_sist_aux'] = nro_obl_sist_aux
 
             res_write_fr = fondo_rotatorio.write(dicc_modif)
@@ -976,7 +1004,7 @@ class grp_fondo_rotatorio(models.Model):
 
     @api.multi
     def act_fr_obligado(self):
-        self._check_totales()
+        # self._check_totales()
         company = self.env.user.company_id
         integracion_siif = company.integracion_siif or False
         if integracion_siif and self.filtered(lambda r: r.nro_obligacion):
@@ -1301,40 +1329,42 @@ class grp_fondo_rotatorio(models.Model):
         return fondo_rotatorio
 
     # TODO: SPRING 8 GAP 111.228.339 K
-    @api.multi
-    def write(self, values):
-        vals_write = {}
-        vals_write_aux = {}
-        if values.get('line_invoice_fr_ids', False):
-            vals_write_aux['line_invoice_fr_ids'] = values.get('line_invoice_fr_ids', False)
-            values['dlineas_llavep_invoice_fr_ids'] = [(5,)]
-        if values.get('line_expense_ids', False):
-            values['dlineas_llavep_hr_expense_ids'] = [(5,)]
-        if values.get('line_statement_ids', False):
-            vals_write_aux['line_statement_ids'] = values.get('line_statement_ids', False)
-            values['dlineas_llavep_bank_statement_ids'] = [(5,)]
-        if len(vals_write_aux) > 0:
-            llpapg_ids = self[0].update_write_detalles_lineas_llavep(vals_write_aux)
-            if len(llpapg_ids) > 0:
-                vals_write['llpapg_ids'] = llpapg_ids
+    # @api.multi
+    # def write(self, values):
+        # vals_write = {}
+        # vals_write_aux = {}
+        # if values.get('line_invoice_fr_ids', False):
+        #     vals_write_aux['line_invoice_fr_ids'] = values.get('line_invoice_fr_ids', False)
+        #     values['dlineas_llavep_invoice_fr_ids'] = [(5,)]
+        # if values.get('line_expense_ids', False):
+        #     values['dlineas_llavep_hr_expense_ids'] = [(5,)]
+        # if values.get('line_statement_ids', False):
+        #     vals_write_aux['line_statement_ids'] = values.get('line_statement_ids', False)
+        #     values['dlineas_llavep_bank_statement_ids'] = [(5,)]
+        # if len(vals_write_aux) > 0:
+            # llpapg_ids = self[0].update_write_detalles_lineas_llavep(vals_write_aux)
+            # if len(llpapg_ids) > 0:
+            #     vals_write['llpapg_ids'] = llpapg_ids
         # if values.get('line_invoice_ids', False) or values.get('line_invoice_fr_ids', False) or values.get('line_expense_ids', False) or values.get('line_statement_ids', False):
-        if values.get('line_invoice_fr_ids', False) or values.get('line_expense_ids', False) or values.get('line_statement_ids', False):
-            values['llpapg_ids'] = [(5,)]
+        # if values.get('line_invoice_fr_ids', False) or values.get('line_expense_ids', False) or values.get('line_statement_ids', False):
+        #     values['llpapg_ids'] = [(5,)]
 
-        fondo_rotatorios = super(grp_fondo_rotatorio, self).write(values)
 
-        if values.get('line_invoice_fr_ids', False):
-            dlineas_llavep_invoice_fr_ids = self[0].update_line_invoice_fr_ids()
-            if len(dlineas_llavep_invoice_fr_ids) > 0:
-                vals_write['dlineas_llavep_invoice_fr_ids'] = dlineas_llavep_invoice_fr_ids
-                vals_write['retention_ids'] = self._get_retentions_dict()
-        if values.get('line_statement_ids', False):
-            dlineas_llavep_bank_statement_ids = self[0].update_line_statement_ids()
-            if len(dlineas_llavep_bank_statement_ids) > 0:
-                vals_write['dlineas_llavep_bank_statement_ids'] = dlineas_llavep_bank_statement_ids
-        if len(vals_write) > 0:
-            super(grp_fondo_rotatorio, self).write(vals_write)
-        return fondo_rotatorios
+        # fondo_rotatorios = super(grp_fondo_rotatorio, self).write(values)
+
+
+        # if values.get('line_invoice_fr_ids', False):
+        #     dlineas_llavep_invoice_fr_ids = self[0].update_line_invoice_fr_ids()
+        #     if len(dlineas_llavep_invoice_fr_ids) > 0:
+        #         vals_write['dlineas_llavep_invoice_fr_ids'] = dlineas_llavep_invoice_fr_ids
+        #         vals_write['retention_ids'] = self._get_retentions_dict()
+        # if values.get('line_statement_ids', False):
+        #     dlineas_llavep_bank_statement_ids = self[0].update_line_statement_ids()
+        #     if len(dlineas_llavep_bank_statement_ids) > 0:
+        #         vals_write['dlineas_llavep_bank_statement_ids'] = dlineas_llavep_bank_statement_ids
+        # if len(vals_write) > 0:
+        #     super(grp_fondo_rotatorio, self).write(vals_write)
+        # return fondo_rotatorios
 
     # TODO: SPRING 8 GAP 111.228.339 K
     def unlink(self, cr, uid, ids, context=None):
@@ -1348,6 +1378,17 @@ class grp_fondo_rotatorio(models.Model):
         return super(grp_fondo_rotatorio, self).unlink(cr, uid, ids, context=context)
 
     # TODO R LLAVES PRESUPUESTALES
+
+    @api.multi
+    def action_llpapg_details_reload(self):
+        for rec in self:
+            values = {}
+            values['dlineas_llavep_invoice_fr_ids'] = [(5,)] + self.update_line_invoice_fr_ids()
+            values['dlineas_llavep_bank_statement_ids'] = [(5,)] + self.update_line_statement_ids()
+            values['dlineas_llavep_hr_expense_ids'] = [(5,)] + self.update_line_expense_ids('hr_expense')
+            values['dlineas_llavep_hr_expense_vales_ids'] = [(5,)] + self.update_line_expense_ids('hr_expense_v')
+            rec.write(values)
+
     @api.multi
     def action_llpapg_reload(self):
         for rec in self:
@@ -1480,11 +1521,11 @@ class grp_fondo_rotatorio_line(models.Model):
     caja_chica_line_id = fields.Many2one('grp.caja.chica.tesoreria.line', u'Registro de caja')
     supplier_invoice_id = fields.Many2one('account.invoice', u'Facturas de proveedor')
 
-    proveedor = fields.Many2one(related='supplier_invoice_id.partner_id', string='Proveedor', store=True, readonly=True)
-    fecha_factura = fields.Date(related='supplier_invoice_id.date_invoice', string='Fecha', store=True, readonly=True)
-    no_factura = fields.Char(related='supplier_invoice_id.nro_factura_grp', string='Nº Factura', store=True, readonly=True)
-    importe_nominal_factura = fields.Float(related='supplier_invoice_id.total_nominal_divisa_cpy', string='Importe nominal', store=True, readonly=True)
-    importe_pago_factura = fields.Float(related='supplier_invoice_id.importe_pago', string='Importe comprobante', store=True, readonly=True)
+    proveedor = fields.Many2one(related='supplier_invoice_id.partner_id', string='Proveedor', store=False, readonly=True)
+    fecha_factura = fields.Date(related='supplier_invoice_id.date_invoice', string='Fecha', store=False, readonly=True)
+    no_factura = fields.Char(related='supplier_invoice_id.nro_factura_grp', string='Nº Factura', store=False, readonly=True)
+    importe_nominal_factura = fields.Float(related='supplier_invoice_id.total_nominal_divisa_cpy', string='Importe nominal', store=False, readonly=True)
+    importe_pago_factura = fields.Float(related='supplier_invoice_id.importe_pago', string='Importe comprobante', store=False, readonly=True)
     total_retenciones_factura = fields.Float(related='supplier_invoice_id.amount_total_retention', string='Total retenciones', store=True, readonly=True)
     empleado = fields.Many2one(related='hr_expense_id.employee_id', string='Empleado', store=True, readonly=True)
     fecha_gasto = fields.Date(related='hr_expense_id.date', string='Fecha', store=True, readonly=True)
@@ -1511,22 +1552,21 @@ class grp_fondo_rotatorio_line(models.Model):
                                   readonly=True)
 
     amount_currency = fields.Float(u'Importe comprobante M/E',
-                                   compute='_compute_currency_amounts',
-                                   multi='_compute_currency_amounts',
+                                   compute='_compute_amount_currency',
                                    store=True)
     amount_retentions_currency = fields.Float(u'Retenciones M/E',
-                                              compute='_compute_currency_amounts',
-                                              multi='_compute_currency_amounts',
+                                              compute='_compute_currency_info',
+                                              multi='_compute_currency_info',
                                               store=True)
     liquido_pagable_currency = fields.Float(u'Líquido pagable M/E',
-                                            compute='_compute_currency_amounts',
-                                            multi='_compute_currency_amounts',
+                                            compute='_compute_currency_info',
+                                            multi='_compute_currency_info',
                                             store=True)
     liquido_pagable_ajustado_currency = fields.Float(u'Líquido pagable ajustado M/E')
 
     amount = fields.Float('Importe pago', compute='_compute_amount', store=False)
 
-    liquido_pagable = fields.Float(u'Líquido pagable pesos', compute='_compute_liquido_pagable', store=True)
+    liquido_pagable = fields.Float(u'Líquido pagable pesos', compute='_compute_liquido_pagable', store=False)
 
     def _get_company_currency_amount(self, voucher_id, currency_from, amount, move_line2currency_rate_id = False):
         company_currency_id = self.env.user.company_id.currency_id
@@ -1563,9 +1603,8 @@ class grp_fondo_rotatorio_line(models.Model):
             _amount = 0
         return _amount
 
-
     @api.multi
-    @api.depends('supplier_invoice_id', 'bank_statement_id', 'hr_expense_id')
+    @api.depends('supplier_invoice_id', 'bank_statement_id', 'hr_expense_id', 'caja_chica_line_id')
     def _compute_amount(self):
         voucher_obj = self.env['account.voucher']
         voucher_line_obj = self.env['account.voucher.line']
@@ -1688,36 +1727,48 @@ class grp_fondo_rotatorio_line(models.Model):
 
     @api.multi
     @api.depends('hr_expense_id', 'bank_statement_id', 'caja_chica_line_id', 'supplier_invoice_id')
-    def _compute_currency_amounts(self):
+    def _compute_amount_currency(self):
         for rec in self:
             if not rec.fondo_rotatorios_id.moneda_extranjera:
                 _amount_currency = 0
+            elif rec.supplier_invoice_id:
+                _amount_currency = rec.supplier_invoice_id.total_nominal_divisa_cpy
+            elif rec.hr_expense_id:
+                _amount_currency = rec.hr_expense_id.amount
+            elif rec.bank_statement_id:
+                _amount_currency = rec.amount
+            elif rec.caja_chica_line_id:
+                _amount_currency = rec.amount
+            else:
+                _amount_currency = 0
+
+            rec.amount_currency = _amount_currency
+
+    @api.multi
+    @api.depends('hr_expense_id', 'bank_statement_id', 'caja_chica_line_id', 'supplier_invoice_id')
+    def _compute_currency_info(self):
+        for rec in self:
+            if not rec.fondo_rotatorios_id.moneda_extranjera:
                 _amount_retentions_currency = 0
                 _liquido_pagable_currency = 0
             elif rec.supplier_invoice_id:
                 self._cr.execute("""select amount_total,amount_total_retention from account_invoice where id = %s""" % (rec.supplier_invoice_id.id))
                 invoice_data = self._cr.fetchone()
-                _amount_currency = rec.supplier_invoice_id.total_nominal_divisa_cpy
                 _liquido_pagable_currency = invoice_data[0]
                 _amount_retentions_currency = invoice_data[1]
             elif rec.hr_expense_id:
-                _amount_currency = rec.hr_expense_id.amount
                 _amount_retentions_currency = 0
                 _liquido_pagable_currency = rec.hr_expense_id.amount
             elif rec.bank_statement_id:
-                _amount_currency = rec.amount
                 _amount_retentions_currency = 0
                 _liquido_pagable_currency = rec.amount
             elif rec.caja_chica_line_id:
-                _amount_currency = rec.amount
                 _amount_retentions_currency = 0
                 _liquido_pagable_currency = rec.amount
             else:
-                _amount_currency = 0
                 _amount_retentions_currency = 0
                 _liquido_pagable_currency = 0
 
-            rec.amount_currency = _amount_currency
             rec.amount_retentions_currency = _amount_retentions_currency
             rec.liquido_pagable_currency = _liquido_pagable_currency
 

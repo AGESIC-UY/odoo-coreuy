@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="cotizaciones_cargar_datos_wizard_view" model="ir.ui.view">
+            <field name="name">grp.cotizaciones.cargar.datos.wizard.form</field>
+            <field name="model">grp.cotizaciones.cargar.datos.wizard</field>
+            <field name="arch" type="xml">
+            <form string="Cargar datos del pedido" version="7.0">
+                <group>
+                    <label string='Tenga en cuenta que si lo que desea realizar es la importación de una adjudicación desde el sistema SICE, debe seleccionar el botón "Importar adjudicación" en vez del botón "Cargar datos del Pedido"'/>
+                </group>
+                <footer>
+                    <button name="merge_orders" string="Aceptar" type="object" class="oe_highlight"/>
+                    <button string="Descartar" class="oe_link" special="cancel"/>
+                </footer>
+            </form>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="cotizaciones_cargar_datos_wizard_act">
+            <field name="name">Cargar datos</field>
+            <field name="res_model">grp.cotizaciones.cargar.datos.wizard</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="cotizaciones_cargar_datos_wizard_view"/>
+            <field name="target">new</field>
+        </record>
+
+    </data>
+</openerp>

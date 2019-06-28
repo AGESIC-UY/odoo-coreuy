@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <!-- <data noupdate="1">
+        <record id="ir_param_soap_sice_compra" model="ir.config_parameter">
+            <field name="key">url_ws.sice_compras</field>
+            <field name="value">........</field>
+        </record>
+        <record id="ir_param_soap_sice_adj" model="ir.config_parameter">
+            <field name="key">url_ws.sice_adjudicaciones</field>
+            <field name="value">........</field>
+        </record>
+        <record id="ir_param_soap_sice_factura" model="ir.config_parameter">
+            <field name="key">url_ws.sice_facturas</field>
+            <field name="value">........</field>
+        </record>
+        <record id="ir_param_soap_sice_factura_ajuste" model="ir.config_parameter">
+            <field name="key">url_ws.sice_facturas_ajuste</field>
+            <field name="value">........</field>
+        </record>
+        <record id="ir_param_soap_sice_compras_ampliaciones" model="ir.config_parameter">
+            <field name="key">url_ws.sice_compras_ampliaciones</field>
+            <field name="value">........</field>
+        </record>
+        <record id="ir_param_soap_sice_orden_compras" model="ir.config_parameter">
+            <field name="key">url_ws.sice_orden_compras</field>
+            <field name="value">........</field>
+        </record>
+        <record id="ir_param_soap_sice_id_uc" model="ir.config_parameter">
+            <field name="key">sice.id_uc</field>
+            <field name="value">........</field>
+        </record>
+    </data> -->
+</openerp>

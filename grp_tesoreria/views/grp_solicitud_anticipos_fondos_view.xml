@@ -45,7 +45,7 @@
 
                         <!--EN AUTORIZACION-->
                         <button name="action_autorizado" type="object" states="en_autorizacion" string="Autorizar"
-                                class="oe_highlight" groups="grp_tesoreria.group_grp_autoriza_anticipo"/>
+                                class="oe_highlight" groups="grp_tesoreria.group_grp_autoriza_anticipo" context="{'_write_date':write_date}"/>
                         <button name="action_rechazar" type="object" states="en_autorizacion" string="Rechazar"
                                 groups="grp_tesoreria.group_grp_autoriza_anticipo"/>
                         <button name="action_pasar_borrador" type="object" states="en_autorizacion"
@@ -81,6 +81,7 @@
                                 <field name="currency_id" required="1" options="{'no_create': true}"/>
                                 <field name="aprobador_id" readonly="1"/>
                                 <field name="adelanto_pagado" readonly="1"/>
+                                <field name="write_date" invisible="1"/>
                             </group>
                             <group>
                                 <field name="cedula"/>

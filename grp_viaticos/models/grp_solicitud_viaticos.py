@@ -314,12 +314,16 @@ class GrpSolicitudViaticos(models.Model):
                 fecha_inicio = datetime.strptime(rec.fecha_desde, "%Y-%m-%d %H:%M:%S")
                 fecha_fin = datetime.strptime(rec.fecha_hasta, "%Y-%m-%d %H:%M:%S")
                 rec.config_importe_viatico_id = self.env['grp.configuracion.importes.viaticos'].search(
-                    [('tipo', '=', rec.categoria), ('fecha_desde', '<=', fecha_inicio.strftime("%Y-%m-%d")),
-                     ('fecha_hasta', '>=', fecha_fin.strftime("%Y-%m-%d"))], order='fecha_desde DESC', limit=1).id
+                    [('tipo', '=', rec.categoria),'|', ('fecha_desde', '<=', fecha_inicio.strftime("%Y-%m-%d")),
+                     ('fecha_hasta', '>=', fecha_fin.strftime("%Y-%m-%d")),
+                     ('fecha_hasta', '>', fecha_inicio.strftime("%Y-%m-%d"))
+                     ], order='fecha_desde DESC', limit=1).id
                 rec.config_complemento_viatico_id = self.env['grp.configuracion.importes.viaticos'].search(
-                    [('tipo', '=', 'complemento'),
+                    [('tipo', '=', 'complemento'), '|',
                      ('fecha_desde', '<=', fecha_inicio.strftime("%Y-%m-%d")),
-                     ('fecha_hasta', '>=', fecha_fin.strftime("%Y-%m-%d"))], order='fecha_desde DESC', limit=1).id
+                     ('fecha_hasta', '>=', fecha_fin.strftime("%Y-%m-%d")),
+                     ('fecha_hasta', '>', fecha_inicio.strftime("%Y-%m-%d"))
+                     ], order='fecha_desde DESC', limit=1).id
                 rec.locomocion_propia_id = self.env['grp.locomocion.propia'].search(
                     [('activo', '=', True),
                      ('fecha_desde', '<=', fecha_inicio.strftime("%Y-%m-%d")),
@@ -605,16 +609,33 @@ class GrpSolicitudViaticos(models.Model):
     # TODO: SPRING 11 GAP 25 K
     # TODO: R SPRING 11 GAP 25
     def generar_lineas(self):
-        fecha_inicio = datetime.strptime(self.fecha_desde,"%Y-%m-%d %H:%M:%S")
-        fecha_fin = datetime.strptime(self.fecha_hasta,"%Y-%m-%d %H:%M:%S")
-        diference = fecha_fin - fecha_inicio
-        cantidad_dias = diference.days
-        cantidad_horas = round(diference.total_seconds() / 3600 - float(cantidad_dias) * 24, 2)
+        fecha_inicio = fields.Datetime.from_string(self.fecha_desde)
+        fecha_fin = fields.Datetime.from_string(self.fecha_hasta)
         configuracion = self.config_importe_viatico_id
         employee_id = self.env['hr.employee'].search([('user_id', '=', self.solicitante_id.id)], limit=1)
         if not employee_id:
             raise ValidationError(_('No se ha podido identificar un empleado asociado al usuario solicitante'))
         if configuracion:
+            config_fecha_inicio = fields.Datetime.from_string(configuracion.fecha_desde)
+            config_fecha_fin = fields.Datetime.from_string(configuracion.fecha_hasta).replace(hour=23, minute=59)
+            if fecha_inicio >= config_fecha_inicio and fecha_fin <= config_fecha_fin:
+                diference = fecha_fin - fecha_inicio
+                cantidad_dias = diference.days
+                cantidad_horas = round(diference.total_seconds() / 3600 - float(
+                    cantidad_dias) * 24, 2)
+
+            elif fecha_inicio >= config_fecha_inicio and fecha_fin > config_fecha_fin:
+                diference = config_fecha_fin - fecha_inicio
+                cantidad_dias = diference.days
+                cantidad_horas = round(diference.total_seconds() / 3600 - float(
+                    cantidad_dias) * 24, 2)
+
+            elif fecha_inicio < config_fecha_inicio and fecha_fin <= config_fecha_fin:
+                diference = fecha_fin - config_fecha_inicio
+                cantidad_dias = diference.days
+                cantidad_horas = round(diference.total_seconds() / 3600 - float(
+                    cantidad_dias) * 24, 2)
+
             importe = configuracion.valor_alimentacion * cantidad_dias
             if cantidad_horas > employee_id.cantidad_horas_trabajadas:
                 importe += configuracion.valor_porciento_alimentacion if cantidad_horas <= 12.0 else configuracion.valor_alimentacion
@@ -622,6 +643,7 @@ class GrpSolicitudViaticos(models.Model):
                 'product_id': configuracion.product_alimentacion_id.id,
                 'valor': importe,
                 'solicitud_viatico_id': self.id,
+                'complemento_id':configuracion.id,
             })
             if cantidad_dias > 0 or self.requiere_alojamiento:
                 if cantidad_dias == 0 and self.requiere_alojamiento:
@@ -632,6 +654,7 @@ class GrpSolicitudViaticos(models.Model):
                     'product_id': configuracion.product_pernocte_id.id,
                     'valor' : importe,
                     'solicitud_viatico_id':self.id,
+                    'complemento_id': configuracion.id,
                     })
         if self.tipo_locomocion == 'locomocion_propia' and self.locomocion_propia_id:
             locomocion_linea = self.locomocion_propia_id.valor_nafta_ids.sorted(key=lambda a: a.fecha_desde, reverse=True)
@@ -643,6 +666,31 @@ class GrpSolicitudViaticos(models.Model):
         if self.destino != '' and self.config_complemento_viatico_id:
             localidad_id = self.config_complemento_viatico_id.complemento_ids.filtered(lambda x: x.localidad == self.destino)
             if localidad_id:
+                config_fecha_inicio = fields.Date.from_string(
+                    self.config_complemento_viatico_id.fecha_desde)
+                config_fecha_fin = fields.Date.from_string(
+                    self.config_complemento_viatico_id.fecha_hasta)
+                if fecha_inicio >= config_fecha_inicio and fecha_fin <= config_fecha_fin and fecha_inicio < config_fecha_fin:
+                    diference = fecha_fin - fecha_inicio
+                    cantidad_dias = diference.days
+                    cantidad_horas = round(
+                        diference.total_seconds() / 3600 - float(
+                            cantidad_dias) * 24, 2)
+
+                elif fecha_inicio >= config_fecha_inicio and fecha_fin > config_fecha_fin and fecha_inicio < config_fecha_fin:
+                    diference = config_fecha_fin - fecha_inicio
+                    cantidad_dias = diference.days
+                    cantidad_horas = round(
+                        diference.total_seconds() / 3600 - float(
+                            cantidad_dias) * 24, 2)
+
+                elif fecha_inicio < config_fecha_inicio and fecha_fin <= config_fecha_fin:
+                    diference = fecha_fin - config_fecha_inicio
+                    cantidad_dias = diference.days
+                    cantidad_horas = round(
+                        diference.total_seconds() / 3600 - float(
+                            cantidad_dias) * 24, 2)
+
                 importe = localidad_id.valor_alimentacion * cantidad_dias
                 if cantidad_horas > employee_id.cantidad_horas_trabajadas:
                     importe += round(localidad_id.valor_alimentacion * 0.5, 2) if cantidad_horas <= 12.0 else localidad_id.valor_alimentacion
@@ -650,7 +698,8 @@ class GrpSolicitudViaticos(models.Model):
                     self.env['grp.viaticos.lineas'].create({
                         'product_id': localidad_id.product_alimentacion_id.id,
                         'valor': importe,
-                        'solicitud_viatico_id': self.id
+                        'solicitud_viatico_id': self.id,
+                        'complemento_id': self.config_complemento_viatico_id.id,
                     })
                 if cantidad_dias > 0 or self.requiere_alojamiento:
                     if cantidad_dias == 0 and self.requiere_alojamiento:
@@ -662,6 +711,7 @@ class GrpSolicitudViaticos(models.Model):
                             'product_id': localidad_id.product_pernocte_id.id,
                             'valor' : importe,
                             'solicitud_viatico_id':self.id,
+                            'complemento_id': self.config_complemento_viatico_id.id,
                             })
         return True
 
@@ -777,6 +827,10 @@ class GrpViaticosLineas(models.Model):
         string='Corresponde adelanto',
         default=False
     )
+    complemento_id = fields.Many2one(
+        'grp.configuracion.importes.viaticos',
+        string=u'Configuración importes de viáticos'
+    )
 
     # fin definicion de campos
 
@@ -791,10 +845,29 @@ class GrpViaticosLineas(models.Model):
     @api.one
     @api.depends('solicitud_viatico_id.fecha_desde', 'solicitud_viatico_id.fecha_hasta')
     def _compute_horas(self):
-        if self.solicitud_viatico_id and self.solicitud_viatico_id.fecha_desde and self.solicitud_viatico_id.fecha_hasta:
-            desde = fields.Datetime.from_string(self.solicitud_viatico_id.fecha_desde)
-            hasta = fields.Datetime.from_string(self.solicitud_viatico_id.fecha_hasta)
-            _horas = ((hasta - desde).total_seconds()) / 3600
+        if self.complemento_id and self.complemento_id.fecha_desde and self.complemento_id.fecha_hasta\
+                and self.solicitud_viatico_id and self.solicitud_viatico_id.fecha_desde and self.solicitud_viatico_id.fecha_hasta:
+
+            config_fecha_inicio = fields.Datetime.from_string(
+                self.complemento_id.fecha_desde)
+            config_fecha_fin = fields.Datetime.from_string(self.complemento_id.fecha_hasta).replace(hour=23, minute=59)
+
+            fecha_inicio = fields.Datetime.from_string(
+                self.solicitud_viatico_id.fecha_desde)
+            fecha_fin = fields.Datetime.from_string(
+                self.solicitud_viatico_id.fecha_hasta)
+
+            if fecha_inicio >= config_fecha_inicio and fecha_fin <= config_fecha_fin:
+                diference = fecha_fin - fecha_inicio
+                _horas = diference.total_seconds() / 3600
+
+            elif fecha_inicio >= config_fecha_inicio and fecha_fin > config_fecha_fin:
+                diference = config_fecha_fin - fecha_inicio
+                _horas = diference.total_seconds() / 3600
+
+            elif fecha_inicio < config_fecha_inicio and fecha_fin <= config_fecha_fin:
+                diference = fecha_fin - config_fecha_inicio
+                _horas = diference.total_seconds() / 3600
         else:
             _horas = 0
         self.horas = _horas

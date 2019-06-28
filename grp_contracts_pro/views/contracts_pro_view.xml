@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="contracts_pro_formula_form_view" model="ir.ui.view">
+			<field name="name">contracts_pro.formula.form.grp</field>
+			<field name="model">contracts_pro.formula</field>
+            <field name="inherit_id" ref="contracts_pro.contracts_pro_formula_form_view"/>
+            <field name="arch" type="xml">
+                <button name="button_update_value"  position="attributes">
+                    <attribute name="confirm">El sistema actualizará el valor de la fórmula para la fecha plasmada en el campo "Fecha de actualización de fórmula"!</attribute>
+                </button>
+                <field name="metric_ids" position="after">
+                    <field name="update_formula_date"/>
+                </field>
+            </field>
+        </record>
+    </data>
+</openerp>

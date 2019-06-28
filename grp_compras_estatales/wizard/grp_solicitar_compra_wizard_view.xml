@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="view_solicitud_compra_wizard" model="ir.ui.view">
+            <field name="name">Solicitar compra</field>
+            <field name="model">grp.solicitar.compra</field>
+            <field name="arch" type="xml">
+                <form string="Solicitud de compra">
+
+                    <group string="Solicitud de compra"/>
+
+                    <p class="oe_gray">
+                        Seleccione las lineas para generar solicitudes
+                        de compra de los productos
+                    </p>
+
+                    <group>
+                        <field name="warehouse" style="width: 50%%"/>
+                    </group>
+                    <notebook>
+                        <page string="Solicitud">
+                            <field name='grp_sr_id' nolabel="1" widget='one2many_list'
+                                   domain="[('domain_sc','=',True)]">
+                                <tree string="Solicitud" editable="bottom" create="false" delete="false">
+                                    <field name="product_id" readonly="1"/>
+                                    <field name="cantidad_solicitada" readonly="1"/>
+                                    <field name="uom_id" readonly="1"/>
+                                    <field name="cantidad_entregada" readonly="1"/>
+                                    <field name="cantidad_pedida"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                    <footer>
+                        <button name="button_solicitar_productos" string="Solicitar nuevos Productos" type="object"
+                                class="oe_highlight"/>
+                        or
+                        <button string="Cancel" class="oe_link" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="act_solicitar_compra">
+            <field name="name">Solicitar compra</field>
+            <field name="res_model">grp.solicitar.compra</field>
+            <field name="src_model">grp.compras.solicitud.recursos.almacen</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+    </data>
+</openerp>

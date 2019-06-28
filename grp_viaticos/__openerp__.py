@@ -27,7 +27,7 @@
     'website': 'www.quanam.com',
     'category': '',
     'images': [],
-    'depends': ['base','grp_compras_estatales','hr_expense','grp_hr_expense','base_suspend_security'],
+    'depends': ['base','grp_compras_estatales','hr_expense','grp_hr_expense','base_suspend_security','grp_factura_siif'],
     'description': """  Funcionalidad de viaticos
 """,
     'demo': [],

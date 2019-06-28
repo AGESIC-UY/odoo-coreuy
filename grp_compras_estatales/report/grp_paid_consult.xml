@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <!-- TODO: SPRING 10 GAP 549 L -->
+        <record id="paid_consult_view_tree" model="ir.ui.view">
+            <field name="name">view.paid.consult.tree</field>
+            <field name="model">grp.paid.consult</field>
+            <field name="arch" type="xml">
+                <tree string="Consulta factura - pagos con distinta UE" create="false" delete="false">
+                    <field name="voucher_id"/>
+                    <field name="date"/>
+                    <field name="journal_id"/>
+                    <field name="voucher_ue_id"/>
+                    <field name="invoice_id"/>
+                    <field name="invoice_ue_id"/>
+                    <field name="amount"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- TODO: SPRING 10 GAP 549 L -->
+        <record id="paid_consult_view_form" model="ir.ui.view">
+            <field name="name">view.paid.consult.form</field>
+            <field name="model">grp.paid.consult</field>
+            <field name="arch" type="xml">
+                <form string="Consulta factura - pagos con distinta UE" create="false" edit="false" delete="false">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="voucher_id"/>
+                                <field name="date"/>
+                                <field name="journal_id"/>
+                                <field name="voucher_ue_id"/>
+                            </group>
+                            <group>
+                                <field name="invoice_id"/>
+                                <field name="invoice_ue_id"/>
+                                <field name="amount"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- TODO: SPRING 10 GAP 549 L -->
+        <record model="ir.ui.view" id="view_paid_consult_search">
+            <field name="name">view.paid.consult.search</field>
+            <field name="model">grp.paid.consult</field>
+            <field name="arch" type="xml">
+                <search string="Consulta factura - pagos con distinta UE">
+                    <group expand="1" string="Agrupado por">
+                        <filter name="group_voucher_ue_id" string="UE del diario" domain="[]"
+                                context="{'group_by':'voucher_ue_id'}"/>
+                        <filter name="group_invoice_ue_id" string="UE del comprobante" domain="[]"
+                                context="{'group_by':'invoice_ue_id'}"/>
+                        <filter name="group_journal_id" string="Diario" domain="[]"
+                                context="{'group_by':'journal_id'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <!-- TODO: SPRING 10 GAP 549 L -->
+        <record id="action_paid_consult_form" model="ir.actions.act_window">
+            <field name="name">Consulta factura - pagos con distinta UE</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">grp.paid.consult</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="paid_consult_view_tree"/>
+        </record>
+
+        <menuitem name="Consulta factura/pago con distinta UE" id="grp_paid_consult_menu"
+                  parent="account.menu_finance_payables" action="action_paid_consult_form"
+                  groups="grp_seguridad.grp_informes"/>
+    </data>
+</openerp>

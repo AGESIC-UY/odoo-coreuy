@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+#############################################################################################
+#    Proyecto:   GRP-MRREE
+#    Fecha:      14/05/2015
+#    Autor:      Sergio Maestri
+#    Compañia:   Quanam - www.quanam.com
+#    Adecuación: Proceso de novedades RUPE
+#############################################################################################
+#Ref  Id Tarea   Desa       Fecha        Descripcion
+#- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+#001  		     SMAESTRI   14/05/2015   Vistas del formulario de proceso de novedades
+#                                        Propósito: - Carga manual de novedades.
+#                                                   - En Producción sólo debe correr a través
+#                                                     de la Acción Planificada
+#############################################################################################
+-->
+<openerp>
+<data>
+    <!-- ACCION DE CARGA DE LAS NOVEDADES-->
+    <record model="ir.actions.act_window" id="action_novedades_rupe">
+        <field name="name">Carga de novedades RUPE</field>
+        <field name="res_model">wizard.novedades.rupe</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+    <!-- MENU DE CARGA DE LAS NOVEDADES -->
+
+    <menuitem
+        name="Novedades RUPE"
+        id="menu_wizard_novedades_rupe"
+        action="action_novedades_rupe"
+        parent="grp_rupe.grp_rupe_menu_procesos"
+        sequence="50"
+    />
+
+    <!-- FORMUALRIO DEL WIZARD -->
+    <record model="ir.ui.view" id="wizard_novedades_rupe_form">
+        <field name="name">wizard.novedades.rupe.form</field>
+        <field name="model">wizard.novedades.rupe</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form string="Novedades RUPE" version="7.0">
+                <group>
+                    <group>
+                        <img src="grp_rupe/static/src/img/acce.png" />
+                    </group>
+                    <group>
+                        <center>
+                        <h2>
+                            Carga las novedades de RUPE.<br/>
+                        </h2>
+                        </center>
+                    </group>
+                </group>
+                <footer>
+                    <button name="novedades_rupe" string="Cargar" type="object" />
+                    <button string="Cancelar" class="oe_link" special="cancel"/>
+                </footer>
+              </form>
+        </field>
+    </record>
+
+    <!-- Ejecutar al inicio -->
+    <function model="wizard.novedades.rupe" name="configurar_novedades_rupe"/>
+</data>
+</openerp>

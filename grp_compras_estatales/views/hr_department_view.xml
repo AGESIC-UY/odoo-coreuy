@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="view_hr_department_form_ue_inherited" model="ir.ui.view">
+            <field name="name">Unidad ejecutora en vista de Departamentos</field>
+            <field name="model">hr.department</field>
+            <field name="inherit_id" ref="hr.view_department_form"/>
+            <field name="arch" type="xml">
+                <field name="company_id" position="after">
+                    <field name="operating_unit_id" attrs="{'required': [('parent_id','=',False)]}"/>
+                </field>
+            </field>
+        </record>
+
+    </data>
+</openerp>
+

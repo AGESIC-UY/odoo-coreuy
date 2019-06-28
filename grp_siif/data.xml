@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data noupdate="1">
+
+        <record id="grp_siif_url_ws_siif" model="ir.config_parameter">
+            <field name="key">url_ws.siif</field>
+            <field name="value">0</field>
+        </record>
+
+        <record id="grp_siif_use_url_ws" model="ir.config_parameter">
+            <field name="key">use_url_ws.siif</field>
+            <field name="value">1</field>
+        </record>
+    </data>
+</openerp>

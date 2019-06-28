@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+
+        <record id="view_grp_rupe_rubro_form" model="ir.ui.view">
+            <field name="name">grp.rupe.rubro.form</field>
+            <field name="model">grp.rupe.rubro</field>
+            <field name="priority">15</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Rubro">
+                    <field name="codigo"/>
+                    <field name="descripcion"/>
+                </form>
+            </field>
+        </record>
+
+
+        <record id="view_grp_rupe_rubro_tree" model="ir.ui.view">
+            <field name="name">grp.rupe.rubro.tree</field>
+            <field name="model">grp.rupe.rubro</field>
+            <field name="priority">15</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Rubro">
+                    <field name="codigo"/>
+                    <field name="descripcion"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="action_grp_rubro_rupe" model="ir.actions.act_window">
+            <field name="name">Rupe rubro</field>
+            <field name="res_model">grp.rupe.rubro</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="view_grp_rupe_rubro_tree"/>
+        </record>
+
+        <record id="action_grp_rubro_rupe_tree" model="ir.actions.act_window">
+            <field name="name">Rupe rubro tree</field>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="view_grp_rupe_rubro_tree"/>
+            <field name="res_model">grp.rupe.rubro</field>
+            <field name="act_window_id" ref="action_grp_rubro_rupe"/>
+        </record>
+
+        <record id="action_grp_rubro_rupe_form" model="ir.actions.act_window">
+            <field name="name">Rupe rubro form</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="view_grp_rupe_rubro_form"/>
+            <field name="res_model">grp.rupe.rubro</field>
+            <field name="act_window_id" ref="action_grp_rubro_rupe"/>
+        </record>
+
+        <menuitem id="menu_grp_rubro_rupe" name="Rubros proveedores" action="action_grp_rubro_rupe" sequence="1"
+                  parent="menu_conf" groups="grp_seguridad.grp_compras_pc_Responsable"/>
+        <!--================================================================-->
+
+    </data>
+</openerp>

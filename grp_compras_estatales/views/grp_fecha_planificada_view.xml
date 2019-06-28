@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+
+        <record id="view_grp_fecha_planificada_tree" model="ir.ui.view">
+            <field name="name">grp.fecha.planificada.tree</field>
+            <field name="model">grp.fecha.planificada</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Fecha Tope de Planificación" editable="top">
+                    <field name="year"/>
+                    <field name="reception_date"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="action_grp_fecha_planificada" model="ir.actions.act_window">
+            <field name="name">Fecha Tope de Planificación</field>
+            <field name="res_model">grp.fecha.planificada</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="view_grp_fecha_planificada_tree"/>
+        </record>
+
+        <menuitem id="menu_grp_fecha_planificada" name="Fecha Tope de Planificación" action="action_grp_fecha_planificada" sequence="10"
+                  parent="grp_compras_estatales.menu_conf" groups="grp_compras_estatales.grp_sr_fecha_tope_planif"/>
+
+</data>
+</openerp>

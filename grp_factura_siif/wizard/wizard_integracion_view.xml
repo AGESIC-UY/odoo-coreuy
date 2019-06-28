@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record model="ir.ui.view" id="wizard_integracion_priorizadas">
+            <field name="name">wizard.integracion.priorizadas</field>
+            <field name="model">wizard.integracion.priorizadas</field>
+            <field name="arch" type="xml">
+                <form string="Wizard" version="7.0">
+                    <group>
+                        <field name="anio_fiscal"/>
+                        <field name="inciso"/>
+                        <field name="fecha_desde"/>
+                        <field name="fecha_hasta"/>
+                    </group>
+                    <footer>
+                        <button type="object" name="ejecutar_priorizadas" string="Consultar priorizadas"
+                                class="oe_highlight"/>
+                        or
+                        <button type="object" string="Cancelar" special="cancel" class="oe_link"/>
+                        or
+                        <button type="object" name="ir_a_priorizadas" string="Ir a priorizadas" class="oe_link"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="wizard_integracion_intervenidas">
+            <field name="name">wizard.integracion.intervenidas</field>
+            <field name="model">wizard.integracion.intervenidas</field>
+            <field name="arch" type="xml">
+                <form string="Wizard" version="7.0">
+                    <group>
+                        <field name="anio_fiscal"/>
+                        <field name="inciso"/>
+                        <field name="fecha_desde"/>
+                        <field name="fecha_hasta"/>
+                    </group>
+                    <footer>
+                        <button type="object" name="ejecutar_intervenidas" string="Consultar intervenidas"
+                                class="oe_highlight"/>
+                        o
+                        <button type="object" string="Cancelar" special="cancel" class="oe_link"/>
+                        <!--o-->
+                        <!--<button type="object" name="ir_a_intervenidas" string="Ir a intervenidas" class="oe_link"/>-->
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+
+        <record model="ir.ui.view" id="wizard_integracion_pagas_totalmente">
+            <field name="name">wizard.integracion.pagas.totalmente</field>
+            <field name="model">wizard.integracion.pagas.totalmente</field>
+            <field name="arch" type="xml">
+                <form string="Wizard" version="7.0">
+                    <group>
+                        <field name="anio_fiscal"/>
+                        <field name="inciso"/>
+                        <field name="fecha_desde"/>
+                        <field name="fecha_hasta"/>
+                    </group>
+                    <footer>
+                        <button type="object" name="ejecutar_pagas_totalmente" string="Consultar pagas totalmente"
+                                class="oe_highlight"/>
+                        o
+                        <button type="object" string="Cancelar" special="cancel" class="oe_link"/>
+                        <!--o-->
+                        <!--<button type="object" name="ir_a_pagas_totalmente" string="Ir a pagas totalmente" class="oe_link"/>-->
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+
+        <!-- Definición de Actions -->
+        <record model="ir.actions.act_window" id="open_priorizadas">
+            <field name="res_model">wizard.integracion.priorizadas</field>
+            <field name="name">Procesar facturas priorizadas</field>
+            <field name="view_type">form</field>
+            <field name="view_id" ref="wizard_integracion_priorizadas"/>
+            <field name="target">new</field>
+        </record>
+
+        <record model="ir.actions.act_window" id="open_intervenidas">
+            <field name="name">Procesar facturas intervenidas</field>
+            <field name="res_model">wizard.integracion.intervenidas</field>
+            <field name="view_type">form</field>
+            <field name="view_id" ref="wizard_integracion_intervenidas"/>
+            <field name="target">new</field>
+        </record>
+
+        <record model="ir.actions.act_window" id="open_pagas_totalmente">
+            <field name="name">Procesar facturas pagas totalmente</field>
+            <field name="res_model">wizard.integracion.pagas.totalmente</field>
+            <field name="view_type">form</field>
+            <field name="view_id" ref="wizard_integracion_pagas_totalmente"/>
+            <field name="target">new</field>
+        </record>
+
+        <!-- Jerarquía de Menú -->
+        <menuitem id="menu_integracion_root" name="Consultas SIIF" parent="account.menu_finance" groups="grp_seguridad.grp_compras_apg_Responsable_SIIF" sequence="300"/>
+
+        <!-- Eliminar menu  23/11-->
+        <menuitem id="menu_integracion_priorizadas" name="Procesar facturas priorizadas"
+                  action="open_priorizadas"
+                  parent="menu_integracion_root" sequence="20"/>
+
+        <menuitem id="menu_integracion_intervenidas" name="Procesar facturas intervenidas"
+                  action="open_intervenidas"
+                  parent="menu_integracion_root" sequence="10"/>
+
+        <menuitem id="menu_grp_intervenidas" name="Facturas Intervenidas"
+                  action="action_integracion_intervenidas_search"
+                  parent="menu_integracion_root" sequence="30"/>
+
+        <menuitem id="menu_grp_priorizadas" name="Facturas Priorizadas"
+                  action="action_integracion_priorizadas_search"
+                  parent="menu_integracion_root" sequence="40"/>
+
+        <menuitem id="menu_integracion_pagas_totalmente" name="Procesar Pagas Totalmente"
+              action="open_pagas_totalmente"
+              parent="menu_pagos_siif_root"/>
+
+    </data>
+</openerp>

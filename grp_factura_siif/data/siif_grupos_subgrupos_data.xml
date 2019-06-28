@@ -1,0 +1,502 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data noupdate="1">
+        <!-- TODO R SPRING 9 GAP 65-->
+        <!--OCULTANDO MENU ORIGINAL PARA NOTA DE CREDITO-->
+        <!--<record id="account.menu_action_invoice_tree4" model="ir.ui.menu">-->
+            <!--<field name="groups_id" eval="[(6,0, [ref('base.group_no_one')]),]"/>-->
+        <!--</record>-->
+
+        <record id="grp_seguridad.grp_informes" model="res.groups">
+            <field name="menu_access" eval="[(4, ref('account.menu_finance_payables'))]"/>
+        </record>
+    </data>
+    <data noupdate="1">
+        <!--grupo1-->
+        <record id="siif_grupo0" model="presupuesto.grupo">
+            <field name="name">0</field>
+            <field name="descripcion">Servicios Personales</field>
+        </record>
+
+            <record id="siif_subgrupo0_1" model="presupuesto.subgrupo">
+                <field name="grupo_id" ref="siif_grupo0"/>
+                <field name="name">1</field>
+                <field name="descripcion">Retribuciones de cargos permanentes</field>
+            </record>
+
+            <record id="siif_subgrupo0_2" model="presupuesto.subgrupo">
+                <field name="grupo_id" ref="siif_grupo0"/>
+                <field name="name">2</field>
+                <field name="descripcion">Retrib.pers.contratado funciones permanentes</field>
+            </record>
+
+            <record id="siif_subgrupo0_3" model="presupuesto.subgrupo">
+                <field name="grupo_id" ref="siif_grupo0"/>
+                <field name="name">3</field>
+                <field name="descripcion">Retrib.pers.contrat.funciones no permanentes</field>
+            </record>
+
+            <record id="siif_subgrupo0_4" model="presupuesto.subgrupo">
+                <field name="grupo_id" ref="siif_grupo0"/>
+                <field name="name">4</field>
+                <field name="descripcion">Retribuciones complementarias</field>
+            </record>
+
+            <record id="siif_subgrupo0_5" model="presupuesto.subgrupo">
+                <field name="grupo_id" ref="siif_grupo0"/>
+                <field name="name">5</field>
+                <field name="descripcion">Retribuciones diversas especiales</field>
+            </record>
+
+            <record id="siif_subgrupo0_6" model="presupuesto.subgrupo">
+                <field name="grupo_id" ref="siif_grupo0"/>
+                <field name="name">6</field>
+                <field name="descripcion">Beneficios al personal</field>
+            </record>
+
+            <record id="siif_subgrupo0_7" model="presupuesto.subgrupo">
+                <field name="grupo_id" ref="siif_grupo0"/>
+                <field name="name">7</field>
+                <field name="descripcion">Beneficios familiares</field>
+            </record>
+
+            <record id="siif_subgrupo0_8" model="presupuesto.subgrupo">
+                <field name="grupo_id" ref="siif_grupo0"/>
+                <field name="name">8</field>
+                <field name="descripcion">Cargas legales sobre servicios personales</field>
+            </record>
+
+            <record id="siif_subgrupo0_9" model="presupuesto.subgrupo">
+                <field name="grupo_id" ref="siif_grupo0"/>
+                <field name="name">9</field>
+                <field name="descripcion">Otras retribuciones</field>
+            </record>
+
+        <!--Grupo1-->
+        <record id="siif_grupo1" model="presupuesto.grupo">
+            <field name="name">1</field>
+            <field name="descripcion">Bienes de consumo</field>
+        </record>
+
+            <record id="siif_subgrupo1_1" model="presupuesto.subgrupo">
+                <field name="grupo_id" ref="siif_grupo1"/>
+                <field name="name">1</field>
+                <field name="descripcion">Productos alimenticios, agropecuarios y forestales</field>
+            </record>
+
+            <record id="siif_subgrupo1_2" model="presupuesto.subgrupo">
+                <field name="grupo_id" ref="siif_grupo1"/>
+                <field name="name">2</field>
+                <field name="descripcion">Prod.textiles, prendas de vestir y art.de cuero y similares</field>
+            </record>
+
+            <record id="siif_subgrupo1_3" model="presupuesto.subgrupo">
+                <field name="grupo_id" ref="siif_grupo1"/>
+                <field name="name">3</field>
+                <field name="descripcion">Productos de papel, libros e impresos</field>
+            </record>
+
+            <record id="siif_subgrupo1_4" model="presupuesto.subgrupo">
+                <field name="grupo_id" ref="siif_grupo1"/>
+                <field name="name">4</field>
+                <field name="descripcion">Productos energéticos</field>
+            </record>
+
+            <record id="siif_subgrupo1_5" model="presupuesto.subgrupo">
+                <field name="grupo_id" ref="siif_grupo1"/>
+                <field name="name">5</field>
+                <field name="descripcion">Productos químicos derivados del petróleo y conexos</field>
+            </record>
+
+            <record id="siif_subgrupo1_6" model="presupuesto.subgrupo">
+                <field name="grupo_id" ref="siif_grupo1"/>
+                <field name="name">6</field>
+                <field name="descripcion">Productos minerales</field>
+            </record>
+
+            <record id="siif_subgrupo1_7" model="presupuesto.subgrupo">
+                <field name="grupo_id" ref="siif_grupo1"/>
+                <field name="name">7</field>
+                <field name="descripcion">Productos metálicos</field>
+            </record>
+
+            <record id="siif_subgrupo1_9" model="presupuesto.subgrupo">
+                <field name="grupo_id" ref="siif_grupo1"/>
+                <field name="name">9</field>
+                <field name="descripcion">Otros bienes de consumo</field>
+            </record>
+
+        <!--grupo 2-->
+        <record id="siif_grupo2" model="presupuesto.grupo">
+            <field name="name">2</field>
+            <field name="descripcion">Servicios no personales</field>
+        </record>
+
+            <record id="siif_subgrupo2_1" model="presupuesto.subgrupo">
+                <field name="grupo_id" ref="siif_grupo2"/>
+                <field name="name">1</field>
+                <field name="descripcion">Servicios básicos</field>
+            </record>
+
+            <record id="siif_subgrupo2_2" model="presupuesto.subgrupo">
+                <field name="grupo_id" ref="siif_grupo2"/>
+                <field name="name">2</field>
+                <field name="descripcion">Publicidad, impresiones y encuadernaciones</field>
+            </record>
+
+            <record id="siif_subgrupo2_3" model="presupuesto.subgrupo">
+                <field name="grupo_id" ref="siif_grupo2"/>
+                <field name="name">3</field>
+                <field name="descripcion">Pasajes, viáticos y otros gastos de traslado</field>
+            </record>
+
+            <record id="siif_subgrupo2_4" model="presupuesto.subgrupo">
+                <field name="grupo_id" ref="siif_grupo2"/>
+                <field name="name">4</field>
+                <field name="descripcion">Transp. de carga, serv. complementarios y almacenamiento</field>
+            </record>
+
+            <record id="siif_subgrupo2_5" model="presupuesto.subgrupo">
+                <field name="grupo_id" ref="siif_grupo2"/>
+                <field name="name">5</field>
+                <field name="descripcion">Arrendamientos</field>
+            </record>
+
+            <record id="siif_subgrupo2_6" model="presupuesto.subgrupo">
+                <field name="grupo_id" ref="siif_grupo2"/>
+                <field name="name">6</field>
+                <field name="descripcion">Tributos, multas, recargos,seguros y comisiones</field>
+            </record>
+
+            <record id="siif_subgrupo2_7" model="presupuesto.subgrupo">
+                <field name="grupo_id" ref="siif_grupo2"/>
+                <field name="name">7</field>
+                <field name="descripcion">Serv. para mant., reparaciones menores y limpieza</field>
+            </record>
+
+            <record id="siif_subgrupo2_8" model="presupuesto.subgrupo">
+                <field name="grupo_id" ref="siif_grupo2"/>
+                <field name="name">8</field>
+                <field name="descripcion">Servicios técnicos, profesionales y artísticos(Dec.17/003)</field>
+            </record>
+
+            <record id="siif_subgrupo2_9" model="presupuesto.subgrupo">
+                <field name="grupo_id" ref="siif_grupo2"/>
+                <field name="name">9</field>
+                <field name="descripcion">Otros servicios no personales</field>
+            </record>
+
+        <!--GRUPO 3-->
+        <record id="siif_grupo3" model="presupuesto.grupo">
+            <field name="name">3</field>
+            <field name="descripcion">Bienes de uso</field>
+        </record>
+
+            <record id="siif_subgrupo3_1" model="presupuesto.subgrupo">
+                <field name="grupo_id" ref="siif_grupo3"/>
+                <field name="name">1</field>
+                <field name="descripcion">Maquinarias y equipos de producción</field>
+            </record>
+
+            <record id="siif_subgrupo3_2" model="presupuesto.subgrupo">
+                <field name="grupo_id" ref="siif_grupo3"/>
+                <field name="name">2</field>
+                <field name="descripcion">Maquinas, mobiliario y equipos de oficina</field>
+            </record>
+
+            <record id="siif_subgrupo3_3" model="presupuesto.subgrupo">
+                <field name="grupo_id" ref="siif_grupo3"/>
+                <field name="name">3</field>
+                <field name="descripcion">Equipamiento sanitarios, y científicos</field>
+            </record>
+
+            <record id="siif_subgrupo3_4" model="presupuesto.subgrupo">
+                <field name="grupo_id" ref="siif_grupo3"/>
+                <field name="name">4</field>
+                <field name="descripcion">Equipamiento educacional, cultural y recreativo</field>
+            </record>
+
+            <record id="siif_subgrupo3_5" model="presupuesto.subgrupo">
+                <field name="grupo_id" ref="siif_grupo3"/>
+                <field name="name">5</field>
+                <field name="descripcion">Equipos de transporte, tracción, elevación y comunicaciones</field>
+            </record>
+
+            <record id="siif_subgrupo3_6" model="presupuesto.subgrupo">
+                <field name="grupo_id" ref="siif_grupo3"/>
+                <field name="name">6</field>
+                <field name="descripcion">Motores y repuestos mayores</field>
+            </record>
+
+            <record id="siif_subgrupo3_7" model="presupuesto.subgrupo">
+                <field name="grupo_id" ref="siif_grupo3"/>
+                <field name="name">7</field>
+                <field name="descripcion">Tierras, edificios y otros bienes preexistentes</field>
+            </record>
+
+            <record id="siif_subgrupo3_8" model="presupuesto.subgrupo">
+                <field name="grupo_id" ref="siif_grupo3"/>
+                <field name="name">8</field>
+                <field name="descripcion">Construcciones, mejoras y reparaciones mayores</field>
+            </record>
+
+            <record id="siif_subgrupo3_9" model="presupuesto.subgrupo">
+                <field name="grupo_id" ref="siif_grupo3"/>
+                <field name="name">9</field>
+                <field name="descripcion">Otros bienes de uso</field>
+            </record>
+
+        <!-- GRUPO 4-->
+        <record id="siif_grupo4" model="presupuesto.grupo">
+            <field name="name">4</field>
+            <field name="descripcion">Activos financieros</field>
+        </record>
+
+            <record id="siif_subgrupo4_1" model="presupuesto.subgrupo">
+                <field name="grupo_id" ref="siif_grupo4"/>
+                <field name="name">1</field>
+                <field name="descripcion">Compra de acciones y participación de capital</field>
+            </record>
+
+            <record id="siif_subgrupo4_2" model="presupuesto.subgrupo">
+                <field name="grupo_id" ref="siif_grupo4"/>
+                <field name="name">2</field>
+                <field name="descripcion">Préstamos otorgados a Largo plazo</field>
+            </record>
+
+            <record id="siif_subgrupo4_3" model="presupuesto.subgrupo">
+                <field name="grupo_id" ref="siif_grupo4"/>
+                <field name="name">3</field>
+                <field name="descripcion">Préstamos otorgados a Corto Plazo</field>
+            </record>
+
+            <record id="siif_subgrupo4_4" model="presupuesto.subgrupo">
+                <field name="grupo_id" ref="siif_grupo4"/>
+                <field name="name">4</field>
+                <field name="descripcion">Títulos y Valores</field>
+            </record>
+
+            <record id="siif_subgrupo4_9" model="presupuesto.subgrupo">
+                <field name="grupo_id" ref="siif_grupo4"/>
+                <field name="name">9</field>
+                <field name="descripcion">Otros activos financieros</field>
+            </record>
+
+        <!--grupo 5-->
+        <record id="siif_grupo5" model="presupuesto.grupo">
+            <field name="name">5</field>
+            <field name="descripcion">Transferencias</field>
+        </record>
+
+            <record id="siif_subgrupo5_1" model="presupuesto.subgrupo">
+                <field name="grupo_id" ref="siif_grupo5"/>
+                <field name="name">1</field>
+                <field name="descripcion">Transferencias corrientes al sector público</field>
+            </record>
+
+            <record id="siif_subgrupo5_2" model="presupuesto.subgrupo">
+                <field name="grupo_id" ref="siif_grupo5"/>
+                <field name="name">2</field>
+                <field name="descripcion">Transferencias corrientes al sector privado</field>
+            </record>
+
+            <record id="siif_subgrupo5_3" model="presupuesto.subgrupo">
+                <field name="grupo_id" ref="siif_grupo5"/>
+                <field name="name">3</field>
+                <field name="descripcion">Transferencias de capital al sector público</field>
+            </record>
+
+            <record id="siif_subgrupo5_4" model="presupuesto.subgrupo">
+                <field name="grupo_id" ref="siif_grupo5"/>
+                <field name="name">4</field>
+                <field name="descripcion">Transferencias de capital al sector privado</field>
+            </record>
+
+            <record id="siif_subgrupo5_5" model="presupuesto.subgrupo">
+                <field name="grupo_id" ref="siif_grupo5"/>
+                <field name="name">5</field>
+                <field name="descripcion">Transferencias corrientes a instit. sin fines de lucro</field>
+            </record>
+
+            <record id="siif_subgrupo5_6" model="presupuesto.subgrupo">
+                <field name="grupo_id" ref="siif_grupo5"/>
+                <field name="name">6</field>
+                <field name="descripcion">Transferencias de capital a instit. sin fines de lucro</field>
+            </record>
+
+            <record id="siif_subgrupo5_7" model="presupuesto.subgrupo">
+                <field name="grupo_id" ref="siif_grupo5"/>
+                <field name="name">7</field>
+                <field name="descripcion">Transferencias a unidades familiares</field>
+            </record>
+
+            <record id="siif_subgrupo5_8" model="presupuesto.subgrupo">
+                <field name="grupo_id" ref="siif_grupo5"/>
+                <field name="name">8</field>
+                <field name="descripcion">Transferencias al exterior</field>
+            </record>
+
+            <record id="siif_subgrupo5_9" model="presupuesto.subgrupo">
+                <field name="grupo_id" ref="siif_grupo5"/>
+                <field name="name">9</field>
+                <field name="descripcion">Otras transferencias</field>
+            </record>
+
+        <!--grupo 6-->
+        <record id="siif_grupo6" model="presupuesto.grupo">
+            <field name="name">6</field>
+            <field name="descripcion">Intereses y Otros Gastos de la Deuda</field>
+        </record>
+
+            <record id="siif_subgrupo6_1" model="presupuesto.subgrupo">
+                <field name="grupo_id" ref="siif_grupo6"/>
+                <field name="name">1</field>
+                <field name="descripcion">Intereses y Otros Gastos de la Deuda Interna</field>
+            </record>
+
+            <record id="siif_subgrupo6_2" model="presupuesto.subgrupo">
+                <field name="grupo_id" ref="siif_grupo6"/>
+                <field name="name">2</field>
+                <field name="descripcion">Intereses y Otros Gastos de Préstamos Internos</field>
+            </record>
+
+            <record id="siif_subgrupo6_3" model="presupuesto.subgrupo">
+                <field name="grupo_id" ref="siif_grupo6"/>
+                <field name="name">3</field>
+                <field name="descripcion">Intereses y Otros Gastos de la Deuda Externa</field>
+            </record>
+
+            <record id="siif_subgrupo6_4" model="presupuesto.subgrupo">
+                <field name="grupo_id" ref="siif_grupo6"/>
+                <field name="name">4</field>
+                <field name="descripcion">Intereses y Otros Gastos de Préstamos Externos</field>
+            </record>
+
+            <record id="siif_subgrupo6_8" model="presupuesto.subgrupo">
+                <field name="grupo_id" ref="siif_grupo6"/>
+                <field name="name">8</field>
+                <field name="descripcion">Comisiones y Gastos de Administración de la Deuda</field>
+            </record>
+
+            <record id="siif_subgrupo6_9" model="presupuesto.subgrupo">
+                <field name="grupo_id" ref="siif_grupo6"/>
+                <field name="name">9</field>
+                <field name="descripcion">Otros Intereses y Gastos de la Deuda</field>
+            </record>
+
+        <!--grupo 7-->
+        <record id="siif_grupo7" model="presupuesto.grupo">
+            <field name="name">7</field>
+            <field name="descripcion">Gastos No Clasificados</field>
+        </record>
+
+            <record id="siif_subgrupo7_1" model="presupuesto.subgrupo">
+                <field name="grupo_id" ref="siif_grupo7"/>
+                <field name="name">1</field>
+                <field name="descripcion">Sent.Judic.y Acontecimientos Graves o Imprevistos</field>
+            </record>
+
+            <record id="siif_subgrupo7_2" model="presupuesto.subgrupo">
+                <field name="grupo_id" ref="siif_grupo7"/>
+                <field name="name">2</field>
+                <field name="descripcion">Otros Gastos Extraordinarios</field>
+            </record>
+
+            <record id="siif_subgrupo7_3" model="presupuesto.subgrupo">
+                <field name="grupo_id" ref="siif_grupo7"/>
+                <field name="name">3</field>
+                <field name="descripcion">Gastos Confidenciales</field>
+            </record>
+
+            <record id="siif_subgrupo7_4" model="presupuesto.subgrupo">
+                <field name="grupo_id" ref="siif_grupo7"/>
+                <field name="name">4</field>
+                <field name="descripcion">Partidas A Reaplicar</field>
+            </record>
+
+            <record id="siif_subgrupo7_5" model="presupuesto.subgrupo">
+                <field name="grupo_id" ref="siif_grupo7"/>
+                <field name="name">5</field>
+                <field name="descripcion">Abatimiento de crédito</field>
+            </record>
+
+            <record id="siif_subgrupo7_7" model="presupuesto.subgrupo">
+                <field name="grupo_id" ref="siif_grupo7"/>
+                <field name="name">7</field>
+                <field name="descripcion">Otras Pérdidas</field>
+            </record>
+
+            <record id="siif_subgrupo7_9" model="presupuesto.subgrupo">
+                <field name="grupo_id" ref="siif_grupo7"/>
+                <field name="name">9</field>
+                <field name="descripcion">Otros Gastos No Clasificados</field>
+            </record>
+
+        <!--grupo 8-->
+        <record id="siif_grupo8" model="presupuesto.grupo">
+            <field name="name">8</field>
+            <field name="descripcion">Clasificador de Aplicaciones Financieras</field>
+        </record>
+
+            <record id="siif_subgrupo8_1" model="presupuesto.subgrupo">
+                <field name="grupo_id" ref="siif_grupo8"/>
+                <field name="name">1</field>
+                <field name="descripcion">Amortizacion De La Deuda Interna</field>
+            </record>
+
+            <record id="siif_subgrupo8_2" model="presupuesto.subgrupo">
+                <field name="grupo_id" ref="siif_grupo8"/>
+                <field name="name">2</field>
+                <field name="descripcion">Amortizacion De Préstamos Internos</field>
+            </record>
+
+            <record id="siif_subgrupo8_3" model="presupuesto.subgrupo">
+                <field name="grupo_id" ref="siif_grupo8"/>
+                <field name="name">3</field>
+                <field name="descripcion">Amortizacion De La Deuda Externa</field>
+            </record>
+
+            <record id="siif_subgrupo8_4" model="presupuesto.subgrupo">
+                <field name="grupo_id" ref="siif_grupo8"/>
+                <field name="name">4</field>
+                <field name="descripcion">Amortizacion De Préstamos Externos</field>
+            </record>
+
+            <record id="siif_subgrupo8_5" model="presupuesto.subgrupo">
+                <field name="grupo_id" ref="siif_grupo8"/>
+                <field name="name">5</field>
+                <field name="descripcion">Conversion De La Deuda</field>
+            </record>
+
+            <record id="siif_subgrupo8_6" model="presupuesto.subgrupo">
+                <field name="grupo_id" ref="siif_grupo8"/>
+                <field name="name">6</field>
+                <field name="descripcion">Obligaciones A Pagar De Ejercicios Anteriores</field>
+            </record>
+
+            <record id="siif_subgrupo8_9" model="presupuesto.subgrupo">
+                <field name="grupo_id" ref="siif_grupo8"/>
+                <field name="name">9</field>
+                <field name="descripcion">Otras Amortizaciones De Deuda</field>
+            </record>
+
+        <!--grupo 9-->
+        <record id="siif_grupo9" model="presupuesto.grupo">
+            <field name="name">9</field>
+            <field name="descripcion">Gastos Figurativos</field>
+        </record>
+
+            <record id="siif_subgrupo9_1" model="presupuesto.subgrupo">
+                <field name="grupo_id" ref="siif_grupo9"/>
+                <field name="name">1</field>
+                <field name="descripcion">Contribuciones a la Administración Central</field>
+            </record>
+
+            <record id="siif_subgrupo9_2" model="presupuesto.subgrupo">
+                <field name="grupo_id" ref="siif_grupo9"/>
+                <field name="name">2</field>
+                <field name="descripcion">Contribuciones a los Entes Desc.y Autón.del Presup..Nal.</field>
+            </record>
+
+    </data>
+</openerp>

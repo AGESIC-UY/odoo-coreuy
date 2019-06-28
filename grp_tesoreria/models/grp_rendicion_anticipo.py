@@ -74,10 +74,14 @@ class GrpRendicionAnticipos(models.Model):
     solicitud_anticipos_domain_ids = fields.Many2many(comodel_name="grp.solicitud.anticipos.fondos", string="Solicitud de anticipos",
                                     compute='_compute_solicitud_anticipos_domain_ids')
 
+    def _get_solicitudes_anticipos_rendidas(self):
+        return self.search([('state','not in',['cancelado'])]).mapped(lambda x: x.solicitud_anticipos_id).ids
+
     @api.multi
     @api.depends('date','solicitud_anticipos_id')
     def _compute_solicitud_anticipos_domain_ids(self):
-        solicitud_rendidas = self.search([('state','not in',['cancelado'])]).mapped(lambda x: x.solicitud_anticipos_id).ids
+        # solicitud_rendidas = self.search([('state','not in',['cancelado'])]).mapped(lambda x: x.solicitud_anticipos_id).ids
+        solicitud_rendidas = self._get_solicitudes_anticipos_rendidas()
         if not solicitud_rendidas:
             solicitud_rendidas = []
         anticipos_fondos_pagados = [x.solicitud_anticipos_id.id for x in self.env['account.voucher'].search(

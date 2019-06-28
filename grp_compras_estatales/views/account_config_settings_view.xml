@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+
+         <!--res.config form view  echaviano, flag integracion siif 31/10-->
+        <record model="ir.ui.view" id="view_account_settings_sice_form">
+            <field name="name">account.config.settings.sice.inherit</field>
+            <field name="inherit_id" ref="account.view_account_config_settings"/>
+            <field name="model">account.config.settings</field>
+            <field name="priority">22</field>
+            <field name="arch" type="xml">
+
+                <xpath expr="//separator[@string='Bank &amp; Cash']" position="before">
+                    <separator string="Integraciones SICE y SIIF"/>
+                    <group name="grp_config">
+                        <label for="config_grp" string="Configuración"/>
+                        <div name="integ_sice">
+                            <field name="integracion_sice" class="oe_inline"/>
+                            <label for="integracion_sice"/>
+                        </div>
+                    </group>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</openerp>

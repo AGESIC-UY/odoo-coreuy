@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+
+        <!--
+        ================================================================
+        Autorizacion para gastar , se agrega llave presupuestal SIIF
+        ================================================================
+        -->
+        <!-- VISTA FORM -->
+        <record id="view_apg_form_llave_siif_inherited" model="ir.ui.view">
+            <field name="name">view.apg.form.llave_siif_inherited</field>
+            <field name="model">grp.compras.apg</field>
+            <field name="inherit_id" ref="grp_compras_estatales.view_apg_form"/>
+            <field name="arch" type="xml">
+                <group id="Cabezal" position="inside">
+                    <div class="oe_right oe_button_box" name="buttons" style="float: right; margin-left: -30px;">
+                        <button name="view_compromisos" type="object"
+                                attrs="{'invisible':[('compromisos_count','=',0)]}"
+                                class="oe_inline oe_stat_button" style="white-space: normal;" icon="fa-search">
+                                <field name="compromisos_count" widget="statinfo" string="Compromisos"/>
+                        </button>
+                    </div>
+                </group>
+                <button name="act_apg_desafectado" position="before">
+                    <button type="object" name="abrir_wizard_modif_siif" string="Nueva modificación"
+                            states="afectado"/>
+                </button>
+                <button name="act_apg_desafectado" position="attributes">
+                        <attribute name="string">Anular Afectación SIIF</attribute>
+                        <attribute name="confirm">Esta acción anulará la afectación en SIIF pero no el documento APG</attribute>
+                </button>
+                <field name="default_editable" position="after">
+                    <field name="llpapg_ids_editable" invisible="1"/>
+                </field>
+                <field name="fecha" position="after">
+                    <field name="fiscalyear_siif_id" on_change="onchange_fiscalyear_siif_id(fiscalyear_siif_id)"
+                           attrs="{'readonly':[('state','not in',['nuevo','en_financiero','desafectado'])]}"/>
+                </field>
+                <field name="monto_fnc" position="after">
+                    <field name="siif_tipo_ejecucion" attrs="{'readonly':[('state','not in',['en_financiero','desafectado'])]}" on_change="onchange_tipo_ejecucion(siif_tipo_ejecucion)"/>
+                    <field name="siif_concepto_gasto"  attrs="{'readonly':[('state','not in',['en_financiero','desafectado'])]}" />
+                    <field name="siif_financiamiento"  attrs="{'readonly':[('state','not in',['en_financiero','desafectado'])]}" on_change="onchange_siif_financiamiento(siif_financiamiento)"/>
+                    <field name="filtro_sir" invisible="1"/>
+                    <field name="siif_codigo_sir" domain="[('codigo','like',filtro_sir)]" attrs="{'readonly':[('state','not in',['en_financiero','desafectado'])]}" />
+                    <field name="siif_nro_fondo_rot" domain="[('fiscal_year','=',fiscalyear_siif_id)]" attrs="{'readonly':[('state','not in',['en_financiero','desafectado'])], 'required': [('tipo_ejecucion_codigo_rel','=','P')]}" />
+                    <field name="siif_descripcion"  attrs="{'readonly':[('state','not in',['en_financiero','desafectado'])]}" />
+                    <field name="tipo_ejecucion_codigo_rel" readonly="1" invisible="1"/>
+                </field>
+                <page string="Ordenes de compra" position="after">
+                    <page string="Llave presupuestal">
+                        <group>
+                            <field name="inciso_siif_id" domain="[('fiscal_year_id','=', fiscalyear_siif_id)]"
+                                   attrs="{'readonly':[('state','not in',['nuevo','en_financiero','desafectado'])]}"
+                                   style="width:20%%"/>
+                            <field name="ue_siif_id"
+                                   attrs="{'readonly':[('state','not in',['nuevo','en_financiero','desafectado'])]}"
+                                   domain="[('inciso_id','=', inciso_siif_id)]" style="width:20%%"/>
+                        </group>
+                        <button name="action_llpapg_reload" string="Actualizar" type="object"
+                                icon="terp-stock_effects-object-colorize"
+                                states="en_financiero"
+                                confirm="Esta seguro desea actualizar las líneas de la Llave presupuestal?"/>
+                        <field name="llpapg_ids" nolabel="1" widget="one2many_list"
+                               attrs="{'readonly':[('llpapg_ids_editable','!=',True)]}">
+                            <tree string="Llave Presupuestal" delete="true" edit="true" create="true" editable="bottom">
+                                <field name="odg_id" domain="[('ue_id','=',parent.ue_siif_id)]" on_change="onchange_objeto_del_gasto(odg_id)"/>
+                                <field name="auxiliar_id" domain="[('odg_id','=',odg_id)]" on_change="onchange_auxiliar(auxiliar_id)"/>
+                                <field name="fin_id" required="1" domain="[('aux_id','=',auxiliar_id)]" on_change="onchange_fuente_de_financiamiento(fin_id)"/>
+                                <field name="programa_id" required="1" domain="[('ff_id','=',fin_id)]" on_change="onchange_programa(programa_id)"/>
+                                <field name="proyecto_id" required="1" domain="[('programa_id','=',programa_id)]" on_change="onchange_proyecto(proyecto_id)"/>
+                                <field name="mon_id" required="1" domain="[('proyecto_id','=',proyecto_id)]" on_change="onchange_moneda(mon_id)"/>
+                                <field name="tc_id" required="1" domain="[('moneda_id','=',mon_id)]"/>
+                                <field name="disponible"/>
+                                <field name="importe"/>
+                            </tree>
+                        </field>
+                        <field name="modif_log_ids" readonly="1" colspan="4">
+                            <tree string="Modificaciones">
+                                <field name="tipo"/>
+                                <field name="fecha"/>
+                                <field name="objeto_gasto"/>
+                                <field name="auxiliar"/>
+                                <field name="financiamiento"/>
+                                <field name="programa"/>
+                                <field name="proyecto"/>
+                                <field name="moneda"/>
+                                <field name="tipo_credito"/>
+                                <field name="importe"/>
+                            </tree>
+                        </field>
+                    </page>
+                    <page string="Historial de anulaciones" attrs="{'invisible': [('anulacion_siif_log_ids', '=', [] )]}">
+                        <field name="anulacion_siif_log_ids" nolabel="1" widget="one2many_list">
+                            <tree string="Historial anulaciones" delete="false" edit="false" create="false">
+                                 <field name="apg_id" invisible="1"/>
+                                 <field name="nro_afect_sist_aux" invisible="1"/>
+                                 <field name="fecha"/>
+                                 <field name="nro_afectacion_siif" widget="char"/>
+                            </tree>
+                          </field>
+                    </page>
+                </page>
+            </field>
+        </record>
+
+    </data>
+</openerp>

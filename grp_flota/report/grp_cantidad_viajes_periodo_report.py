@@ -29,7 +29,7 @@ class GrpCantidadViajesPeriodoReport(models.Model):
     _auto = False
     _description = u'Cantidad de viajes por período'
 
-    employee_id = fields.Many2one('hr.employee', string='Solicitante')
+    # employee_id = fields.Many2one('hr.employee', string='Solicitante')
     travel_date = fields.Datetime('Fecha y hora')
     driver_id = fields.Many2one('grp.fleet.chofer', 'Chofer')
     target = fields.Char('Destino', size=30)
@@ -47,7 +47,7 @@ class GrpCantidadViajesPeriodoReport(models.Model):
             CREATE OR replace VIEW grp_cantidad_viajes_periodo_report AS (
                 SELECT
                     viaje.id AS id,
-                    viaje.employee_id AS employee_id,
+                    --viaje.employee_id AS employee_id,
                     viaje.date AS travel_date,
                     viaje.driver_id AS driver_id,
                     viaje.target AS target,

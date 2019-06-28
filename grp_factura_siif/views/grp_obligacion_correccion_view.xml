@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+
+        <!-- VISTAS -->
+        <record id="view_grp_obligacion_correccion_form" model="ir.ui.view">
+            <field name="name">view.grp.obligacion.correccion.form</field>
+            <field name="model">grp.obligacion.correccion</field>
+            <field name="arch" type="xml">
+                <form string="Correccion de obligacion">
+                    <header>
+                        <button name="enviar_siif" states="draft" type="object" class="oe_highlight" string="Enviar a SIIF" groups="grp_seguridad.grp_compras_apg_Responsable_SIIF" />
+                        <!--<button name="correccion_impactar_presupuesto" states="draft" type="object" class="oe_highlight" string="Obligar" groups="grp_seguridad.grp_compras_apg_Responsable_SIIF" />-->
+                        <button name="action_borrar_correccion_obligacion" states="obligada" type="object" class="oe_highlight" string="Borrar Correccion SIIF" groups="grp_seguridad.grp_compras_apg_Responsable_SIIF" />
+                        <!--confirm="Esta seguro que desea anular el documento?"-->
+                        <!--groups="grp_compras_estatales.grp_compras_apg_Comprador" />-->
+                        <!--<button name="button_anular_compromiso" states="comprometido" type="object" string="Anular Compromiso SIIF"-->
+                        <!--confirm="Esta seguro que desea anular el documento?"-->
+                        <!--groups="grp_seguridad.grp_compras_apg_Responsable_SIIF"/>-->
+                        <!--<button type="object" name="abrir_wizard_modif_compromiso_siif" string="Nueva modificación"-->
+                        <!--attrs="{'invisible': [('state','!=','comprometido')]}"/>-->
+                        <field name="state" widget="statusbar"/>
+                    </header>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="invoice_id" attrs="{'readonly': [('state','!=','draft')]}"/>
+                                <field name="nro_afectacion"/>
+                                <field name="nro_compromiso"/>
+                                <field name="nro_obligacion"/>
+                                <field name="monto_afectado"/>
+                                <field name="monto_comprometido"/>
+                                <field name="siif_sec_obligacion" readonly="1"/>
+                                <field name="siif_ult_modif" readonly="1"/>
+                            </group>
+                            <group>
+                                <field name="fiscalyear_siif_id"/>
+                                <field name="inciso_siif_id"/>
+                                <field name="ue_siif_id"/>
+                                <field name="siif_descripcion" attrs="{'readonly': [('state','!=','draft')]}"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Llave presupuestal">
+                                <field name="linea_ids" nolabel="1" colspan="4" widget="one2many_list" attrs="{'readonly': [('state','!=','draft')]}">
+                                    <tree string="Llave Presupuestal" editable="bottom">
+                                        <field name="odg_id" domain="[('ue_id','=',parent.ue_siif_id)]"/>
+                                        <field name="auxiliar_id" domain="[('odg_id','=',odg_id)]"/>
+                                        <field name="fin_id" domain="[('aux_id','=',auxiliar_id)]"/>
+                                        <field name="programa_id" domain="[('ff_id','=',fin_id)]"/>
+                                        <field name="proyecto_id" domain="[('programa_id','=',programa_id)]"/>
+                                        <field name="mon_id" domain="[('proyecto_id','=',proyecto_id)]"/>
+                                        <field name="tc_id" domain="[('moneda_id','=',mon_id)]"/>
+                                        <field name="importe"/>
+                                    </tree>
+                                </field>
+                            </page>
+                            <page string="Retenciones">
+                                <field name="retencion_ids" nolabel="1" widget="one2many_list" attrs="{'readonly': [('state','!=','draft')]}">
+                                    <tree string="Retenciones" editable="bottom">
+                                        <field name="group_id"/>
+                                        <field name="creditor_id"/>
+                                        <field name="importe"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_grp_obligacion_correccion_tree" model="ir.ui.view">
+            <field name="name">view.grp.obligacion.correccion.tree</field>
+            <field name="model">grp.obligacion.correccion</field>
+            <field name="arch" type="xml">
+                <tree string="Correccion de obligacion">
+                    <field name="invoice_id"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_grp_obligacion_correccion_search" model="ir.ui.view">
+            <field name="name">view.grp.obligacion.correccion.search</field>
+            <field name="model">grp.obligacion.correccion</field>
+            <field name="arch" type="xml">
+                <search string="Correccion de obligacion">
+                    <field name="invoice_id"/>
+                    <field name="state"/>
+                </search>
+            </field>
+        </record>
+
+        <!-- ACCIONES -->
+        <record id="action_correccion_obligacion" model="ir.actions.act_window">
+            <field name="name">Corrección de obligación</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">grp.obligacion.correccion</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem id="menu_obligacion_correccion" parent="account.menu_finance_payables" name="Corrección de obligación"
+                  action="action_correccion_obligacion" sequence="21"
+                  groups="grp_seguridad.grp_compras_apg_Responsable_SIIF"/>
+
+    </data>
+</openerp>

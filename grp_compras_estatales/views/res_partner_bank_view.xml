@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+
+        <record id="view_form_alta_cuentas_bancarias_agencia" model="ir.ui.view">
+            <field name="name">res.partner.bank.inh.agencia.cf</field>
+            <field name="model">res.partner.bank</field>
+            <field name="inherit_id" ref="base.view_partner_bank_form"/>
+            <field name="arch" type="xml">
+                <field name="acc_number" position="after">
+                    <field name="agencia"/>
+                </field>
+                <field name="company_id" position="before">
+					<field name="descripcion_cuenta"/>
+				</field>
+				<field name="bank_bic" position="attributes">
+					<attribute name="required">1</attribute>
+				</field>
+            </field>
+        </record>
+
+        <record id="view_form_alta_cuentas_bancarias_journal" model="ir.ui.view">
+            <field name="name">res.partner.bank.inh.journal.cf</field>
+            <field name="model">res.partner.bank</field>
+            <field name="inherit_id" ref="account.view_partner_bank_form_inherit"/>
+            <field name="arch" type="xml">
+                <field name="journal_id" position="attributes">
+                    <attribute name="domain">[('type', '=', 'bank')]</attribute>
+                </field>
+            </field>
+        </record>
+
+        <record id="view_tree_alta_cuentas_bancarias" model="ir.ui.view">
+            <field name="name">Alta de Cuentas Bancarias</field>
+            <field name="model">res.partner.bank</field>
+            <field name="priority" eval="14"/>
+            <field name="arch" type="xml">
+                <tree string="Alta de Cuentas Bancarias">
+                    <field name="bank"/>
+                    <field name="bank_name"/>
+                    <field name="agencia"/>
+                    <field name="acc_number"/>
+                    <field name="currency_id"/>
+                    <field name="journal_id"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="action_grp_res_partner_bank_account_form" model="ir.actions.act_window">
+            <field name="name">Alta de Cuentas Bancarias</field>
+            <field name="res_model">res.partner.bank</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="context">{'company_hide': False}</field>
+        </record>
+
+        <menuitem name="Alta de Cuentas Bancarias" id="menu_alta_cuenta_bancarias"
+                  parent="menu_grp_bancos" sequence="2"
+                  action="action_grp_res_partner_bank_account_form"/>
+
+    </data>
+</openerp>

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+
+        <!-- Vista TREE INHERITED  -->
+        <record model="ir.ui.view" id="grp_view_account_asset_category_tree_inherited">
+            <field name="name">grp.view_account_asset_category.tree.inherited</field>
+            <field name="model">account.asset.category</field>
+            <field name="inherit_id" ref="account_asset.view_account_asset_category_tree"/>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <field name="name" position="after">
+                    <field name="complete_name"/>
+                </field>
+                <field name="name" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </field>
+            </field>
+        </record>
+
+        <!-- Vista FORM INHERITED  -->
+        <record model="ir.ui.view" id="grp_view_account_asset_category_form_inherited">
+            <field name="name">grp.view_account_asset_category.form.inherited</field>
+            <field name="model">account.asset.category</field>
+            <field name="inherit_id" ref="account_asset.view_account_asset_category_form"/>
+            <field name="view_mode">form</field>
+            <field name="arch" type="xml">
+                <field name="name" position="after">
+                    <field name="tipo"/>
+                    <field name="parent_id" domain="[('parent_id', '=', False)]" on_change="onchange_parent_id(parent_id)"/>
+                    <field name="codigo" attrs="{'required': [('parent_id','=',False)], 'invisible': [('parent_id','!=',False)]}"/>
+                </field>
+                <separator string="Notes" position="replace"/>
+                <field name="note" position="replace">
+                    <notebook>
+                        <page string="Notes">
+                            <field name="note" nolabe="1"/>
+                        </page>
+                        <page string="Seguridad usuarios">
+                            <field name="user_ids">
+                                <tree editable="bottom">
+                                    <field name="name"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Notificación">
+                            <field name="categoria_ue_notificacion_ids" nolabel="1">
+                                <tree editable="bottom">
+                                    <field name="operating_unit_id"/>
+                                    <field name="group_id"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </field>
+            </field>
+        </record>
+
+    </data>
+</openerp>

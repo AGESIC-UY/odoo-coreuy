@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <report id="report_picking_list_cancill_out" model="stock.picking.out" name="stock.picking.list.cancill.out"
+                string="Imprimir Vale de Entrega" rml="grp_solicitud_recursos/report/picking.rml"/>
+    </data>
+</openerp>

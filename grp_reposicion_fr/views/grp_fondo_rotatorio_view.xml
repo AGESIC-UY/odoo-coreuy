@@ -11,7 +11,8 @@
                     <button name="act_fr_confirmado" type="object"
                                 class="oe_highlight" string="Confirmar" states="draft"/>
                     <button name="act_fr_obligado" type="object"
-                                class="oe_highlight" string="Obligar" states="confirmado,anulado_siif"/>
+                                class="oe_highlight" string="Obligar" states="confirmado,anulado_siif"
+                                confirm="Quedarán no editables los campos Total nominal manual, Total retenciones manual, Total liquido pagable manual"/>
                     <button name="act_fr_borrar_siif" type="object"
                                 class="oe_highlight" string="Borrar obligación SIIF" states="obligado"/>
                     <button name="act_fr_nueva_modificacion" type="object"
@@ -203,8 +204,9 @@
                                     <group class="oe_subtotal_footer oe_right" colspan="2" attrs="{'invisible':[('moneda_extranjera','=',False)]}">
                                         <separator string="Importes en M/E" colspan="2" style="text-align:center"/>
                                         <field name="total_nominal_comprobantes" widget="monetary" options="{'currency_field': 'currency_id'}"/>
-                                        <field name="total_retenciones_me" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                                        <!--<field name="total_retenciones_currency" widget="monetary" options="{'currency_field': 'currency_id'}"/>-->
                                         <field name="total_liquido_pagable" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                                        <field name="send_currency2siif"/>
                                     </group>
                                     <group class="oe_subtotal_footer oe_right" colspan="2">
                                         <separator string="Importes SIIF" colspan="2" style="text-align:center"/>
@@ -214,6 +216,10 @@
                                         <field name="total_reponer" widget="monetary" options="{'currency_field': 'company_currency_id'}"/>
                                         <field name="liquido_pagable" class="oe_subtotal_footer_separator"
                                                widget="monetary" options="{'currency_field': 'company_currency_id'}"/>
+
+                                        <field name="total_nominal_comprobantes_manual" widget="monetary" options="{'currency_field': 'company_currency_id'}"/>
+                                        <field name="total_retenciones_currency_manual" widget="monetary" options="{'currency_field': 'company_currency_id'}"/>
+                                        <field name="total_liquido_pagable_manual" widget="monetary" options="{'currency_field': 'company_currency_id'}"/>
                                     </group>
                                 </div>
                             </group>
@@ -240,6 +246,11 @@
                         </page>
                         <page string="Detalle llaves presupuestales">
                             <group>
+                                <button name="action_llpapg_details_reload" string="Actualizar detalles" type="object"
+                                icon="terp-stock_effects-object-colorize"
+                                states="draft,confirmado"
+                                confirm="Esta seguro desea actualizar las líneas de la Llave presupuestal?"/>
+                                <newline/>
                                <group colspan="4">
                                     <label string='Facturas de fondo rotatorio' colspan="4" style="font-weight: bold;"/>
                                     <field name='dlineas_llavep_invoice_fr_ids'  nolabel="1" >

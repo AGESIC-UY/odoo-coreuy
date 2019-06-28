@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record id="quant_search_view_inherit" model="ir.ui.view">
+           <field name="name">grp.compras.estatales.stock.quant</field>
+           <field name="model">stock.quant</field>
+            <field name="inherit_id" ref="stock.quant_search_view"></field>
+            <field name="arch" type="xml">
+                <field name="location_id" position="after">
+                    <field name="warehouse_id"/>
+                </field>
+                 <filter name="locationgroup" position="before">
+                     <filter name="warehouse_id_group" string="Almacén" context="{'group_by' : 'warehouse_id'}"></filter>
+                 </filter>
+           </field>
+        </record>
+
+        <record id="view_stock_quant_tree_inherit" model="ir.ui.view">
+            <field name="name">grp.compras.estatales.stock.quant.tree</field>
+            <field name="model">stock.quant</field>
+            <field name="inherit_id" ref="stock.view_stock_quant_tree"/>
+            <field name="arch" type="xml">
+                <field name="propagated_from_id" position="after">
+                    <field name="warehouse_id"/>
+                </field>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="stock.quantsact">
+            <field name="context">{'search_default_warehouse_id_group': 1,'search_default_locationgroup': 1, 'search_default_internal_loc': 1}</field>
+        </record>
+
+    </data>
+</openerp>

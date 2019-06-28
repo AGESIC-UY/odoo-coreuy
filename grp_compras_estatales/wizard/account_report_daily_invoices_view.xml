@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="account_daily_invoices_report_view" model="ir.ui.view">
+            <field name="name">Daily Invoices Report</field>
+            <field name="model">account.report.daily.invoices</field>
+            <field name="arch" type="xml">
+            <form string="Report Options" version="7.0">
+                <group col="1">
+                   <field name="filter_date"/>
+                </group>
+                <footer>
+                    <button name="print_report" string="Imprimir" type="object" default_focus="1" class="oe_highlight"/>
+                    or
+                    <button string="Cancelar" class="oe_link" special="cancel" />
+                </footer>
+            </form>
+            </field>
+        </record>
+
+        <record id="action_account_daily_invoices_menu" model="ir.actions.act_window">  <!-- rename id -->
+            <field name="name">Listado de facturas por día</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">account.report.daily.invoices</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="account_daily_invoices_report_view"/>
+            <field name="target">new</field>
+        </record>
+
+        <record model="ir.values" id="action_account_daily_invoices_values">
+            <field name="model_id" ref="account.model_account_account" />
+            <field name="name">Listado de facturas por día</field>
+            <field name="key2">client_print_multi</field>
+            <field name="value" eval="'ir.actions.act_window,' +str(ref('action_account_daily_invoices_menu'))" />
+            <field name="key">action</field>
+            <field name="model">account.account</field>
+        </record>
+
+        <report auto="False"
+            id="report_account_inv_daily_registered"
+            model="account.invoice"
+            name="account.inv.daily.registered" rml="grp_compras_estatales/report/account_inv_daily_register.rml"
+            string="Facturas_por_dia" usage="default"
+            menu="False"
+            groups="account.group_account_manager,account.group_account_user,grp_seguridad.grp_compras_apg_Responsable_SIIF,grp_seguridad.grp_compras_pc_Responsable"
+            header="False"
+            />
+
+        <menuitem
+            icon="STOCK_PRINT"
+            name="Listado de facturas por día"
+            parent="account.menu_finance_payables"
+            action="action_account_daily_invoices_menu"
+            groups="base.group_system"
+            id="menu_daily_invoices_rprt"
+            sequence="60"
+           />
+        <!--groups="grp_seguridad.grp_compras_apg_Responsable_SIIF,grp_seguridad.grp_compras_pc_Responsable"-->
+
+    </data>
+</openerp>

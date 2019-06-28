@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record id="account_retention_creditors_form" model="ir.ui.view">
+            <field name="name">account.retention.creditors.form</field>
+            <field name="model">account.retention.creditors</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Acreedores retenciones">
+                    <sheet string="Acreedores retenciones">
+                        <group>
+                            <group>
+                                <field name="name"/>
+                                <field name="operacion"/>
+                                <field name="bank_id"/>
+                                <field name="banco"/>
+                                <field name="agencia"/>
+                                <field name="tipo_cuenta"/>
+                                <field name="cuenta_corriente"/>
+                            </group>
+                            <group>
+                                <field name="acreedor" required="1"/>
+                                <field name="clase"/>
+                                <field name="ruc"/>
+                                <field name="group_id"/>
+                                <field name="codigo_grupo"/>
+                                <field name="fecha_vigencia"/>
+                                <field name="account_id"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- Filtro y agrupadores -->
+        <record id="account_retention_creditors_filter" model="ir.ui.view">
+            <field name="name">account.retention.creditors.filter</field>
+            <field name="model">account.retention.creditors</field>
+            <field name="arch" type="xml">
+                <search string="Search Invoice">
+                    <field name="name"/>
+                    <separator/>
+                    <field name="group_id"/>
+                    <group expand="0" string="Group By...">
+                        <filter string="Grupo" icon="terp-stock_effects-object-colorize" domain="[]"
+                                context="{'group_by':'group_id'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <!-- VISTA TREE -->
+        <record id="account_retention_creditors_tree" model="ir.ui.view">
+            <field name="name">account.retention.creditors.tree</field>
+            <field name="model">account.retention.creditors</field>
+            <field name="arch" type="xml">
+                <tree string="Acreedores de retenciones">
+                    <field name="name"/>
+                    <field name="acreedor"/>
+                    <field name="clase"/>
+                    <field name="ruc"/>
+                    <field name="operacion"/>
+                    <field name="banco"/>
+                    <field name="agencia"/>
+                    <field name="tipo_cuenta"/>
+                    <field name="cuenta_corriente"/>
+                    <field name="bank_id" invisible="1"/>
+                    <field name="group_id"/>
+                    <field name="codigo_grupo"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="action_account_retention_creditors" model="ir.actions.act_window">
+            <field name="name">Acreedores Retención</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">account.retention.creditors</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="account_retention_creditors_form"/>
+            <field name="search_view_id" ref="account_retention_creditors_filter"/>
+        </record>
+
+        <!-- grupo acreedores-->
+        <record id="action_account_group_creditors" model="ir.actions.act_window">
+            <field name="name">Grupo Acreedores</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">account.group.creditors</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <record id="action_account_retention_creditors_form" model="ir.actions.act_window.view">
+            <field eval="1" name="sequence"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="account_retention_creditors_form"/>
+            <field name="act_window_id" ref="action_account_retention_creditors"/>
+        </record>
+
+        <record id="action_account_retention_creditors_tree" model="ir.actions.act_window.view">
+            <field eval="0" name="sequence"/>
+            <field name="view_mode">tree</field>
+            <field name="act_window_id" ref="action_account_retention_creditors"/>
+            <field name="view_id" ref="account_retention_creditors_tree"/>
+        </record>
+
+    </data>
+</openerp>

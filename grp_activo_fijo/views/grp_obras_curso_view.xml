@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <!-- Vistas form tree y search nueva de Obras en curso -->
+        <record model="ir.ui.view" id="view_grp_obras_en_curso_tree">
+            <field name="name">grp.obras.en.curso.tree</field>
+            <field name="model">grp.obras.curso</field>
+            <field name="arch" type="xml">
+                <tree string="Obras en curso">
+                    <field name="obra_en_curso"/>
+                    <field name="active" invisible="1"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="view_grp_obras_en_curso_form">
+            <field name="name">grp.obras.en.curso.form</field>
+            <field name="model">grp.obras.curso</field>
+            <field name="arch" type="xml">
+                <form string="Obras en curso">
+                    <group>
+                        <field name="obra_en_curso"/>
+                        <field name="active"/>
+                    </group>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_grp_obras_en_curso_search" model="ir.ui.view">
+            <field name="name">grp.obras.en.curso.search</field>
+            <field name="model">grp.obras.curso</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <search string="Obras en curso">
+                    <field name="obra_en_curso"/>
+                    <field name="active"/>
+                    <newline/>
+                </search>
+            </field>
+        </record>
+
+        <!-- Vista action de Obras en curso -->
+        <record model="ir.actions.act_window" id="action_grp_obras_en_curso_view">
+            <field name="name">Obras en curso</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">grp.obras.curso</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="view_grp_obras_en_curso_search"/>
+            <field name="domain">[]</field>
+            <field name="context">{'active_test': False}</field>
+        </record>
+
+        <menuitem id="menu_grp_obras_en_curso_conf" action="action_grp_obras_en_curso_view" name="Obras en curso"
+                  parent="account_asset.menu_finance_config_assets" sequence="200"
+                groups="grp_activo_fijo.grp_af_configuracion" />
+
+        <!-- account_asset.menu_finance_assets -->
+        <record model="ir.ui.view" id="view_grp_obras_en_curso_linea_tree">
+            <field name="name">grp.obras.en.curso.linea.tree</field>
+            <field name="model">grp.obras.curso.linea</field>
+            <field name="arch" type="xml">
+                <tree string="Obras en curso" editable="bottom" create="false">
+                    <field name="factura_id" invisible="1"/>
+                    <field name="categoria_activo_id" invisible="1"/>
+                    <field name="account_id" invisible="1"/>
+                    <field name="descripcion" readonly="1"/>
+                    <field name="producto_id" readonly="1"/>
+                    <field name="factura_ref" readonly="1"/>
+                    <field name="obra_en_curso"/>
+                    <field name="importe" readonly="1"/>
+                    <field name="estado_factura" readonly="1"/>
+                    <field name="activado" readonly="1"/>
+                    <field name="no_activar"/>
+                </tree>
+            </field>
+        </record>
+
+        <!--<record model="ir.ui.view" id="view_grp_obras_en_curso_linea_form">-->
+            <!--<field name="name">grp.obras.en.curso.linea.form</field>-->
+            <!--<field name="model">grp.obras.curso.linea</field>-->
+            <!--<field name="arch" type="xml">-->
+                <!--<form string="Obras en curso">-->
+                    <!--<group>-->
+                        <!--<field name="obra_en_curso"/>-->
+                        <!--<field name="active"/>-->
+                    <!--</group>-->
+                <!--</form>-->
+            <!--</field>-->
+        <!--</record>-->
+
+        <record id="view_grp_obras_en_curso_linea_search" model="ir.ui.view">
+            <field name="name">grp.obras.en.curso.linea.search</field>
+            <field name="model">grp.obras.curso.linea</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <search string="Obras en curso">
+                    <field name="factura_id" invisible="1"/>
+                    <field name="descripcion"/>
+                    <field name="producto_id"/>
+                    <field name="factura_ref"/>
+                    <field name="obra_en_curso"/>
+                    <field name="importe"/>
+                    <field name="estado_factura"/>
+                    <field name="activado"/>
+                    <field name="no_activar"/>
+                    <newline/>
+                </search>
+            </field>
+        </record>
+
+        <!-- Vista action de Obras en curso -->
+        <record model="ir.actions.act_window" id="action_grp_obras_en_curso_linea_view">
+            <field name="name">Obras en curso</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">grp.obras.curso.linea</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree</field>
+            <field name="search_view_id" ref="view_grp_obras_en_curso_linea_search"/>
+            <field name="domain">[('activado', '=', False),('no_activar', '=', False)]</field>
+            <field name="context">{}</field>
+        </record>
+
+        <menuitem id="menu_grp_obras_en_curso_linea_conf" action="action_grp_obras_en_curso_linea_view" name="Obras en curso"
+                  parent="account_asset.menu_finance_assets" sequence="200"
+                groups="grp_activo_fijo.grp_af_responsable_financiero" />
+
+
+
+    </data>
+</openerp>

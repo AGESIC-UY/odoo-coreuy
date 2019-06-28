@@ -1,0 +1,5 @@
+ - Cargar el csv de group.creditors  (tabulador)
+
+ - Cargar el csv de retention.creditors (separador ;)
+
+ - MOdificar el campo Banco al segundo en el mapeo cuando se vaya a cargar el csv

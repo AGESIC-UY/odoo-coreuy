@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <!--TODO: SPRING 8 GAP 364 K-->
+        <record id="view_grp_consulta_pago_tree" model="ir.ui.view">
+            <field name="name">grp.consulta.pago.tree</field>
+            <field name="model">grp.consulta.pago</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Agrupador fondo rotatorio" create="false" delete="false">
+                    <field name="fecha"/>
+                    <field name="numero"/>
+                    <field name="referencia"/>
+                    <field name="no_factura"/>
+                    <field name="partner_id"/>
+                    <field name="source_journal_id"/>
+                    <field name="total"/>
+                </tree>
+            </field>
+        </record>
+
+        <!--TODO: SPRING 8 GAP 364 K-->
+        <record id="action_grp_consulta_pago" model="ir.actions.act_window">
+            <field name="name">Consulta de Pagos</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">grp.consulta.pago</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="view_grp_consulta_pago_tree"/>
+        </record>
+        <!--TODO: SPRING 8 GAP 364 K-->
+        <menuitem id="menu_grp_consulta_pago" name="Consulta de Pagos" sequence="61"
+                  parent="account.menu_finance_payables"
+                  action="action_grp_consulta_pago" groups="base.group_system"/>
+                  <!--action="action_grp_consulta_pago" groups="grp_seguridad.grp_informes"/>-->
+
+
+    </data>
+</openerp>

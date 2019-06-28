@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data noupdate="0">
+
+        <!-- ================================================================ -->
+        <!--                      Pedido de Compra                            -->
+        <!-- ================================================================ -->
+
+        <!--Pasar de Borrador a SICE para pedidos migrados-->
+        <record model="workflow.transition" id="trans_pc_draft_sice">
+            <field name="act_from" ref="grp_compras_estatales.act_pc_inicio"/>
+            <field name="act_to" ref="grp_compras_estatales.act_pc_sice"/>
+            <field name="signal">button_wkf_importar_sice</field>
+            <field name="condition">True</field>
+        </record>
+
+
+    </data>
+</openerp>

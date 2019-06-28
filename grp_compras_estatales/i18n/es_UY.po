@@ -1,0 +1,64 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# * grp_compras_estatales
+#
+# Translators:
+# Martin Varela <mvarela@quanam.com>, 2017
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2014
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo 8.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-03-02 14:07+0000\n"
+"PO-Revision-Date: 2017-03-02 15:48+0000\n"
+"Last-Translator: Martin Varela <mvarela@quanam.com>\n"
+"Language-Team: Spanish (http://www.transifex.com/odoo/odoo-8/language/es/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Language: es\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#. module: grp_compras_estatales
+#: view:stock.picking:stock.view_picking_form
+msgid "Mark as Todo"
+msgstr "Confirmar transferencia"
+
+#. module: grp_compras_estatales
+#: field:stock.production.lot,life_date:0
+msgid "End of Life Date"
+msgstr "Fecha de vencimiento"
+
+#. module: grp_compras_estatales
+#: model:res.request.link,name:stock.req_link_tracking
+#: field:stock.change.product.qty,lot_id:0
+#: field:stock.inventory.line,prod_lot_id:0
+#: view:stock.production.lot:stock.view_production_lot_form
+#: view:stock.production.lot:stock.view_production_lot_tree
+#: field:stock.production.lot,name:0 field:stock.return.picking.line,lot_id:0
+msgid "Serial Number"
+msgstr "Lote/Nº de serie"
+
+#. module: grp_compras_estatales
+#: field:stock.move,restrict_lot_id:0 field:stock.move.scrap,restrict_lot_id:0
+#: view:stock.quant:stock.quant_search_view field:stock.quant,lot_id:0
+#: view:website:stock.report_lot_barcode
+#: view:website:stock.report_package_barcode
+msgid "Lot"
+msgstr "Lote/Nº de serie"
+
+
+#. module: grp_compras_estatales
+#: selection:purchase.order,state:0
+msgid "Draft PO"
+msgstr "OC Borrador"
+
+
+#. module: account
+#: view:account.entries.report:account.view_account_entries_report_search
+#: selection:account.entries.report,move_state:0
+#: view:account.move:account.view_account_move_filter
+#: selection:account.move,state:0
+#: view:account.move.line:account.view_account_move_line_filter
+msgid "Unposted"
+msgstr "Asiento borrador"

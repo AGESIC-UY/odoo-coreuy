@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+
+        <!--<record id="view_users_form_inherited2" model="ir.ui.view">-->
+            <!--<field name="name">res.users.form.inherit2</field>-->
+            <!--<field name="model">res.users</field>-->
+            <!--<field name="inherit_id" ref="base.view_users_form"/>-->
+            <!--<field name="arch" type="xml">-->
+                <!--<data>-->
+                    <!--<field name="signature" position="before">-->
+                        <!--<field name="department_id" readonly="1"/>-->
+                    <!--</field>-->
+                <!--</data>-->
+            <!--</field>-->
+        <!--</record>-->
+
+    </data>
+</openerp>

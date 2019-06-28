@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record id="grp_product_template_form_inherited" model="ir.ui.view">
+            <field name="name">grp.product.template.form.inherited</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="account.product_template_form_view"/>
+            <field name="arch" type="xml">
+                <data>
+                    <!-- PCAR GAPF0020_211 Inicio -->
+                    <xpath expr='//field[@name="taxes_id"]' position='after'>
+                        <field name="objeto_gasto" />
+                    </xpath>
+                    <!-- PCAR GAPF0020_211 Fin -->
+                </data>
+            </field>
+        </record>
+    </data>
+</openerp>

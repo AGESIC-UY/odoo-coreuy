@@ -1,0 +1,588 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <!-- Vista FORM heredada de Activos -->
+        <record model="ir.ui.view" id="view_grp_account_asset_asset_form_inherited">
+            <field name="name">grp.account_asset_asset.form.inherited</field>
+            <field name="model">account.asset.asset</field>
+            <field name="inherit_id" ref="account_asset.view_account_asset_asset_form"/>
+            <field name="arch" type="xml">
+
+                <!-- ID 151 Inicio Ocultar boton Cambiar duracion -->
+                <button string="Change Duration" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </button>
+                <!-- ID 151 Fin Ocultar boton Cambiar duracion -->
+
+                <xpath expr="/form/header/button[@name='validate']" position="replace">
+                    <button name="set_to_check" states="draft" string="Enviar a revisión" type="object" class="oe_highlight"
+                            attrs="{'invisible':['|',('af_revision','=',False)]}"
+                            groups="grp_activo_fijo.grp_af_resp_mobiliario,grp_activo_fijo.grp_af_resp_inmueble,grp_activo_fijo.grp_af_resp_vehiculo,grp_activo_fijo.grp_af_resp_informatica,grp_activo_fijo.grp_af_responsable"/>
+                    <button name="validate" string="Confirm Asset" type="object" class="oe_highlight"
+                            attrs="{'invisible':['|','&amp;',('af_revision','=',False),('state','!=','draft'), '&amp;', ('af_revision','=',True),('state','!=','check')]}"
+                            groups="grp_activo_fijo.grp_af_responsable_financiero"/>
+                    <button name="set_to_draft1" states="check" string="Borrador" type="object" class="oe_highlight"
+                            attrs="{'invisible':['|',('af_revision','=',False)]}"
+                            groups="grp_activo_fijo.grp_af_responsable_financiero"/>
+                </xpath>
+                <!--End INés: -->
+
+                <!-- PCAR GAPF0020_22 Cancelacion baja de AF Inicio -->
+                <button name="validate" position="after">
+                    <!--<button name="action_cancelar_baja" type="object" string="Cancelar baja"-->
+                            <!--groups="grp_activo_fijo.grp_af_responsable_financiero"/>-->
+                    <button
+                       type="action"
+                       name="%(grp_activo_fijo.action_view_wizard_cancelar_baja_form)d"
+                       string="Cancelar baja"
+                       states="baja"
+                       class="oe_highlight"
+                       groups="grp_activo_fijo.grp_af_responsable_financiero"
+                    />
+                </button>
+                <!-- PCAR GAPF0020_22 Cancelacion baja de AF Fin -->
+
+                <field name="state" position="attributes">
+                    <attribute name="statusbar_visible">draft,open,close,baja</attribute>
+                </field>
+
+                <div class="oe_title" position="replace">
+                    <field name="image_medium" widget="image" class="oe_left oe_avatar"/>
+                    <div class="oe_title">
+                        <label for="name" class="oe_edit_only"/>
+                        <h1>
+                            <field name="name"/>
+                        </h1>
+                    </div>
+                </div>
+
+                <!-- PCARBALLO: El boton que se oculta con estas lineas es el siguiente:
+                <button name="set_to_draft" states="open" string="Set to Draft" type="object" />-->
+
+                <button name="set_to_draft" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </button>
+                <button name="set_to_close" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </button>
+
+                <button name="set_to_close" position="after">
+                    <field name="amortizacion" invisible="1"/>
+                    <button name="%(grp_baja_activo_act)d" string="Dar Baja" states="open,close" type="action" groups="grp_activo_fijo.grp_af_responsable_financiero" context="{'form_state':state, 'default_amortizacion_form':amortizacion, 'operating_unit':operating_unit_id}"/>
+                </button>
+
+                <header position="inside">
+                    <field name="es_resp" invisible="1"/>
+                    <button name="aceptar_responsable" string="Aceptar"
+                            attrs="{'invisible':['|','|',('es_resp','!=',True),('estado_responsable','!=','EP'),('state','!=','open')]}"
+                            type="object"/>
+                    <button name="rechazar_responsable" string="Rechazar"
+                            attrs="{'invisible':['|','|',('es_resp','!=',True),('estado_responsable','!=','EP'),('state','!=','open')]}"
+                            type="object"/>
+                </header>
+
+                <field name="code" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </field>
+                <field name="category_id" position="before">
+                    <field name="secuencia_activo" invisible="1" />
+                    <field name="domain_category_ids" invisible="1" />
+                    <field name="numero_activo" />
+                    <field name="es_padre"/>
+                    <field name="invoice_id" readonly="1" context="{'form_view_ref':'account.invoice_supplier_form','type':'in_invoice'}"/>
+                    <field name="origin_picking_id" />
+                    <field name="motivo_alta_id" attrs="{'required': [('invoice_id', '=', False), ('origin_picking_id', '=', False)], 'readonly':[('state','in', ['open', 'close', 'baja'])]}"/>
+                    <field name="operating_unit_id"
+                           attrs="{'readonly':['|', ('state','!=', 'draft'), ('invoice_id', '!=', False)]}"
+                           options="{'create': false, 'create_edit': false}"/>
+                </field>
+                <field name="category_id" position="after">
+                    <field name="tipo_categoria" invisible="1"/>
+                </field>
+                <field name="category_id" position="attributes">
+                    <attribute name="domain">[('id', 'in', domain_category_ids[0][2] or [])]</attribute>
+                </field>
+
+                <field name="parent_id" position="after">
+                    <field name="department_id" attrs="{'readonly': [('state', 'in', ['baja'])]}"/>
+                    <field name="user_id" string="Responsable" attrs="{'readonly': [('state', 'in', ['baja'])]}"/>
+                    <field name="ubicacion_fisica" domain="[('ubicaciones_hijas_ids','=',False)]" attrs="{'readonly': [('state', 'in', ['baja'])]}"/>
+                    <field name="estado_responsable" invisible="1"/>
+                </field>
+                <field name="parent_id" position="attributes">
+                    <attribute name="domain">[('es_padre','=',True)]</attribute>
+                </field>
+                <field name="company_id" position="after">
+                    <field name="estado_activo"/>
+                    <field name="tenencia" attrs="{'readonly': [('state', 'in', ['baja'])]}"/>
+                    <field name="prestado_a_de" attrs="{'readonly': [('state', 'in', ['baja'])]}"/>
+                    <field name="nombre_contacto" attrs="{'invisible': [('tenencia','!=','propio_donado')], 'readonly': [('tenencia','!=','propio_donado')]}"/>
+                    <field name="af_revision" invisible="1"/>
+                </field>
+                <field name="salvage_value" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </field>
+                <!-- PCARBALLO: Se agregan a la vista form los campos Fecha y Valor de Alta de Activo. -->
+                <field name="purchase_date" position="before">
+                    <field name="fecha_alta" attrs="{'readonly': [('state', 'in', ['baja'])]}"/>
+                </field>
+                <field name="purchase_date" position="after">
+                    <field name="purchase_value_date" string="Fecha primera amortización" attrs="{'required': [('es_padre', '=', False)], 'readonly': [('state', 'in', ['open'])]}"/>
+                </field>
+
+                <field name="purchase_value" position="attributes">
+                    <attribute name="widget">monetary</attribute>
+                    <attribute name="options">{'currency_field': 'currency_id'}</attribute>
+                    <attribute name="on_change">onchange_purchase_salvage_value(purchase_value, salvage_value)</attribute>
+                    <attribute name="string">Costo de adquisición</attribute>
+                </field>
+
+                <field name="partner_id" position="after">
+                    <field name="valor_alta" widget="monetary" options="{'currency_field': 'currency_id'}" invisible="1"/>
+                    <field name="move_id"/>
+                </field>
+
+                <button name="validate" position="attributes">
+                    <attribute name="groups">grp_activo_fijo.grp_af_responsable_financiero</attribute>
+                </button>
+
+               <!--<field name="depreciation_line_ids" position="attributes">-->
+                    <!--<attribute name="attrs">{'readonly':[('state','not in',['draft'])]}</attribute>-->
+                <!--</field>-->
+                <!-- PCAR 02 05 2017 GAPF0020_18 Activo Fijo Inicio -->
+                <xpath expr="//form//page[@string='Depreciation Board']//form//group//group//field[@name='name']" position="attributes">
+                    <attribute name="readonly">1</attribute>
+                </xpath>
+                <xpath expr="//form//page[@string='Depreciation Board']//form//group//group//field[@name='amount']" position="attributes">
+                    <attribute name="readonly">1</attribute>
+                </xpath>
+                <xpath expr="//form//page[@string='Depreciation Board']//form//group//group//field[@name='move_id']" position="attributes">
+                    <attribute name="readonly">1</attribute>
+                </xpath>
+                <xpath expr="//form//page[@string='Depreciation Board']//form//group//group//field[@name='sequence']" position="attributes">
+                    <attribute name="readonly">1</attribute>
+                </xpath>
+                <xpath expr="//form//page[@string='Depreciation Board']//form//group//group//field[@name='depreciation_date']" position="attributes">
+                    <attribute name="readonly">1</attribute>
+                </xpath>
+                <xpath expr="//form//page[@string='Depreciation Board']//form//group//group//field[@name='depreciated_value']" position="attributes">
+                    <attribute name="readonly">1</attribute>
+                </xpath>
+                <xpath expr="//form//page[@string='Depreciation Board']//form//group//group//field[@name='remaining_value']" position="attributes">
+                    <attribute name="readonly">1</attribute>
+                </xpath>
+
+                <xpath expr="//form//page[@string='Depreciation Board']//form//group//group//field[@name='move_check']"
+                       position="after">
+                    <field name="cancelar_amortizacion"
+                           on_change="onchange_cancelar_amortizacion(cancelar_amortizacion)"
+                           attrs="{'invisible': [('move_check','=',False)]}" />
+                    <field name="fecha_asiento"
+                           attrs="{'invisible': [('cancelar_amortizacion','=',False)],
+                           'required': [('cancelar_amortizacion','=',True)]}" />
+                    <button name="action_cancelar_amortizacion" string="Cancelar amortización" type="object"
+                            attrs="{'invisible': ['|',('move_check','=',False),('cancelar_amortizacion','=',False)]}"
+                            groups="grp_activo_fijo.grp_af_responsable_financiero" />
+                </xpath>
+
+                <xpath expr="//form//page[@string='Depreciation Board']//tree" position="attributes">
+                    <attribute name="delete">0</attribute>
+                    <attribute name="create">0</attribute>
+                </xpath>
+                <!-- PCAR 02 05 2017 GAPF0020_18 Activo Fijo Fin -->
+
+                <page string="Notes" position="after">
+                    <!--<page string="Obras de arte">-->
+                    <page string="Obras de arte"
+                          attrs="{'invisible': [('tipo_categoria', '!=', 'art')]}">
+                        <group>
+                            <group>
+                                <field name="obra_arte_fecha"/>
+                                <field name="obra_arte_propietario"/>
+                                <field name="obra_arte_autor"/>
+                                <field name="obra_arte_firma"/>
+                                <field name="obra_arte_firma_ubicacion"/>
+                                <field name="obra_arte_estado_firma"/>
+                            </group>
+                            <group>
+                                <field name="obra_arte_codigo"/>
+                                <field name="obra_arte_categoria_id"/>
+                                <field name="obra_arte_genero_id"/>
+                                <field name="obra_arte_forma_id"/>
+                                <field name="obra_arte_modo_adquisicion"/>
+                                <field name="obra_arte_para_restaurar"/>
+                            </group>
+                            <group string="Dimensión">
+                                <field name="obra_arte_dimension_alto"/>
+                                <field name="obra_arte_dimension_ancho"/>
+                                <field name="obra_arte_dimension_diametro"/>
+                            </group>
+                            <group string="Técnica">
+                                <field name="obra_arte_tecnicas_ids" widget="many2many_tags"/>
+                                <field name="obra_arte_soporte"/>
+                            </group>
+                        </group>
+                    </page>
+
+                    <!--<page string="Informática">-->
+                    <page string="Informática"
+                          attrs="{'invisible': [('tipo_categoria', '!=', 'inf')]}">
+                        <group>
+                            <group>
+                                <field name="inf_nuc" string="Id" attrs="{'readonly': [('state', 'in', ['baja'])]}"/>
+                                <field name="inf_tipo_id" on_change="onchange_inf_tipo_id(inf_tipo_id)" attrs="{'readonly': [('state', 'in', ['baja'])]}"/>
+                                <field name="inf_marca" attrs="{'readonly': [('state', 'in', ['baja'])]}"/>
+                                <field name="inf_modelo" attrs="{'readonly': [('state', 'in', ['baja'])]}"/>
+                                <field name="inf_ip" attrs="{'readonly': [('state', 'in', ['baja'])]}"/>
+                                <field name="inf_serial_num" attrs="{'readonly': [('state', 'in', ['baja'])]}"/>
+                            </group>
+                            <group string="Garantía">
+                                <field name="inf_garantia_duracion" attrs="{'readonly': [('state', 'in', ['baja'])]}"/>
+                                <field name="inf_fecha_ini" attrs="{'readonly': [('state', 'in', ['baja'])]}"/>
+                                <field name="inf_fecha_fin" attrs="{'readonly': [('state', 'in', ['baja'])]}"/>
+                            </group>
+                            <group string="Características">
+                                <field name="inf_tipo_name" attrs="{'invisible': '1','readonly': [('state', 'in', ['baja'])]}"/>
+                                <field name="inf_prestaciones"
+                                       attrs="{'invisible': [('inf_tipo_name', '!=', 'Impresora')],'readonly': [('state', 'in', ['baja'])]}"/>
+                                <field name="inf_contador_pag"
+                                       attrs="{'invisible': [('inf_tipo_name', '!=', 'Impresora')],'readonly': [('state', 'in', ['baja'])]}"/>
+                                <field name="inf_carac_fecha"
+                                       attrs="{'invisible': [('inf_tipo_name', '!=', 'Impresora')],'readonly': [('state', 'in', ['baja'])]}"/>
+                                <field name="inf_contador_tot"
+                                       attrs="{'invisible': [('inf_tipo_name', '!=', 'Impresora')],'readonly': [('state', 'in', ['baja'])]}"/>
+                                <field name="inf_disco"
+                                       attrs="{'invisible': [('inf_tipo_name', '!=', 'PC')],'readonly': [('state', 'in', ['baja'])]}"/>
+                                <field name="inf_memoria"
+                                       attrs="{'invisible': [('inf_tipo_name', '!=', 'PC')],'readonly': [('state', 'in', ['baja'])]}"/>
+                                <field name="inf_procesador"
+                                       attrs="{'invisible': [('inf_tipo_name', '!=', 'PC')],'readonly': [('state', 'in', ['baja'])]}"/>
+                            </group>
+                        </group>
+                    </page>
+
+                    <page string="Inmuebles"  attrs="{'invisible':[('tipo_categoria','!=', 'inm')]}">
+                        <group>
+                            <!--todo el required de los campos debe ser la negación de la condicion del invisible del page-->
+                            <group>
+                                <!--todo aqui falta 1 campo-->
+                                <field name="country_id"
+                                       attrs="{'required':[('tipo_categoria','=','inm')],'readonly': [('state', 'in', ['baja'])]}"
+                                       options="{'no_create': True, 'no_open': True}"/>
+                                <field name="country_state_id" attrs="{'required':[('tipo_categoria','=','inm')],'readonly': [('state', 'in', ['baja'])]}"
+                                       options="{'no_create': True, 'no_open': True}"/>
+                                <field name="localidad"
+                                       attrs="{'required':[('tipo_categoria','=','inm')],'readonly': [('state', 'in', ['baja'])]}"
+                                       options="{'no_create': True, 'no_open': True}"/>
+                                <field name="padron"
+                                       attrs="{'required':[('tipo_categoria','=','inm')],'readonly': [('state', 'in', ['baja'])]}"/>
+                                <field name="direction"
+                                       attrs="{'required':[('tipo_categoria','=','inm')],'readonly': [('state', 'in', ['baja'])]}"/>
+                                <field name="surface_mts2"
+                                       attrs="{'readonly': [('state', 'in', ['baja'])]}" />
+                            </group>
+                            <group>
+                                <!--todo aqui falta 1 campo-->
+                                <field name="property"
+                                       attrs="{'required':[('tipo_categoria','=','inm')],'readonly': [('state', 'in', ['baja'])]}"/>
+                                <field name="state_inciso"
+                                       attrs="{'invisible':[('property','!=','inciso')], 'required':[('property','=','inciso'),('tipo_categoria','=','inm')],'readonly': [('state', 'in', ['baja'])]}"/>
+                                <!--<field name="contract_number" attrs="{'required':[('state_inciso','in',['arrendamiento','comodato']),('tipo_categoria','=','inm')]}"/>-->
+                                <field name="name_inmueble"
+                                       attrs="{'readonly': [('state', 'in', ['baja'])]}"/>
+                            </group>
+                        </group>
+                    </page>
+                    <page string="Inventario AF">
+                        <field name="inventory_ids" colspan="4" nolabel="1" readonly="1" domain="[('state','=','validado')]"><!--domain="[('state','=','validado')]"-->
+                            <tree string="Inventarios">
+                                <field name="fecha_inventario"/>
+                                <field name="recuento"/>
+                                <field name="ubicacion_id"/>
+                                <field name="comentario"/>
+                                <field name="state" invisible="1"/>
+                            </tree>
+                        </field>
+                    </page>
+                    <page string="Vehículo" attrs="{'invisible':[('tipo_categoria','!=','veh')]}">
+                        <group colspan="6" col="4">
+                            <field name="tipo_vehiculo"/>
+                            <field name="cant_pasajero"/>
+                            <field name="cilindrada"/>
+                            <field name="tipo_combustible"/>
+                        </group>
+                    </page>
+
+                    <page string="Historial responsable / ubicación">
+                        <field name="historial_resp" colspan="4" nolabel="1" readonly="1">
+                            <tree string="Historial responsable">
+                                <field name="department_id"/>
+                                <field name="user_id"/>
+                                <field name="write_date"/>
+                                <field name="write_uid"/>
+                                <field name="estado_responsable"/>
+                            </tree>
+
+                        </field>
+                    </page>
+                    <!-- PCAR 003 Inicio -->
+                    <page string="Facturas relacionadas">
+                        <field name="invoice_ids" colspan="4" nolabel="1" readonly="1">
+                            <tree string="Facturas relacionadas">
+                                <field name="name"/>
+                                <field name="supplier_invoice_number"/>
+                                <field name="date_invoice"/>
+                                <field name="amount_total" invisible="1"/>
+                                <field name="total_nominal_divisa_cpy"/>
+                                <field name="state" invisible="1"/>
+                            </tree>
+                        </field>
+                    </page>
+                    <!-- PCAR 003 Fin -->
+
+                    <page string="Historial de baja">
+                        <field name="historial" colspan="4" nolabel="1" readonly="1">
+                            <tree string="Historial">
+                                <field name="fecha_baja"/>
+                                <field name="motivo_baja"/>
+                                <field name="descripcion_motivo"/>
+                                <field name="nro_expediente"/>
+                                <field name="account_move_id" options="{'no_create':True}" string="Asiento contable"/>
+                                <button name="open_account_move" icon="terp-stock_format-scientific" string="Ver Asiento" type="object"/>
+                            </tree>
+                        </field>
+                    </page>
+
+                    <!-- PCAR 27 04 2017 GAP 11 Poliza de Seguro AF 002 Inicio -->
+                    <page string="Póliza de Seguro">
+                        <field name="poliza_ids" colspan="4" nolabel="1" attrs="{'readonly': [('state', 'in', ['baja'])]}">
+                            <tree string="Póliza de Seguro" editable="bottom" >
+                                <field name="asset_id" invisible="1"/>
+                                <field name="nro_poliza"/>
+                                <field name="fecha_vencimiento"/>
+                                <field name="descripcion"/>
+                            </tree>
+                        </field>
+                    </page>
+                    <!-- PCAR 27 04 2017 GAP 11 Poliza de Seguro AF 002 Fin -->
+
+
+                </page>
+
+
+                <page string="General" position="inside">
+                    <group string="Atributos" name="atributos" col="6">
+                        <group>
+                            <field name="gral_atributo_1"
+                                   domain="[('category_id','=', category_id),('id','not in', [gral_atributo_2, gral_atributo_3])]"
+                                   attrs="{'readonly': [('state', 'in', ['baja'])]}"/>
+                            <field name="gral_valor_1" domain="[('atributo_id','=',gral_atributo_1)]"
+                                   attrs="{'readonly': [('state', 'in', ['baja'])]}"/>
+                        </group>
+                        <group>
+                            <field name="gral_atributo_2"
+                                   domain="[('category_id','=', category_id),('id','not in', [gral_atributo_1, gral_atributo_3])]"
+                                   attrs="{'readonly': [('state', 'in', ['baja'])]}"/>
+                            <field name="gral_valor_2" domain="[('atributo_id','=',gral_atributo_2)]"
+                                   attrs="{'readonly': [('state', 'in', ['baja'])]}"/>
+                        </group>
+                        <group>
+                            <field name="gral_atributo_3"
+                                   domain="[('category_id','=', category_id),('id','not in', [gral_atributo_1, gral_atributo_2])]"
+                                   attrs="{'readonly': [('state', 'in', ['baja'])]}"/>
+                            <field name="gral_valor_3" domain="[('atributo_id','=',gral_atributo_3)]"
+                                   attrs="{'readonly': [('state', 'in', ['baja'])]}"/>
+                        </group>
+                    </group>
+                    <group string="Otros Atributos" name="otros_atributos">
+                        <field name="gral_otro_atributo1" style="width:50%%" attrs="{'readonly': [('state', 'in', ['baja'])]}"/>
+                        <field name="gral_otro_atributo2" style="width:50%%" attrs="{'readonly': [('state', 'in', ['baja'])]}"/>
+                    </group>
+                </page>
+                <field name="value_residual" position="after">
+                    <field name="amortizacion_ac_baja" invisible="1"/>
+                    <field name="amortizacion_ac"/>
+                    <!-- PCAR GAPF0020_22 Inicio -->
+                    <field name="amortizacion_parcial" invisible="1"/>
+                    <!-- PCAR GAPF0020_22 Fin -->
+                </field>
+                <!-- MVARELA 20_03 se oculta el boton 'Asientos' -->
+                <button name="open_entries" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </button>
+                <notebook position="attributes">
+                    <attribute name="attrs">{'invisible':[('es_padre','=',True)]}</attribute>
+                </notebook>
+                <!--MVARELA 26_03 - Se agrega mensajeria -->
+                <sheet position="after">
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </sheet>
+                <!-- 07_01 MVARELA el boton no se ve si se confirmo-->
+                <button name="compute_depreciation_board" position="attributes">
+                    <attribute name="attrs">{'invisible':[('state','!=','draft')]}</attribute>
+                </button>
+
+                <field name="company_id" position="after">
+                    <!--TODO GAP 4 Spring 4: Ocultando unidades originales-->
+                    <!--<field name="unidades_originales" invisible="1"/>-->
+                    <!--<field name="unidades_actuales"/>-->
+                    <field name="fecha_baja"/>
+                </field>
+
+                <xpath expr="//field[@name='depreciation_line_ids']/tree/field[@name='depreciated_value']" position="replace"/>
+
+                <xpath expr="//field[@name='depreciation_line_ids']/tree/field[@name='amount']" position="after">
+                    <field name="depreciated_value" readonly="1"/>
+                </xpath>
+
+                 <xpath expr="//field[@name='depreciation_line_ids']/tree/button[@name='create_move']" position="attributes">
+                    <attribute name="groups">grp_activo_fijo.grp_af_responsable_financiero</attribute>
+                </xpath>
+            </field>
+        </record>
+
+        <!-- campos en vista tree -->
+        <record model="ir.ui.view" id="view_account_asset_asset_tree_inherited_campos_baja">
+            <field name="name">account.asset.asset.tree.inherited_campos_baja</field>
+            <field name="model">account.asset.asset</field>
+            <field name="inherit_id" ref="account_asset.view_account_asset_asset_tree"></field>
+            <field name="arch" type="xml">
+
+                <field name="category_id" position="after">
+                    <field name="operating_unit_id"/>
+                    <field name="department_id"/>
+                    <field name="user_id"/>
+                    <field name="estado_activo"/>
+                    <field name="invoice_id"/>
+                    <!--<field name="unidades_actuales"/>-->
+                </field>
+                <field name="purchase_date" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </field>
+                <field name="partner_id" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </field>
+                <field name="purchase_value" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </field>
+                <field name="value_residual" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </field>
+                <field name="currency_id" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </field>
+                <field name="company_id" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </field>
+
+            </field>
+        </record>
+
+        <!-- search de activos, agrega agrupadores -->
+        <record id="view_account_asset_search_inherit_grp_agrup" model="ir.ui.view">
+            <field name="name">account.asset.asset.search.inherit_grp_agrup</field>
+            <field name="model">account.asset.asset</field>
+            <field name="inherit_id" ref="account_asset.view_account_asset_search"/>
+            <field name="arch" type="xml">
+                <field name="category_id" position="attributes">
+                    <attribute name="operator">child_of</attribute>
+                </field>
+                <field name="partner_id" position="after">
+                    <field name="operating_unit_id"/>
+                    <filter string="Bienes de uso" name="bienes_uso" icon="terp-stock_effects-object-colorize"
+                            domain="[('es_padre','=',False)]"/>
+                    <filter string="Oficina establecida" name="oficina_establecida"
+                            icon="terp-stock_effects-object-colorize" domain="[('department_id','!=',False)]"/>
+                    <group expand="0" string="Agrupar Por...">
+                        <filter string="Subcategoría" name="subcategoria" icon="terp-stock_effects-object-colorize"
+                                domain="[]" context="{'group_by':'category_id'}"/>
+                        <filter string="Ubicación" name="ubicacion" icon="terp-stock_effects-object-colorize"
+                                domain="[]" context="{'group_by':'department_id'}"/>
+                        <filter string="Estado" name="estado" icon="terp-stock_effects-object-colorize" domain="[]"
+                                context="{'group_by':'state'}"/>
+                        <filter name="uec" string="Unidad ejecutora responsable" icon="terp-stock_effects-object-colorize" domain="[]"
+                                context="{'group_by':'operating_unit_id'}"/>
+                    </group>
+                </field>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="account_asset.action_account_asset_asset_form">
+            <field name="name">Assets</field>
+            <field name="res_model">account.asset.asset</field>
+            <field name="view_type">form</field>
+            <field name="view_id" ref="account_asset.view_account_asset_asset_tree"/>
+            <field name="search_view_id" ref="account_asset.view_account_asset_search"/>
+            <field name="context">{'search_default_bienes_uso': 1}</field>
+        </record>
+
+        <!-- Modificar vista Jerarquia de Activos -->
+        <record id="view_account_asset_hierarchy_search" model="ir.ui.view">
+            <field name="name">account.asset.asset.hierarchy.search</field>
+            <field name="model">account.asset.asset</field>
+            <field name="arch" type="xml">
+                <search string="Activo fijo">
+                    <field name="name" string="Activo"/>
+                    <filter name="parent_id" string="Padre del activo está establecido" domain="[('parent_id','!=',False)]"/>
+                    <group expand="1" string="Agrupado por">
+                        <filter name="group_parent_id" string="Padre del activo"  domain="[]" context="{'group_by':'parent_id'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="view_account_asset_asset_hierarchy_tree">
+            <field name="name">account.asset.asset.hierarchy</field>
+            <field name="model">account.asset.asset</field>
+            <field name="inherit_id" ref="account_asset.view_account_asset_asset_hierarchy_tree"></field>
+            <field name="arch" type="xml">
+                <field name="code" position="after">
+                    <field name="numero_activo"/>
+                </field>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="view_account_asset_asset_hierarchy_tree_new">
+            <field name="name">account.asset.asset.hierarchy.new</field>
+            <field name="model">account.asset.asset</field>
+            <field name="arch" type="xml">
+                <tree string="Activos" editable="false" create="false">
+                    <field name="name"/>
+                    <field name="code"/>
+                    <field name="numero_activo"/>
+                    <field name="category_id"/>
+                    <field name="purchase_date"/>
+                    <field name="purchase_value"/>
+                    <field name="value_residual"/>
+                    <field name="currency_id" groups="base.group_multi_currency"/>
+                    <field name="company_id" groups="base.group_multi_company"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- se sobreescribe la vista accion de Jerarquia de activos para agregar una search con filtros por defecto -->
+        <record model="ir.actions.act_window" id="account_asset.action_account_asset_asset_tree">
+            <field name="view_type">form</field>
+            <field name="domain">[]</field>
+            <field name="context">{'search_default_parent_id': 1, 'search_default_group_parent_id': 1}</field>
+            <field name="search_view_id" ref="view_account_asset_hierarchy_search"/>
+            <field name="view_id" ref="view_account_asset_asset_hierarchy_tree_new"/>
+        </record>
+
+        <record id="view_solicitud_recursos_almacen_solicitante_form" model="ir.ui.view">
+            <field name="name">grp.compras.solicitud.recursos.almacen.af.inherited</field>
+            <field name="model">grp.compras.solicitud.recursos.almacen</field>
+            <field name="inherit_id" ref="grp_compras_estatales.view_solicitud_recursos_almacen_solicitante_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='grp_sr_af_id']/tree/field[@name='ubicacion_origen']" position="after">
+                    <field name="ubicacion_fisica" />
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</openerp>

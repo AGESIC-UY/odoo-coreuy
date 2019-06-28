@@ -67,7 +67,7 @@
         <record id="view_bank_statement_form2" model="ir.ui.view">
             <field name="name">account.bank.statement.form.tesoreria</field>
             <field name="model">account.bank.statement</field>
-            <field name="inherit_id" ref="grp_account_distribution.view_bank_statement_form2"/>
+            <field name="inherit_id" ref="account.view_bank_statement_form2"/>
             <field name="arch" type="xml">
                 <button name="button_cancel" position="after">
                     <button name="action_cancelado" states="open" string="Cerrar caja" type="object"
@@ -186,10 +186,6 @@
                 <!--RAGU actualizar saldo inicial-->
                 <xpath expr="//field[@name='balance_start']" position="after">
                     <button name="action_update_balance_start" type="object" class="oe_link oe_inline" string="(Actualizar Saldo inicial)" colspan="2" states="draft"/>
-                </xpath>
-
-                <xpath expr="/form/sheet/notebook/page/field/tree/field[@name='analytics_id']" position="attributes">
-                    <attribute name="attrs">{'readonly': ['|',('journal_entry_id', '!=', False),('state','not in',('draft','open', False))]}</attribute>
                 </xpath>
 
                 <field name="balance_end" position="after">

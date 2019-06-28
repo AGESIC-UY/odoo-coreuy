@@ -1,0 +1,8 @@
+N;NIE;N;N;;N
+R;RUT;S;N;[0-9]+;S
+C;Cédula de Identidad;N;N;;N
+P;Pasaporte;N;N;[A-z0-9]+;N
+T;Propios de Tesorería;N;N;;N
+X;Empresa Extranjera;S;S;;N
+E;Cédula Extranjera;N;N;;N
+G;Genérico;N;N;;N

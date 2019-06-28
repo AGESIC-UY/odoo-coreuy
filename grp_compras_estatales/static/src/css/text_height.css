@@ -1,0 +1,10 @@
+.text_high {
+    height: 22px;
+    margin-top: 5px;
+    /*width: 50px;*/
+}
+
+.text_high textarea {
+    height: 100%;
+    /*width: 100%;*/
+}

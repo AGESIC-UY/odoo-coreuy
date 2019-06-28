@@ -476,7 +476,8 @@ class GrpTransferenciaCabezal(models.Model):
                 'company_id': self.env['res.users'].browse(self._uid).company_id.id,
                 'operating_unit_id': rec.transfer_id.journal_id.operating_unit_id.id,
                 'line_ids': [(0, 0, value) for value in
-                             self._get_voucher_lines(rec.partner_id, rec.currency_id.id, bank_name, equals)]
+                             self._get_voucher_lines(rec.partner_id, rec.currency_id.id, bank_name, equals)],
+                'pre_line': True,  # Visualizar grilla de creditos
             }
             voucher = Voucher.create(voucher_data)
             voucher.proforma_voucher()
@@ -489,11 +490,11 @@ class GrpTransferenciaCabezal(models.Model):
         for line in result:
             data.append({
                 'move_line_id': line.move_line_id.id,
-                'amount': line.amount,
-                'amount_unreconciled': line.amount,
-                'amount_original': line.amount,
+                'amount': abs(line.amount),
+                'amount_unreconciled': abs(line.amount),
+                'amount_original': abs(line.amount),
                 'account_id': line.move_line_id.account_id.id,
-                'type': 'dr',
+                'type': line.amount > 0 and 'dr' or 'cr',
             })
         return data
 

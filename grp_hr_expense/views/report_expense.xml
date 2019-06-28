@@ -452,7 +452,7 @@
             report_type="qweb-pdf"
             name="grp_hr_expense.report_expense_2"
             file="hr_expense.report_expense_2"
-            groups="grp_tesoreria.group_grp_aprobador_anticipos,grp_tesoreria.group_grp_solicitante_anticipos,grp_viaticos.grp_aprobar_rendicion,grp_viaticos.grp_aprobar_rendicion_f,grp_viaticos.grp_sv_solicitante,grp_seguridad.grp_analista_contable"
+            groups=""
         />
 
         <report

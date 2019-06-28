@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+
+        <record id="view_account_retention_siif_inherited_form" model="ir.ui.view">
+            <field name="name">view.account.retention.siif_inherited.form</field>
+            <field name="model">account.retention</field>
+            <field name="inherit_id" ref="uy_retenciones.view_account_retention_form"/>
+            <field name="arch" type="xml">
+                <field name="journal_id" position="before">
+                    <field name="acreedor_id" required="True"/>
+                    <field name="grupo_acreedor_id" required="True"/>
+                </field>
+            </field>
+        </record>
+
+        <record id="view_account_retention_siif_inherited_search" model="ir.ui.view">
+            <field name="name">view.account.retention.siif.inherited.search</field>
+            <field name="model">account.retention</field>
+            <field name="inherit_id" ref="uy_retenciones.view_account_retention_search"/>
+            <field name="arch" type="xml">
+                <filter string="Base Compute" position="after">
+                    <filter string="Group" icon="terp-folder-orange" domain="[]" context="{'group_by':'grupo_acreedor_id'}"/>
+                    <filter string="Creditor" icon="terp-folder-orange" domain="[]" context="{'group_by':'acreedor_id'}"/>
+                </filter>
+            </field>
+        </record>
+
+        <!-- 04/01 Creando form para grupo de retenciones-->
+        <record id="view_invoice_summary_group_ret_form" model="ir.ui.view">
+            <field name="name">view.account.invoice.summary.group.ret.form</field>
+            <field name="model">account.invoice.summary.group.ret</field>
+            <field name="arch" type="xml">
+                <form string="Retention Summary Group" version="7.0" create="false" delete="false" edit="false">
+                    <group colspan="2" col="4">
+                        <field name="invoice_id" invisible="1"/>
+                        <field name="tipo_retencion"/>
+                        <field name="iva" string="Retención"/>
+                        <!--Agregar grupo acreedor y acreedor -->
+                        <field name="group_id" readonly="1"/>
+                        <field name="creditor_id" readonly="1"/>
+                    </group>
+                    <group>
+                        <group name="original" string="Moneda Original">
+                            <field name="base_linea" string="Importe sin impuestos"/> <!-- cambiado 07/09 -->
+                            <field name="base_impuesto"
+                                   string="Impuesto"/> <!-- cambiado 07/09, decia importe y se cambio a Impuesto -->
+                            <field name="monto_retencion"/>
+                            <!-- Sin redondear-->
+                            <field name="monto_retencion_unround"/>
+                            <!--005- CAMPOS PARA VALIDAR REDONDEOS 31/12-->
+                            <field name="base_impuesto_unround"/>
+                            <field name="ret_amount_round"/>
+                        </group>
+                        <group name="pesos" string="Pesos">
+                            <field name="base_linea_pesos"/>
+                            <field name="base_impuesto_pesos"/>
+                            <field name="monto_retencion_pesos"/>
+                            <br/>
+                            <br/>
+                            <field name="base_impuesto_pesos_unround"/>
+                            <field name="ret_amount_pesos_round"/>
+                        </group>
+                    </group>
+                </form>
+            </field>
+        </record>
+
+
+    </data>
+</openerp>

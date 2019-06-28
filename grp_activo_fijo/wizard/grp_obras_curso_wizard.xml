@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+
+        <record id="grp_obras_curso_enviar_gasto_view" model="ir.ui.view">
+            <field name="name">grp.obras.curso.enviar.gasto.view</field>
+            <field name="model">grp.obras.curso.enviar.gasto</field>
+            <field name="arch" type="xml">
+                <form string="Enviar a gasto" >
+                    <group>
+                        <field name="fecha" required="1"/>
+                    </group>
+                    <footer>
+                        <button string="Aceptar"
+                                name="enviar_gasto"
+                                type="object"
+                                default_focus="1"
+                                class="oe_highlight"
+                                confirm="Está seguro que desea enviar a gastos?"
+                                />
+                        or
+                        <button string="Cancelar"
+                                class="oe_link"
+                                special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <act_window id="action_grp_obras_curso_enviar_gasto"
+            multi="True"
+            key2="client_action_multi" name="Enviar a gasto"
+            res_model="grp.obras.curso.enviar.gasto" src_model="grp.obras.curso.linea"
+            view_mode="form" target="new" view_type="form" />
+
+
+        <record id="grp_obras_curso_activar_existente_view" model="ir.ui.view">
+            <field name="name">grp.obras.curso.activar.existente.view</field>
+            <field name="model">grp.obras.curso.activar.existente</field>
+            <field name="arch" type="xml">
+                <form string="Activar a Activo existente" >
+                    <group>
+                        <field name="fecha" required="1"/>
+                        <field name="asset_id" required="1" domain="[('state', 'in', ['draft', 'open'])]"/>
+                        <field name="asset_category_cpy" />
+                        <field name="asset_category_id" invisible="1" />
+                    </group>
+                    <footer>
+                        <button string="Confirmar"
+                                name="activar_existente"
+                                type="object"
+                                default_focus="1"
+                                class="oe_highlight"
+                        />
+                        or
+                        <button string="Cancelar"
+                                class="oe_link"
+                                special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <act_window id="action_grp_obras_curso_activar_existente_view"
+            multi="True"
+            key2="client_action_multi" name="Activar a activo existente"
+            res_model="grp.obras.curso.activar.existente" src_model="grp.obras.curso.linea"
+            view_mode="form" target="new" view_type="form" />
+
+
+
+        <record id="grp_obras_curso_activar_nuevo_view" model="ir.ui.view">
+            <field name="name">grp.obras.curso.activar.nuevo.view</field>
+            <field name="model">grp.obras.curso.activar.nuevo</field>
+            <field name="arch" type="xml">
+                <form string="Nuevo activo" >
+                    <group>
+                        <field name="fecha" required="1"/>
+                        <field name="nombre_activo" required="1"/>
+                        <field name="asset_category_id" required="1"/>
+                    </group>
+                    <footer>
+                        <button string="Confirmar"
+                                name="activar_nuevo"
+                                type="object"
+                                default_focus="1"
+                                class="oe_highlight"
+                        />
+                        or
+                        <button string="Cancel"
+                                class="oe_link"
+                                special="cancel"
+                                />
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <act_window id="action_grp_obras_curso_activar_nuevo_view"
+            multi="True"
+            key2="client_action_multi" name="Activar a activo nuevo"
+            res_model="grp.obras.curso.activar.nuevo" src_model="grp.obras.curso.linea"
+            view_mode="form" target="new" view_type="form" />
+
+
+
+    </data>
+</openerp>

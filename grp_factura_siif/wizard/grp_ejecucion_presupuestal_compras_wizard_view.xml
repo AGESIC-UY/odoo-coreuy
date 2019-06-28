@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <!--TODO: K SPRING 16 GAP 379_380-->
+        <record id="grp_ejecucion_presupuestal_compras_wizard_view" model="ir.ui.view">
+            <field name="name">grp.ejecucion.presupuestal.compras.wizard.form</field>
+            <field name="model">grp.ejecucion.presupuestal.compras.wizard</field>
+            <field name="arch" type="xml">
+            <form string="Ejecución futura de contratos">
+                <group>
+                    <group>
+                        <field name="fiscalyear_siif_id"/>
+                    </group>
+                    <group>
+                        <field name="pedido_compra_id"/>
+                    </group>
+                    <field name="type" widget="radio" nolabel="1"/>
+                </group>
+                <footer>
+                    <button name="procesar_datos_xls" string="Procesar" type="object" default_focus="1" class="oe_highlight"/>
+                    O
+                    <button string="Cancelar" class="oe_link" special="cancel"/>
+                </footer>
+            </form>
+            </field>
+        </record>
+
+        <!--TODO: K SPRING 16 GAP 379_380-->
+        <record model="ir.actions.act_window" id="grp_ejecucion_presupuestal_compras_wizard_act">
+            <field name="name">Documentos asociados de compras</field>
+            <field name="res_model">grp.ejecucion.presupuestal.compras.wizard</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="grp_ejecucion_presupuestal_compras_wizard_view"/>
+            <field name="target">new</field>
+        </record>
+
+        <!--TODO: K SPRING 16 GAP 379_380-->
+        <menuitem id="menu_reporting_presupuesto"
+                  name="Presupuesto" parent="base.menu_reporting"/>
+
+        <menuitem id="menu_ejecucion_presupuestal"
+                  name="Ejecución presupuestal" parent="menu_reporting_presupuesto"/>
+
+        <menuitem id="menu_ejecucion_presupuestal_compras"
+                  name="Documentos asociados de compras" sequence="1" parent="menu_ejecucion_presupuestal"
+                  action="grp_ejecucion_presupuestal_compras_wizard_act"
+                  groups="grp_seguridad.grp_compras_apg_Responsable_SIIF,grp_seguridad.grp_compras_apg_Jefe_de_compras,grp_seguridad.grp_compras_pc_Comprador"/>
+
+        <!--TODO: K SPRING 16 GAP 379_380-->
+        <record id="action_grp_ejecucion_presupuestal_compras_xls" model="ir.actions.report.xml">
+              <field name="name">Documentos asociados de compras</field>
+              <field name="model">grp.ejecucion.presupuestal.compras.wizard</field>
+              <field name="type">ir.actions.report.xml</field>
+              <field name="report_name">grp_ejecucion_presupuestal_compras_xls</field>
+              <field name="report_type">xls</field>
+              <field name="auto" eval="False"/>
+            </record>
+
+    </data>
+</openerp>

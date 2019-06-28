@@ -1,0 +1,778 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* facturas_uy
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 8.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-02-05 13:26+0000\n"
+"PO-Revision-Date: 2018-02-05 13:26+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: facturas_uy
+#: model:ir.model,name:facturas_uy.model_account_voucher
+msgid "Accounting Voucher"
+msgstr "Comprobantes contables"
+
+#. module: facturas_uy
+#: view:wiz_crear_pago:facturas_uy.view_crear_pago_wizard
+msgid "Aceptar"
+msgstr "Aceptar"
+
+#. module: facturas_uy
+#: field:grp.ajuste.redondeo,active:0
+msgid "Activo"
+msgstr "Activo"
+
+#. module: facturas_uy
+#: view:account.voucher:facturas_uy.view_vendor_payment_form_inherit
+#: view:account.voucher:facturas_uy.view_vendor_receipt_form
+msgid "Actualizar Total"
+msgstr "Actualizar Total"
+
+#. module: facturas_uy
+#: field:account.voucher,apply_round:0
+#: field:grp.ajuste.redondeo,ajuste_redondeo:0
+msgid "Ajuste por redondeo"
+msgstr "Ajuste por redondeo"
+
+#. module: facturas_uy
+#: sql_constraint:grp.ajuste.redondeo:0
+msgid "Ajuste por redondeo debe ser mayor que cero."
+msgstr "Ajuste por redondeo debe ser mayor que cero."
+
+#. module: facturas_uy
+#: view:grp.ajuste.redondeo:facturas_uy.view_grp_ajuste_redondeo_form
+#: view:grp.ajuste.redondeo:facturas_uy.view_grp_ajuste_redondeo_search
+#: view:grp.ajuste.redondeo:facturas_uy.view_grp_ajuste_redondeo_tree
+#: model:ir.actions.act_window,name:facturas_uy.action_grp_ajuste_redondeo_view
+#: model:ir.ui.menu,name:facturas_uy.menu_grp_ajuste_redondeo_conf
+msgid "Ajustes por redondeo"
+msgstr "Ajustes por redondeo"
+
+#. module: facturas_uy
+#: view:account.voucher:facturas_uy.view_vendor_receipt_dialog_tc_up_form
+msgid "Allocation"
+msgstr "Asignación"
+
+#. module: facturas_uy
+#: view:account.voucher:facturas_uy.view_vendor_payment_form_inherit
+#: view:account.voucher:facturas_uy.view_vendor_receipt_form
+msgid "Aplicar redondeo"
+msgstr "Aplicar redondeo"
+
+#. module: facturas_uy
+#: field:account.voucher,writeoff_acc_aux_id:0
+msgid "Auxiliary Account"
+msgstr "Auxiliary Account"
+
+#. module: facturas_uy
+#: code:addons/facturas_uy/models/account_invoice_api.py:66
+#, python-format
+msgid "Bad Total!"
+msgstr "Bad Total!"
+
+#. module: facturas_uy
+#: field:account.voucher,down_tc:0
+msgid "Bajada del tc"
+msgstr "Bajada del tc"
+
+#. module: facturas_uy
+#: help:account.voucher,down_tc:0
+msgid "Bajada del tipo de cambio"
+msgstr "Bajada del tipo de cambio"
+
+#. module: facturas_uy
+#: model:ir.model,name:facturas_uy.model_account_bank_statement
+msgid "Bank Statement"
+msgstr "Extracto bancario"
+
+#. module: facturas_uy
+#: model:ir.model,name:facturas_uy.model_account_bank_statement_line
+msgid "Bank Statement Line"
+msgstr "Línea de extracto bancario"
+
+#. module: facturas_uy
+#: field:account.voucher,ro_writeoff_fields:0
+msgid "Campos WriteOff Solo-Lectura"
+msgstr "Campos WriteOff Solo-Lectura"
+
+#. module: facturas_uy
+#: view:account.voucher:facturas_uy.view_vendor_receipt_dialog_tc_up_form
+msgid "Cancel"
+msgstr "Cancelar"
+
+#. module: facturas_uy
+#: view:wiz_crear_pago:facturas_uy.view_crear_pago_wizard
+msgid "Cancelar"
+msgstr "Cancelar"
+
+#. module: facturas_uy
+#: code:addons/facturas_uy/models/account_invoice_api.py:78
+#, python-format
+msgid "Cannot create the invoice.\n"
+"The related payment term is probably misconfigured as it gives a computed amount greater than the total invoiced amount. In order to avoid rounding issues, the latest line of your payment term must be of type 'balance'."
+msgstr "Cannot create the invoice.\n"
+"The related payment term is probably misconfigured as it gives a computed amount greater than the total invoiced amount. In order to avoid rounding issues, the latest line of your payment term must be of type 'balance'."
+
+#. module: facturas_uy
+#: selection:account.bank.statement.line,state:0
+msgid "Closed"
+msgstr "Closed"
+
+#. module: facturas_uy
+#: model:ir.model,name:facturas_uy.model_res_company
+msgid "Companies"
+msgstr "Compañías"
+
+#. module: facturas_uy
+#: field:grp.ajuste.redondeo,company_id:0
+msgid "Compañía"
+msgstr "Compañía"
+
+#. module: facturas_uy
+#: code:addons/facturas_uy/models/account_voucher.py:1817
+#, python-format
+msgid "Configuration Error !"
+msgstr "Configuration Error !"
+
+#. module: facturas_uy
+#: view:wiz_crear_pago:facturas_uy.view_crear_pago_wizard
+msgid "Crear pago"
+msgstr "Crear pago"
+
+#. module: facturas_uy
+#: model:ir.model,name:facturas_uy.model_wiz_crear_pago
+msgid "Crear pago factura"
+msgstr "Crear pago factura"
+
+#. module: facturas_uy
+#: field:grp.ajuste.redondeo,create_uid:0
+#: field:nota.credito,create_uid:0
+#: field:wiz_crear_pago,create_uid:0
+msgid "Created by"
+msgstr "Created by"
+
+#. module: facturas_uy
+#: field:grp.ajuste.redondeo,create_date:0
+#: field:nota.credito,create_date:0
+#: field:wiz_crear_pago,create_date:0
+msgid "Created on"
+msgstr "Created on"
+
+#. module: facturas_uy
+#: view:account.voucher:facturas_uy.view_vendor_receipt_dialog_tc_up_form
+msgid "Credits"
+msgstr "Facturas rectificativas y transacciones de entrada"
+
+#. module: facturas_uy
+#: field:res.company,cuenta_a_cobrar_me:0
+#: field:res.partner,cuenta_a_cobrar_me:0
+msgid "Cuenta a cobrar M/E"
+msgstr "Cuenta a cobrar M/E"
+
+#. module: facturas_uy
+#: field:res.company,cuenta_a_pagar_me:0
+#: field:res.partner,cuenta_a_pagar_me:0
+msgid "Cuenta a pagar M/E"
+msgstr "Cuenta a pagar M/E"
+
+#. module: facturas_uy
+#: model:ir.model,name:facturas_uy.model_res_currency
+msgid "Currency"
+msgstr "Moneda"
+
+#. module: facturas_uy
+#: view:account.voucher:facturas_uy.view_vendor_receipt_dialog_tc_up_form
+msgid "Customer"
+msgstr "Cliente"
+
+#. module: facturas_uy
+#: view:wiz_crear_pago:facturas_uy.view_crear_pago_wizard
+msgid "Datos pago"
+msgstr "Datos pago"
+
+#. module: facturas_uy
+#: code:addons/facturas_uy/models/account_invoice.py:432
+#, python-format
+msgid "Debe enviar el diario a pagar"
+msgstr "Debe enviar el diario a pagar"
+
+#. module: facturas_uy
+#: field:account.voucher,writeoff_amount_aux:0
+msgid "Difference Amount Aux"
+msgstr "Difference Amount Aux"
+
+#. module: facturas_uy
+#: field:account.voucher.line,origin_voucher_id:0
+msgid "Documento de pago de origen"
+msgstr "Documento de pago de origen"
+
+#. module: facturas_uy
+#: code:addons/facturas_uy/models/account_move_line.py:77
+#, python-format
+msgid "Entries are not of the same account or already reconciled ! "
+msgstr "Entries are not of the same account or already reconciled ! "
+
+#. module: facturas_uy
+#: code:addons/facturas_uy/models/account_move_line.py:55
+#, python-format
+msgid "Entry \"%s\" is not valid !"
+msgstr "Entry \"%s\" is not valid !"
+
+#. module: facturas_uy
+#: code:addons/facturas_uy/models/account_move_line.py:79
+#, python-format
+msgid "Entry is already reconciled."
+msgstr "Entry is already reconciled."
+
+#. module: facturas_uy
+#: code:addons/facturas_uy/models/account_move_line.py:77
+#: code:addons/facturas_uy/models/account_move_line.py:82
+#, python-format
+msgid "Error"
+msgstr "Error"
+
+#. module: facturas_uy
+#: code:addons/facturas_uy/models/account_invoice.py:432
+#: code:addons/facturas_uy/models/account_invoice.py:464
+#: code:addons/facturas_uy/models/account_invoice_api.py:43
+#: code:addons/facturas_uy/models/account_invoice_api.py:78
+#: code:addons/facturas_uy/models/account_move_line.py:54
+#: code:addons/facturas_uy/models/account_move_line.py:79
+#: code:addons/facturas_uy/models/account_move_line.py:84
+#: code:addons/facturas_uy/models/account_voucher.py:1823
+#, python-format
+msgid "Error!"
+msgstr "Error!"
+
+#. module: facturas_uy
+#: field:account.move.line,exchange_line:0
+msgid "Exchange Line"
+msgstr "Exchange Line"
+
+#. module: facturas_uy
+#: field:nota.credito,invoice_id:0
+msgid "Factura"
+msgstr "Factura"
+
+#. module: facturas_uy
+#: field:account.invoice,factura_original:0
+msgid "Factura Original"
+msgstr "Factura Original"
+
+#. module: facturas_uy
+#: field:account.voucher,invoice_id:0
+msgid "Factura relacionada"
+msgstr "Factura relacionada"
+
+#. module: facturas_uy
+#: view:account.bank.statement:facturas_uy.grp_view_bank_statement_form
+#: field:account.bank.statement.line,entry_date:0
+#: field:wiz_crear_pago,date:0
+msgid "Fecha"
+msgstr "Fecha"
+
+#. module: facturas_uy
+#: field:nota.credito,fecha_nc:0
+msgid "Fecha NC"
+msgstr "Fecha NC"
+
+#. module: facturas_uy
+#: field:nota.credito,fecha_vto:0
+msgid "Fecha Vto"
+msgstr "Fecha Vto"
+
+#. module: facturas_uy
+#: view:account.bank.statement:facturas_uy.grp_view_bank_statement_form
+#: view:account.bank.statement:facturas_uy.grp_view_bank_statement_form2
+#: field:account.invoice,entry_date:0
+msgid "Fecha asiento"
+msgstr "Fecha asiento"
+
+#. module: facturas_uy
+#: field:account.voucher,entry_date:0
+msgid "Fecha de asiento"
+msgstr "Fecha de asiento"
+
+#. module: facturas_uy
+#: field:account.invoice,fecha_tipo_cambio:0
+msgid "Fecha de tipo de cambio"
+msgstr "Fecha de tipo de cambio"
+
+#. module: facturas_uy
+#: help:account.invoice,entry_date:0
+#: help:account.voucher,entry_date:0
+msgid "Fecha efectiva para entradas contables."
+msgstr "Fecha efectiva para entradas contables."
+
+#. module: facturas_uy
+#: model:ir.model,name:facturas_uy.model_grp_ajuste_redondeo
+msgid "GRP Ajuste por Redondeo"
+msgstr "GRP Ajuste por Redondeo"
+
+#. module: facturas_uy
+#: field:grp.ajuste.redondeo,id:0
+#: field:nota.credito,id:0
+#: field:wiz_crear_pago,id:0
+msgid "ID"
+msgstr "ID"
+
+#. module: facturas_uy
+#: field:res.company,income_rounding_adjust_account_id:0
+msgid "Ingresos por Ajuste por redondeo"
+msgstr "Ingresos por Ajuste por redondeo"
+
+#. module: facturas_uy
+#: view:account.voucher:facturas_uy.view_vendor_receipt_dialog_tc_up_form
+msgid "Iniciar pago"
+msgstr "Iniciar pago"
+
+#. module: facturas_uy
+#: code:addons/facturas_uy/models/account_voucher.py:134
+#: code:addons/facturas_uy/models/account_voucher.py:139
+#: code:addons/facturas_uy/wizard/wiz_crear_pago.py:39
+#, python-format
+msgid "Insufficient Configuration!"
+msgstr "Insufficient Configuration!"
+
+#. module: facturas_uy
+#: model:ir.model,name:facturas_uy.model_account_invoice
+msgid "Invoice"
+msgstr "Factura"
+
+#. module: facturas_uy
+#: model:ir.model,name:facturas_uy.model_account_invoice_line
+msgid "Invoice Line"
+msgstr "Línea de factura"
+
+#. module: facturas_uy
+#: view:account.voucher:facturas_uy.view_vendor_receipt_dialog_tc_up_form
+msgid "Invoices and outstanding transactions"
+msgstr "Facturas y transacciones de salida"
+
+#. module: facturas_uy
+#: field:wiz_crear_pago,journal_id:0
+msgid "Journal"
+msgstr "Journal"
+
+#. module: facturas_uy
+#: model:ir.model,name:facturas_uy.model_account_move_line
+msgid "Journal Items"
+msgstr "Apuntes contables"
+
+#. module: facturas_uy
+#: field:grp.ajuste.redondeo,write_uid:0
+#: field:nota.credito,write_uid:0
+#: field:wiz_crear_pago,write_uid:0
+msgid "Last Updated by"
+msgstr "Last Updated by"
+
+#. module: facturas_uy
+#: field:grp.ajuste.redondeo,write_date:0
+#: field:nota.credito,write_date:0
+#: field:wiz_crear_pago,write_date:0
+msgid "Last Updated on"
+msgstr "Last Updated on"
+
+#. module: facturas_uy
+#: field:grp.ajuste.redondeo,moneda:0
+msgid "Moneda"
+msgstr "Moneda"
+
+#. module: facturas_uy
+#: sql_constraint:grp.ajuste.redondeo:0
+msgid "Moneda debe ser única por compañía."
+msgstr "Moneda debe ser única por compañía."
+
+#. module: facturas_uy
+#: field:account.invoice,company_currency_id:0
+msgid "Moneda empresa"
+msgstr "Moneda empresa"
+
+#. module: facturas_uy
+#: view:wiz_crear_pago:facturas_uy.view_crear_pago_wizard
+msgid "Monto a pagar"
+msgstr "Monto a pagar"
+
+#. module: facturas_uy
+#: view:wiz_crear_pago:facturas_uy.view_crear_pago_wizard
+msgid "Método de pago"
+msgstr "Método de pago"
+
+#. module: facturas_uy
+#: selection:account.bank.statement.line,state:0
+msgid "New"
+msgstr "New"
+
+#. module: facturas_uy
+#: code:addons/facturas_uy/models/account_voucher.py:315
+#: code:addons/facturas_uy/models/account_voucher.py:1222
+#: code:addons/facturas_uy/models/account_voucher.py:1396
+#, python-format
+msgid "No Account Base Code and Account Tax Code!"
+msgstr "No Account Base Code and Account Tax Code!"
+
+#. module: facturas_uy
+#: code:addons/facturas_uy/models/account_invoice_api.py:45
+#, python-format
+msgid "No Invoice Lines!"
+msgstr "No Invoice Lines!"
+
+#. module: facturas_uy
+#: code:addons/facturas_uy/models/account_invoice.py:464
+#, python-format
+msgid "No se puede pagar una factura con monto cero."
+msgstr "No se puede pagar una factura con monto cero."
+
+#. module: facturas_uy
+#: model:ir.model,name:facturas_uy.model_nota_credito
+msgid "Nota de credito"
+msgstr "Nota de credito"
+
+#. module: facturas_uy
+#: field:account.invoice,nota_credito_ids:0
+msgid "Notas de crédito"
+msgstr "Notas de crédito"
+
+#. module: facturas_uy
+#: field:nota.credito,nro_nc:0
+msgid "Nro NC"
+msgstr "Nro NC"
+
+#. module: facturas_uy
+#: selection:account.bank.statement.line,state:0
+msgid "Open"
+msgstr "Open"
+
+#. module: facturas_uy
+#: field:account.voucher.line,amount_original_move_line:0
+msgid "Original"
+msgstr "Original"
+
+#. module: facturas_uy
+#: view:account.invoice:facturas_uy.view_invoice_supplier_voucher_inherit_facturas_uy
+msgid "Pagar"
+msgstr "Pagar"
+
+#. module: facturas_uy
+#: view:account.voucher:facturas_uy.view_vendor_receipt_dialog_tc_up_form
+msgid "Paid Amount"
+msgstr "Importe pagado"
+
+#. module: facturas_uy
+#: model:ir.model,name:facturas_uy.model_res_partner
+#: field:wiz_crear_pago,partner_id:0
+msgid "Partner"
+msgstr "Empresa"
+
+#. module: facturas_uy
+#: code:addons/facturas_uy/models/account_invoice.py:197
+#, python-format
+msgid "Pay Invoice"
+msgstr "Pay Invoice"
+
+#. module: facturas_uy
+#: view:account.voucher:facturas_uy.view_vendor_receipt_dialog_tc_up_form
+msgid "Payment"
+msgstr "Pago"
+
+#. module: facturas_uy
+#: view:account.voucher:facturas_uy.view_vendor_receipt_dialog_tc_up_form
+msgid "Payment Information"
+msgstr "Información de pago"
+
+#. module: facturas_uy
+#: view:account.voucher:facturas_uy.view_vendor_receipt_dialog_form_extend
+#: view:account.voucher:facturas_uy.view_vendor_receipt_dialog_tc_up_form
+msgid "Payment Method"
+msgstr "Método de pago"
+
+#. module: facturas_uy
+#: view:account.voucher:facturas_uy.view_vendor_receipt_dialog_tc_up_form
+msgid "Payment Ref"
+msgstr "Ref. pago"
+
+#. module: facturas_uy
+#: code:addons/facturas_uy/models/account_voucher.py:1818
+#, python-format
+msgid "Please activate the sequence of selected journal !"
+msgstr "Please activate the sequence of selected journal !"
+
+#. module: facturas_uy
+#: code:addons/facturas_uy/models/account_invoice_api.py:45
+#, python-format
+msgid "Please create some invoice lines."
+msgstr "Please create some invoice lines."
+
+#. module: facturas_uy
+#: code:addons/facturas_uy/models/account_voucher.py:1824
+#, python-format
+msgid "Please define a sequence on the journal."
+msgstr "Please define a sequence on the journal."
+
+#. module: facturas_uy
+#: code:addons/facturas_uy/models/account_invoice_api.py:43
+#, python-format
+msgid "Please define sequence on the journal related to this invoice."
+msgstr "Please define sequence on the journal related to this invoice."
+
+#. module: facturas_uy
+#: code:addons/facturas_uy/models/account_invoice_api.py:66
+#, python-format
+msgid "Please verify the price of the invoice!\n"
+"The encoded total does not match the computed total."
+msgstr "Please verify the price of the invoice!\n"
+"The encoded total does not match the computed total."
+
+#. module: facturas_uy
+#: view:wiz_crear_pago:facturas_uy.view_crear_pago_wizard
+msgid "Proveedor"
+msgstr "Proveedor"
+
+#. module: facturas_uy
+#: field:res.company,expense_rounding_adjust_account_id:0
+msgid "Pérdida por Ajuste por redondeo"
+msgstr "Pérdida por Ajuste por redondeo"
+
+#. module: facturas_uy
+#: field:account.move.line,amount_residual_currency_unround:0
+msgid "Residual Amount in Currency"
+msgstr "Residual Amount in Currency"
+
+#. module: facturas_uy
+#: view:wiz_crear_pago:facturas_uy.view_crear_pago_wizard
+msgid "Si se establece este monto en 0, se paga toda la factura."
+msgstr "Si se establece este monto en 0, se paga toda la factura."
+
+#. module: facturas_uy
+#: code:addons/facturas_uy/models/account_move_line.py:84
+#, python-format
+msgid "Some entries are already reconciled."
+msgstr "Some entries are already reconciled."
+
+#. module: facturas_uy
+#: field:account.bank.statement.line,state:0
+msgid "Status"
+msgstr "Status"
+
+#. module: facturas_uy
+#: field:account.voucher,up_tc:0
+msgid "Subida del tc"
+msgstr "Subida del tc"
+
+#. module: facturas_uy
+#: help:account.voucher,up_tc:0
+msgid "Subida del tipo de cambio"
+msgstr "Subida del tipo de cambio"
+
+#. module: facturas_uy
+#: code:addons/facturas_uy/models/account_move_line.py:82
+#, python-format
+msgid "The account is not defined to be reconciled !"
+msgstr "The account is not defined to be reconciled !"
+
+#. module: facturas_uy
+#: code:addons/facturas_uy/models/account_voucher.py:273
+#: code:addons/facturas_uy/models/account_voucher.py:1171
+#: code:addons/facturas_uy/models/account_voucher.py:1354
+#, python-format
+msgid "The invoice you are willing to pay is not valid anymore."
+msgstr "The invoice you are willing to pay is not valid anymore."
+
+#. module: facturas_uy
+#: help:account.move.line,amount_residual_currency_unround:0
+msgid "The residual amount on a receivable or payable of a journal entry expressed in its currency (maybe different of the company currency)."
+msgstr "The residual amount on a receivable or payable of a journal entry expressed in its currency (maybe different of the company currency)."
+
+#. module: facturas_uy
+#: field:account.invoice,tipo_de_cambio_fnc:0
+msgid "Tipo de cambio"
+msgstr "Tipo de cambio"
+
+#. module: facturas_uy
+#: help:account.invoice,currency_rate:0
+msgid "Tipo de cambio de divisa de la factura."
+msgstr "Tipo de cambio de divisa de la factura."
+
+#. module: facturas_uy
+#: code:addons/facturas_uy/models/account_move_line.py:50
+#, python-format
+msgid "To reconcile the entries company should be the same for all entries."
+msgstr "To reconcile the entries company should be the same for all entries."
+
+#. module: facturas_uy
+#: field:wiz_crear_pago,amount:0
+msgid "Total"
+msgstr "Total"
+
+#. module: facturas_uy
+#: view:account.voucher:facturas_uy.view_vendor_receipt_dialog_tc_up_form
+msgid "Total Allocation"
+msgstr "Asignación total"
+
+#. module: facturas_uy
+#: field:nota.credito,total_nc:0
+msgid "Total NC"
+msgstr "Total NC"
+
+#. module: facturas_uy
+#: code:addons/facturas_uy/models/account_invoice_api.py:142
+#, python-format
+msgid "User Error!"
+msgstr "User Error!"
+
+#. module: facturas_uy
+#: view:account.voucher:facturas_uy.view_vendor_payment_form_inherit
+msgid "Validar"
+msgstr "Validar"
+
+#. module: facturas_uy
+#: model:ir.model,name:facturas_uy.model_account_voucher_line
+msgid "Voucher Lines"
+msgstr "Líneas de comprobante"
+
+#. module: facturas_uy
+#: code:addons/facturas_uy/models/account_voucher.py:499
+#, python-format
+msgid "Voucher Payment"
+msgstr "Voucher Payment"
+
+#. module: facturas_uy
+#: code:addons/facturas_uy/models/account_move_line.py:50
+#: code:addons/facturas_uy/models/account_move_line.py:111
+#, python-format
+msgid "Warning!"
+msgstr "Warning!"
+
+#. module: facturas_uy
+#: code:addons/facturas_uy/models/account_move_line.py:126
+#, python-format
+msgid "Write-Off"
+msgstr "Ajuste por redondeo"
+
+#. module: facturas_uy
+#: code:addons/facturas_uy/models/account_voucher.py:272
+#: code:addons/facturas_uy/models/account_voucher.py:1170
+#: code:addons/facturas_uy/models/account_voucher.py:1353
+#, python-format
+msgid "Wrong voucher line"
+msgstr "Wrong voucher line"
+
+#. module: facturas_uy
+#: code:addons/facturas_uy/models/account_invoice_api.py:143
+#, python-format
+msgid "You cannot create an invoice on a centralized journal. Uncheck the centralized counterpart box in the related journal from the configuration menu."
+msgstr "You cannot create an invoice on a centralized journal. Uncheck the centralized counterpart box in the related journal from the configuration menu."
+
+#. module: facturas_uy
+#: code:addons/facturas_uy/models/account_voucher.py:315
+#: code:addons/facturas_uy/models/account_voucher.py:1222
+#: code:addons/facturas_uy/models/account_voucher.py:1396
+#, python-format
+msgid "You have to configure account base code and account tax code on the '%s' tax!"
+msgstr "You have to configure account base code and account tax code on the '%s' tax!"
+
+#. module: facturas_uy
+#: code:addons/facturas_uy/models/account_move_line.py:111
+#, python-format
+msgid "You have to provide an account for the write off/exchange difference entry."
+msgstr "You have to provide an account for the write off/exchange difference entry."
+
+#. module: facturas_uy
+#: code:addons/facturas_uy/models/account_voucher.py:139
+#, python-format
+msgid "You should configure the 'Gain Exchange Rate Account' in the accounting settings, to manage automatically the booking of accounting entries related to differences between exchange rates."
+msgstr "You should configure the 'Gain Exchange Rate Account' in the accounting settings, to manage automatically the booking of accounting entries related to differences between exchange rates."
+
+#. module: facturas_uy
+#: code:addons/facturas_uy/models/account_voucher.py:134
+#, python-format
+msgid "You should configure the 'Loss Exchange Rate Account' in the accounting settings, to manage automatically the booking of accounting entries related to differences between exchange rates."
+msgstr "You should configure the 'Loss Exchange Rate Account' in the accounting settings, to manage automatically the booking of accounting entries related to differences between exchange rates."
+
+#. module: facturas_uy
+#: code:addons/facturas_uy/wizard/wiz_crear_pago.py:39
+#, python-format
+msgid "You should configure the 'The Exchange Rate Account' in the accounting settings, to manage automatically the booking of accounting entries related to differences between exchange rates."
+msgstr "You should configure the 'The Exchange Rate Account' in the accounting settings, to manage automatically the booking of accounting entries related to differences between exchange rates."
+
+#. module: facturas_uy
+#: code:addons/facturas_uy/models/account_voucher.py:394
+#: code:addons/facturas_uy/models/account_voucher.py:1285
+#: code:addons/facturas_uy/models/account_voucher.py:1481
+#, python-format
+msgid "change"
+msgstr "change"
+
+#. module: facturas_uy
+#: view:account.voucher:facturas_uy.view_vendor_receipt_dialog_tc_up_form
+msgid "e.g. 003/10"
+msgstr "Por ejemplo, 003/10"
+
+#. module: facturas_uy
+#: view:account.voucher:facturas_uy.view_vendor_receipt_dialog_tc_up_form
+msgid "e.g. Invoice SAJ/0042"
+msgstr "Por ejemplo, factura FV/0042"
+
+#. module: facturas_uy
+#: view:account.voucher:facturas_uy.view_vendor_payment_form_inherit
+msgid "false"
+msgstr "false"
+
+#. module: facturas_uy
+#: view:account.invoice:facturas_uy.inherited_view_grp_factura_proveed_form_base
+msgid "onchange_date_currency_id(currency_id, date_invoice, partner_id, fecha_tipo_cambio)"
+msgstr "onchange_date_currency_id(currency_id, date_invoice, partner_id, fecha_tipo_cambio)"
+
+#. module: facturas_uy
+#: view:account.invoice:facturas_uy.inherited_view_grp_factura_client_form_base
+msgid "onchange_journal_id_new(journal_id, partner_id, currency_id)"
+msgstr "onchange_journal_id_new(journal_id, partner_id, currency_id)"
+
+#. module: facturas_uy
+#: view:account.voucher:facturas_uy.view_vendor_receipt_dialog_tc_up_form
+#: view:wiz_crear_pago:facturas_uy.view_crear_pago_wizard
+msgid "or"
+msgstr "o"
+
+#. module: facturas_uy
+#: field:account.invoice,currency_rate:0
+msgid "rate"
+msgstr "rate"
+
+#. module: facturas_uy
+#: view:account.voucher:facturas_uy.view_vendor_payment_form_inherit
+#: view:account.voucher:facturas_uy.view_vendor_receipt_dialog_form_extend
+msgid "{'invisible':['|', ('payment_option','!=','with_writeoff'), ('writeoff_amount','=',0)], 'required':[('payment_option','=','with_writeoff')], 'readonly': ['|',('ro_writeoff_fields','=',True),('state','!=','draft')]}"
+msgstr "{'invisible':['|', ('payment_option','!=','with_writeoff'), ('writeoff_amount','=',0)], 'required':[('payment_option','=','with_writeoff')], 'readonly': ['|',('ro_writeoff_fields','=',True),('state','!=','draft')]}"
+
+#. module: facturas_uy
+#: view:account.voucher:facturas_uy.view_vendor_payment_form_inherit
+#: view:account.voucher:facturas_uy.view_vendor_receipt_dialog_form_extend
+msgid "{'invisible':[('writeoff_amount','=',0)], 'readonly': ['|',('ro_writeoff_fields','=',True),('state','!=','draft')]}"
+msgstr "{'invisible':[('writeoff_amount','=',0)], 'readonly': ['|',('ro_writeoff_fields','=',True),('state','!=','draft')]}"
+
+#. module: facturas_uy
+#: view:account.invoice:facturas_uy.inherited_view_grp_factura_client_form_base
+#: view:account.invoice:facturas_uy.inherited_view_grp_factura_proveed_form_base
+msgid "{'readonly': ['|',('factura_original','!=',False),('state','not in',['draft'])]}"
+msgstr "{'readonly': ['|',('factura_original','!=',False),('state','not in',['draft'])]}"
+
+#. module: facturas_uy
+#: view:account.voucher:facturas_uy.view_purchase_receipt_form
+msgid "{'readonly':[('state','=','posted')]}"
+msgstr "{'readonly':[('state','=','posted')]}"
+
+#. module: facturas_uy
+#: view:account.voucher:facturas_uy.view_vendor_payment_form_inherit
+#: view:account.voucher:facturas_uy.view_vendor_receipt_dialog_form_extend
+msgid "{'save_readonly': true}"
+msgstr "{'save_readonly': true}"
+

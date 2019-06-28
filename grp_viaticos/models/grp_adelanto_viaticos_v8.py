@@ -202,6 +202,7 @@ class grp_account_voucher_line(models.Model):
             _supplier_invoice_number2 = self.origin_voucher_id.rendicion_viaticos_id.solicitud_viatico_id.name
             _view_id = u'view_expenses_form'
             _module_name = u'grp_viaticos'
+            _nro_afectacion = self.origin_voucher_id.rendicion_viaticos_id.fondo_rotatorio_id.nro_afectacion
         elif self.origin_voucher_id.solicitud_viatico_id:
             _related_model = self.origin_voucher_id.solicitud_viatico_id._name
             _related_id = self.origin_voucher_id.solicitud_viatico_id.id
@@ -210,6 +211,7 @@ class grp_account_voucher_line(models.Model):
             _related_document = self.origin_voucher_id.solicitud_viatico_id.name
             _invoice_id = False
             _supplier_invoice_number = self.origin_voucher_id.solicitud_viatico_id.name
+            _nro_afectacion = 0
         else:
             return super(grp_account_voucher_line, self)._get_origin_dict()
 
@@ -220,4 +222,6 @@ class grp_account_voucher_line(models.Model):
                 'view_id': _view_id,
                 'invoice_id': _invoice_id,
                 'supplier_invoice_number': _supplier_invoice_number,
-                'supplier_invoice_number2': _supplier_invoice_number2}
+                'supplier_invoice_number2': _supplier_invoice_number2,
+                'nro_afectacion': _nro_afectacion
+                }

@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+
+        <!-- PANTALLA DE BUSQUEDA -->
+        <record model="ir.ui.view" id="viewgrp_art_serv_busqueda_form">
+            <field name="name">proveedores.rupe.busqueda.form</field>
+            <field name="model">grp.proveedores.rupe.busqueda</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="proveedores.rupe.busqueda" version="7.0">
+                    <sheet>
+                        <h1>Proveedores RUPE</h1>
+                        <group>
+                            <group>
+                                <field name="razon_social"/>
+                                <field name="nombre_fantasia"/>
+                                <field name="documento"/>
+                                <field name="num_documento"/>
+                                <field name="estado"/>
+                            </group>
+                            <button
+                                    name="grp_prove_buscar"
+                                    type="object"
+                                    string="Buscar"
+                                    icon="gtk-find"
+                                    />
+                        </group>
+                        <group>
+
+                            <field name="proveedores_ids" readonly="1">
+
+                                <tree String="Proveedores Rupe" colors="blue:incluido == True"
+                                      fonts="bold:incluido == True">
+                                    <button
+                                            type="object"
+                                            name="set_attrib"
+                                            string="Crear Proveedor GRP"
+                                            icon="gtk-edit"
+                                            attrs="{'invisible':[('incluido','=',True)]}"
+                                            />
+                                    <field name="incluido" invisible="1"/>
+                                    <field name="prv_id"/>
+                                    <field name="prv_correo_electronico"/>
+                                    <field name="prv_denominacion_social"/>
+                                    <field name="prv_domicilio_fiscal"/>
+                                    <field name="prv_loc_fiscal_nombre"/>
+                                    <field name="prv_version"/>
+                                    <field name="codigo_estado"/>
+                                    <field name="codigo_pais"/>
+                                    <field name="prv_cod_fiscal"/>
+                                    <field name="prv_crea_fecha"/>
+                                    <field name="codigo_depto_fiscal"/>
+                                    <field name="prv_nombre_fantasia"/>
+                                    <field name="codigo_nat_juridica"/>
+                                    <field name="codigo_tipo_documento"/>
+                                </tree>
+                            </field>
+
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+
+        <record id="grp_proveedores_form" model="ir.ui.view">
+            <field name="name">grp.proveedores.rupe.inherit</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+                <field name="image" position="before">
+                    <div invisible="context.get('hide_grp_buttons',True)">
+
+                        <button
+                                name="crear_proveedor_grp"
+                                type="object"
+                                string="Crear Proveedor RUPE"
+                                class="oe_highlight"
+                                />
+                        <label
+                                string="o"
+                                />
+                        <button
+                                name=""
+                                type="object"
+                                string="Descartar"
+                                special="cancel"
+                                class="oe_link"
+                                />
+
+                    </div>
+                </field>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_grp_prov_busqueda">
+            <field name="name">Proveedores RUPE</field>
+            <field name="res_model">grp.proveedores.rupe.busqueda</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        <menuitem name="Proveedores RUPE"
+                  id="menu_grp_prov_busqueda"
+                  action="action_grp_prov_busqueda"
+                  parent="stock.menu_stock_product"
+                  sequence="5"
+                />
+
+        <menuitem name="Proveedores" id="grp_rupe_menu_proveedores"
+                  parent="grp_rupe.grp_rupe_root"
+                  groups="grp_seguridad.grp_compras_pc_Comprador,grp_seguridad.grp_group_proveedores_rupe,grp_seguridad.grp_mant_proveedores"/>
+
+        <menuitem name="Proveedores RUPE"
+                  id="menu_grp_rupe_busqueda"
+                  action="action_grp_prov_busqueda"
+                  parent="grp_rupe_menu_proveedores"
+                  sequence="5"
+                  groups="grp_seguridad.grp_compras_pc_Comprador,grp_seguridad.grp_group_proveedores_rupe"
+                />
+
+    </data>
+</openerp>

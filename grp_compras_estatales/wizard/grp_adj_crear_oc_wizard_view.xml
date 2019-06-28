@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="view_crear_oc_wizard" model="ir.ui.view">
+            <field name="name">Crear orden de compras</field>
+            <field name="model">grp.wiz.crear.oc</field>
+            <field name="arch" type="xml">
+                <form string="Pedido de compra" version="7.0">
+                    <group cols="4">
+                        <group string="Pedido de compras adjudicación">
+                            <field name="pedido_compra_adjudicacion_id" readonly="1"/>
+                        </group>
+                        <group string="Pedidos ampliados" cols="2">
+                            <p class="oe_inline" colspan="2">
+                                Seleccione el pedido de compras ampliado
+                            </p>
+                            <newline/>
+                            <field name="pedido_compra_ampliado_id" style="width: 60%%"
+                                   on_change="on_change_pedido_ampliado(pedido_compra_ampliado_id)"
+                                   domain="[('pc_origen_ampliacion_id','=',pedido_compra_adjudicacion_id),('state','in',['sice'])]"
+                                   options="{'create': False, 'create_edit': False, 'm2o_dialog':True}"/>
+                            <newline></newline>
+                            <field name="nro_ampliacion" readonly="1"/>
+                        </group>
+                    </group>
+                    <footer>
+                        <button name="button_wzrd_crear_ampliacion_oc" string="Crear" type="object"
+                                class="oe_highlight"/>
+                        or
+                        <button string="Cancel" class="oe_link" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+    </data>
+</openerp>

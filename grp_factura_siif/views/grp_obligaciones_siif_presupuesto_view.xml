@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+
+        <record id="view_grp_obligaciones_siif_presupuesto_tree" model="ir.ui.view">
+            <field name="name">grp.obligaciones.siif.presupuesto.tree</field>
+            <field name="model">grp.obligaciones.siif.presupuesto</field>
+            <field name="arch" type="xml">
+                <tree string="obligacionesSiifPresupuesto" colors="red:state == 'pendant';">
+                    <field name="anio"/>
+                    <field name="inciso"/>
+                    <field name="unidad_ejecutora"/>
+                    <field name="nro_doc_afectacion"/>
+                    <field name="nro_doc_compromiso"/>
+                    <field name="nro_doc_obligacion"/>
+                    <field name="sec_obligacion"/>
+                    <field name="objeto_gasto"/>
+                    <field name="auxiliar"/>
+                    <field name="financiamiento"/>
+                    <field name="moneda"/>
+                    <field name="tipo_credito"/>
+                    <field name="grupo"/>
+                    <field name="acreedor_por_retencion"/>
+                    <field name="monto_retencion"/>
+                    <field name="monto"/>
+                    <field name="state"/>
+                    <field name="texto_error"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="action_obligacionesSiifPresupuesto" model="ir.actions.act_window" >
+            <field name="name">Staging Obligaciones Siif Presupuesto</field>
+            <field name="res_model">grp.obligaciones.siif.presupuesto</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree</field>
+        </record>
+
+
+      <record id="view_grp_marcar_pendientes_obligaciones_siif_presupuesto" model="ir.ui.view">
+            <field name="name">Marcar Pendientes Obligaciones Siif Presupuesto</field>
+            <field name="model">grp.marcar.pendientes.obligaciones.siif.presupuesto</field>
+            <field name="arch" type="xml">
+                <form string="Marcar pendientes" version="7.0">
+                    <group>
+                        <separator
+                                string="¿Desea marcar como pendientes las lineas selecionadas?"/>
+                    </group>
+
+                    <footer>
+                        <button name="marcar_pendientes"
+                                string="Marcar Pendientes Obligaciones Siif Presupuesto"
+                                type="object"
+                                class="oe_highlight"/>
+                        o
+                        <button string="Cancel"
+                                class="oe_link"
+                                special="cancel"/>
+
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+
+        <act_window name="Marcar Pendientes Obligaciones Siif Presupuesto"
+                    res_model="grp.marcar.pendientes.obligaciones.siif.presupuesto"
+                    src_model="grp.obligaciones.siif.presupuesto"
+                    view_mode="form"
+                    target="new"
+                    multi="True"
+                    key2="client_action_multi"
+                    id="action_view_grp_marcar_pendientes_obligaciones_siif_presupuesto"/>
+
+
+
+        <record id="view_grp_log_obligaciones_siif_presupuesto_tree" model="ir.ui.view">
+            <field name="name">grp.log.obligaciones.siif.presupuesto.tree</field>
+            <field name="model">grp.log.obligaciones.siif.presupuesto</field>
+            <field name="arch" type="xml">
+                <tree string="logObligacionesSiifPresupuesto" colors="red:errores == 1;">
+                    <field name="timestamp"/>
+                    <field name="tipo_proceso"/>
+                    <field name="fecha_proceso_carga"/>
+                    <field name="registros_procesados"/>
+                    <field name="errores"/>
+                    <field name="texto"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="action_logObligacionesSiifPresupuesto" model="ir.actions.act_window" >
+            <field name="name">Log Staging Obligaciones Siif Presupuesto</field>
+            <field name="res_model">grp.log.obligaciones.siif.presupuesto</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree</field>
+        </record>
+
+        <!-- Cron para actualizar staging obligaciones siif -->
+		<record forcecreate="True" id="ir_cron_actualizar_staging_obligaciones_siif" model="ir.cron">
+			<field name="name">Actualizar Staging Obligaciones Siif</field>
+			<!--<field eval="True" name="active" />-->
+			<field name="user_id" ref="base.user_root" />
+			<field name="interval_number">2</field>
+			<field name="interval_type">hours</field>
+			<field name="numbercall">-1</field>
+			<field eval="False" name="doall" />
+            <field name="nextcall" eval="datetime.now().replace(hour=23, minute=59).strftime('%Y-%m-%d %H:%M:%S')" />
+			<field eval="'presupuesto.presupuesto'" name="model" />
+			<field eval="'cargar_staging_obtener_afe_com_obl_por_ue_siif'" name="function" />
+			<field eval="'()'" name="args" />
+		</record>
+
+         <!-- Cron para procesar staging obligaciones siif -->
+		<record forcecreate="True" id="ir_cron_procesar_staging_obligaciones_siif" model="ir.cron">
+			<field name="name">Procesar Staging Obligaciones Siif</field>
+			<!--<field eval="True" name="active" />-->
+			<field name="user_id" ref="base.user_root" />
+            <field name="interval_number">2</field>
+            <field name="interval_type">hours</field>
+			<field name="numbercall">-1</field>
+			<field eval="False" name="doall" />
+            <field name="nextcall" eval="datetime.now().replace(hour=23, minute=59).strftime('%Y-%m-%d %H:%M:%S')" />
+			<field eval="'presupuesto.presupuesto'" name="model" />
+			<field eval="'procesar_staging_obtener_afe_com_obl_por_ue_siif'" name="function" />
+			<field eval="'()'" name="args" />
+		</record>
+
+        <!-- Menus -->
+        <menuitem id="obligaciones_siif_presupuesto" name="Staging Obligaciones Siif Presupuesto" action="action_obligacionesSiifPresupuesto" parent="menu_grp_presupuesto" sequence="60"/>
+        <menuitem id="log_obligaciones_siif_presupuesto" name="Log Staging Obligaciones Siif Presupuesto" action="action_logObligacionesSiifPresupuesto" parent="menu_grp_presupuesto" sequence="70"/>
+    </data>
+</openerp>

@@ -35,7 +35,9 @@
             <field name="name">GRP - Tesorería</field>
             <field name="category_id" ref="category_grp_tesoreria"/>
             <field name="menu_access"
-                   eval="[(4, ref('account.menu_finance')),(4, ref('account.menu_finance_bank_and_cash')),(4, ref('account.journal_cash_move_lines')),(4, ref('account_transfer.account_transfer_menu'))]"/>
+                   eval="[(4, ref('account.menu_finance')),(4, ref('account.menu_finance_bank_and_cash')),
+                          (4, ref('account.journal_cash_move_lines')),(4, ref('account_transfer.account_transfer_menu')),
+                          (4, ref('grp_viaticos.grp_menu_action_vendor_payment')),(4, ref('grp_viaticos.menu_action_grp_devolucion_viaticos'))]"/>
             <!--<field name="implied_ids"-->
                    <!--eval="[(4,ref('npg_bank_account_reconciliation.group_bank_stmt_preparer')),(4,ref('npg_bank_account_reconciliation.group_bank_stmt_verifier'))]"/>-->
         </record>
@@ -111,8 +113,7 @@
         <!-- TODO: SPRING 10 GAP 474 M -->
         <record id="group_grp_gestor_OPI" model="res.groups">
             <field name="name">GRP - Gestor de OPI</field>
-            <field name="menu_access" eval="[(4, ref('account.menu_finance')),
-            (4,ref('grp_tesoreria.menu_grp_account_tesoreria'))]"/>
+            <field name="menu_access" eval="[(4, ref('account.menu_finance'))]"/>
             <field name="category_id" ref="category_grp_tesoreria"/>
         </record>
 
@@ -209,7 +210,7 @@
             <field name="name">GRP - Remesa</field>
             <field name="category_id" ref="category_grp_tesoreria"/>
             <field name="menu_access"
-                   eval="[(4, ref('account.menu_finance')),(4, ref('grp_tesoreria.menu_grp_account_tesoreria'))]"/>
+                   eval="[(4, ref('account.menu_finance'))]"/>
         </record>
 
         <record id="rule_account_voucher_Responsable_SIIF_only_read" model="ir.rule">
@@ -330,6 +331,14 @@
         <record id="group_grp_cashbox_register_consultant" model="res.groups">
             <field name="name">GRP - Consulta Arqueo</field>
             <field name="menu_access" eval="[(4, ref('account.menu_finance'))]"/>
+            <field name="category_id" ref="category_grp_tesoreria"/>
+        </record>
+
+        <!--Grupo Transferencias entre cuentas-->
+
+        <record id="group_grp_account_transfer" model="res.groups">
+            <field name="name">GRP - Transferencia entre cuentas</field>
+            <field name="menu_access" eval="[(4, ref('account_transfer.account_transfer_menu'))]"/>
             <field name="category_id" ref="category_grp_tesoreria"/>
         </record>
 

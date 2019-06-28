@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <!-- res.config form view -->
+        <record model="ir.ui.view" id="view_account_settings_retention_form">
+            <field name="name">account.config.settings.retention.inherit</field>
+            <field name="inherit_id" ref="account.view_account_config_settings"/>
+            <field name="model">account.config.settings</field>
+            <field name="priority">22</field>
+            <field name="arch" type="xml">
+                <xpath expr="//div[@name='group_multi_currency']" position="after">
+                    <group col="2">
+                        <group>
+                            <field name="retention_journal_id" style="width: 40%%"/>
+                        </group>
+                    </group>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="invoice_retention_supplier_form_inherit" model="ir.ui.view">
+            <field name="name">account.invoice.retention.supplier.form_h</field>
+            <field name="model">account.invoice</field>
+            <field name="type">form</field>
+            <field name="inherit_id" ref="account.invoice_supplier_form"/>
+            <field name="arch" type="xml">
+                <field name="origin" position="after">
+                    <field name="invoice_ret_lines" invisible="1"/>
+                </field>
+                <xpath expr="//page[@string='Invoice']" position="after">
+                    <page string="Retentions"
+                          attrs="{'invisible': [('invoice_ret_line_ids','=',[]),('invoice_ret_global_line_ids','=',[]),('invoice_ret_irpf_lines','=',[]),('state','not in',('draft','sice'))]}">
+                        <group col="2" colspan="2" string="Retenciones IVA, IRPF, IRAE e IRNR"
+                               attrs="{'invisible': [('invoice_ret_line_ids','=',[]),('state','not in',('draft','sice'))]}">
+                            <field name="invoice_ret_line_ids" nolabel="1" attrs="{'readonly':[('move_id','!=',False)]}">
+                                <tree string="Retention Line" editable="bottom" create="false">
+                                    <field name="line_id" invisible="1"/>
+                                    <field name="invoice_id" invisible="1"/>
+                                    <field name="price_unit" readonly="1" invisible="1"/>
+                                    <field name="quantity" readonly="1" invisible="1"/>
+                                    <field name="product_id" readonly="1"/>
+                                    <field name="subtotal" invisible="1"/>
+                                    <field name="tax_id" invisible="1"/>
+                                    <field name="base_ret_line" readonly="1" string="Importe sin impuestos"/>
+                                    <field name="base_retax" readonly="1" string="Impuesto"/>
+                                    <field name="retention_line_ret_ids" widget="many2many_tags"
+                                           domain="[('state','=','done'),('es_irpf_porciento','=',False)]"
+                                           context="{'origen':'line_ret','state':'done'}"/>
+                                    <field name="amount_ret"/>
+                                    <field name="description"/>
+                                </tree>
+                            </field>
+                        </group>
+                        <group class="oe_subtotal_footer oe_right" colspan="2" name="subttal_ret_lines"
+                               attrs="{'invisible': [('invoice_ret_line_ids','=',[]),('state','not in',('draft','sice'))]}">
+                            <field name="amount_subttal_lines_ret"/>
+                        </group>
+
+                        <group col="2" colspan="2" string="Retenciones 7 IRPF"
+                               attrs="{'invisible': [('invoice_ret_irpf_lines','=',[]),('state','not in',('draft','sice'))]}">
+                            <field name="invoice_ret_irpf_lines" nolabel="1" attrs="{'readonly':[('move_id','!=',False)]}">
+                                <tree string="Retention Line" editable="bottom" create="false">
+                                    <field name="invoice_id" invisible="1"/>
+                                    <field name="move_payment_id" readonly="1" invisible="1"/>
+                                    <field name="base_amount_pend" readonly="1"/>
+                                    <field name="base_amount" readonly="1" invisible="1"/>
+                                    <field name="retention_id"
+                                           domain="[('state','=','done'),('es_irpf_porciento','=',True)]"
+                                           context="{'state':'done'}"/>
+                                    <field name="amount_ret"/>
+                                    <field name="description"/>
+                                </tree>
+                            </field>
+                        </group>
+                        <group col="3">
+                            <group>
+                                <field name="fecha_tc_rate_ui" on_change="onchange_fecha_ui(fecha_tc_rate_ui)"/>
+                            </group>
+                            <group>
+                                <field name="tipo_cambio_ui_fnc"/>
+                                <field name="rate_ui" invisible="1"/>
+                            </group>
+                            <group class="oe_subtotal_footer oe_right" name="subttal_ret_irpf_lines"
+                                   attrs="{'invisible': [('invoice_ret_irpf_lines','=',[]),('state','not in',('draft','sice'))]}">
+                                <field name="amount_subttal_irpf_ret"/>
+                            </group>
+                        </group>
+                        <group col="2" string="Otras retenciones manuales"
+                               attrs="{'invisible': [('invoice_ret_global_line_ids','=',[]),('state','not in',('draft','sice'))]}">
+                            <field name="invoice_ret_global_line_ids" nolabel="1"
+                                   attrs="{'readonly':[('move_id','!=',False)]}">
+                                <tree string="Retention Global Line" editable="bottom">
+                                    <field name="invoice_id" invisible="1"/>
+                                    <field name="name" invisible="1"/>
+                                    <field name="product_id" invisible="1"/>
+                                    <field name="account_id"/>
+                                    <field name="journal_id"/>
+                                    <field name="amount_ret"/>
+                                    <field name="amount_ret_pesos"/>
+                                    <field name="move_payment_id" invisible="1"/>
+                                </tree>
+                            </field>
+                        </group>
+                        <group class="oe_subtotal_footer oe_right" colspan="2" name="subttal_blobal"
+                               attrs="{'invisible': [('invoice_ret_global_line_ids','=',[]),('state','not in',('draft','sice'))]}">
+                            <field name="amount_subttal_global_inv_ret"/>
+                        </group>
+                        <group col="2">
+                            <div>
+                                <button name="button_reset_taxes" states="draft,sice" string="Compute Retentions"
+                                        type="object" icon="terp-stock_format-scientific"/>
+                            </div>
+                            <div>
+                                <group class="oe_subtotal_footer oe_right" colspan="2" name="ttotal_ret">
+                                    <field name="company_currency_id" invisible="1"/>
+                                    <field name="amount_ttal_ret" widget="monetary"
+                                           options="{'currency_field': 'currency_id'}"/>
+                                    <field name="amount_ttal_ret_base" widget="monetary"
+                                           options="{'currency_field': 'company_currency_id'}"/>
+                                </group>
+                            </div>
+                        </group>
+                    </page>
+                </xpath>
+
+                <field name="payment_ids" position="after">
+                    <field name="payment_ret_ids" nolabel="1"
+                           attrs="{'invisible': ['|',('invoice_ret_lines','=',False),('state','not in',['paid'])]}">
+                        <tree string="Payments">
+                            <field name="date" string="Payment Date"/>
+                            <field name="move_id"/>
+                            <field name="ref"/>
+                            <field name="name"/>
+                            <field name="journal_id"/>
+                            <field name="debit"/>
+                            <field name="credit"/>
+                            <field name="amount_currency"/>
+                            <field name="currency_id" groups="base.group_multi_currency"/>
+                        </tree>
+                    </field>
+                </field>
+
+                <xpath expr="//page[@string='Invoice']/group[@class='oe_subtotal_footer oe_right']" position="replace">
+                    <group col="2">
+                        <button colspan="2" name="button_reset_taxes" states="draft,sice" string="Compute Taxes"
+                                type="object" icon="terp-stock_format-scientific"/>
+                    </group>
+                    <group col="6">
+                        <group class="oe_subtotal_footer oe_right" colspan="6">
+                            <field name="amount_untaxed" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                            <field name="amount_tax" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                            <field name="total_nominal_divisa" invisible="1" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                            <field name="total_nominal_divisa_cpy" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                            <field name="amount_total_retention" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                            <field name="reconciled"/>
+                            <field name="amount_total" class="oe_subtotal_footer_separator" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                            <field name="residual" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                            <field name="reconciled" invisible="1"/>
+                        </group>
+                    </group>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</openerp>

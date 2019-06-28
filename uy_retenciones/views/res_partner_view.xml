@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <!-- TODO SPRING 8 GAP 62.A R-->
+        <record id="view_partner_form" model="ir.ui.view">
+            <field name="name">res.partner.form.retention.inherit</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="account.view_partner_property_form"/>
+            <field name="arch" type="xml">
+                <field name="property_account_position" position="after">
+                    <field name="retention_ids" widget="many2many_tags"/>
+                </field>
+            </field>
+        </record>
+    </data>
+</openerp>

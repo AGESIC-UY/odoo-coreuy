@@ -1,0 +1,10 @@
+id	grupo	descripcion
+group_1	1	Impuestos, multas y otras operaciones
+group_2	2	Sanciones, licencias especiales y otras operaciones
+group_3	3	B.P.S. - Caja de Jubilaciones y Pensiones Civiles
+group_4	4	B.P.S. - Caja de Jubilaciones y Pensiones Escolares
+group_5	5	Seguridad Social Militar y Sanidad Militar
+group_6	6	Dir.Nac. de Asis. Soc. Pol. y Dir. de Sanidad Policial
+group_7	7	Retenciones Voluntarias sobre Sueldos
+group_8	8	Descuentos por pagos en especie
+group_9	9	Otros

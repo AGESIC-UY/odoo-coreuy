@@ -1,0 +1,874 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* uy_retenciones
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 8.0-20170620\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-07-27 14:31+0000\n"
+"PO-Revision-Date: 2017-07-27 14:31+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: uy_retenciones
+#: field:account.global.retention.line,account_id:0
+#: field:account.retention,account_id:0
+msgid "Account"
+msgstr "Cuenta"
+
+#. module: uy_retenciones
+#: field:account.retention.line,tax_id:0
+msgid "Account Tax"
+msgstr "Cuenta de impuestos"
+
+#. module: uy_retenciones
+#: field:account.retention.line,subtotal:0
+msgid "Amount"
+msgstr "Importe"
+
+#. module: uy_retenciones
+#: code:addons\uy_retenciones\retention_inv.py:936
+#, python-format
+msgid "Automatic: The system identify to taxs and make the retention document automatic,     Manual: The user insert the retention number     Group: Use the option to group the system invoices on one retention document."
+msgstr "Automatic: The system identify to taxs and make the retention document automatic,     Manual: The user insert the retention number     Group: Use the option to group the system invoices on one retention document."
+
+#. module: uy_retenciones
+#: code:addons\uy_retenciones\retention_inv_api.py:503
+#, python-format
+msgid "Bad Total!"
+msgstr "Bad Total!"
+
+#. module: uy_retenciones
+#: view:account.retention:uy_retenciones.view_account_retention_search
+msgid "Base Compute"
+msgstr "Base de cálculo"
+
+#. module: uy_retenciones
+#: field:account.retention,base_compute:0
+msgid "Base de cálculo"
+msgstr "Base de cálculo"
+
+#. module: uy_retenciones
+#: help:account.retention,base_compute:0
+msgid "Base de cálculo de retenciones. Cuando se calcula la retención sobre el impuesto. La base de cálculo es 'Impuesto'. Si se calcula la retención sobre el importe es utilizado 'Monto de línea'."
+msgstr "Base de cálculo de retenciones.\n"
+"Cuando se calcula la retención sobre el impuesto. La base de cálculo es 'Impuesto'.\n"
+"Si se calcula la retención sobre el importe es utilizado 'Monto de línea'."
+
+#. module: uy_retenciones
+#: field:account.retention.line,base_retax:0
+msgid "Base impuesto"
+msgstr "Base impuesto"
+
+#. module: uy_retenciones
+#: field:account.retention.line,base_ret_line:0
+msgid "Base linea"
+msgstr "Base línea"
+
+#. module: uy_retenciones
+#: selection:account.retention,state:0
+msgid "Borrador"
+msgstr "Borrador"
+
+#. module: uy_retenciones
+#: view:account.retention:uy_retenciones.view_account_retention_form
+#: view:account.retention:uy_retenciones.view_account_retention_search
+msgid "Cancel"
+msgstr "Cancelar"
+
+#. module: uy_retenciones
+#: selection:account.retention,state:0
+msgid "Cancelado"
+msgstr "Cancelado"
+
+#. module: uy_retenciones
+#: view:account.retention:uy_retenciones.view_account_retention_search
+msgid "Canceled Retentions"
+msgstr "Retenciones canceladas"
+
+#. module: uy_retenciones
+#: code:addons\uy_retenciones\retention_inv_api.py:515
+#, python-format
+msgid "Cannot create the invoice.\n"
+"The related payment term is probably misconfigured as it gives a computed amount greater than the total invoiced amount. In order to avoid rounding issues, the latest line of your payment term must be of type 'balance'."
+msgstr "Cannot create the invoice.\n"
+"The related payment term is probably misconfigured as it gives a computed amount greater than the total invoiced amount. In order to avoid rounding issues, the latest line of your payment term must be of type 'balance'."
+
+#. module: uy_retenciones
+#: model:ir.model,name:uy_retenciones.model_res_company
+msgid "Companies"
+msgstr "Compañías"
+
+#. module: uy_retenciones
+#: view:account.invoice:uy_retenciones.invoice_retention_supplier_form_inherit
+msgid "Compute Retentions"
+msgstr "Calcular retenciones"
+
+#. module: uy_retenciones
+#: view:account.invoice:uy_retenciones.invoice_retention_supplier_form_inherit
+msgid "Compute Taxes"
+msgstr "Calcular impuestos"
+
+#. module: uy_retenciones
+#: code:addons\uy_retenciones\retention_inv_paid.py:263
+#, python-format
+msgid "Configuration Error !"
+msgstr "Error de configuración !"
+
+#. module: uy_retenciones
+#: field:account.global.retention.line,create_uid:0
+#: field:account.retention,create_uid:0
+#: field:account.retention.line,create_uid:0
+#: field:account.retention.line.irpf,create_uid:0
+msgid "Created by"
+msgstr "Creado por"
+
+#. module: uy_retenciones
+#: field:account.global.retention.line,create_date:0
+#: field:account.retention,create_date:0
+#: field:account.retention.line,create_date:0
+#: field:account.retention.line.irpf,create_date:0
+msgid "Created on"
+msgstr "Fecha de creación"
+
+#. module: uy_retenciones
+#: code:addons\uy_retenciones\retention_inv.py:994
+#: code:addons\uy_retenciones\retention_inv.py:1204
+#: code:addons\uy_retenciones\retention_inv_api.py:343
+#, python-format
+msgid "Deberá cargar la moneda Unidad Indexada."
+msgstr "Deberá cargar la moneda Unidad Indexada."
+
+#. module: uy_retenciones
+#: code:addons\uy_retenciones\retention_inv.py:1302
+#, python-format
+msgid "Deberá cargar la retención en la línea de IRPF."
+msgstr "Deberá cargar la retención en la línea de IRPF."
+
+#. module: uy_retenciones
+#: field:account.global.retention.line,name:0
+#: field:account.retention.line.irpf,description:0
+msgid "Descripción"
+msgstr "Descripción"
+
+#. module: uy_retenciones
+#: field:account.retention.line,description:0
+msgid "Description"
+msgstr "Descripción"
+
+#. module: uy_retenciones
+#: field:account.global.retention.line,journal_id:0
+#: field:account.retention,journal_id:0
+msgid "Diario"
+msgstr "Diario"
+
+#. module: uy_retenciones
+#: field:account.invoice,diferent_currency:0
+msgid "Diferencia moneda"
+msgstr "Diferencia moneda"
+
+#. module: uy_retenciones
+#: view:account.retention:uy_retenciones.view_account_retention_search
+msgid "Draft"
+msgstr "Borrador"
+
+#. module: uy_retenciones
+#: view:account.retention:uy_retenciones.view_account_retention_form
+msgid "Draft Retention"
+msgstr "Retención borrador"
+
+#. module: uy_retenciones
+#: view:account.retention:uy_retenciones.view_account_retention_search
+msgid "Draft Retentions"
+msgstr "Retenciones borrador"
+
+#. module: uy_retenciones
+#: sql_constraint:account.retention:0
+#: code:addons\uy_retenciones\retention.py:66
+#, python-format
+msgid "El nombre de la retención debe ser único."
+msgstr "El nombre de la retención debe ser único."
+
+#. module: uy_retenciones
+#: code:addons\uy_retenciones\retention.py:83
+#: code:addons\uy_retenciones\retention.py:90
+#, python-format
+msgid "El porcentaje a retener debe ser mayor que cero !"
+msgstr "El porcentaje a retener debe ser mayor que cero !"
+
+#. module: uy_retenciones
+#: help:account.global.retention.line,product_id:0
+msgid "El producto asociado a la retención."
+msgstr "El producto asociado a la retención."
+
+#. module: uy_retenciones
+#: code:addons\uy_retenciones\retention_inv.py:625
+#, python-format
+msgid "Error !"
+msgstr "Error !"
+
+#. module: uy_retenciones
+#: code:addons\uy_retenciones\retention.py:83
+#: code:addons\uy_retenciones\retention.py:90
+#, python-format
+msgid "Error de validación!"
+msgstr "Error de validación!"
+
+#. module: uy_retenciones
+#: code:addons\uy_retenciones\retention_inv.py:993
+#: code:addons\uy_retenciones\retention_inv.py:1203
+#: code:addons\uy_retenciones\retention_inv.py:1301
+#: code:addons\uy_retenciones\retention_inv_api.py:342
+#: code:addons\uy_retenciones\retention_inv_api.py:481
+#: code:addons\uy_retenciones\retention_inv_api.py:515
+#: code:addons\uy_retenciones\retention_inv_paid.py:156
+#: code:addons\uy_retenciones\retention_inv_paid.py:196
+#: code:addons\uy_retenciones\retention_inv_paid.py:202
+#: code:addons\uy_retenciones\retention_inv_paid.py:268
+#, python-format
+msgid "Error!"
+msgstr "Error!"
+
+#. module: uy_retenciones
+#: field:account.retention,es_irpf_porciento:0
+msgid "Es IRPF"
+msgstr "Es IRPF"
+
+#. module: uy_retenciones
+#: view:account.retention:uy_retenciones.view_account_retention_search
+msgid "Es IRPF?"
+msgstr "Es IRPF?"
+
+#. module: uy_retenciones
+#: field:account.retention,state:0
+msgid "Estado"
+msgstr "Estado"
+
+#. module: uy_retenciones
+#: help:account.retention,percent:0
+msgid "Este campo es usado para establecer el porciento a retener. Ejemplo: Para establecer un 30% se establece el valor numérico correspondiente."
+msgstr "Este campo es usado para establecer el porciento a retener. Ejemplo: Para establecer un 30% se establece el valor numérico correspondiente."
+
+#. module: uy_retenciones
+#: view:account.retention:uy_retenciones.view_account_retention_search
+msgid "Expedition Date"
+msgstr "Fecha de emisión"
+
+#. module: uy_retenciones
+#: field:account.global.retention.line,date:0
+#: field:account.retention,date:0
+msgid "Fecha de creación"
+msgstr "Fecha de creación"
+
+#. module: uy_retenciones
+#: field:account.invoice,fecha_tc_rate_ui:0
+msgid "Fecha tipo cambio UI"
+msgstr "Fecha tipo cambio UI"
+
+#. module: uy_retenciones
+#: view:account.retention:uy_retenciones.view_account_retention_search
+msgid "Group By..."
+msgstr "Agrupar por..."
+
+#. module: uy_retenciones
+#: field:account.global.retention.line,id:0
+#: field:account.retention,id:0
+#: field:account.retention.line,id:0
+#: field:account.retention.line.irpf,id:0
+msgid "ID"
+msgstr "ID"
+
+#. module: uy_retenciones
+#: view:account.retention:uy_retenciones.view_account_retention_search
+msgid "IRPF"
+msgstr "IRPF"
+
+#. module: uy_retenciones
+#: field:account.global.retention.line,amount_ret:0
+msgid "Importe"
+msgstr "Importe"
+
+#. module: uy_retenciones
+#: field:account.retention.line,amount_ret:0
+#: field:account.retention.line.irpf,amount_ret:0
+msgid "Importe a retener"
+msgstr "Importe a retener"
+
+#. module: uy_retenciones
+#: field:account.global.retention.line,amount_ret_pesos:0
+msgid "Importe pesos"
+msgstr "Importe pesos"
+
+#. module: uy_retenciones
+#: view:account.invoice:uy_retenciones.invoice_retention_supplier_form_inherit
+msgid "Importe sin impuestos"
+msgstr "Importe sin impuestos"
+
+#. module: uy_retenciones
+#: view:account.invoice:uy_retenciones.invoice_retention_supplier_form_inherit
+#: selection:account.retention,base_compute:0
+msgid "Impuesto"
+msgstr "Impuesto"
+
+#. module: uy_retenciones
+#: field:account.invoice,amount_ttal_impuestos_pesos:0
+msgid "Impuestos en pesos"
+msgstr "Impuestos en pesos"
+
+#. module: uy_retenciones
+#: code:addons\uy_retenciones\retention_inv_paid.py:188
+#, python-format
+msgid "Insufficient Configuration!"
+msgstr "Insufficient Configuration!"
+
+#. module: uy_retenciones
+#: model:ir.model,name:uy_retenciones.model_account_invoice
+msgid "Invoice"
+msgstr "Factura"
+
+#. module: uy_retenciones
+#: model:ir.model,name:uy_retenciones.model_account_global_retention_line
+msgid "Invoice Global Retention Line"
+msgstr "Invoice Global Retention Line"
+
+#. module: uy_retenciones
+#: field:account.invoice,invoice_ret_global_line_ids:0
+msgid "Invoice Global Retention Lines"
+msgstr "Líneas de retenciones globales de factura"
+
+#. module: uy_retenciones
+#: model:ir.model,name:uy_retenciones.model_account_invoice_line
+msgid "Invoice Line"
+msgstr "Línea de factura"
+
+#. module: uy_retenciones
+#: field:account.retention.line,line_id:0
+msgid "Invoice Line Ref"
+msgstr "Referencia línea de factura"
+
+#. module: uy_retenciones
+#: field:account.global.retention.line,invoice_id:0
+#: field:account.retention.line,invoice_id:0
+#: field:account.retention.line.irpf,invoice_id:0
+msgid "Invoice Ref"
+msgstr "Referencia factura"
+
+#. module: uy_retenciones
+#: model:ir.model,name:uy_retenciones.model_account_retention_line
+msgid "Invoice Retention Line"
+msgstr "Invoice Retention Line"
+
+#. module: uy_retenciones
+#: field:account.invoice,invoice_ret_line_ids:0
+#: field:account.invoice,invoice_ret_lines:0
+msgid "Invoice Retention Lines"
+msgstr "Línea de retenciones en factura"
+
+#. module: uy_retenciones
+#: model:ir.model,name:uy_retenciones.model_account_retention_line_irpf
+msgid "Invoice Retention Lines IRPF"
+msgstr "Invoice Retention Lines IRPF"
+
+#. module: uy_retenciones
+#: help:account.invoice,invoice_ret_lines:0
+msgid "It indicates that an invoice has retention line"
+msgstr "Indica que la factura tiene líneas de retención"
+
+#. module: uy_retenciones
+#: field:account.config.settings,retention_journal_id:0
+#: field:res.company,retention_journal_id:0
+msgid "Journal"
+msgstr "Diario de retenciones"
+
+#. module: uy_retenciones
+#: model:ir.model,name:uy_retenciones.model_account_move_line
+msgid "Journal Items"
+msgstr "Apuntes contables"
+
+#. module: uy_retenciones
+#: help:account.global.retention.line,account_id:0
+#: help:account.retention,account_id:0
+msgid "La cuenta a la cual se contabilizará la retención."
+msgstr "La cuenta a la cual se contabilizará la retención."
+
+#. module: uy_retenciones
+#: constraint:account.retention.line:0
+msgid "Las líneas de retención deben ser únicas por cada línea de factura."
+msgstr "Las líneas de retención deben ser únicas por cada línea de factura."
+
+#. module: uy_retenciones
+#: sql_constraint:account.retention.line:0
+msgid "Las líneas de retención deben ser únicas según las líneas de la factura."
+msgstr "Las líneas de retención deben ser únicas según las líneas de la factura."
+
+#. module: uy_retenciones
+#: field:account.global.retention.line,write_uid:0
+#: field:account.retention,write_uid:0
+#: field:account.retention.line,write_uid:0
+#: field:account.retention.line.irpf,write_uid:0
+msgid "Last Updated by"
+msgstr "Última actualización de"
+
+#. module: uy_retenciones
+#: field:account.global.retention.line,write_date:0
+#: field:account.retention,write_date:0
+#: field:account.retention.line,write_date:0
+#: field:account.retention.line.irpf,write_date:0
+msgid "Last Updated on"
+msgstr "Última actualización en"
+
+#. module: uy_retenciones
+#: help:account.global.retention.line,move_payment_id:0
+#: help:account.retention.line,move_payment_line:0
+#: help:account.retention.line.irpf,move_payment_id:0
+msgid "Link to the payment Line Items."
+msgstr "Vínculo a líneas de pagos."
+
+#. module: uy_retenciones
+#: selection:account.retention.line.irpf,type:0
+msgid "Local"
+msgstr "Local"
+
+#. module: uy_retenciones
+#: sql_constraint:account.retention.line.irpf:0
+msgid "Los pagos deben ser únicos según las líneas de retenciones IRPF."
+msgstr "Los pagos deben ser únicos según las líneas de retenciones IRPF."
+
+#. module: uy_retenciones
+#: field:account.invoice,amount_ttal_liq_pesos:0
+msgid "Líquido pagable"
+msgstr "Líquido pagable"
+
+#. module: uy_retenciones
+#: field:account.invoice,company_currency_id:0
+msgid "Moneda empresa"
+msgstr "Moneda empresa"
+
+#. module: uy_retenciones
+#: help:account.global.retention.line,amount_ret:0
+msgid "Monto a retener en moneda de factura"
+msgstr "Monto a retener en moneda de factura"
+
+#. module: uy_retenciones
+#: help:account.retention.line,amount_ret:0
+#: help:account.retention.line.irpf,amount_ret:0
+msgid "Monto a retener."
+msgstr "Monto a retener"
+
+#. module: uy_retenciones
+#: help:account.retention.line.irpf,base_amount_pend_pesos:0
+msgid "Monto base calculo en pesos."
+msgstr "Monto base calculo en pesos."
+
+#. module: uy_retenciones
+#: help:account.retention.line.irpf,base_amount_pesos:0
+msgid "Monto base calculo pesos."
+msgstr "Monto base calculo pesos."
+
+#. module: uy_retenciones
+#: field:account.retention.line.irpf,base_amount:0
+#: help:account.retention.line.irpf,base_amount:0
+#: field:account.retention.line.irpf,base_amount_pend:0
+msgid "Monto base cálculo"
+msgstr "Monto base cálculo"
+
+#. module: uy_retenciones
+#: help:account.retention.line.irpf,base_amount_pend:0
+msgid "Monto base cálculo pendiente"
+msgstr "Monto base cálculo pendiente"
+
+#. module: uy_retenciones
+#: field:account.retention.line.irpf,base_amount_pend_pesos:0
+#: field:account.retention.line.irpf,base_amount_pesos:0
+msgid "Monto base cálculo pesos"
+msgstr "Monto base cálculo pesos"
+
+#. module: uy_retenciones
+#: selection:account.retention,base_compute:0
+msgid "Monto de línea"
+msgstr "Monto de línea"
+
+#. module: uy_retenciones
+#: help:account.invoice,total_reponer:0
+msgid "Monto total a reponer. Monto pagado + Retenciones"
+msgstr "Monto total a reponer. Monto pagado + Retenciones"
+
+#. module: uy_retenciones
+#: field:account.invoice,amount_total_paid:0
+msgid "Monto total pagado"
+msgstr "Monto total pagado"
+
+#. module: uy_retenciones
+#: field:account.global.retention.line,move_payment_id:0
+#: field:account.retention.line.irpf,move_payment_id:0
+msgid "Move Line Payment"
+msgstr "Líneas de movimiento de pago"
+
+#. module: uy_retenciones
+#: view:account.retention:uy_retenciones.view_account_retention_search
+msgid "Name"
+msgstr "Nombre"
+
+#. module: uy_retenciones
+#: code:addons\uy_retenciones\retention_inv_api.py:483
+#, python-format
+msgid "No Invoice Lines!"
+msgstr "No Invoice Lines!"
+
+#. module: uy_retenciones
+#: code:addons\uy_retenciones\retention_inv.py:508
+#, python-format
+msgid "No Retention Lines!"
+msgstr "No Retention Lines!"
+
+#. module: uy_retenciones
+#: code:addons\uy_retenciones\retention_inv.py:626
+#, python-format
+msgid "No encontrada moneda !"
+msgstr "No encontrada moneda !"
+
+#. module: uy_retenciones
+#: code:addons\uy_retenciones\retention_inv_paid.py:202
+#, python-format
+msgid "No payments found for the selected invoice."
+msgstr "No payments found for the selected invoice."
+
+#. module: uy_retenciones
+#: code:addons\uy_retenciones\retention_inv_paid.py:196
+#, python-format
+msgid "No period found for the invoice date %s."
+msgstr "No period found for the invoice date %s."
+
+#. module: uy_retenciones
+#: field:account.retention,name:0
+#: code:addons\uy_retenciones\retention.py:45
+#, python-format
+msgid "Nombre"
+msgstr "Nombre"
+
+#. module: uy_retenciones
+#: field:account.retention,number:0
+#: code:addons\uy_retenciones\retention.py:46
+#, python-format
+msgid "Número"
+msgstr "Número"
+
+#. module: uy_retenciones
+#: field:account.invoice,nro_factura_grp:0
+msgid "Número Factura"
+msgstr "Número Factura"
+
+#. module: uy_retenciones
+#: view:account.invoice:uy_retenciones.invoice_retention_supplier_form_inherit
+msgid "Otras retenciones manuales"
+msgstr "Otras retenciones manuales"
+
+#. module: uy_retenciones
+#: field:account.retention.line.irpf,partner_id:0
+#: model:ir.model,name:uy_retenciones.model_res_partner
+msgid "Partner"
+msgstr "Empresa"
+
+#. module: uy_retenciones
+#: code:addons\uy_retenciones\retention_inv_paid.py:459
+#: code:addons\uy_retenciones\retention_inv_paid.py:490
+#: code:addons\uy_retenciones\retention_inv_paid.py:520
+#, python-format
+msgid "Payment"
+msgstr "Payment"
+
+#. module: uy_retenciones
+#: view:account.invoice:uy_retenciones.invoice_retention_supplier_form_inherit
+msgid "Payment Date"
+msgstr "Fecha de pago"
+
+#. module: uy_retenciones
+#: field:account.retention.line,move_payment_line:0
+msgid "Payment Retention Lines"
+msgstr "Líneas de pagos de retenciones"
+
+#. module: uy_retenciones
+#: view:account.invoice:uy_retenciones.invoice_retention_supplier_form_inherit
+msgid "Payments"
+msgstr "Pagos"
+
+#. module: uy_retenciones
+#: field:account.retention.line.irpf,pendiente:0
+#: selection:account.retention.line.irpf,type:0
+msgid "Pendiente"
+msgstr "Pendiente"
+
+#. module: uy_retenciones
+#: code:addons\uy_retenciones\retention_inv_paid.py:263
+#, python-format
+msgid "Please activate the sequence of selected journal !"
+msgstr "Please activate the sequence of selected journal !"
+
+#. module: uy_retenciones
+#: code:addons\uy_retenciones\retention_inv_api.py:483
+#, python-format
+msgid "Please create some invoice lines."
+msgstr "Please create some invoice lines."
+
+#. module: uy_retenciones
+#: code:addons\uy_retenciones\retention_inv_paid.py:268
+#, python-format
+msgid "Please define a sequence on the journal."
+msgstr "Please define a sequence on the journal."
+
+#. module: uy_retenciones
+#: code:addons\uy_retenciones\retention_inv_api.py:481
+#, python-format
+msgid "Please define sequence on the journal related to this invoice."
+msgstr "Please define sequence on the journal related to this invoice."
+
+#. module: uy_retenciones
+#: code:addons\uy_retenciones\retention_inv_api.py:503
+#, python-format
+msgid "Please verify the price of the invoice!\n"
+"The encoded total does not match the computed total."
+msgstr "Please verify the price of the invoice!\n"
+"The encoded total does not match the computed total."
+
+#. module: uy_retenciones
+#: field:account.retention,percent:0
+msgid "Porciento"
+msgstr "Porciento"
+
+#. module: uy_retenciones
+#: field:account.global.retention.line,product_id:0
+#: field:account.retention.line,product_id:0
+msgid "Product"
+msgstr "Producto"
+
+#. module: uy_retenciones
+#: model:ir.model,name:uy_retenciones.model_product_template
+msgid "Product Template"
+msgstr "Plantilla de producto"
+
+#. module: uy_retenciones
+#: field:account.retention.line,quantity:0
+msgid "Quantity"
+msgstr "Cantidad"
+
+#. module: uy_retenciones
+#: field:account.retention.line,retention_line_ret_ids:0
+#: field:res.partner,retention_ids:0
+msgid "Retenciones"
+msgstr "Retenciones"
+
+#. module: uy_retenciones
+#: view:account.invoice:uy_retenciones.invoice_retention_supplier_form_inherit
+msgid "Retenciones 7 IRPF"
+msgstr "Retenciones 7 IRPF"
+
+#. module: uy_retenciones
+#: view:account.invoice:uy_retenciones.invoice_retention_supplier_form_inherit
+msgid "Retenciones IVA, IRPF, IRAE e IRNR"
+msgstr "Retenciones IVA, IRPF, IRAE e IRNR"
+
+#. module: uy_retenciones
+#: field:account.retention.line.irpf,retention_id:0
+#: field:product.template,retencion_ok:0
+msgid "Retención"
+msgstr "Retención"
+
+#. module: uy_retenciones
+#: field:account.invoice,invoice_ret_irpf_lines:0
+msgid "Retención 7% IRPF"
+msgstr "Retención 7% IRPF"
+
+#. module: uy_retenciones
+#: view:account.retention:uy_retenciones.view_account_retention_tree
+msgid "Retention"
+msgstr "Retención"
+
+#. module: uy_retenciones
+#: view:account.retention:uy_retenciones.view_account_retention_form
+msgid "Retention Document"
+msgstr "Documento de retención"
+
+#. module: uy_retenciones
+#: model:ir.actions.act_window,name:uy_retenciones.action_account_retention_tree
+#: model:ir.ui.menu,name:uy_retenciones.menu_action_retention
+msgid "Retention Documents"
+msgstr "Documentos de retenciones"
+
+#. module: uy_retenciones
+#: view:account.invoice:uy_retenciones.invoice_retention_supplier_form_inherit
+msgid "Retention Global Line"
+msgstr "Retención global"
+
+#. module: uy_retenciones
+#: view:account.invoice:uy_retenciones.invoice_retention_supplier_form_inherit
+#: field:account.move.line,account_ret_line_id:0
+#: view:account.retention.line:uy_retenciones.view_account_retention_line_inv_form
+#: view:account.retention.line:uy_retenciones.view_account_retention_line_inv_tree
+msgid "Retention Line"
+msgstr "Línea de retención"
+
+#. module: uy_retenciones
+#: code:addons\uy_retenciones\retention_inv_paid.py:253
+#, python-format
+msgid "Retention Paid Move Line Create."
+msgstr "Retention Paid Move Line Create."
+
+#. module: uy_retenciones
+#: field:account.invoice,payment_ret_ids:0
+msgid "Retention Payments"
+msgstr "Pagos de retenciones"
+
+#. module: uy_retenciones
+#: code:addons\uy_retenciones\retention.py:41
+#: model:ir.model,name:uy_retenciones.model_account_retention
+#, python-format
+msgid "Retention documents"
+msgstr "Retention documents"
+
+#. module: uy_retenciones
+#: view:account.invoice:uy_retenciones.invoice_retention_supplier_form_inherit
+#: model:ir.ui.menu,name:uy_retenciones.menu_parent_retention
+msgid "Retentions"
+msgstr "Retenciones"
+
+#. module: uy_retenciones
+#: view:account.retention:uy_retenciones.view_account_retention_search
+msgid "Search Taxes Retentions"
+msgstr "Buscar retenciones de impuestos"
+
+#. module: uy_retenciones
+#: view:account.retention:uy_retenciones.view_account_retention_form
+msgid "Set to Draft"
+msgstr "Cambiar a borrador"
+
+#. module: uy_retenciones
+#: view:account.retention:uy_retenciones.view_account_retention_search
+msgid "Status"
+msgstr "Estado"
+
+#. module: uy_retenciones
+#: field:account.invoice,amount_subttal_irpf_ret:0
+msgid "Subtotal retenciones IRPF"
+msgstr "Subtotal retenciones IRPF"
+
+#. module: uy_retenciones
+#: field:account.invoice,amount_subttal_global_inv_ret:0
+msgid "Subtotal retenciones global"
+msgstr "Subtotal retenciones global"
+
+#. module: uy_retenciones
+#: field:account.invoice,amount_subttal_lines_ret:0
+msgid "Subtotal retenciones líneas"
+msgstr "Subtotal retenciones líneas"
+
+#. module: uy_retenciones
+#: field:account.invoice,rate_ui:0
+msgid "TC UI"
+msgstr "TC UI"
+
+#. module: uy_retenciones
+#: code:addons\uy_retenciones\retention.py:133
+#, python-format
+msgid "The retention %s it change state: "
+msgstr "The retention %s it change state: "
+
+#. module: uy_retenciones
+#: code:addons\uy_retenciones\retention_inv.py:508
+#, python-format
+msgid "The selected invoice have not retention lines."
+msgstr "The selected invoice have not retention lines."
+
+#. module: uy_retenciones
+#: field:account.retention.line.irpf,type:0
+msgid "Tipo"
+msgstr "Tipo"
+
+#. module: uy_retenciones
+#: field:account.invoice,tipo_cambio_ui_fnc:0
+msgid "Tipo de cambio UI"
+msgstr "Tipo de cambio UI"
+
+#. module: uy_retenciones
+#: help:account.invoice,rate_ui:0
+msgid "Tipo de cambio UI."
+msgstr "Tipo de cambio UI."
+
+#. module: uy_retenciones
+#: field:account.invoice,tipo_de_cambio_presupuesto:0
+msgid "Tipo de cambio para presupuesto"
+msgstr "Tipo de cambio para presupuesto"
+
+#. module: uy_retenciones
+#: field:account.invoice,total_reponer:0
+msgid "Total a Reponer"
+msgstr "Total a Reponer"
+
+#. module: uy_retenciones
+#: field:account.invoice,amount_total_retention:0
+#: field:account.invoice,amount_ttal_ret:0
+msgid "Total a retener"
+msgstr "Total a retener"
+
+#. module: uy_retenciones
+#: field:account.invoice,amount_ttal_ret_base:0
+msgid "Total a retener moneda base"
+msgstr "Total a retener moneda base"
+
+#. module: uy_retenciones
+#: field:account.invoice,amount_ttal_ret_pesos:0
+msgid "Total retenciones"
+msgstr "Total retenciones"
+
+#. module: uy_retenciones
+#: field:account.retention.line,price_unit:0
+msgid "Unit Price"
+msgstr "Precio unitario"
+
+#. module: uy_retenciones
+#: code:addons\uy_retenciones\retention_inv_api.py:638
+#, python-format
+msgid "User Error!"
+msgstr "User Error!"
+
+#. module: uy_retenciones
+#: selection:account.retention,state:0
+msgid "Validado"
+msgstr "Validado"
+
+#. module: uy_retenciones
+#: view:account.retention:uy_retenciones.view_account_retention_form
+msgid "Validate"
+msgstr "Validar"
+
+#. module: uy_retenciones
+#: view:account.retention:uy_retenciones.view_account_retention_search
+msgid "Validated"
+msgstr "Validado"
+
+#. module: uy_retenciones
+#: view:account.retention:uy_retenciones.view_account_retention_search
+msgid "Validated Retentions"
+msgstr "Validar retenciones"
+
+#. module: uy_retenciones
+#: code:addons\uy_retenciones\retention_inv_paid.py:156
+#, python-format
+msgid "You cannot cancel an invoice which is partially paid. You need to unreconcile related payment entries first."
+msgstr "You cannot cancel an invoice which is partially paid. You need to unreconcile related payment entries first."
+
+#. module: uy_retenciones
+#: code:addons\uy_retenciones\retention_inv_api.py:639
+#, python-format
+msgid "You cannot create an invoice on a centralized journal. Uncheck the centralized counterpart box in the related journal from the configuration menu."
+msgstr "You cannot create an invoice on a centralized journal. Uncheck the centralized counterpart box in the related journal from the configuration menu."
+
+#. module: uy_retenciones
+#: code:addons\uy_retenciones\retention_inv_paid.py:188
+#, python-format
+msgid "You should configure the 'Retention Journal' in the accounting settings, to manage automatically the booking of accounting entries related to retention payments."
+msgstr "You should configure the 'Retention Journal' in the accounting settings, to manage automatically the booking of accounting entries related to retention payments."

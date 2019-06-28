@@ -1,0 +1,105 @@
+<definitions xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://servicios.pge.red.uy/acce/rupe/novedadesProveedores/consumo" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:f="http://ps.agesic.gub.uy" xmlns:fexp="http://ws.rupe.acce.gub.uy/novedadesProveedores" name="RecibirNovedadService" targetNamespace="http://servicios.pge.red.uy/acce/rupe/novedadesProveedores/consumo">
+  <types>
+    <xsd:schema xmlns:tns="http://ps.agesic.gub.uy" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://ps.agesic.gub.uy" version="1.0">
+      <xs:element name="pullNotificationRequest" type="tns:pullNotificationRequest"/>
+      <xs:element name="NotificationRequest" nillable="true" type="tns:pullNotificationRequest"/>
+      <xs:complexType name="pullNotificationRequest">
+        <xs:sequence>
+          <xs:element name="subscriber" type="xs:string"/>
+          <xs:element name="topic" type="xs:string"/>
+          <xs:element minOccurs="0" name="ackNotificationId" type="xs:string"/>
+        </xs:sequence>
+      </xs:complexType>
+    </xsd:schema>
+	<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://ws.rupe.acce.gub.uy/novedadesProveedores" elementFormDefault="unqualified" targetNamespace="http://ws.rupe.acce.gub.uy/novedadesProveedores" version="1.0">  
+	
+	
+  <xs:element name="novedadProveedor" type="tns:novedadProveedor" nillable="true"/>  
+  <xs:element name="publicarNovedad" type="tns:publicarNovedad"/>  
+  <xs:element name="publicarNovedadResponse" type="tns:publicarNovedadResponse"/>  
+  <xs:complexType name="publicarNovedad">    
+    <xs:sequence>      
+      <xs:element minOccurs="0" name="novedad" type="tns:novedadProveedor"/>    
+    </xs:sequence>  
+  </xs:complexType>  
+  <xs:complexType name="novedadProveedor">    
+    <xs:sequence>      
+      <xs:element minOccurs="0" name="articulosModificados" type="tns:coleccionElementos"/>      
+      <xs:element minOccurs="1" maxOccurs="1" name="codPaisProveedor" type="xs:string"/>      
+      <xs:element minOccurs="1" maxOccurs="1" name="codigoFiscal" type="xs:string"/>      
+      <xs:element minOccurs="1" maxOccurs="1" name="codigoOperacion" type="tns:tipoOperacion"/>      
+      <xs:element minOccurs="0" name="comunicacionesModificadas" type="tns:coleccionElementos"/>      
+      <xs:element minOccurs="0" name="cuentasBancariasModificadas" type="tns:coleccionElementos"/>      
+      <xs:element minOccurs="0" name="cumplimientosModificados" type="tns:coleccionElementos"/>      
+      <xs:element minOccurs="0" name="documentosModificados" type="tns:coleccionElementos"/>      
+      <xs:element minOccurs="1" maxOccurs="1" name="estadoProveedor" type="xs:string"/>      
+      <xs:element minOccurs="0" name="identificacionModificadas" type="tns:coleccionElementos"/>      
+      <xs:element minOccurs="0" name="personasVinculadasModificadas" type="tns:coleccionElementos"/>      
+      <xs:element minOccurs="1" maxOccurs="1" name="proveedorId" type="xs:int"/>      
+      <xs:element minOccurs="0" name="sancionesModificadas" type="tns:coleccionElementos"/>      
+      <xs:element minOccurs="0" name="soloModificaDatosGenerales" type="xs:boolean"/>
+      <xs:element minOccurs="0" name="tipoIdentificacion" type="xs:string" />      
+      <xs:element minOccurs="0" name="vencimientosModificados" type="tns:coleccionElementos"/>      
+      <xs:element minOccurs="1" maxOccurs="1" name="version" type="xs:int"/>    
+    </xs:sequence>  
+  </xs:complexType>  
+  <xs:complexType name="coleccionElementos">    
+    <xs:sequence>      
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="elementosModificados" nillable="true" type="tns:elementoModificado"/>    
+    </xs:sequence>  
+  </xs:complexType>  
+  <xs:complexType name="elementoModificado">    
+    <xs:sequence>      
+      <xs:element minOccurs="0" name="elementoAdicional" type="xs:string"/>      
+      <xs:element minOccurs="1" maxOccurs="1" name="fechaModificacion" type="xs:dateTime"/>      
+      <xs:element minOccurs="1" maxOccurs="1" name="idElementoModificado" type="xs:int"/>      
+      <xs:element minOccurs="1" maxOccurs="1" name="tipoOperacion" type="tns:tipoOperacion"/>      
+      <xs:element minOccurs="1" maxOccurs="1" name="version" type="xs:int"/>    
+    </xs:sequence>  
+  </xs:complexType>  
+  <xs:complexType name="publicarNovedadResponse">    
+    <xs:sequence>      
+      <xs:element minOccurs="0" name="resultado" type="xs:int"/>    
+    </xs:sequence>  
+  </xs:complexType>  
+  <xs:simpleType name="tipoOperacion">    
+    <xs:restriction base="xs:string">      
+      <xs:enumeration value="A"/>      
+      <xs:enumeration value="B"/>      
+      <xs:enumeration value="M"/>    
+    </xs:restriction>  
+  </xs:simpleType>
+
+
+	</xs:schema>
+  </types>
+  <message name="RecibirNovedadService_recibirNovedadResponse">
+    <part element="fexp:novedadProveedor" name="novedadProveedor"/>
+  </message>
+  <message name="RecibirNovedadService_recibirNovedad">
+    <part element="f:NotificationRequest" name="NotificationRequest"/>
+  </message>
+  <portType name="RecibirNovedadService">
+    <operation name="recibirNovedad" parameterOrder="NotificationRequest">
+      <input message="tns:RecibirNovedadService_recibirNovedad"/>
+      <output message="tns:RecibirNovedadService_recibirNovedadResponse"/>
+    </operation>
+  </portType>
+  <binding name="RecibirNovedadServiceBinding" type="tns:RecibirNovedadService">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <operation name="recibirNovedad">
+      <soap:operation soapAction=""/>
+      <input>
+        <soap:body use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+      </output>
+    </operation>
+  </binding>
+  <service name="RecibirNovedadService">
+    <port binding="tns:RecibirNovedadServiceBinding" name="RecibirNovedadPort">
+      <soap:address location="http://10.5.12.110:9700/NovedadesProveedores?wsdl"/>
+    </port>
+  </service>
+</definitions>

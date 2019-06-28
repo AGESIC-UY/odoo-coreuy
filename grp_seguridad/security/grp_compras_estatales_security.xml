@@ -1,0 +1,278 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data noupdate="0">
+        <record id="category_grp_compras" model="ir.module.category">
+            <field name="name">GRP</field>
+            <field name="sequence">0</field>
+        </record>
+
+        <record id="grp_usuario" model="res.groups">
+            <field name="name">Usuario GRP</field>
+            <field name="users" eval="[(4, ref('base.user_root'))]"/>
+        </record>
+
+        <!-- PCAR Grupo de seguridad nuevo para visibilidad del menu Informes/Compra/Analisis Compra -->
+        <record id="grp_menu_access_compra_analisis" model="res.groups">
+            <field name="name">GRP Informes Compras</field>
+            <field name="category_id" ref="category_grp_compras"/>
+            <field name="menu_access"
+                   eval="[(4, ref('purchase.menu_action_purchase_order_report_all')),(4, ref('base.next_id_73'))]"/>
+        </record>
+
+        <!-- PCAR: Grupo nuevo creacion de articulos SICE. -->
+        <record id="grp_responsable_sice" model="res.groups">
+            <field name="name">Creación de artículos SICE</field>
+            <field name="category_id" ref="grp_seguridad.category_grp_compras"/>
+            <field name="menu_access" eval="[(4, ref('stock.menu_product_variant_config_stock'))
+            ,(4, ref('stock.menu_stock_product')),(4, ref('stock.menu_product_in_config_stock'))
+            ,(4, ref('stock.menu_stock_root'))]"/>
+        </record>
+
+        <record id="grp_visibilidad_inventario" model="res.groups">
+            <field name="name">Visibilidad Inventario</field>
+            <field name="category_id" ref="grp_seguridad.category_grp_compras"/>
+            <field name="menu_access"
+                   eval="[(4, ref('stock.menu_product_variant_config_stock')),(4, ref('stock.menu_stock_configuration')),(4, ref('stock.menu_product_in_config_stock')),(4, ref('stock.menu_stock_root'))]"/>
+        </record>
+        <!-- PCAR -->
+        <!-- stock.menu_product_variant_config_stock,stock.menu_stock_configuration,stock.menu_product_in_config_stock,stock.menu_stock_root","Visibilidad Inventario -->
+
+
+        <!-- Grupo de acceso a cancilleria echaviano 4 feb-->
+        <record id="group_grp_permisos_varios" model="res.groups">
+            <field name="name">GRP Permisos Varios</field>
+            <field name="category_id" ref="grp_seguridad.category_grp_compras"/>
+        </record>
+
+        <record id="grp_group_proveedores_rupe" model="res.groups">
+            <field name="name">GRP - Proveedores RUPE</field>
+            <field name="category_id" ref="grp_seguridad.category_grp_compras"/>
+        </record>
+
+        <!-- ================  GRUPOS DE AURORIZARION PARA GASTAR  ================ -->
+        <!-- -->
+        <record id="grp_menu_compras_estatales" model="res.groups">
+            <field name="name">Menu principal GRP_CE</field>
+            <!-- sacado la herencia de -->
+            <!--<field name="implied_ids" eval="[(4,ref('group_grp_permisos_varios'))]"/>-->
+            <field name="category_id" ref="category_grp_compras"/>
+            <field name="menu_access" eval="[(4, ref('base.menu_reporting'))]"/>
+        </record>
+
+        <record id="grp_compras_apg_Comprador" model="res.groups">
+            <field name="name">APG Comprador</field>
+            <field name="category_id" ref="category_grp_compras"/>
+            <field name="implied_ids" eval="[(4,ref('grp_menu_compras_estatales'))]"/>
+        </record>
+
+        <record id="group_grp_operador_cuentas_a_pagar" model="res.groups">
+            <field name="name">GRP Operador Cuentas a Pagar</field>
+            <field name="category_id" ref="category_grp_compras"/>
+            <field name="implied_ids" eval="[(4,ref('grp_compras_apg_Comprador'))]"/>
+            <field name="menu_access" eval="[(4,ref('account.menu_finance_payables'))]"/>
+        </record>
+
+        <record id="grp_group_basico_Compras" model="res.groups">
+            <field name="name">GRP Grupo Básico Compras</field>
+            <field name="category_id" ref="category_grp_compras"/>
+            <field name="implied_ids" eval="[(4,ref('grp_menu_compras_estatales'))]"/>
+        </record>
+
+        <record id="grp_compras_pc_Comprador" model="res.groups">
+            <field name="name">PC Comprador</field>
+            <field name="category_id" ref="category_grp_compras"/>
+            <field name="implied_ids" eval="[(4,ref('grp_group_basico_Compras'))]"/>
+        </record>
+
+        <record id="grp_compras_apg_Jefe_de_compras" model="res.groups">
+            <field name="name">APG Jefe Financiero</field>
+            <field name="category_id" ref="category_grp_compras"/>
+            <field name="implied_ids"
+                   eval="[(4,ref('grp_menu_compras_estatales'))]"/>
+            <!-- grp_seguridad.menu_pedido_de_compra_1 -->
+            <!--<field name="menu_access" eval="[(4, ref('grp_seguridad.menu_pedido_de_compra_1'))]"/>-->
+        </record>
+
+        <record id="grp_compras_apg_Jefe_de_compras_2" model="res.groups">
+            <field name="name">APG Jefe de Compras</field>
+            <field name="category_id" ref="category_grp_compras"/>
+            <field name="implied_ids"
+                   eval="[(4,ref('grp_menu_compras_estatales')),(4,ref('grp_compras_pc_Comprador'))]"/>
+            <field name="menu_access" eval="[(4, ref('account.menu_finance'))]"/>
+        </record>
+        <!--acceso a menu de contabilidad, ferchu 04/04-->
+        <!--acceso a menu de RUPE, ferchu 06/04-->
+
+        <!-- Herencia de grupo Gestor Financiero account_voucher.menu_action_vendor_payment -->
+        <record id="account.group_account_manager" model="res.groups">
+            <field name="menu_access" eval="[(4, ref('account_voucher.menu_action_purchase_receipt')),
+            (4, ref('account_voucher.menu_action_vendor_payment'))]"/>
+        </record>
+
+        <!-- Grupo Almacen Responsable stock.group_stock_manager -->
+        <record id="stock.group_stock_manager" model="res.groups">
+            <field name="implied_ids" eval="[(4, ref('stock.group_stock_user'))]"/>
+        </record>
+
+
+        <!--&lt;!&ndash;Incidencia, nuevo rol-->
+        <record id="grp_compras_pc_Responsable" model="res.groups">
+            <field name="name">PC Responsable</field>
+            <field name="category_id" ref="category_grp_compras"/>
+            <field name="implied_ids"
+                   eval="[(4,ref('grp_menu_compras_estatales')),(4,ref('grp_compras_pc_Comprador'))]"/>
+        </record>
+
+    <!--INés 20180824: incidencia 2822
+    Note: category_grp_compras removed from grp_compras_apg_Ordenador_del_gasto-->
+        <record id="grp_compras_apg_Ordenador_del_gasto" model="res.groups">
+            <field name="name">APG Ordenador del gasto</field>
+            <!--<field name="category_id" ref="category_grp_compras"/>-->
+            <field name="category_id" ref="base.module_category_hidden"/>
+            <field name="implied_ids" eval="[(4,ref('grp_group_basico_Compras'))]"/>
+        </record>
+        <record id="grp_compras_apg_Ordenador_del_gasto_primario" model="res.groups">
+            <field name="name">Ordenador de gasto primario</field>
+            <field name="category_id" ref="category_grp_compras"/>
+            <field name="implied_ids" eval="[(4,ref('grp_compras_apg_Ordenador_del_gasto'))]"/>
+        </record>
+        <record id="grp_compras_ordenador_secundario_4la" model="res.groups">
+            <field name="name">Ordenador secundario (hasta 4 LA)</field>
+            <field name="category_id" ref="category_grp_compras"/>
+            <field name="implied_ids" eval="[(4,ref('grp_compras_apg_Ordenador_del_gasto'))]"/>
+        </record>
+        <record id="grp_compras_ordenador_secundario_2la" model="res.groups">
+            <field name="name">Ordenador secundario (hasta 2 LA)</field>
+            <field name="category_id" ref="category_grp_compras"/>
+            <field name="implied_ids" eval="[(4,ref('grp_compras_apg_Ordenador_del_gasto'))]"/>
+        </record>
+        <record id="grp_compras_ordenador_secundario_la" model="res.groups">
+            <field name="name">Ordenador secundario (hasta LA)</field>
+            <field name="category_id" ref="category_grp_compras"/>
+            <field name="implied_ids" eval="[(4,ref('grp_compras_apg_Ordenador_del_gasto'))]"/>
+        </record>
+        <record id="grp_compras_ordenador_delegado" model="res.groups">
+            <field name="name">Ordenador delegado</field>
+            <field name="category_id" ref="category_grp_compras"/>
+            <field name="implied_ids" eval="[(4,ref('grp_compras_apg_Ordenador_del_gasto'))]"/>
+        </record>
+    <!--End INés 20180824: incidencia 2822-->
+
+
+        <record id="grp_compras_migracion_procedimiento" model="res.groups">
+            <field name="name">Migración Procedimiento Compras</field>
+            <field name="category_id" ref="category_grp_compras"/>
+        </record>
+
+        <!--<record id="grp_compras_apg_Ordenador_del_gasto_primario" model="res.groups">-->
+            <!--<field name="name">APG Ordenador del gasto Primario</field>-->
+            <!--<field name="category_id" ref="category_grp_compras"/>-->
+            <!--<field name="implied_ids" eval="[(4,ref('grp_compras_apg_Ordenador_del_gasto'))]"/>-->
+        <!--</record>-->
+
+        <!--<record id="grp_compras_apg_Ordenador_del_gasto_secundario" model="res.groups">-->
+            <!--<field name="name">APG Ordenador del gasto Secundario</field>-->
+            <!--<field name="category_id" ref="category_grp_compras"/>-->
+            <!--<field name="implied_ids" eval="[(4,ref('grp_compras_apg_Ordenador_del_gasto'))]"/>-->
+        <!--</record>-->
+
+        <record id="grp_compras_apg_Responsable_SIIF" model="res.groups">
+            <field name="name">GRP - Responsable SIIF</field>
+            <field name="category_id" ref="category_grp_compras"/>
+            <field name="implied_ids" eval="[(4,ref('grp_menu_compras_estatales'))]"/>
+            <field name="menu_access" eval="[(4, ref('account.menu_finance')),(4, ref('account.menu_finance_payables'))]"/>
+        </record>
+
+        <record id="grp_group_configuracion_siif" model="res.groups">
+            <field name="name">GRP - Configuración SIIF</field>
+            <field name="category_id" ref="category_grp_compras"/>
+        </record>
+
+        <record id="grp_compras_SICE" model="res.groups">
+            <field name="name">Responsable SICE</field>
+            <field name="category_id" ref="category_grp_compras"/>
+            <field name="implied_ids" eval="[(4,ref('grp_menu_compras_estatales'))]"/>
+        </record>
+
+        <!-- PCARBALLO Grupo de responsables de ubicacion -->
+        <record id="grp_responsable_ubicacion" model="res.groups">
+            <field name="name">Responsable de Ubicación</field>
+            <field name="category_id" ref="category_grp_compras"/>
+            <field name="menu_access"
+                   eval="[(4, ref('stock.menu_action_location_form')),(4, ref('stock.menu_stock_configuration'))]"/>
+            <!-- stock.menu_stock_configuration-->
+        </record>
+        <!-- PCARBALLO -->
+
+        <!-- -->
+        <!-- Nuevos Grupos SC-->
+        <record id="grp_compras_SC_Consulta" model="res.groups">
+            <field name="name">Consulta SC</field>
+            <field name="category_id" ref="category_grp_compras"/>
+            <field name="implied_ids" eval="[(4,ref('grp_menu_compras_estatales'))]"/>
+        </record>
+
+        <record id="grp_compras_SC_Gestor" model="res.groups">
+            <field name="name">Gestor SC</field>
+            <field name="category_id" ref="category_grp_compras"/>
+            <field name="implied_ids" eval="[(4,ref('grp_menu_compras_estatales')), (4,ref('grp_compras_SC_Consulta'))]"/>
+        </record>
+
+        <!-- ================  GRUPOS DE SOLICITUD DE RECURSOS  ================ -->
+        <!-- Nuevos grupos SR -->
+        <record id="grp_compras_sr_Solicitante" model="res.groups">
+            <field name="name">Gestor SR</field>
+            <field name="category_id" ref="category_grp_compras"/>
+            <field name="implied_ids" eval="[(4,ref('grp_menu_compras_estatales'))]"/>
+        </record>
+
+        <record id="grp_compras_sr_Aprobador" model="res.groups">
+            <field name="name">Aprobador SR</field>
+            <field name="category_id" ref="category_grp_compras"/>
+            <field name="implied_ids" eval="[(4,ref('grp_menu_compras_estatales'))]"/>
+        </record>
+
+        <record id="grp_compras_sr_superusuario_aprobador" model="res.groups">
+            <field name="name">SR Super Usuario Aprobador</field>
+            <field name="category_id" ref="category_grp_compras"/>
+            <field name="implied_ids" eval="[(4,ref('grp_compras_sr_Aprobador'))]"/>
+        </record>
+
+        <record id="grp_compras_sr_Encargado_de_almacen" model="res.groups">
+            <field name="name">SR Encargado de almacén</field>
+            <field name="category_id" ref="category_grp_compras"/>
+            <field name="implied_ids" eval="[(4,ref('grp_menu_compras_estatales'))]"/>
+            <field name="menu_access" eval="[(4, ref('stock.menu_product_in_config_stock')),(4, ref('stock.menu_stock_warehouse_mgmt')),(4, ref('stock.menu_product_variant_config_stock')),
+            (4, ref('stock.menu_traceability')),(4, ref('stock.menu_stock_product')),(4, ref('stock.menu_stock_root'))]"/>
+            <!--menu access cat prod encargado almacen-->
+        </record>
+
+        <record id="group_default_operating_unit" model="res.groups">
+            <field name="name">Restringir Operating Unit por defecto</field>
+            <field name="category_id" ref="base.module_category_usability"/>
+        </record>
+
+        <record id="grp_compras_SC_UE" model="res.groups">
+            <field name="name">Restringir SC por UE</field>
+            <field name="category_id" ref="category_grp_compras"/>
+        </record>
+
+        <record id="grp_compras_PC_UE" model="res.groups">
+            <field name="name">Restringir PC por UE</field>
+            <field name="category_id" ref="category_grp_compras"/>
+        </record>
+
+        <!--COTIZACIONES-->
+        <!--Grupo Solicitante Aprobador Cotizacion-->
+        <record id="grp_group_wf_cot_apr_cot" model="res.groups">
+            <field name="name">Admin Cotizaciones</field>
+            <field name="category_id" ref="category_grp_compras"/>
+        </record>
+
+        <record id="base.next_id_73" model="ir.ui.menu">
+            <field name="groups_id" eval="[(4,ref('base.group_system')),(3,ref('purchase.group_purchase_user'))]"/>
+        </record>
+
+    </data>
+
+</openerp>

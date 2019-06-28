@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+
+        <record id="grp_factura_ajuste_obligacion_form" model="ir.ui.view">
+            <field name="name">grp.factura.ajueste.obligacion.form</field>
+            <field name="model">account.invoice</field>
+            <field name="type">form</field>
+            <field name="inherit_id" ref="grp_factura_siif.view_account_form_obligacion"/>
+            <field name="arch" type="xml">
+                <field name="sec_factura" position="after">
+                    <field name="ajustar_facturas"
+                        attrs="{'readonly': [('state','!=','draft')]}" />
+                </field>
+
+            </field>
+        </record>
+
+    </data>
+</openerp>

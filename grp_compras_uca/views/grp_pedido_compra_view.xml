@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <!--TODO Spring 6 GAP 334-->
+        <record id="view_grp_uca_pedidos_compra_form" model="ir.ui.view">
+            <field name="name">Pedidos de Compra</field>
+            <field name="model">grp.pedido.compra</field>
+            <field name="inherit_id" ref="grp_compras_estatales.view_pedidos_compra_form"/>
+            <field name="arch" type="xml">
+                <data>
+                    <xpath expr="//field[@name='tipo_de_cambio_fnc']" position="after">
+                        <field name="sub_tipo_solicitud" attrs="{'required':[('state','=','inicio')], 'readonly':[('state','not in',['inicio'])]}"/>
+                    </xpath>
+
+                    <xpath expr="/form/header" position="inside">
+                        <button name="button_wkf_autorizar_jefe" type="workflow" states="en_aut_ordenador" string="Autorizar jefe"
+                                    attrs="{'invisible':['|',('sub_tipo_solicitud','not in',('compra_uca'))]}"
+                                    groups="grp_seguridad.grp_compras_apg_Jefe_de_compras_2"/><!--Todo GAP 443 Spring 6: Agregando a la condicion del atrrs el valor compra_uca-->
+                    </xpath>
+
+                    <xpath expr="//form/sheet/notebook/page[@string='Adjuntos']" position="after">
+                        <page string="UCA" attrs="{'invisible' : [('sub_tipo_solicitud','!=','compra_uca')]}">
+                            <group>
+                                <group>
+                                    <field name="number_uca" attrs="{'required' : [('sub_tipo_solicitud','=','compra_uca'),('state','!=','inicio')]}" style="width:25%%"/>
+                                </group>
+                                <field name='compra_uca_ids' nolabel="1" widget='one2many_list' colspan="4">
+                                    <tree string="UCA" editable="bottom" create="false" delete="false">
+                                        <field name="solicitud_id" invisible="1"/>
+                                        <field name="state_compra" invisible="1"/>
+                                        <field name="description" readonly="1"/>
+                                        <field name="product_id" readonly="1"/>
+                                        <field name="solicitud_compra_id" invisible="1"/>
+                                        <field name="uom_id" readonly="1"/>
+                                        <field name="quantity" readonly="1"/>
+                                        <field name="number" attrs="{'readonly' : [('state_compra','!=','inicio')]}"/>
+                                        <field name="price" attrs="{'readonly' : [('state_compra','!=','inicio')]}"/>
+                                        <field name="provider_id" domain="[('supplier','=',True)]"
+                                               attrs="{'readonly':['|',('solicitud_compra_id','!=',False),('state_compra','!=','inicio')],'required':[('state_compra','=','inicio')]}"/>
+                                    </tree>
+                                </field>
+                            </group>
+                        </page>
+                    </xpath>
+                    <xpath expr="//form/sheet/notebook/page[@string='Solicitudes de compra']/field[@name='lineas_ids']/tree/field[@name='solicitud_compra_id']" position="attributes">
+                        <attribute name="domain">[('en_pedido_compra','=',0),('state','!=','cancel'),('sentencia_ordenanza','=',parent.sub_tipo_solicitud)]</attribute>
+                    </xpath>
+
+
+                </data>
+            </field>
+        </record>
+
+        <record id="view_pedidos_compra_uca_form_sice_inherit" model="ir.ui.view">
+            <field name="name">Pedidos de Compra UCA - form.sice_inherit</field>
+            <field name="model">grp.pedido.compra</field>
+            <field name="inherit_id" ref="grp_factura_sice.view_pedidos_compra_form_sice_inherit"/>
+            <field name="arch" type="xml">
+                <xpath expr="//button[@name='button_wkf_pc_sice']" position="before">
+                    <field name="idTipoCompra" invisible="1"/>
+                </xpath>
+                <xpath expr="//button[@name='button_wkf_pc_sice']" position="attributes">
+                    <attribute name="attrs">{'invisible': ['|',('idTipoCompra','=','SP')]}</attribute>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</openerp>
+

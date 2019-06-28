@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+	    <!-- HISTORICO DE NOVEDADES -->
+     	<!-- Vista tree -->
+        <record model="ir.ui.view" id="view_rupe_historico_novedades_tree" >
+            <field name="name">rupe.historico.novedades.tree</field>
+            <field name="model">rupe.historico.novedades</field>
+            <field name="priority" eval="1"/>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="RUPE Historico de Novedades" create="false" edit="false" delete="false">
+                    <field name="name"/>
+					<field name="operacion"/>
+					<field name="objeto_id_rupe_str"/>
+					<field name="version"/>
+					<field name="descripcion"/>
+					<field name="prv_id_str"/>
+					<field name="fecha_modificacion"/>
+					<field name="fecha_proceso"/>
+				</tree>
+            </field>
+        </record>
+
+		<!-- Vista search -->
+        <record model="ir.ui.view" id="view_rupe_historico_novedades_search">
+	        <field name="name">rupe.historico.novedades.search</field>
+            <field name="model">rupe.historico.novedades</field>
+	        <field name="priority" eval="8" />
+	        <field name="arch" type="xml">
+	            <search string="RUPE Historico de Novedades">
+		            <field name="name" />
+                    <group expand="0" string="Agrupar por...">
+                        <filter string="Tipo de novedad" icon="terp-stock_effects-object-colorize" domain="[]"  context="{'group_by':'name'}"/>
+						<filter string="Operacion" icon="terp-stock_effects-object-colorize" domain="[]"  context="{'group_by':'operacion'}"/>
+					</group>
+		        </search>
+	        </field>
+	    </record>
+
+		<!-- Action -->
+        <record model="ir.actions.act_window" id="action_rupe_historico_novedades">
+		    <field name="name">RUPE Historico de Novedades</field>
+		    <field name="res_model">rupe.historico.novedades</field>
+		    <field name="view_type">form</field>
+		    <field name="view_mode">tree</field>
+		    <field name="search_view_id" ref="view_rupe_historico_novedades_search" />
+	    </record>
+
+		<!-- Menu -->
+	    <menuitem
+            name="Historico de novedades"
+            id="menu_rupe_historico_novedades"
+            action="action_rupe_historico_novedades"
+            parent="grp_rupe.grp_rupe_menu_procesos"
+            sequence="10"/>
+
+		<!-- LOG DE ERRORES del PROCESO DE NOVEDADES RUPE -->
+        <!-- Vista tree -->
+        <record model="ir.ui.view" id="view_rupe_error_log_tree" >
+            <field name="name">rupe.error.log.tree</field>
+            <field name="model">rupe.novedades.error.log</field>
+            <field name="priority" eval="1"/>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="RUPE Log de errores" create="false" edit="false" delete="false">
+                    <field name="name"/>
+                    <field name="fecha"/>
+					<field name="funcion"/>
+					<field name="operacion"/>
+					<field name="msg_error_rupe"/>
+				</tree>
+            </field>
+        </record>
+
+		<!-- Vista search -->
+        <record model="ir.ui.view" id="view_rupe_error_log_search">
+	        <field name="name">rupe.error.log.search</field>
+            <field name="model">rupe.novedades.error.log</field>
+	        <field name="priority" eval="8" />
+	        <field name="arch" type="xml">
+	            <search string="RUPE Log de errores">
+		            <field name="name" />
+                    <group expand="0" string="Agrupar por...">
+                        <filter string="Fecha" icon="terp-stock_effects-object-colorize" domain="[]"  context="{'group_by':'name'}"/>
+						<filter string="Operacion" icon="terp-stock_effects-object-colorize" domain="[]"  context="{'group_by':'operacion'}"/>
+						<filter string="Mensaje de error RUPE" icon="terp-stock_effects-object-colorize" domain="[]"  context="{'group_by':'msg_error_rupe'}"/>
+					</group>
+		        </search>
+	        </field>
+	    </record>
+
+		<!-- Action -->
+        <record model="ir.actions.act_window" id="action_rupe_error_log">
+		    <field name="name">RUPE Log de errores</field>
+		    <field name="res_model">rupe.novedades.error.log</field>
+		    <field name="view_type">form</field>
+		    <field name="view_mode">tree</field>
+		    <field name="view_id" ref="view_rupe_error_log_tree" />
+	    </record>
+
+		<!-- Menu -->
+	    <menuitem
+            name="Log de errores"
+            id="menu_rupe_novedades_error_log"
+            action="action_rupe_error_log"
+            parent="grp_rupe.grp_rupe_menu_procesos"
+            sequence="20"/>
+
+	</data>
+</openerp>

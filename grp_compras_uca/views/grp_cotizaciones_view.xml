@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+
+        <!--TODO: GAP 125 SPRING 6 -->
+        <record id="view_grp_core_cot_form" model="ir.ui.view">
+            <field name="name">Adjudicaciones</field>
+            <field name="model">grp.cotizaciones</field>
+            <field name="inherit_id" ref="grp_compras_estatales.view_grp_cot_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='tipo_compra']" position="after">
+                    <field name="sub_tipo_solicitud" />
+                    <field name="show_button" invisible="1"/>
+                </xpath>
+
+                <xpath expr="//field[@name='sice_page_aceptadas']/tree/field[@name='subtotal']" position="after">
+                    <field name="idTipoCompra" invisible="1"/>
+                    <field name="sub_tipo_solicitud" invisible="1"/>
+                </xpath>
+
+                <xpath expr="//field[@name='sice_page_aceptadas']/tree/field[@name='proveedor_cot_id']" position="attributes">
+                    <attribute name="attrs">{'readonly':[('idTipoCompra','=','SP'),('sub_tipo_solicitud','=','compra_uca')]}</attribute>
+                </xpath>
+
+            </field>
+        </record>
+
+        <record id="view_grp_compras_uca_cot_form" model="ir.ui.view">
+            <field name="name">grp.compras.uca.cotizaciones.inherited</field>
+            <field name="model">grp.cotizaciones</field>
+            <field name="inherit_id" ref="grp_factura_sice.view_grp_cot_form_sice_inherit"/>
+            <field name="arch" type="xml">
+                <button name="button_importar_adjudicacion" position="attributes">
+                    <attribute name="attrs">{'invisible': ['|','|','|',('integracion_sice','=',False),('se_cargo_datos','=',True),('tipo_compra_cod','in',['SP'])]}</attribute>
+                </button>
+                <button name="button_Crear_OC" position="attributes">
+                    <attribute name="states">authorized,aprobado_sice</attribute>
+                    <attribute name="attrs">{'invisible': ['|','&amp;',('state','=','authorized'),('tipo_compra_cod','not in',['SP'])]}</attribute>
+                </button>
+                <xpath expr="//button[@name='button_importar_adjudicacion']" position="after">
+                    <div class="oe_right oe_button_box" name="buttons"
+                         style="float: right; margin-left: -30px;">
+                        <button name="%(grp_compras_uca.cotizaciones_cargar_datos_wizard_act)d" string="Cargar datos del pedido"
+                                type="action"
+                                states="draft"
+                                attrs="{'invisible': ['|',('sub_tipo_solicitud','!=','compra_uca')]}"
+                                groups="grp_seguridad.grp_group_wf_cot_apr_cot"/>
+                    </div>
+                </xpath>
+                <button name="button_wkf_cotizaciones_comprometer" position="attributes">
+                    <attribute name="attrs">{'invisible': ['|',('se_cargo_datos','=',True)]}</attribute>
+                </button>
+                <xpath expr="//field[@name='tipo_compra']" position="after">
+                    <field name="se_cargo_datos" invisible="1"/>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</openerp>

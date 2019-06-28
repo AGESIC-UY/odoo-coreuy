@@ -196,13 +196,18 @@ class hr_expense_expense_v8(models.Model):
     paid_date = fields.Date('Fecha de pago', compute='_compute_paid_date')
     department_id = fields.Many2one('hr.department', string=u'Unidad organizativa', related='employee_id.department_id', readonly=True, store=True, states=None)
 
+    write_date = fields.Datetime(u'Fecha de modificación', readonly=True)
+
+    def _get_solicitudes_rendidas(self, cr, uid, rendicion_viaticos_ids, context):
+        return self.browse(cr, uid, rendicion_viaticos_ids, context).mapped(lambda x: x.solicitud_viatico_id).ids
+
     def onchange_employee_id(self, cr, uid, ids, employee_id, context=None):
         to_return = super(hr_expense_expense_v8, self).onchange_employee_id(cr, uid, ids, employee_id, context)
         if employee_id:
             rendicion_viaticos_ids = self.search(cr,SUPERUSER_ID,[('employee_id','=',employee_id),
                                                                   ('state','!=','cancelado'),
                                                                   ('solicitud_viatico_id','!=',False)],context = context)
-            solicitud_rendidas = self.browse(cr,uid,rendicion_viaticos_ids,context).mapped(lambda x: x.solicitud_viatico_id).ids
+            solicitud_rendidas = self._get_solicitudes_rendidas(cr, uid, rendicion_viaticos_ids, context=context)
             domain = {'solicitud_viatico_id': ['&', ('solicitante_id.employee_ids', 'in', employee_id),'&',('id', 'not in', solicitud_rendidas),'|', '&', ('lleva_adelanto', '=', True), ('adelanto_pagado', '=', True), '&',('lleva_adelanto', '=', False), ('state', '=', 'autorizado')]}
         else:
             domain = {'solicitud_viatico_id': [('id', 'in', [])]}

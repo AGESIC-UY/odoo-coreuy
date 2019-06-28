@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <!--Agreagado metodo para eliminacion de lineas de retencion no calculadas - review_retention_lines-->
+        <record id="account.act_open" model="workflow.activity">
+            <field name="wkf_id" ref="account.wkf"/>
+            <field name="name">open</field>
+            <field name="action">
+                action_date_assign()
+                action_move_create()
+                action_number()
+                invoice_validate()
+                action_review_retention_lines()
+            </field>
+            <field name="kind">function</field>
+        </record>
+
+        <!--
+        <record id="account.act_cancel" model="workflow.activity">
+            <field name="wkf_id" ref="account.wkf"/>
+            <field name="name">cancel</field>
+            <field name="flow_stop">True</field>
+            <field name="action">action_cancel()
+                delete_retention_payments()
+                write({'state':'cancel'})
+            </field>
+            <field name="kind">function</field>
+        </record>-->
+
+        <!--Despues del pago ejecutar la creacion del asiento de retenciones-->
+        <record id="account.act_paid" model="workflow.activity">
+            <field name="wkf_id" ref="account.wkf"/>
+            <field name="name">paid</field>
+            <field name="action">confirm_paid()
+                action_move_retention_create()
+            </field>
+            <field name="kind">function</field>
+            <field name="signal_send">subflow.paid</field>
+        </record>
+    </data>
+</openerp>

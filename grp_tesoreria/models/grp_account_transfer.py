@@ -64,6 +64,24 @@ class account_invoice_ext_api(models.Model):
         states={'draft': [('readonly', False)]},
     )
 
+    affectation_number = fields.Char(
+        size=15)
+
+    @api.multi
+    def action_show_field(self):
+        self.ensure_one()
+        # OPEN POPUP
+        wizard_obj = self.env['account.move.affectation.number.transfer']
+        wizard_id = wizard_obj.create({
+            'affectation_number': self.affectation_number,
+            'transfer_id': self.id,
+            'prev_number': self.affectation_number
+        }).id
+        action_dict = \
+        self.env.ref('grp_tesoreria.change_affectation_number_action_transfer').read()[0]
+        action_dict['res_id'] = wizard_id
+        return action_dict
+
     # TODO: SPRING 4 GAP 247
     @api.onchange('entry_date')
     def _onchange_entry_date(self):
@@ -158,6 +176,7 @@ class account_invoice_ext_api(models.Model):
         move_vals = {
             'ref': ref,
             'name': name,
+            'nro_afectacion_siif':self.affectation_number,
             'period_id': self.period_id.id,
             'date': self.date,
             'journal_id': journal.id,

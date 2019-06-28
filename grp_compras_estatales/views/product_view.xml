@@ -1,0 +1,421 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+
+        <!-- cambios en producto -->
+        <record id="grp_product_form" model="ir.ui.view">
+            <field name="name">grp.product.form.inherit</field>
+            <field name="model">product.product</field>
+            <field name="inherit_id" ref="product.product_normal_form_view"/>
+            <field name="arch" type="xml">
+                <data>
+
+                    <xpath expr='//field[@name="default_code"]' position='after'>
+                        <field name="grp_objeto_del_gasto"/>
+                    </xpath>
+                    <xpath expr='//field[@name="sale_ok"]' position='attributes'>
+                        <attribute name="invisible">1</attribute>
+                    </xpath>
+                    <xpath expr='//field[@name="ean13"]' position='attributes'>
+                        <attribute name="invisible">1</attribute>
+                    </xpath>
+                    <xpath expr='//label[@for="sale_ok"]' position='replace'>
+                    </xpath>
+                    <!--<xpath expr='//field[@name="is_product_variant"]' position='replace'>
+                    </xpath>
+
+                    <xpath expr='//field[@name="sale_ok"]' position='after'>
+                        <field name="is_product_variant" readonly="0" invisible="1"/>
+                    </xpath>-->
+
+                    <!-- PCARBALLO -->
+                    <xpath expr='//field[@name="default_code"]' position='before'>
+                        <field name="grp_sice_cod"/>
+                    </xpath>
+
+                    <xpath expr='//field[@name="categ_id"]' position='after'>
+                        <field name="es_inventario" invisible="1"/>
+                        <!--<field name="modo_create" invisible="1"/>-->
+                    </xpath>
+
+                    <field name="categ_id" position="attributes">
+                        <attribute name="on_change">onchange_categ_id(categ_id)</attribute>
+                        <attribute name="domain">[('parent_id','!=',False)]</attribute>
+                        <!--<attribute name="attrs">{'readonly': [('es_inventario','!=',True),('modo_create','!=',True)]}</attribute>-->
+                        <!--<attribute name="attrs">{'readonly': [('es_inventario','!=',True)]}</attribute>-->
+                    </field>
+                    <!-- incidencia para -->
+                    <xpath expr="//form/sheet/notebook/page[@string='Sales']" position="attributes">
+                        <attribute name="invisible">1</attribute>
+                    </xpath>
+                    <page string="Procurements" position="attributes">
+                        <attribute name="groups">
+                            base.group_user,stock.group_stock_manager,grp_seguridad.grp_compras_sr_Encargado_de_almacen
+                        </attribute>
+                    </page>
+                    <page string="Inventory" position="attributes">
+                        <attribute name="groups">
+                            base.group_user,stock.group_stock_manager,grp_seguridad.grp_compras_sr_Encargado_de_almacen
+                        </attribute>
+                    </page>
+                    <xpath expr='//field[@name="type"]' position='before'>
+                        <field name="nombre_prod_proveedor"/>
+                        <field name="no_inventory" attrs="{'invisible': [('type','!=','consu')]}" />
+                    </xpath>
+
+                    <field name="name" position="attributes">
+                        <attribute name="string">Nombre SICE</attribute>
+                    </field>
+
+                    <!--
+
+                    <xpath expr='//field[@name="property_account_income"]' position='attributes'>
+                        <attribute name="attrs">{'readonly': [('es_inventario','!=',True),
+                            ('modo_create','!=',True)]}</attribute>
+                    </xpath>
+                    <xpath expr='//field[@name="valuation"]' position='attributes'>
+                        <attribute name="attrs">{'readonly': [('es_inventario','!=',True),
+                            ('modo_create','!=',True)]}</attribute>
+                    </xpath>
+
+                    <field name="property_account_expense" position="attributes">
+                        <attribute name="required">1</attribute>
+                        <attribute name="groups">grp_seguridad.grp_consulta_asientos,grp_seguridad.grp_analista_contable,grp_seguridad.grp_auxiliar_contable</attribute>
+                        <attribute name="attrs">{'readonly': [('es_inventario','!=',True),('modo_create','!=',True)]}</attribute>
+                    </field>
+
+                    <xpath expr='//field[@name="taxes_id"]' position='attributes'>
+                        <attribute name="attrs">{'readonly': [('es_inventario','!=',True),
+                            ('modo_create','!=',True)]}</attribute>
+                    </xpath>
+                    <xpath expr='//field[@name="supplier_taxes_id"]' position='attributes'>
+                        <attribute name="attrs">{'readonly': [('es_inventario','!=',True),
+                            ('modo_create','!=',True)]}</attribute>
+                    </xpath>
+
+                    <xpath expr='//field[@name="property_stock_account_input"]' position='attributes'>
+                        <attribute name="attrs">{'readonly': [('es_inventario','!=',True),
+                            ('modo_create','!=',True)]}</attribute>
+                    </xpath>
+
+                    <xpath expr='//field[@name="property_stock_account_output"]' position='attributes'>
+                        <attribute name="attrs">{'readonly': [('es_inventario','!=',True),
+                            ('modo_create','!=',True)]}</attribute>
+                    </xpath>
+                    -->
+
+                    <!--<field name="image_medium" position="before">-->
+                        <!--<div invisible="context.get('hide_grp_buttons',True)">-->
+                            <!--<button-->
+                                    <!--name="crear_producto_grp"-->
+                                    <!--type="object"-->
+                                    <!--string="Crear Producto GRP"-->
+                                    <!--class="oe_highlight"-->
+                                    <!--/>-->
+                            <!--<label-->
+                                    <!--string="o"-->
+                                    <!--/>-->
+                            <!--<button-->
+                                    <!--name=""-->
+                                    <!--type="object"-->
+                                    <!--string="Descartar"-->
+                                    <!--special="cancel"-->
+                                    <!--class="oe_link"-->
+                                    <!--/>-->
+                            <!--<hr size="1" style="color: #dddddd;"/>-->
+                            <!--<separator/>-->
+                        <!--</div>-->
+                    <!--</field>-->
+
+                </data>
+            </field>
+        </record>
+
+
+        <record id="grp_product_template_form" model="ir.ui.view">
+            <field name="name">grp.product.template.form.inherit</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product.product_template_only_form_view"/>
+            <field name="arch" type="xml">
+                <data>
+
+                    <!--<xpath expr='//field[@name="is_product_variant"]' position='replace'/>-->
+
+                    <!--<xpath expr='//field[@name="sale_ok"]' position='after'>
+                        <field name="is_product_variant" readonly="0" invisible="1"/>
+                    </xpath>-->
+                    <label for="sale_ok" position="attributes">
+                        <attribute name="invisible">1</attribute>
+                    </label>
+                    <xpath expr='//field[@name="sale_ok"]' position='attributes'>
+                        <attribute name="invisible">1</attribute>
+                    </xpath>
+
+                    <xpath expr='//field[@name="attribute_id"]' position='attributes'>
+                        <attribute name="string">Valor de atributo</attribute>
+                    </xpath>
+
+                    <xpath expr='//field[@name="value_ids"]' position='attributes'>
+                        <attribute name="string">Medida variante</attribute>
+                    </xpath>
+
+                    <xpath expr='//field[@name="categ_id"]' position='after'>
+                        <field name="es_inventario" invisible="1"/>
+                        <!--<field name="modo_create" invisible="1"/>-->
+                        <field name="es_manager" invisible="1"/>
+                        <field name="es_contabilidad" invisible="1"/>
+                        <field name="es_almacenero" invisible="1"/>
+                        <field name="es_resp_sice" invisible="1"/>
+                    </xpath>
+
+                    <field name="categ_id" position="attributes">
+                        <attribute name="domain">[('parent_id','!=',False),('type','not in',['view'])]</attribute>
+                        <attribute name="on_change">onchange_categ_id(categ_id)</attribute>
+                        <!--<attribute name="attrs">{'readonly': [('es_manager','!=',True),('es_contabilidad','!=',True),('es_almacenero','!=',True),('es_inventario','!=',True),('es_resp_sice','!=',True),('modo_create','!=',True)]}</attribute>-->
+                        <!--<attribute name="attrs">{'readonly': [('es_manager','!=',True),('es_contabilidad','!=',True),('es_almacenero','!=',True),('es_resp_sice','!=',True)]}</attribute>-->
+                    </field>
+
+                    <xpath expr='//field[@name="product_manager"]' position='after'>
+                        <field name="grp_objeto_del_gasto"/>
+                        <!--<field name="es_variante" invisible="1" />-->
+                    </xpath>
+                    <xpath expr='//field[@name="product_manager"]' position='before'>
+                        <!-- corregir incidencia de punto decimal codigo producto-->
+                        <field name="grp_sice_cod" widget="char"/>
+                    </xpath>
+                    <field name="type" position="before">
+                        <field name="no_inventory" attrs="{'invisible': [('type','!=','consu')]}" />
+                    </field>
+                    <!--
+                    <xpath expr='//field[@name="type"]' position='attributes'>
+                        <attribute name="attrs">{'readonly': [('es_manager','!=',True),('es_inventario','!=',True),
+                            ('modo_create','!=',True)]}</attribute>
+                    </xpath>
+                    <xpath expr='//field[@name="property_account_income"]' position='attributes'>
+                        <attribute name="attrs">{'readonly': [('es_inventario','!=',True),
+                            ('modo_create','!=',True)]}</attribute>
+                    </xpath>
+                    <xpath expr='//field[@name="valuation"]' position='attributes'>
+                        <attribute name="attrs">{'readonly': [('es_inventario','!=',True),
+                            ('modo_create','!=',True)]}</attribute>
+                    </xpath>
+                    <xpath expr='//field[@name="property_account_expense"]' position='attributes'>
+                        <attribute name="attrs">{'readonly': [('es_inventario','!=',True),
+                            ('modo_create','!=',True)]}</attribute>
+                    </xpath>
+                    <xpath expr='//field[@name="taxes_id"]' position='attributes'>
+                        <attribute name="attrs">{'readonly': [('es_inventario','!=',True),
+                            ('modo_create','!=',True)]}</attribute>
+                    </xpath>
+                    <xpath expr='//field[@name="supplier_taxes_id"]' position='attributes'>
+                        <attribute name="attrs">{'readonly': [('es_inventario','!=',True),
+                            ('modo_create','!=',True)]}</attribute>
+                    </xpath>
+
+                    <xpath expr='//field[@name="property_stock_account_input"]' position='attributes'>
+                        <attribute name="attrs">{'readonly': [('es_inventario','!=',True),
+                            ('modo_create','!=',True)]}</attribute>
+                    </xpath>
+
+                    <xpath expr='//field[@name="property_stock_account_output"]' position='attributes'>
+                        <attribute name="attrs">{'readonly': [('es_inventario','!=',True),
+                            ('modo_create','!=',True)]}</attribute>
+                    </xpath>
+                    -->
+
+                    <label for="name" position="before">
+                        <div invisible="context.get('hide_grp_buttons',True)">
+                            <button
+                                    name="crear_producto_grp"
+                                    type="object"
+                                    string="Crear Producto con variante"
+                                    class="oe_highlight"
+                                    />
+                            <label string="o"/>
+                            <button
+                                    name=""
+                                    type="object"
+                                    string="Descartar"
+                                    special="cancel"
+                                    class="oe_link"
+                                    />
+                            <hr size="1" style="color: #dddddd;"/>
+                            <separator/>
+                        </div>
+                    </label>
+                </data>
+            </field>
+        </record>
+
+        <!-- PCARBALLO darle acceso al almacenero a la pestaña contabilidad -->
+        <record id="grp_inherited_product_template_form_view" model="ir.ui.view">
+            <field name="name">grp.product.template.form.inherit</field>
+            <field name="model">product.template</field>
+            <field name="type">form</field>
+            <field name="inherit_id" ref="account.product_template_form_view"/>
+            <field name="arch" type="xml">
+                <data>
+                    <page string="Accounting" position="attributes">
+                        <attribute name="groups"></attribute>
+                    </page>
+
+                    <field name="property_account_income" position="attributes">
+                        <attribute name="groups"></attribute>
+                    </field>
+
+                    <field name="property_account_expense" position="attributes">
+                        <attribute name="groups">
+                            grp_seguridad.grp_consulta_asientos,grp_seguridad.grp_analista_contable,grp_seguridad.grp_auxiliar_contable
+                        </attribute>
+                    </field>
+
+                    <field name="taxes_id" position="after">
+                        <field name="prod_tmpl_ret_ids" colspan="2" widget="many2many_tags"/>
+                    </field>
+
+                </data>
+            </field>
+        </record>
+
+        <!-- view_template_property_form -->
+        <record id="grp_inherited_view_template_property_form" model="ir.ui.view">
+            <field name="name">grp.product.template.stock.property.form.inherit</field>
+            <field name="model">product.template</field>
+            <field name="type">form</field>
+            <field name="inherit_id" ref="stock.view_template_property_form"/>
+            <field name="arch" type="xml">
+                <data>
+                    <button name="%(stock.action_view_change_product_quantity)d" position="attributes">
+                        <attribute name="invisible">1</attribute>
+                    </button>
+                    <button name="%(stock.act_make_procurement)d" position="attributes">
+                        <attribute name="invisible">1</attribute>
+                    </button>
+
+                    <field name="virtual_available" position="before">
+                        <label for="outgoing_qty"/>
+                        <div>
+                            <field name="outgoing_qty" class="oe_inline"/>
+                        </div>
+                    </field>
+                </data>
+            </field>
+        </record>
+
+        <record id="grp_product_search_inherited" model="ir.ui.view">
+            <field name="name">grp.product.search.inherited</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product.product_template_search_view"/>
+            <field name="arch" type="xml">
+                <field name="name" position="after">
+                    <field name="grp_sice_cod" filter_domain="[('grp_sice_cod','=',self)]"/>
+                </field>
+                <filter string='Category' position="after">
+                    <filter string='Código SICE' domain="[]" context="{'group_by' : 'grp_sice_cod'}"/>
+                </filter>
+            </field>
+        </record>
+
+
+
+        <record id="grp_variants_search_view" model="ir.ui.view">
+            <field name="name">grp.variants.search.view</field>
+            <field name="model">product.attribute.value</field>
+            <field name="arch" type="xml">
+                <search string="Valores de atributos">
+                    <group expand='0' string='Group by...'>
+                        <filter string='Atributo' domain="[]" context="{'group_by' : 'attribute_id'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record id="inherited_product_template_tree_view" model="ir.ui.view">
+            <field name="name">Vista tree heredada de product template</field>
+            <field name="model">product.template</field>
+            <field name="type">tree</field>
+            <field name="inherit_id" ref="product.product_template_tree_view"/>
+            <field name="arch" type="xml">
+                <data>
+                    <field name="name" position="attributes">
+                        <attribute name="string">Nombre SICE</attribute>
+                    </field>
+                </data>
+            </field>
+        </record>
+
+        <record id="inherited_product_product_tree_view" model="ir.ui.view">
+            <field name="name">Vista tree hereadada para cambiar campos</field>
+            <field name="model">product.product</field>
+            <field name="type">tree</field>
+            <field name="inherit_id" ref="product.product_product_tree_view"/>
+            <field name="arch" type="xml">
+                <data>
+                    <field name="name" position="attributes">
+                        <attribute name="string">Nombre SICE</attribute>
+                    </field>
+                    <field name="default_code" position="attributes">
+                        <attribute name="invisible">1</attribute>
+                    </field>
+                    <field name="default_code" position="after">
+                        <field name="grp_sice_cod"/>
+                    </field>
+                    <field name="state" position="attributes">
+                        <attribute name="invisible">1</attribute>
+                    </field>
+                    <field name="qty_available" position="attributes">
+                        <attribute name="invisible">1</attribute>
+                    </field>
+                    <field name="ean13" position="attributes">
+                        <attribute name="invisible">1</attribute>
+                    </field>
+                    <field name="name" position="after">
+                        <field name="nombre_prod_proveedor"/>
+                    </field>
+                    <field name="lst_price" position="attributes">
+                        <attribute name="invisible">1</attribute>
+                    </field>
+                    <field name="virtual_available" position="attributes">
+                        <attribute name="groups">grp_seguridad.grp_compras_sr_Encargado_de_almacen</attribute>
+                        <attribute name="string">Cantidad prevista</attribute>
+                    </field>
+                </data>
+            </field>
+        </record>
+
+        <!-- PCAR Compras 135 Agregar flag que indique si la categoria es de activo fijo. -->
+        <record id="inherited_product_category_form_view" model="ir.ui.view">
+            <field name="name">Vista heredada de categorias de productos</field>
+            <field name="model">product.category</field>
+            <field name="type">form</field>
+            <field name="inherit_id" ref="product.product_category_form_view"/>
+            <field name="arch" type="xml">
+                <data>
+                    <field name="parent_id" position="after">
+                        <field name="activo_fijo"/>
+                    </field>
+
+                </data>
+            </field>
+        </record>
+
+        <record id="product_uom_form_inherit_view" model="ir.ui.view">
+            <field name="name">product.uom.form.inherit</field>
+            <field name="model">product.uom</field>
+            <field name="inherit_id" ref="product.product_uom_form_view"/>
+            <field name="arch" type="xml">
+                <data>
+                    <field name="name" position="after">
+                        <field name="sice_uom_id" on_change="onchange_sice_uom(sice_uom_id)"/>
+                        <field name="cod_udm" readonly="1" attrs="{'invisible':[('sice_uom_id','=',False)]}"/>
+                    </field>
+                </data>
+            </field>
+        </record>
+
+        <record id="product.product_template_action" model="ir.actions.act_window">
+            <field name="context">{}</field>
+        </record>
+
+    </data>
+</openerp>

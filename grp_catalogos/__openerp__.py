@@ -33,7 +33,7 @@ Catálogos GRP
 * Localidad
 * Jurisdicción judicial
 """,
-    'depends' : ['hr','account','base'],
+    'depends' : ['hr','account','base','grp_seguridad'],
     'data' : [
         'security/grp_catalogos_security.xml',
         'security/ir.model.access.csv',

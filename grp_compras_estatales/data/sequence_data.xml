@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data noupdate="1">
+
+        <!--Sequence Factura-->
+        <record id="sequence_fact_code" model="ir.sequence.type">
+            <field name="name">Codigo Interno Factura</field>
+            <field name="code">sec.factura</field>
+        </record>
+        <record id="sequence_factura_seq" model="ir.sequence">
+            <field name="name">Secuencia Interna Factura</field>
+            <field name="code">sec.factura</field>
+            <field name="prefix">%(fy)s-Factura-</field>
+            <field name="padding">5</field>
+            <field eval="1" name="number_next"/>
+            <field eval="1" name="number_increment"/>
+        </record>
+
+    </data>
+</openerp>

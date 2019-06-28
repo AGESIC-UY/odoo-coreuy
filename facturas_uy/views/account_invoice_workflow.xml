@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record id="account.t4" model="workflow.transition">
+            <field name="condition">check_accounts() and check_amount()</field>
+        </record>
+    </data>
+</openerp>

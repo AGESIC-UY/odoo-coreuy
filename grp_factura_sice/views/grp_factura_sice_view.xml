@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+
+        <record id="view_account_suplier_form_sice" model="ir.ui.view">
+            <field name="name">account.invoice.supplier.form.sice</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="grp_compras_estatales.invoice_grp_view_form_supplier"/>
+            <field name="arch" type="xml">
+                <button name="invoice_sice_temp" position="before">
+                    <button name="invoice_sice" states="draft" string="SICE" type="object" class="oe_highlight" groups="grp_seguridad.grp_compras_apg_Jefe_de_compras,grp_seguridad.grp_compras_pc_Comprador,grp_seguridad.grp_compras_apg_Comprador"/>
+                </button>
+                <group name="data_sice" position="attributes">
+                    <attribute name="invisible">0</attribute>
+                </group>
+                <group name="data_sice" position="inside">
+                    <field name="serie_factura" attrs="{'readonly':[('state','not in',['draft'])]}"/>
+                    <field name="sec_factura" attrs="{'readonly':[('state','not in',['draft'])]}"/>
+                    <!-- GAPF0020_232 Inicio -->
+                    <field name="id_factura_sice" readonly="1"/>
+                    <!-- GAPF0020_232 Fin -->
+                </group>
+                <xpath expr="//sheet/notebook/page[@string='Invoice']/field[@name='invoice_line']/tree[@string='Invoice lines']/field[@name='product_id']"
+                       position="before">
+                    <field name="id_item" invisible="1"/>
+                    <field name="id_variacion" invisible="1"/>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</openerp>
+	 

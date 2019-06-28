@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <!-- Vistas form tree y search nueva de Ajuste por redondeo -->
+        <record model="ir.ui.view" id="view_grp_ajuste_redondeo_tree">
+            <field name="name">grp.ajuste.redondeo.tree.view</field>
+            <field name="model">grp.ajuste.redondeo</field>
+            <field name="arch" type="xml">
+                <tree string="Ajustes por redondeo">
+                    <field name="moneda"/>
+                    <field name="ajuste_redondeo"/>
+                    <field name="company_id" groups="base.group_multi_company"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="view_grp_ajuste_redondeo_form">
+            <field name="name">grp.ajuste.redondeo.form.view</field>
+            <field name="model">grp.ajuste.redondeo</field>
+            <field name="arch" type="xml">
+                <form string="Ajustes por redondeo">
+                    <group>
+                        <group>
+                            <field name="moneda" />
+                            <field name="ajuste_redondeo" />
+                        </group>
+                        <group>
+                            <field name="active"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                        </group>
+                    </group>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_grp_ajuste_redondeo_search" model="ir.ui.view">
+            <field name="name">grp.ajuste.redondeo.search.view</field>
+            <field name="model">grp.ajuste.redondeo</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <search string="Ajustes por redondeo">
+                    <field name="moneda"/>
+                    <field name="ajuste_redondeo"/>
+                    <field name="company_id" groups="base.group_multi_company"/>
+                    <field name="active"/>
+                </search>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_grp_ajuste_redondeo_view">
+            <field name="name">Ajustes por redondeo</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">grp.ajuste.redondeo</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="view_grp_ajuste_redondeo_search"/>
+            <field name="domain">[]</field>
+            <field name="context">{}</field>
+        </record>
+
+        <menuitem id="menu_grp_ajuste_redondeo_conf" action="action_grp_ajuste_redondeo_view"
+                  name="Ajustes por redondeo"
+                  parent="account.menu_configuration_misc" sequence="200"
+                  groups="grp_seguridad.grp_configuracion_contabilidad,base.group_user" />
+
+    </data>
+</openerp>

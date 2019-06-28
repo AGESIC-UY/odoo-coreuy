@@ -62,13 +62,14 @@ class GrpAccountInvoiceAprobacionPagos(models.Model):
                     res[field]['selectable'] = False
                 # en Aprobacion Pagos solamente se utiliza el campo cuenta_bancaria_id dentro de fields_to_hide,
                 # pero no debe verse ninguno de los de fields_to_hide_aprob_pagos
-                if context.get('aprobacion_pagos', False):
-                    if field != 'cuenta_bancaria_id' or field in fields_to_hide_aprob_pagos:
-                        res[field]['selectable'] = False
-                # en Proveedor, 3 en 1, Obligación y Fondo rotatorio no se debe ver cuenta_bancaria_id
-                elif context.get('doc_type','') in ['3en1_invoice','obligacion_invoice','invoice'] or context.get('type','') == 'in_invoice':
-                    if field in ['cuenta_bancaria_id','move_name'] or field in fields_to_hide_aprob_pagos:
-                        res[field]['selectable'] = False
+                if context:
+                    if context.get('aprobacion_pagos', False):
+                        if field != 'cuenta_bancaria_id' or field in fields_to_hide_aprob_pagos:
+                            res[field]['selectable'] = False
+                    # en Proveedor, 3 en 1, Obligación y Fondo rotatorio no se debe ver cuenta_bancaria_id
+                    elif context.get('doc_type','') in ['3en1_invoice','obligacion_invoice','invoice'] or context.get('type','') == 'in_invoice':
+                        if field in ['cuenta_bancaria_id','move_name'] or field in fields_to_hide_aprob_pagos:
+                            res[field]['selectable'] = False
         return res
 
     fecha_aprobacion = fields.Date(string=u'Fecha de aprobación', copy=False)
@@ -123,16 +124,54 @@ class GrpAccountInvoiceAprobacionPagos(models.Model):
         if operator == '=':
             operator = '=='
         valid_ids = []
-        VoucherLine = self.sudo().env['account.voucher.line']
+        _sql = """
+SELECT * FROM
+(SELECT
+avl.id voucher_line_id,
+avl.voucher_id voucher_id,
+av_origin.id origin_voucher_id,
+ai.id invoice_id
+FROM
+	account_voucher_line AS avl,
+	account_voucher AS av_origin,
+	account_invoice AS ai
+WHERE
+	avl.amount <> 0 AND
+	avl.origin_voucher_id = av_origin.id AND
+	av_origin.invoice_id = ai.id AND
+	ai.fecha_aprobacion IS NOT NULL
+	--AND ai.id = 10504
+	) vl_data
+LEFT JOIN
+	(SELECT 
+		id voucher_header_id,
+		state voucher_header_state
+	FROM
+		account_voucher
+	WHERE
+		type = 'payment') v_data
+ON
+	vl_data.voucher_id = v_data.voucher_header_id
+        """
+        self._cr.execute(_sql)
+        for line in self._cr.dictfetchall():
+            _voucher_state = line['voucher_header_state'] == 'posted' and 'pagado' or line['voucher_header_state']
+            if operator in ['in', 'not in']:
+                value = list(value)
+            if eval("'%s' %s %s" % (_voucher_state,operator,value)):
+                valid_ids.append(line['invoice_id'])
 
-        for line in self.search([('fecha_aprobacion','!=',False)]):
-            voucher_line = VoucherLine.search([('move_line_id.invoice', '=', line.id), ('amount', '!=', 0)], limit=1, order='date_original DESC, id DESC')
-            if not voucher_line:
-                voucher_line = VoucherLine.search([('origin_voucher_id.invoice_id', '=', line.id), ('amount', '!=', 0)], limit = 1, order = 'date_original DESC, id DESC')
-            _voucher_state = voucher_line and voucher_line.voucher_id.state == 'posted' and 'pagado' or voucher_line.voucher_id.state
 
-            if eval("'%s' %s '%s'" % (_voucher_state,operator,value)):
-                valid_ids.append(line.id)
+        # for line in self.search([('fecha_aprobacion','!=',False)]):
+            # voucher_line = VoucherLine.search([('move_line_id.invoice', '=', line.id), ('amount', '!=', 0)], limit=1, order='date_original DESC, id DESC')
+            # if not voucher_line:
+            #     voucher_line = VoucherLine.search([('origin_voucher_id.invoice_id', '=', line.id), ('amount', '!=', 0)], limit = 1, order = 'date_original DESC, id DESC')
+            # _voucher_state = voucher_line and voucher_line.voucher_id.state == 'posted' and 'pagado' or voucher_line.voucher_id.state
+            #
+            # if operator in ['in', 'not in']:
+            #     value = list(value)
+            # if eval("'%s' %s %s" % (_voucher_state,operator,value)):
+            # valid_ids.append(line.id)
         return [('id', 'in', valid_ids)]
 
     @api.multi

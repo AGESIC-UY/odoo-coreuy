@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+
+        <record id="view_purchase_order_uca_info_form" model="ir.ui.view">
+            <field name="name">purchase.order.uca_info</field>
+            <field name="model">purchase.order</field>
+            <field name="inherit_id" ref="grp_compras_estatales.inherited_view_purchase_order_form"/>
+            <field name="arch" type="xml">
+                <data>
+                    <field name="pc_apg_id" position="attributes">
+                        <attribute name="domain">['&amp;',('pc_id', '=', pedido_compra_id),'|',('state','=','afectado'),'&amp;',('pc_id.sub_tipo_solicitud','in',['sentencia_judicial','ordenanza']),('state','=','en_financiero')]</attribute>
+                        <attribute name="attrs">{'invisible':[('pedido_compra_id','=',False)],'readonly':['|',('state','not in',['draft','confirmed']),'&amp;',('state','=','confirmed'),('sub_tipo_solicitud','not in',['sentencia_judicial','ordenanza'])]}</attribute>
+                    </field>
+                    <xpath expr="//form/sheet/notebook/page[@string='Adjuntos']" position="after">
+                        <page string="UCA" attrs="{'invisible': [('sub_tipo_solicitud','!=','compra_uca')]}">
+                            <group>
+                                <group>
+                                    <field name="number_uca" style="width:25%%"/>
+                                    <field name="sub_tipo_solicitud" invisible="1"/>
+                                </group>
+                                <field name='compra_uca_ids' nolabel="1" widget='one2many_list' colspan="4">
+                                    <tree string="UCA" create="false" delete="false">
+                                        <field name="solicitud_id" invisible="1"/>
+                                        <field name="state_compra" invisible="1"/>
+                                        <field name="description"/>
+                                        <field name="product_id"/>
+                                        <field name="solicitud_compra_id" invisible="1"/>
+                                        <field name="uom_id"/>
+                                        <field name="quantity"/>
+                                        <field name="number"/>
+                                        <field name="price"/>
+                                        <field name="provider_id"/>
+                                    </tree>
+                                </field>
+                            </group>
+                        </page>
+                    </xpath>
+                </data>
+            </field>
+        </record>
+    </data>
+</openerp>
+

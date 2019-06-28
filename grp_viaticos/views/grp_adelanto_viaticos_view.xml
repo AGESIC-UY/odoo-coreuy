@@ -195,7 +195,7 @@
 
         <menuitem id="grp_menu_action_vendor_payment" parent="account.menu_finance_payables"
                   action="grp_action_vendor_payment" icon="STOCK_JUSTIFY_FILL"
-                  sequence="250" groups="grp_tesoreria.group_grp_tesoreria"/><!--TODO: SPRING 11 GAP 28 L-->
+                  sequence="250"/><!--TODO: SPRING 11 GAP 28 L-->
 
     </data>
 </openerp>

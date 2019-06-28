@@ -1,0 +1,362 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data noupdate="0">
+        <!-- ================  REGLAS PARA SOLICITUD DE RECURSOS  ================ -->
+
+        <record id="rule_grp_compras_sr_superaprobador_filter" model="ir.rule">
+            <field name="name">SR Super Aprobador grp_compras_solicitud_recursos_almacen</field>
+            <field name="model_id" ref="model_grp_compras_solicitud_recursos_almacen"/>
+            <field name="domain_force">[(1,'=',1)]</field>
+            <field name="groups" eval="[(4,ref('grp_seguridad.grp_compras_sr_superusuario_aprobador')),
+                                        (4,ref('grp_seguridad.grp_compras_SC_Consulta'))]"/>
+            <field name="perm_read" eval="1"/>
+            <field name="perm_write" eval="0"/>
+            <!-- cambiado regla, 02/03-->
+            <field name="perm_unlink" eval="0"/>
+            <field name="perm_create" eval="0"/>
+        </record>
+
+        <record id="rule_grp_compras_sr_superaprobador_write" model="ir.rule">
+            <field name="name">SR Super Aprobador grp_compras_solicitud_recursos_almacen escritura</field>
+            <field name="model_id" ref="model_grp_compras_solicitud_recursos_almacen"/>
+            <field name="domain_force">[('state','=','en_aprobacion')]</field>
+            <field name="groups" eval="[(4,ref('grp_seguridad.grp_compras_sr_superusuario_aprobador'))]"/>
+            <field name="perm_read" eval="0"/>
+            <field name="perm_write" eval="1"/>
+            <!-- cambiado regla, 02/03-->
+            <field name="perm_unlink" eval="0"/>
+            <field name="perm_create" eval="0"/>
+        </record>
+
+        <record id="rule_grp_compras_sr_almacen_Solicitante_edit" model="ir.rule">
+            <field name="name">SR Solicitante grp_compras_solicitud_recursos_almacen_edit</field>
+            <field name="model_id" ref="model_grp_compras_solicitud_recursos_almacen"/>
+            <field name="groups" eval="[(4,ref('grp_seguridad.grp_compras_sr_Solicitante'))]"/>
+            <field name="domain_force">[('department_id','child_of',[e.department_id.id for e in user.employee_ids]),('state','in',('inicio','esperando_almacen'))]</field>
+            <field name="perm_read" eval="0"/>
+            <field name="perm_write" eval="1"/>
+            <field name="perm_unlink" eval="1"/>
+            <field name="perm_create" eval="0"/>
+        </record>
+
+        <record id="rule_grp_compras_sr_almacen_Solicitante_read" model="ir.rule">
+            <field name="name">SR Solicitante grp_compras_solicitud_recursos_almacen_read</field>
+            <field name="model_id" ref="model_grp_compras_solicitud_recursos_almacen"/>
+            <field name="groups" eval="[(4,ref('grp_seguridad.grp_compras_sr_Solicitante'))]"/>
+            <field name="domain_force">[('department_id','child_of',[e.department_id.id for e in user.employee_ids])]</field>
+            <field name="perm_read" eval="1"/>
+            <field name="perm_write" eval="0"/>
+            <field name="perm_unlink" eval="0"/>
+            <field name="perm_create" eval="0"/>
+        </record>
+
+
+        <!-- REGLAS APROBADOR -->
+        <record id="rule_grp_compras_sr_almacen_Aprobador" model="ir.rule">
+            <field name="name">SR Aprobador grp_compras_solicitud_recursos_almacen</field>
+            <field name="model_id" ref="model_grp_compras_solicitud_recursos_almacen"/>
+            <field name="groups" eval="[(4,ref('grp_seguridad.grp_compras_sr_Aprobador'))]"/>
+            <field name="domain_force">[('department_id','child_of',[e.department_id.id for e in user.employee_ids]),('state','!=','inicio')]</field>
+            <field name="perm_read" eval="1"/>
+            <field name="perm_write" eval="0"/>
+            <field name="perm_unlink" eval="0"/>
+            <field name="perm_create" eval="0"/>
+        </record>
+
+        <record id="rule_grp_compras_sr_almacen_Aprobador_edit" model="ir.rule">
+            <field name="name">SR Aprobador grp_compras_solicitud_recursos_almacen_edit</field>
+            <field name="model_id" ref="model_grp_compras_solicitud_recursos_almacen"/>
+            <field name="groups" eval="[(4,ref('grp_seguridad.grp_compras_sr_Aprobador'))]"/>
+            <field name="domain_force">[('department_id','child_of',[e.department_id.id for e in user.employee_ids]),('state','in',['en_aprobacion','esperando_almacen'])]</field>
+            <field name="perm_read" eval="0"/>
+            <field name="perm_write" eval="1"/>
+            <field name="perm_unlink" eval="1"/>
+            <field name="perm_create" eval="0"/>
+        </record>
+
+        <!--<record id="rule_grp_compras_sr_almacen_Aprobador_edit_aprobado" model="ir.rule">-->
+            <!--<field name="name">SR Aprobador grp_compras_solicitud_recursos_almacen_edit_aprobado</field>-->
+            <!--<field name="model_id" ref="model_grp_compras_solicitud_recursos_almacen"/>-->
+            <!--<field name="groups" eval="[(4,ref('grp_seguridad.grp_compras_sr_Aprobador'))]"/>-->
+            <!--<field name="domain_force">[('state','in',['en_aprobacion','aprobado','codificando','rechazado'])]</field>-->
+            <!--<field name="perm_read" eval="1"/>-->
+            <!--<field name="perm_write" eval="0"/>-->
+            <!--<field name="perm_unlink" eval="1"/>-->
+            <!--<field name="perm_create" eval="0"/>-->
+        <!--</record>-->
+
+        <!-- REGLAS ENCARGADO ALMACEN -->
+        <!-- PUEDE SER NECESARIO poner readonly a nivel de cabezal los campos que aparecen editables, (readonly si el estado no es inicio, esperando_aprobacion, , etc)
+        ya que tiene que poder modificar el estado pero no puede modificar ningun campo del cabezal -->
+        <record id="rule_grp_compras_sr_almacen_Encargado_de_almacen" model="ir.rule">
+            <field name="name">SR Encargado_de_almacen grp_compras_solicitud_recursos_almacen</field>
+            <field name="model_id" ref="model_grp_compras_solicitud_recursos_almacen"/>
+            <field name="groups" eval="[(4,ref('grp_seguridad.grp_compras_sr_Encargado_de_almacen'))]"/>
+            <field name="domain_force">[('state','in',('aprobado','esperando_almacen','codificando'))]</field>
+            <!--<field name="domain_force">[('state','in',('aprobado','esperando_almacen','codificando')),('encargado_id','=',user.id)]</field>-->
+            <field name="perm_read" eval="1"/>
+            <field name="perm_write" eval="0"/>
+            <!-- PCAR 25 01 2016 -->
+            <field name="perm_unlink" eval="0"/>
+            <!-- PCAR 25 01 2016 -->
+            <field name="perm_create" eval="0"/>
+        </record>
+
+        <record id="rule_grp_compras_sr_almacen_Encargado_de_almacen_edit" model="ir.rule">
+            <field name="name">SR Encargado_de_almacen grp_compras_solicitud_recursos_almacen_edit</field>
+            <field name="model_id" ref="model_grp_compras_solicitud_recursos_almacen"/>
+            <field name="groups" eval="[(4,ref('grp_seguridad.grp_compras_sr_Encargado_de_almacen'))]"/>
+            <field name="domain_force">[('state','in',['codificando','esperando_almacen'])]</field>
+            <field name="perm_read" eval="0"/>
+            <field name="perm_write" eval="1"/>
+            <!-- PCAR 25 01 2016 -->
+            <field name="perm_unlink" eval="1"/>
+            <!-- PCAR 25 01 2016 -->
+            <field name="perm_create" eval="0"/>
+        </record>
+
+
+        <!--<record id="rule_grp_compras_sr_line_sr_Encargado_de_almacen" model="ir.rule">-->
+            <!--<field name="name">SR Encargado_de_almacen grp_compras_solicitud_recursos_line_sr</field>-->
+            <!--<field name="model_id" ref="model_grp_compras_solicitud_recursos_line_sr"/>-->
+            <!--<field name="groups" eval="[(4,ref('grp_seguridad.grp_compras_sr_Encargado_de_almacen'))]"/>-->
+            <!--<field name="domain_force">[('grp_id.state','in',['codificando','esperando_almacen'])]</field>-->
+            <!--<field name="perm_read" eval="0"/>-->
+            <!--<field name="perm_write" eval="1"/>-->
+            <!--<field name="perm_unlink" eval="0"/>-->
+            <!--<field name="perm_create" eval="1"/>-->
+        <!--</record>-->
+
+        <!-- Regla para restringir acceso solo a Operating Unit por Defecto -->
+        <record id="ir_rule_operating_unit_restringir_default" model="ir.rule">
+            <field name="model_id" ref="operating_unit.model_operating_unit"/>
+            <field name="domain_force">[('id','=',user.default_operating_unit_id.id)]</field>
+            <field name="name">Restringir a Operating Unit por Defecto</field>
+            <field name="groups" eval="[(4,ref('grp_seguridad.group_default_operating_unit'))]"/>
+            <field eval="0" name="perm_unlink"/>
+            <field eval="0" name="perm_write"/>
+            <field eval="1" name="perm_read"/>
+            <field eval="0" name="perm_create"/>
+        </record>
+
+        <!-- Regla para seguridad por Operating Unit en la SR-->
+        <record id="rule_grp_SR_almacen_OU_permitidas" model="ir.rule">
+            <field name="model_id" ref="model_grp_compras_solicitud_recursos_almacen"/>
+            <field name="domain_force">['|',('operating_unit_id','=',False),('operating_unit_id','in',[g.id for g in user.operating_unit_ids])]</field>
+            <field name="name">SR de Unidades Operativas permitidas</field>
+            <field name="global" eval="True"/>
+        </record>
+
+        <!-- Regla para seguridad por Operating Unit en la SC-->
+        <record id="rule_grp_SC_OU_permitidas" model="ir.rule">
+            <field name="model_id" ref="model_grp_solicitud_compra"/>
+            <field name="domain_force">['|',('operating_unit_id','=',False),('operating_unit_id','in',[g.id for g in user.operating_unit_ids])]</field>
+            <field name="name">SC de Unidades Operativas permitidas</field>
+            <field name="global" eval="True"/>
+        </record>
+
+        <!-- Regla para seguridad por Operating Unit en la Adjudicacion-->
+        <record id="rule_grp_Adjudicacion_OU_permitidas" model="ir.rule">
+            <field name="model_id" ref="model_grp_cotizaciones"/>
+            <field name="domain_force">['|',('operating_unit_id','=',False),('operating_unit_id','in',[g.id for g in user.operating_unit_ids])]</field>
+            <field name="name">Adjudicaciones de Unidades Operativas permitidas</field>
+            <field name="global" eval="True"/>
+        </record>
+
+        <!--&lt;!&ndash; Regla para seguridad por Operating Unit en SC Restringir Default &ndash;&gt;-->
+        <!--<record id="rule_grp_SC_OU_restringir_default" model="ir.rule">-->
+            <!--<field name="model_id" ref="model_grp_solicitud_compra"/>-->
+            <!--<field name="domain_force">['|',('operating_unit_id','=',False),('operating_unit_id','=',user.default_operating_unit_id.id)]</field>-->
+            <!--<field name="name">Restringir acceso a SC a la UE por defecto (y no las permitidas)</field>-->
+            <!--<field name="groups" eval="[(4,ref('grp_seguridad.grp_compras_SC_UE'))]"/>-->
+        <!--</record>-->
+
+        <!-- Regla para seguridad por Operating Unit en la OC-->
+        <record id="rule_grp_purchase_order_OU_permitidas" model="ir.rule">
+            <field name="model_id" ref="purchase.model_purchase_order"/>
+            <field name="domain_force">['|',('operating_unit_id','=',False),('operating_unit_id','in',[g.id for g in user.operating_unit_ids])]</field>
+            <field name="name">OC de Unidades Operativas permitidas</field>
+            <field name="global" eval="True"/>
+        </record>
+
+        <!-- Regla para seguridad por Operating Unit en el PC-->
+        <record id="rule_grp_PC_OU_permitidas" model="ir.rule">
+            <field name="model_id" ref="model_grp_pedido_compra"/>
+            <field name="domain_force">['|',('operating_unit_id','=',False),('operating_unit_id','in',[g.id for g in user.operating_unit_ids])]</field>
+            <field name="name">PC de Unidades Operativas permitidas</field>
+            <field name="global" eval="True"/>
+        </record>
+
+        <!--&lt;!&ndash; Regla para seguridad por Operating Unit en PC Restringir Default &ndash;&gt;-->
+        <!--<record id="rule_grp_PC_OU_restringir_default" model="ir.rule">-->
+            <!--<field name="model_id" ref="model_grp_pedido_compra"/>-->
+            <!--<field name="domain_force">['|',('operating_unit_id','=',False),('operating_unit_id','=',user.default_operating_unit_id.id)]</field>-->
+            <!--<field name="name">Restringir acceso a PC a la UE por defecto (y no las permitidas)</field>-->
+            <!--<field name="groups" eval="[(4,ref('grp_seguridad.grp_compras_PC_UE'))]"/>-->
+        <!--</record>-->
+
+        <!--&lt;!&ndash; ================  REGLAS PARA AUTORIZACION PARA GASTAR  ================ &ndash;&gt;-->
+
+        <!--<record id="rule_grp_compras_apg_lineas_llavep_Comprador" model="ir.rule">-->
+            <!--<field name="name">APG Comprador grp_compras_apg_lineas_llavep</field>-->
+            <!--<field name="model_id" ref="model_grp_compras_lineas_llavep"/>-->
+            <!--<field name="groups" eval="[(4,ref('grp_seguridad.grp_compras_apg_Comprador'))]"/>-->
+            <!--<field name="perm_read" eval="1"/>-->
+            <!--<field name="perm_write" eval="1"/>-->
+            <!--<field name="perm_unlink" eval="1"/>-->
+            <!--<field name="perm_create" eval="1"/>-->
+        <!--</record>-->
+
+        <!--<record id="rule_grp_compras_apg_lineas_llavep_Jefe_de_compras" model="ir.rule">-->
+            <!--<field name="name">APG Jefe de compras grp_compras_apg_lineas_llavep</field>-->
+            <!--<field name="model_id" ref="model_grp_compras_lineas_llavep"/>-->
+            <!--<field name="groups" eval="[(4,ref('grp_seguridad.grp_compras_apg_Jefe_de_compras'))]"/>-->
+            <!--<field name="perm_read" eval="1"/>-->
+            <!--<field name="perm_write" eval="1"/>-->
+            <!--<field name="perm_unlink" eval="0"/>-->
+            <!--<field name="perm_create" eval="0"/>-->
+        <!--</record>-->
+
+        <!--<record id="rule_grp_compras_apg_lineas_llavep_Ordenador_del_gasto" model="ir.rule">-->
+            <!--<field name="name">APG Ordenador del gasto grp_compras_apg_lineas_llavep</field>-->
+            <!--<field name="model_id" ref="model_grp_compras_lineas_llavep"/>-->
+            <!--<field name="groups" eval="[(4,ref('grp_seguridad.grp_compras_apg_Ordenador_del_gasto'))]"/>-->
+            <!--<field name="perm_read" eval="1"/>-->
+            <!--<field name="perm_write" eval="0"/>-->
+            <!--<field name="perm_unlink" eval="0"/>-->
+            <!--<field name="perm_create" eval="0"/>-->
+        <!--</record>-->
+
+        <!--<record id="rule_grp_compras_apg_lineas_llavep_Responsable_SIIF" model="ir.rule">-->
+            <!--<field name="name">APG Responsable SIIF grp_compras_apg_lineas_llavep</field>-->
+            <!--<field name="model_id" ref="model_grp_compras_lineas_llavep"/>-->
+            <!--<field name="groups" eval="[(4,ref('grp_seguridad.grp_compras_apg_Responsable_SIIF'))]"/>-->
+            <!--<field name="perm_read" eval="1"/>-->
+            <!--<field name="perm_write" eval="0"/>-->
+            <!--<field name="perm_unlink" eval="0"/>-->
+            <!--<field name="perm_create" eval="0"/>-->
+        <!--</record>-->
+        <!--&lt;!&ndash; ================  ================ &ndash;&gt;-->
+
+        <!--REGLAS PARA CODIGUERAS-->
+        <record id="rule_grp_compras_pc_Comprador_codigueras_subtipo_compra" model="ir.rule">
+            <field name="name">PC Comprador grp_pedido_compra</field>
+            <field name="model_id" ref="model_sicec_subtipo_compra"/>
+            <field name="groups" eval="[(4,ref('grp_seguridad.grp_compras_pc_Comprador'))]"/>
+            <field name="perm_read" eval="1"/>
+            <field name="perm_write" eval="0"/>
+            <field name="perm_unlink" eval="0"/>
+            <field name="perm_create" eval="0"/>
+        </record>
+
+        <record id="rule_grp_compras_pc_Comprador_codigueras_tipo_compra" model="ir.rule">
+            <field name="name">PC Comprador sicec_tipo_compra</field>
+            <field name="model_id" ref="model_sicec_tipo_compra"/>
+            <field name="groups" eval="[(4,ref('grp_seguridad.grp_compras_pc_Comprador'))]"/>
+            <field name="perm_read" eval="1"/>
+            <field name="perm_write" eval="0"/>
+            <field name="perm_unlink" eval="0"/>
+            <field name="perm_create" eval="0"/>
+        </record>
+
+        <record id="regla_stock_picking_list" model="ir.rule">
+            <field name="name">Regla Lista Remitos</field>
+            <field name="model_id" ref="model_stock_picking_list_report"/>
+            <field name="domain_force">
+                ['|',('picking_id.company_id','=',False),('picking_id.company_id','child_of',[user.company_id.id])]
+            </field>
+            <field name="perm_read" eval="1"/>
+            <field name="perm_write" eval="0"/>
+            <field name="perm_unlink" eval="0"/>
+            <field name="perm_create" eval="0"/>
+        </record>
+
+
+                <!--&lt;!&ndash; PCAR 17 11 2015 &ndash;&gt;-->
+        <!--<record id="rule_apg_Ordenador_del_gasto_prim_filter" model="ir.rule">-->
+            <!--<field name="name">APG Ordenador del gasto primario compras_apg_filter</field>-->
+            <!--<field name="model_id" ref="model_grp_compras_apg"/>-->
+            <!--<field name="domain_force">[('tipo_odg','in',['prim'])]</field>-->
+            <!--<field name="groups" eval="[(4,ref('grp_seguridad.grp_compras_apg_Ordenador_del_gasto_primario'))]"/>-->
+            <!--<field name="perm_read" eval="1"/>-->
+            <!--<field name="perm_write" eval="1"/>-->
+            <!--<field name="perm_unlink" eval="0"/>-->
+            <!--<field name="perm_create" eval="0"/>-->
+        <!--</record>-->
+
+        <!--<record id="rule_apg_Ordenador_del_gasto_sec_filter" model="ir.rule">-->
+            <!--<field name="name">APG Ordenador del gasto secundario compras_apg_filter</field>-->
+            <!--<field name="model_id" ref="model_grp_compras_apg"/>-->
+            <!--<field name="domain_force">[('tipo_odg','in',['sec'])]</field>-->
+            <!--<field name="groups" eval="[(4,ref('grp_seguridad.grp_compras_apg_Ordenador_del_gasto_secundario'))]"/>-->
+            <!--<field name="perm_read" eval="1"/>-->
+            <!--<field name="perm_write" eval="1"/>-->
+            <!--<field name="perm_unlink" eval="0"/>-->
+            <!--<field name="perm_create" eval="0"/>-->
+        <!--</record>-->
+
+        <!-- Regla para seguridad por Operating Unit en los APG -->
+        <record id="rule_grp_APG_OU_permitidas" model="ir.rule">
+            <field name="model_id" ref="model_grp_compras_apg"/>
+            <field name="domain_force">['|',('operating_unit_id','=',False),('operating_unit_id','in',[g.id for g in user.operating_unit_ids])]</field>
+            <field name="name">APG de Unidades Operativas permitidas</field>
+            <field name="global" eval="True"/>
+        </record>
+
+        <!--<record id="rule_compras_apg_jefe_compras_filter" model="ir.rule">-->
+            <!--<field name="name">APG Jefe de compras compras_apg_filter</field>-->
+            <!--<field name="model_id" ref="model_grp_compras_apg"/>-->
+            <!--<field name="groups" eval="[(4,ref('grp_seguridad.grp_compras_apg_Jefe_de_compras_2')),(4,ref('grp_seguridad.grp_compras_apg_Responsable_SIIF'))]"/>-->
+            <!--<field name="perm_read" eval="1"/>-->
+            <!--<field name="perm_write" eval="1"/>-->
+            <!--<field name="perm_unlink" eval="1"/>-->
+            <!--<field name="perm_create" eval="1"/>-->
+        <!--</record>-->
+
+        <!--<record id="rule_purchase_order_jefe_compras_filter" model="ir.rule">-->
+            <!--<field name="name">APG Jefe de compras purchase_order_filter</field>-->
+            <!--<field name="model_id" ref="model_purchase_order"/>-->
+            <!--&lt;!&ndash;<field name="domain_force">[('odg_cot','=',user.id)]</field>-->
+            <!--grp_compras_apg_Responsable_SIIF &ndash;&gt;-->
+            <!--<field name="groups" eval="[(4,ref('grp_seguridad.grp_compras_apg_Jefe_de_compras_2')),(4,ref('grp_seguridad.grp_compras_apg_Responsable_SIIF'))]"/>-->
+            <!--<field name="perm_read" eval="1"/>-->
+            <!--<field name="perm_write" eval="1"/>-->
+            <!--<field name="perm_unlink" eval="1"/>-->
+            <!--<field name="perm_create" eval="1"/>-->
+        <!--</record>-->
+
+        <!--TODO GAP 3 Spring 4: Agregando un grupo para crear movimientos-->
+        <record id="grp_stock_move_create" model="res.groups">
+            <field name="name">Creación de movimientos de existencias</field>
+            <field name="users" eval="[(4, ref('base.user_root'))]"/>
+            <field name="category_id" ref="grp_seguridad.category_grp_compras"/>
+            <!--<field name="menu_access" eval="[(4, ref('stock.menu_action_move_form2'))]"/>-->
+        </record>
+
+         <record id="rule_grp_compras_sr_lines_transacciones_Gestor_Aprobador_SR" model="ir.rule">
+            <field name="name">Gestor y Aprobador SR – Transacciones Unificadas</field>
+            <field name="model_id" ref="model_grp_compras_sr_lines_transacciones"/>
+            <field name="groups" eval="[(4,ref('grp_seguridad.grp_compras_sr_Solicitante')),(4,ref('grp_seguridad.grp_compras_sr_Aprobador'))]"/>
+            <field name="domain_force">[('sr_id.department_id','child_of',[e.department_id.id for e in user.employee_ids])]</field>
+        </record>
+
+        <record id="rule_grp_compras_sr_lines_transacciones_PC_Comprador" model="ir.rule">
+            <field name="name">Todas – Transacciones Unificadas</field>
+            <field name="model_id" ref="model_grp_compras_sr_lines_transacciones"/>
+            <field name="groups" eval="[(4,ref('grp_seguridad.grp_compras_pc_Comprador')),(4, ref('grp_seguridad.grp_compras_sr_Encargado_de_almacen'))]"/>
+            <field name="domain_force">[(1,'=',1)]</field>
+        </record>
+
+        <!-- ['|',('operating_unit_id','=',False),('operating_unit_id','=',user.default_operating_unit_id.id)] -->
+        <record id="rule_grp_compras_sr_lines_transacciones_por_ue" model="ir.rule">
+            <field name="name">Regla global por UE – Transacciones Unificadas</field>
+            <field name="model_id" ref="model_grp_compras_sr_lines_transacciones"/>
+            <field name="domain_force">['|',('operating_unit_id','=',False),('operating_unit_id','in',[g.id for g in user.operating_unit_ids])]</field>
+        </record>
+
+        <record id="grp_seguridad.grp_gestor_pagos" model="res.groups">
+            <field name="menu_access" eval="[(4, ref('account_voucher.menu_action_vendor_payment'))]" />
+        </record>
+
+    </data>
+</openerp>

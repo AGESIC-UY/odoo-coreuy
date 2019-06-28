@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <!--TODO: GAP 126 SPRING 6 -->
+        <record id="view_grp_core_cot_form" model="ir.ui.view">
+            <field name="name">Adjudicaciones</field>
+            <field name="model">grp.cotizaciones</field>
+            <field name="inherit_id" ref="grp_compras_estatales.view_grp_cot_form"/>
+            <field name="arch" type="xml">
+
+                 <!--TODO Spring 6 GAP 126-->
+                <xpath expr="//div[@name='buttons']" position="inside">
+                    <button name="button_create_compromise" string="Crear Compromiso" type="object"
+                            class="oe_inline oe_stat_button" icon="fa-expand" style="white-space: normal;"
+                            states="validado,in_approval,approved,in_authorization,authorized,aprobado_sice"
+                            groups="grp_seguridad.grp_compras_apg_Jefe_de_compras_2,grp_seguridad.grp_compras_pc_Comprador,grp_seguridad.grp_compras_apg_Responsable_SIIF"/><!--TODO SPRING 8 GAP 125-->
+                </xpath>
+
+                 <xpath expr="//notebook/page/field/tree/field[@name='subtotal']" position="after">
+                     <field name="subtotal_pesos"/>
+                </xpath>
+
+                <xpath expr="//notebook/page/field[@name='page_apg']/tree/field[@name='total_estimado']" position="after">
+                     <field name="total_llavep" string="Monto afectado"/>
+                </xpath>
+
+                <!--TODO Spring 7 GAP 440-->
+                <field name="sice_descripcion" position="after">
+                    <label for="diff_apg_total_estimado"/>
+                    <div>
+                        <field name="diff_apg_total_estimado" readonly="1" class="oe_inline"/>
+                        <!--RAGU boton para actulizar diff_apg_total_estimado-->
+                        <button name="action_update_diff_apg_total_estimado" type="object"
+                                icon="gtk-refresh" class="oe_inline" title="Actualizar diferencia"/>
+                    </div>
+
+                </field>
+
+                <notebook position="inside">
+                    <page string="Estimado a comprometer" states="validado,in_approval,approved,in_authorization,authorized,aprobado_sice">
+                        <field name='estimate_ids' nolabel="1" context="{'provider': provider_ids}">
+                            <tree editable="bottom">
+                                <field name="cot_id" invisible="1"/>
+                                 <field name="cot_provider_ids" invisible="1"/>
+                                <field name="fiscalyear_id"/>
+                                <field name="provider_id" domain="[('id','in', cot_provider_ids[0][2])]"/>
+                                <field name="total_amount"/>
+                            </tree>
+                        </field>
+                    </page>
+                    <page string="Compromisos" >
+                        <field name='provider_compromise_ids' nolabel="1" readonly="1">
+                            <tree >
+                                <field name="provider_id"/>
+                                <field name="fiscalyear_id" />
+                                <field name="total_comprometido"/>
+                                <field name="nro_compromiso"/>
+                                <field name="nro_afectacion_siif"/>
+                                <field name="state"/>
+                            </tree>
+                        </field>
+                    </page>
+                </notebook>
+
+                <xpath expr="//field[@name='sice_page_aceptadas']" position="after">
+                        <group colspan="4">
+                                <group colspan="4">
+                                         <field name="provider_ids" colspan="1" nolabel="1" readonly="1" class="oe_subtotal_footer_separator_custom" >
+                                            <tree class="oe_table">
+                                                <field name="provider_id"/>
+                                                <field name="total_amount" sum="Total"/>
+                                            </tree>
+                                        </field>
+                                 </group>
+                                <group colspan="4" class="oe_subtotal_footer oe_right">
+                                <field name="total_estimado" readonly="1" class="oe_subtotal_footer_separator"
+                                                   widget="monetary" options="{'currency_field': 'moneda'}"/>
+                                </group>
+                         </group>
+                </xpath>
+                 <div name="bottom_div" position="replace">
+                     <div>
+
+                    </div>
+                 </div>
+            </field>
+        </record>
+
+    </data>
+</openerp>

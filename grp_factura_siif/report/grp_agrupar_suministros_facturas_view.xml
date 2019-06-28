@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <!--TODO: SPRING 8 GAP 236.237 M-->
+        <record id="view_grp_agrupar_suministros_facturas_tree" model="ir.ui.view">
+            <field name="name">grp_agrupar_suministros_facturas.tree</field>
+            <field name="model">grp.agrupar.suministros.facturas</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Agrupador Suministro" create="false" delete="false">
+                    <field name="partner_id"/>
+                    <field name="siif_concepto_gasto"/>
+                    <field name="operating_unit_id"/>
+                    <field name="nro_obligacion"/>
+                    <field name="currency_id"/>
+                    <field name="total_nominal"/>
+                    <field name="state"/>
+                    <button name="get_invoice" string="Ver Factura" type="object" icon="gtk-find"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_grp_agrupar_suministros_facturas_filter" model="ir.ui.view">
+            <field name="name">grp_agrupar_suministros_facturas.filter</field>
+            <field name="model">grp.agrupar.suministros.facturas</field>
+            <field name="arch" type="xml">
+                <search string="Buscar Factura">
+                    <field name="partner_id"/>
+                    <field name="siif_concepto_gasto"/>
+                    <field name="operating_unit_id"/>
+                    <group expand="0" string="Group By...">
+                        <filter name="partner" string="Proveedor" icon="terp-stock_effects-object-colorize" domain="[]"
+                                context="{'group_by':'partner_id'}"/>
+                        <filter name="concepto_gasto" string="Concepto del gasto" icon="terp-stock_effects-object-colorize" domain="[]"
+                                context="{'group_by':'siif_concepto_gasto'}"/>
+                        <filter name="operating_unit" string="Unidad Ejecutora" icon="terp-stock_effects-object-colorize" domain="[]"
+                                context="{'group_by':'operating_unit_id'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record id="action_grp_agrupar_suministros_facturas" model="ir.actions.act_window">
+            <field name="name">Agrupador Suministros</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">grp.agrupar.suministros.facturas</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="view_grp_agrupar_suministros_facturas_tree"/>
+            <field name="context">{'search_default_partner':1,'search_default_concepto_gasto':1,'search_default_operating_unit':1}</field>
+            <field name="search_view_id" ref="view_grp_agrupar_suministros_facturas_filter"/>
+        </record>
+
+        <menuitem id="menu_grp_agrupar_suministros_facturas" name="Agrupador suministros"
+                  parent="menu_suministros" action="action_grp_agrupar_suministros_facturas"
+                   sequence="1" groups="grp_seguridad.grp_compras_apg_Responsable_SIIF"/><!---->
+
+        <record id="action_server_grp_agrupar_suministros_facturas" model="ir.actions.server">
+            <field name="name">Agrupar suministro</field>
+            <field name="condition">True</field>
+            <field name="type">ir.actions.server</field>
+            <field name="model_id" ref="model_grp_agrupar_suministros_facturas" />
+            <field name="state">code</field>
+            <field name="code">action = self.create_regularizacion(cr, uid, context.get('active_ids', []), context=context)</field>
+        </record>
+
+        <record id="ir_value_grp_agrupar_suministros_facturas" model="ir.values">
+            <field eval="'client_action_multi'" name="key2"/>
+            <field eval="'grp.agrupar.suministros.facturas'" name="model"/>
+            <field name="name">Agrupar suministro</field>
+            <field eval="'ir.actions.server,%d'%action_server_grp_agrupar_suministros_facturas" name="value"/>
+        </record>
+
+        <record id="ir_rule_agrupar_suministros_allowed_operating_units" model="ir.rule">
+            <field name="model_id" ref="model_grp_agrupar_suministros_facturas"/>
+            <field name="domain_force">['|', ('operating_unit_id','=', False),('operating_unit_id','in',[g.id for g in user.operating_unit_ids])]</field>
+            <field name="name">Visualizar Agrupador suministros por operating_unit</field>
+            <field name="global" eval="True"/>
+            <field eval="0" name="perm_unlink"/>
+            <field eval="0" name="perm_write"/>
+            <field eval="1" name="perm_read"/>
+            <field eval="0" name="perm_create"/>
+        </record>
+
+    </data>
+</openerp>

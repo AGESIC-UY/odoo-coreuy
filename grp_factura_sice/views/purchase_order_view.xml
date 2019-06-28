@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+
+        <record id="inherited_view_purchase_order_form_sice" model="ir.ui.view">
+            <field name="name">grp.purchase.order.form.inherit.sice</field>
+            <field name="model">purchase.order</field>
+            <field name="inherit_id" ref="grp_compras_estatales.inherited_view_purchase_order_form"/>
+            <field name="arch" type="xml">
+                <button name="purchase_confirm" position="after">
+                    <button name="button_oc_enviar_sice" states="confirmed" string="Enviar a SICE"
+                            attrs="{'invisible':['|',('enviado_sice','=',True)]}"
+                            class="oe_highlight"
+                            type="object" groups="grp_seguridad.grp_compras_apg_Jefe_de_compras_2,grp_seguridad.grp_compras_pc_Comprador"/>
+                    <button name="button_oc_importar_sice" states="confirmed" string="Importar desde SICE"
+                            attrs="{'invisible':['|','|',('enviado_sice','=',True),('es_migracion','=',False)]}"
+                            class="oe_highlight"
+                            type="object" groups="grp_seguridad.grp_compras_migracion_procedimiento"/>
+                </button>
+            </field>
+        </record>
+
+		<record id="wizard_oc_import_sice" model="ir.ui.view">
+			<field name="name">Importar OC SICE</field>
+			<field name="model">wizard.oc.import_sice</field>
+			<field name="arch" type="xml">
+                <form string="Importar OC SICE" version="7.0">
+                    <group>
+                        <group>
+                            <field name="orden_sice"/>
+                        </group>
+                    </group>
+                    <footer>
+                        <button name="importar_oc_sice" string="Importar OC SICE" type="object" default_focus="1" class="oe_highlight"/>
+                        o
+                        <button string="Cancelar" class="oe_link" special="cancel"/>
+                    </footer>
+                </form>
+			</field>
+		</record>
+
+    </data>
+</openerp>

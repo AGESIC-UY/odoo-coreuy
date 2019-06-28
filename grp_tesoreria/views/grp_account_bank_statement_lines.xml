@@ -29,7 +29,6 @@
                     <field name="note"/>
                     <field name="partner_name"/>
                     <field name="sequence"/>
-                    <field name="fondo_rotarios"/>
                 </tree>
             </field>
         </record>

@@ -277,7 +277,7 @@ class GrpCajaChicaTesoreria(models.Model):
             for vals in cr.dictfetchall():
                 vals.update({ 'caja_chica_id': rec.id})
                 self.env['grp_llave_presupuestal_registro_caja'].create(vals)
-            rec.transaction_ids.generate_account_move()
+            rec.with_context({'caja_efectivo':True}).transaction_ids.generate_account_move()
             difference = sum(rec.transaction_ids.mapped('rounded_amount')) - sum(rec.transaction_ids.mapped('amount'))
             if difference != 0:
                 mov = self.env['account.move'].create(self._prepare_adjust_account_move_data()[0])
@@ -301,7 +301,7 @@ class GrpCajaChicaTesoreria(models.Model):
             credit_account_id = company.income_rounding_adjust_account_id.id
         elif difference > 0:
             credit_account_id = self.journal_id.default_debit_account_id.id
-            debit_account_id = company.expense_rounding_adjust_account_id
+            debit_account_id = company.expense_rounding_adjust_account_id.id
 
         amount_currency = diff_currency and self.currency.rate * abs(difference) or 0.0
 
@@ -310,7 +310,7 @@ class GrpCajaChicaTesoreria(models.Model):
             'ref': '%s/%s' % (self.name, self.sequence_complement),
             'operating_unit_id': self.operating_unit_id.id,
             'account_id': debit_account_id,
-            'debit': abs(diff_currency and self.caja_chica_id.currency.rate * difference or difference),
+            'debit': abs(diff_currency and self.currency.rate * difference or difference),
             # 'debit': abs(difference),
             'credit': 0.0,
             'currency_id': diff_currency and current_currency or False,
@@ -323,7 +323,7 @@ class GrpCajaChicaTesoreria(models.Model):
             'ref': '%s/%s' % (self.name, self.sequence_complement),
             'account_id': credit_account_id,
             'debit': 0.0,
-            'credit': abs(diff_currency and self.caja_chica_id.currency.rate * difference or difference),
+            'credit': abs(diff_currency and self.currency.rate * difference or difference),
             # 'credit': abs(difference),
             'currency_id': diff_currency and current_currency or False,
             'amount_currency': amount_currency,
@@ -398,7 +398,7 @@ class GrpCajaChicaTesoreria(models.Model):
 
     def _get_previous_box(self, box_id, date, state=['check','end'], op='in', rec_id=False):
         return self.search([('id', '!=', rec_id), ('state', op, state), ('box_id', '=', box_id),
-                                    ('date', '<', date)], order='date desc', limit=1)
+                                    ('date', '<', date)], order='closing_date desc', limit=1)
 
     def _get_next_box(self, box_id, date, state='draft'):
         return self.search([('state', '!=', state), ('box_id', '=', box_id),
@@ -541,13 +541,14 @@ class GrpCajaChicaTesoreriaLine(models.Model):
                         rec.voucher_id.rendicion_viaticos_id.write({'state':'autorizado'})
                     else:
                         rec.voucher_id.cancel_voucher()
-                        rec.voucher_id.proforma_voucher()
+                        rec.voucher_id.confirm_voucher()
+                        # rec.voucher_id.proforma_voucher()
                         for line in rec.voucher_id.line_dr_ids:
                             if line.origin_voucher_id:
                                 line.origin_voucher_id.write({'state': 'posted', 'in_cashbox': False})
                                 line.origin_voucher_id.solicitud_viatico_id.write({'adelanto_pagado': False})
-                        rec.voucher_id.write({'state': 'posted','in_cashbox':False})
-                        if rec.voucher_id.rendicion_anticipos_id:
+                        if rec.voucher_id.rendicion_anticipos_id or rec.voucher_id.rendicion_viaticos_id:
+                            rec.voucher_id.write({'state': 'posted', 'in_cashbox': False})
                             rec.voucher_id.rendicion_anticipos_id.write({'state': 'autorizado'})
                 else:
                     move.create_reversals(fields.Date.today(), reversal_period_id=period.id if period else False)
@@ -617,6 +618,7 @@ class GrpCajaChicaTesoreriaLine(models.Model):
         amount = abs(self.rounded_amount)
         move_line_vals_debit = {
             'name': self.ref,
+            'date':self.entry_date or fields.Date.today(),
             'ref': '%s/%s' % (self.caja_chica_id.name, sequence),
             'operating_unit_id': self.caja_chica_id.operating_unit_id.id,
             'account_id': debit_account_id,
@@ -629,6 +631,7 @@ class GrpCajaChicaTesoreriaLine(models.Model):
         move_line_vals_credit = {
             'operating_unit_id': self.caja_chica_id.operating_unit_id.id,
             'name': self.ref,
+            'date': self.entry_date or fields.Date.today(),
             'ref': '%s/%s' % (self.caja_chica_id.name, sequence),
             'account_id': credit_account_id,
             'debit': 0.0,

@@ -56,6 +56,8 @@ class GrpRendicionCuentasBancarias(models.Model):
                                                  compute='_compute_balance_final', multi='saldos')
 
     balance_final = fields.Float(compute='_compute_balance_final', string=u'Saldo final')
+    saldos_ids = fields.One2many('grp.rendicion.cuentas.bancarias.line.saldos',
+                                   'rendicion_c_bancaria_id', u'Resumen de Saldos')
 
 
 
@@ -66,7 +68,7 @@ class GrpRendicionCuentasBancarias(models.Model):
         for rec in self:
             rec.balance_inicial = 0.0
             if rec.journal_id and rec.period_id:
-                rendicion_anterior = self.get_rendicion_periodo_anterior()
+                rendicion_anterior = rec.get_rendicion_periodo_anterior()
                 # periodo_anterior = self._get_periodo_anterior()
                 # if periodo_anterior:
                 #     rendicion_caja = rec.search([('caja_recaudadora_id','=',rec.caja_recaudadora_id.id),('period_id','=',periodo_anterior.id)])
@@ -89,7 +91,8 @@ class GrpRendicionCuentasBancarias(models.Model):
     @api.onchange('period_id','journal_id')
     def onchange_period_id(self):
         if self.period_id and self.journal_id:
-            self.detalles_ids = self._get_detalles_ids()
+            self.detalles_ids = self._get_detalles_ids()[0]
+            self.saldos_ids = self._get_detalles_ids()[1]
 
     #TODO: Se decidio utilizar un sql_constrain en vez de un constrains
     _sql_constraints = [
@@ -122,7 +125,15 @@ class GrpRendicionCuentasBancarias(models.Model):
         }
 
     def _get_detalles_ids(self):
-        detalles_ids = []
+        detalles_ids = [(5,)]
+        saldos_ids = [(5,)]
+        saldos = {}
+        saldos.setdefault('0', {
+            'afe': '0',
+            'cargo': 0,
+            'descargo': 0})
+
+
         default_debit_account_id = self.journal_id.default_debit_account_id
         default_credit_account_id = self.journal_id.default_credit_account_id
         move_line = self.env['account.move.line'].search([('date','>=',self.period_id.date_start),
@@ -131,15 +142,46 @@ class GrpRendicionCuentasBancarias(models.Model):
             move_line_filter = move_line.filtered(lambda x: x.account_id.id == default_debit_account_id.id
                                                     or x.account_id.id == default_credit_account_id.id)
             for line in move_line_filter:
-
+                no_afectacion_organismo_origen = ''
                 voucher_lines = self.env['account.voucher.line'].search([('move_line_id','=',line.id)])
+                if not voucher_lines:
+                    voucher_lines = self.env['account.voucher'].search([('move_id', '=', line.move_id.id)], limit=1).line_ids.filtered(lambda x: x.amount != 0)
                 if voucher_lines:
                     for voucher_line in voucher_lines:
+                        # print('nro -> ', voucher_line.invoice_id.nro_afectacion_fnc)
+                        # nro_afectacion = voucher_lines._get_origin_dict()['nro_afectacion']
+
+                        if voucher_line.voucher_id.opi:
+                            no_afectacion_organismo_origen = voucher_line.voucher_id.affectation_number_id.affectation_number
+                        elif line.move_id.affectation_number:
+                            no_afectacion_organismo_origen = line.move_id.affectation_number
+
+                        if line.move_id.nro_afectacion_siif and line.move_id.nro_afectacion_siif in saldos.keys():
+
+                            saldos[line.move_id.nro_afectacion_siif]['afe'] = line.move_id.nro_afectacion_siif
+                            saldos[line.move_id.nro_afectacion_siif]['cargo'] += voucher_line.amount
+                            saldos[line.move_id.nro_afectacion_siif][
+                                'descargo'] += voucher_line.amount
+                        else:
+                            saldos.setdefault(line.move_id.nro_afectacion_siif,
+                                              {
+                                                  'afe': line.move_id.nro_afectacion_siif,
+                                                  'cargo': 0.0,
+                                                  'descargo': 0.0})
+                            saldos[line.move_id.nro_afectacion_siif][
+                                'afe'] = line.move_id.nro_afectacion_siif
+                            saldos[line.move_id.nro_afectacion_siif][
+                                'cargo'] += voucher_line.amount
+                            saldos[line.move_id.nro_afectacion_siif][
+                                'descargo'] += voucher_line.amount
+
+
                         values = {
                             'date': line.date,
                             'operating_unit_id': line.operating_unit_id.id,
-                            'no_afectacion': voucher_line.invoice_id and voucher_line.invoice_id.nro_afectacion_fnc,
-                            'doc': line.operating_unit_id.code+'/'+ voucher_line.invoice_id and voucher_line.invoice_id.nro_afectacion_fnc,
+                            'no_afectacion': line.move_id.nro_afectacion_siif if line.move_id.nro_afectacion_siif else '',
+                            'no_afectacion_organismo_origen': no_afectacion_organismo_origen,
+                            'doc': line.operating_unit_id.code+'/'+ line.move_id.nro_afectacion_siif if line.move_id.nro_afectacion_siif else '',
                             'move_id': line.move_id.id,
                             'cargos': voucher_line.amount,
                             'descargos': voucher_line.amount,
@@ -147,10 +189,31 @@ class GrpRendicionCuentasBancarias(models.Model):
                         }
                         detalles_ids.append([0, 0, values])
                 else:
+                    if line.invoice.affectation_number_id:
+                        no_afectacion_organismo_origen = line.invoice.affectation_number_id.affectation_number
+                    elif line.move_id.affectation_number:
+                        no_afectacion_organismo_origen = line.move_id.affectation_number
+
+                    if no_afectacion_organismo_origen == '':
+
+                        saldos['0']['afe'] = '0'
+                        saldos['0'][
+                            'cargo'] += line.debit
+                        saldos['0'][
+                            'descargo'] += line.credit
+                    else:
+                        saldos[line.move_id.nro_afectacion_siif][
+                            'afe'] = line.move_id.nro_afectacion_siif
+                        saldos[line.move_id.nro_afectacion_siif][
+                            'cargo'] += line.debit
+                        saldos[line.move_id.nro_afectacion_siif][
+                            'descargo'] += line.credit
+
                     values = {
                         'date': line.date,
                         'operating_unit_id': line.operating_unit_id.id,
                         'no_afectacion': 0,
+                        'no_afectacion_organismo_origen': no_afectacion_organismo_origen,
                         'doc': line.operating_unit_id.code,
                         'move_id': line.move_id.id,
                         'cargos': line.debit,
@@ -159,7 +222,15 @@ class GrpRendicionCuentasBancarias(models.Model):
                     }
                     detalles_ids.append([0, 0, values])
 
-            return detalles_ids
+            for saldo in saldos:
+                vals = {
+                    'nro_afectacion':saldos[saldo]['afe'],
+                    'cargos': saldos[saldo]['cargo'],
+                    'descargos': saldos[saldo]['descargo']
+                }
+                saldos_ids.append([0, 0, vals])
+
+            return detalles_ids,saldos_ids
 
     def _get_total(self, campo, detalles, ajustes):
         total = sum(map(lambda x: x[campo], detalles)) + sum(map(lambda x: x[campo], ajustes))
@@ -193,7 +264,8 @@ class GrpRendicionCuentasBancariasLine(models.Model):
     code = fields.Char(string=u'Código')
     doc = fields.Char(string=u'Doc')
     operating_unit_id = fields.Many2one('operating.unit', string='UE')
-    no_afectacion = fields.Float(string=u'Num afectación')
+    no_afectacion = fields.Char(string=u'Num afectación')
+    no_afectacion_organismo_origen = fields.Char(string=u'Num afectación organismo origen')
     move_id = fields.Many2one('account.move', 'Asiento contable')
     cargos = fields.Float(string=u'Cargos')
     descargos = fields.Float(string=u'Descargos')
@@ -208,6 +280,20 @@ class GrpRendicionCuentasBancariasLine(models.Model):
 
 
 
+class GrpRendicionCuentasBancariasLineSaldos(models.Model):
+    _name = 'grp.rendicion.cuentas.bancarias.line.saldos'
+
+    @api.multi
+    @api.depends('cargos', 'descargos')
+    def _compute_saldo(self):
+        for rec in self:
+            rec.saldo = rec.cargos - rec.descargos
+
+    rendicion_c_bancaria_id = fields.Many2one('grp.rendicion.cuentas.bancarias', 'Rendición de cuentas bancarias', ondelete='cascade') # TODO L VARIANZA GRP
+    nro_afectacion = fields.Char(string=u'Nro Afectación')
+    cargos = fields.Float(string=u'Cargos', readonly=True)
+    descargos = fields.Float(string=u'Descargos', readonly=True)
+    saldo = fields.Float(string=u'Saldo',compute='_compute_saldo', readonly=True)
 
 
 

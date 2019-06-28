@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+        <record model="ir.ui.view" id="grp_cancelar_baja_activo_form">
+            <field name="name">grp.cancelar_baja_activo.form</field>
+            <field name="model">grp.cancelar_baja_activo</field>
+            <field name="arch" type="xml">
+                <form string="Cancelar Baja de Activo">
+                        <p>Si está seguro de cancelar baja de activo presione
+                        Cancelar baja, de lo contrario, Cancelar. Tenga en cuenta,
+                            si va a cancelar la baja, que deberá revisar la Tabla de
+                            amortización del bien para validar si debe realizar alguna
+                            amortización que no se hubiera realizado mientras el activo
+                            estuvo dado de baja.</p>
+                    <footer>
+                        <button name="cancelar_baja_activo" type="object" string="Cancelar baja" class="oe_highlight"/>
+                        o
+                        <button string="Cancelar" class="oe_link" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+
+        <record model="ir.actions.act_window" id="action_view_wizard_cancelar_baja_form">
+            <field name="name">Cancelar Baja de Activo</field>
+            <field name="res_model">grp.cancelar_baja_activo</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="grp_cancelar_baja_activo_form"/>
+            <field name="target">new</field>
+        </record>
+
+
+    </data>
+</openerp>

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+
+        <record id="view_pc_autorizado_tablero_tree" model="ir.ui.view">
+            <field name="name">Solicitud de Recursos</field>
+            <field name="model">grp.pedido.compra.tablero</field>
+            <field name="priority" eval="14"/>
+            <field name="arch" type="xml">
+                <tree string="Pedidos de Compras Autorizados" create="false" edit="false" delete="false">
+                    <field name="name"/>
+                    <field name="sice_id_compra"/>
+                    <field name="date_start"/>
+                    <field name="tipo_compra"/>
+                    <field name="sub_tipo_compra"/>
+                    <field name="description"/>
+                    <field name="operating_unit_id"/>
+                    <field name="state"/>
+                    <field name="user_id"/>
+                    <field name="usr_solicitante"/>
+                    <field name="sicec_uc_id"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="action_pc_autorizados_report" model="ir.actions.act_window">
+            <field name="name">Pedidos de Compras Autorizados</field>
+            <field name="res_model">grp.pedido.compra.tablero</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="view_pc_autorizado_tablero_tree"/>
+            <field name="domain">[]</field>
+        </record>
+
+
+        <menuitem id="dashboard_menu_pc" name="Pedidos de Compras Autorizados"
+                  parent="grp_solicitudcompras_report"
+                  action="action_pc_autorizados_report"
+                  groups="grp_seguridad.grp_compras_apg_Jefe_de_compras_2,grp_seguridad.grp_compras_pc_Comprador"
+                  sequence="5"/>
+
+    </data>
+
+</openerp>

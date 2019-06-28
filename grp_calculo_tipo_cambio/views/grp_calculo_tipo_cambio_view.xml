@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+ <openerp>
+    <data>
+		<!-- Vista form heredada -->
+		<!-- CAMBIO EN VISTA 18/12-->
+        <!--<record model="ir.ui.view" id="grp_calculo_tipo_cambio_res_company_view_form_inherited">-->
+            <!--<field name="name">grp_calculo_tipo_cambio_res_company_view_form_inherited</field>-->
+            <!--<field name="model">res.company</field>-->
+            <!--<field name="inherit_id" ref="base.view_company_form" />-->
+            <!--<field name="type">form</field>-->
+            <!--<field name="arch" type="xml">-->
+                <!--<field name="currency_id" position="after">-->
+                        <!--<field name="rate_type_code" />-->
+                <!--</field>-->
+            <!--</field>-->
+        <!--</record>-->
+		
+		<!-- Vista form heredada -->
+	<record model="ir.ui.view" id="grp_calculo_tipo_cambio_res_currency_view_form_inherited">
+            <field name="name">grp_calculo_tipo_cambio_res_currency_view_form_inherited</field>
+            <field name="model">res.currency</field>
+            <field name="inherit_id" ref="base.view_currency_form" />
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <field name="rate" position="after">
+                        <field name="rate_presupuesto"/>
+                        <field name="rate_arbitraje"/>
+                        <!--<field name="currency_rate_type_id" />-->
+                        <!--<field name="company_id" />-->
+                </field>
+            </field>
+        </record>
+
+        <!-- campos de header readonly para grupo de gastos -->
+	<!--<record id="grp_calculo_tipo_cambio_res_currency_view_form_header_readonly" model="ir.ui.view">-->
+	    <!--<field name="name">grp_calculo_tipo_cambio_res_currency_view_form_header_readonly</field>-->
+	    <!--<field name="model">res.currency</field>-->
+	    <!--<field name="inherit_id" ref="base.view_currency_form"/>-->
+	    <!--<field name="groups_id" eval="[(6, 0, [ref('grp_seguridad.group_grp_mrree_exterior') ])]"/>-->
+	    <!--<field name="arch" type="xml">-->
+	        <!--<field name='name' position="attributes">-->
+	            <!--<attribute name="readonly">1</attribute>-->
+	        <!--</field>-->
+	        <!--<field name='company_id' position="attributes">-->
+	            <!--<attribute name="readonly">1</attribute>-->
+	        <!--</field>-->
+	        <!--<field name='rounding' position="attributes">-->
+	            <!--<attribute name="readonly">1</attribute>-->
+	        <!--</field>-->
+	        <!--<field name='accuracy' position="attributes">-->
+	            <!--<attribute name="readonly">1</attribute>-->
+	        <!--</field>-->
+	        <!--<field name='symbol' position="attributes">-->
+	            <!--<attribute name="readonly">1</attribute>-->
+	        <!--</field>-->
+	        <!--<field name='position' position="attributes">-->
+	            <!--<attribute name="readonly">1</attribute>-->
+	        <!--</field>-->
+	        <!--<field name='base' position="attributes">-->
+	            <!--<attribute name="readonly">1</attribute>-->
+	        <!--</field>-->
+	        <!--<field name='active' position="attributes">-->
+	            <!--<attribute name="readonly">1</attribute>-->
+	        <!--</field>-->
+	    <!--</field>-->
+	<!--</record>-->
+	
+		
+    </data>
+</openerp>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <!-- TODO Spring 8 GAP 115:-->
+
+        <record id="enviar_cesion_siif_wizard_view" model="ir.ui.view">
+            <field name="name">grp.enviar.cesion.siif.wizard.form</field>
+            <field name="model">grp.enviar.cesion.siif.wizard</field>
+            <field name="arch" type="xml">
+            <form string="Enviar Cesion a Siif" version="7.0">
+                <group name="main_group">
+                    <group>
+                        <field name="date" />
+                        <field name="period_id"/>
+                        <field name="journal_id"/>
+                    </group>
+                </group>
+                <footer>
+                    <button name="send_cession" default_focus="1" string="Aceptar" type="object"/>
+                    <button string="Cancelar" class="oe_link" special="cancel"/>
+                </footer>
+            </form>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="enviar_cesion_siif_wizard_act">
+            <field name="name">Enviar Cesion a Siff</field>
+            <field name="res_model">grp.enviar.cesion.siif.wizard</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="enviar_cesion_siif_wizard_view"/>
+            <field name="target">new</field>
+        </record>
+
+    </data>
+</openerp>

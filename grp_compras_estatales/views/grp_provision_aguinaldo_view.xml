@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--TODO Spring 8 GAP 224 R-->
+<openerp>
+    <data>
+        <record id="view_grp_cot_tree" model="ir.ui.view">
+            <field name="name">grp.provision.aguinaldo.tree</field>
+            <field name="model">grp.provision.aguinaldo</field>
+            <field name="arch" type="xml">
+                <tree string="Provisiones de aguinaldo" editable="top">
+                    <field name="incoming_account_id"/>
+                    <field name="bonus_account_id"/>
+                    <field name="provision_account_id"/>
+                    <field name="active"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="action_grp_provision_aguinaldo" model="ir.actions.act_window">
+            <field name="name">Provisión de aguinaldo</field>
+            <field name="res_model">grp.provision.aguinaldo</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem id="menu_grp_provision_aguinaldo_item"
+                  action="action_grp_provision_aguinaldo" sequence="371"
+                  parent="account.menu_configuration_misc"/>
+
+
+    </data>
+</openerp>

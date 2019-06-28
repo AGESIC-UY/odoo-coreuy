@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="category_grp_af" model="ir.module.category">
+            <field name="name">Activo Fijo</field>
+            <field name="sequence">10</field>
+        </record>
+
+        <!-- GRUPOS -->
+
+        <record id="grp_af_configuracion" model="res.groups">
+            <field name="name">Configuración AF</field>
+            <field name="category_id" ref="category_grp_af"/>
+            <field name="menu_access" eval="[(4, ref('account_asset.menu_finance_assets')),
+            (4, ref('account_asset.menu_action_asset_asset_report')),
+            (4, ref('account_asset.menu_action_account_asset_asset_form')),
+            (4, ref('account_asset.menu_action_account_asset_asset_list_normal')),
+            (4, ref('account_asset.menu_finance_config_assets')),
+            (4, ref('account.menu_finance')),
+            (4, ref('account_asset.menu_action_account_asset_asset_tree'))
+            ]"/>
+        </record>
+
+        <record id="grp_af_consulta" model="res.groups">
+            <field name="name">Consulta AF Completa</field>
+            <field name="category_id" ref="category_grp_af"/>
+            <field name="menu_access" eval="[(4, ref('account_asset.menu_finance_assets')),
+            (4, ref('account_asset.menu_action_account_asset_asset_form')),
+            (4, ref('account.menu_finance')),
+            (4, ref('account_asset.menu_action_account_asset_asset_tree'))
+            ]"/>
+        </record>
+
+        <record id="grp_af_consulta_categoria" model="res.groups">
+            <field name="name">Consulta AF Parcial Categoría</field>
+            <field name="category_id" ref="category_grp_af"/>
+            <field name="implied_ids" eval="[(4,ref('grp_af_consulta'))]"/>
+        </record>
+
+        <record id="grp_af_responsable" model="res.groups">
+            <field name="name">Responsable AF</field>
+            <field name="category_id" ref="category_grp_af"/>
+            <field name="menu_access" eval="[(4, ref('account_asset.menu_finance_assets')),
+            (4, ref('account_asset.menu_action_account_asset_asset_form')),
+            (4, ref('account.menu_finance')),
+            (4, ref('account_asset.menu_action_account_asset_asset_tree'))
+            ]"/>
+        </record>
+
+        <record id="grp_af_responsable_depto" model="res.groups">
+            <field name="name">Responsable por Depto. AF</field>
+            <field name="category_id" ref="category_grp_af"/>
+            <field name="implied_ids" eval="[(4,ref('grp_af_responsable'))]"/>
+        </record>
+
+        <record id="grp_af_responsable_categoria" model="res.groups">
+            <field name="name">Responsable por Categoría AF</field>
+            <field name="category_id" ref="category_grp_af"/>
+            <field name="implied_ids" eval="[(4,ref('grp_af_responsable'))]"/>
+        </record>
+
+        <record id="grp_af_restringir_ue" model="res.groups">
+            <field name="name">Restringir AF por UE</field>
+            <field name="category_id" ref="category_grp_af"/>
+        </record>
+
+        <record id="grp_af_responsable_financiero" model="res.groups">
+            <field name="name">Responsable financiero AF</field>
+            <field name="category_id" ref="category_grp_af"/>
+            <!-- PCAR GAPF0020_18 10 05 2017 Inicio -->
+            <field name="menu_access" eval="[(4, ref('account_asset.menu_asset_depreciation_confirmation_wizard')),
+            (4, ref('account.menu_finance_recurrent_entries')),
+            (4, ref('account.menu_finance_periodical_processing'))
+            ]"/>
+            <!-- PCAR GAPF0020_18 10 05 2017 Fin -->
+        </record>
+
+        <!--todo falta notificarle por correo y mensaje a los usuarios de esos grupos que se creo un activo -->
+        <record id="grp_af_resp_mobiliario" model="res.groups">
+            <field name="name">Responsable Mobiliario</field>
+            <field name="category_id" ref="grp_activo_fijo.category_grp_af"/>
+        </record>
+
+        <record id="grp_af_resp_inmueble" model="res.groups">
+            <field name="name">Responsable Inmueble</field>
+            <field name="category_id" ref="grp_activo_fijo.category_grp_af"/>
+        </record>
+
+        <record id="grp_af_resp_vehiculo" model="res.groups">
+            <field name="name">Responsable Vehículos</field>
+            <field name="category_id" ref="grp_activo_fijo.category_grp_af"/>
+        </record>
+
+        <record id="grp_af_resp_informatica" model="res.groups">
+            <field name="name">Responsable Informática</field>
+            <field name="category_id" ref="grp_activo_fijo.category_grp_af"/>
+        </record>
+
+
+        <record id="grp_af_inventory_admin" model="res.groups">
+            <field name="name">Adm. Inventario AF</field>
+            <field name="category_id" ref="grp_activo_fijo.category_grp_af"/>
+        </record>
+
+        <record id="grp_af_inventory_responsable" model="res.groups">
+            <field name="name">Responsable Inventario AF</field>
+            <field name="category_id" ref="grp_activo_fijo.category_grp_af"/>
+        </record>
+
+        <!-- REGLAS -->
+
+        <!-- Activos del departamento para el rol Responsable de AF -->
+        <record id="rule_grp_activos_depto" model="ir.rule">
+            <field name="name">Ver solo Activos Fijos del departamento</field>
+            <field name="model_id" ref="model_account_asset_asset"/>
+            <field name="groups" eval="[(4,ref('grp_activo_fijo.grp_af_responsable_depto'))]"/>
+            <field name="domain_force">
+                ['|',('department_id','=',False),('department_id','child_of',[e.department_id.id for e in user.employee_ids])]
+            </field>
+            <field name="perm_read" eval="1"/>
+            <field name="perm_write" eval="1"/>
+            <field name="perm_unlink" eval="1"/>
+            <field name="perm_create" eval="1"/>
+        </record>
+
+        <!-- Regla para seguridad por Operating Unit en los Activo Fijo -->
+        <record id="rule_grp_AF_OU_permitidas" model="ir.rule">
+            <field name="model_id" ref="model_account_asset_asset"/>
+            <field name="domain_force">['|',('operating_unit_id','=',False),('operating_unit_id','in',[g.id for g in user.operating_unit_ids])]</field>
+            <field name="name">AF de Unidades Operativas permitidas</field>
+            <field name="global" eval="True"/>
+        </record>
+
+        <!--&lt;!&ndash; Regla para seguridad por Operating Unit en los Activo Fijo Restringir Default &ndash;&gt;-->
+        <!--<record id="rule_grp_AF_OU_restringir_default" model="ir.rule">-->
+            <!--<field name="model_id" ref="model_account_asset_asset"/>-->
+            <!--<field name="domain_force">['|',('operating_unit_id','=',False),('operating_unit_id','=',user.default_operating_unit_id.id)]</field>-->
+            <!--<field name="name">Restringir acceso a AF a la UE por defecto (y no las permitidas)</field>-->
+            <!--<field name="groups" eval="[(4,ref('grp_activo_fijo.grp_af_restringir_ue'))]"/>-->
+        <!--</record>-->
+
+        <!-- Regla para seguridad por Categoria de Activo Fijo-->
+        <record id="rule_grp_AF_categoria_restringir" model="ir.rule">
+            <field name="model_id" ref="model_account_asset_asset"/>
+            <field name="domain_force">['|',('category_id','=',False),('category_id','in',[c.id for c in user.asset_category_ids])]</field>
+            <field name="name">Restringir acceso a AF de la categoria que tiene autorizada el usuario</field>
+            <field name="groups" eval="[(4,ref('grp_activo_fijo.grp_af_responsable_categoria')),(4,ref('grp_activo_fijo.grp_af_consulta_categoria'))]"/>
+        </record>
+
+        <!-- Regla para seguridad por Categoria de Activo Fijo-->
+        <record id="rule_grp_account_asset_category_restringir" model="ir.rule">
+            <field name="model_id" ref="model_account_asset_category"/>
+            <field name="domain_force">[('id','in',[c.id for c in user.asset_category_ids])]</field>
+            <field name="name">Restringir acceso a Categorias de AF a las que tiene autorizada el usuario</field>
+            <field name="groups" eval="[(4,ref('grp_activo_fijo.grp_af_responsable_categoria')),(4,ref('grp_activo_fijo.grp_af_consulta_categoria'))]"/>
+        </record>
+
+    </data>
+</openerp>

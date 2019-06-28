@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data noupdate="0">
+        <record id="category_grp_contabilidad" model="ir.module.category">
+            <field name="name">GRP - Contabilidad</field>
+            <field name="sequence">0</field>
+        </record>
+
+        <!-- ================  GRUPOS DE ACCESO CONTABILIDAD  ================ -->
+        <!-- Tiene control de acceso -->
+        <record id="grp_asientos_cierre_apertura" model="res.groups">
+            <field name="name">GRP - Asientos de Cierre/Apertura</field>
+            <field name="category_id" ref="category_grp_contabilidad"/>
+            <field name="menu_access" eval="[(4, ref('account.menu_wizard_fy_close'))
+            ,(4, ref('account.menu_finance_periodical_processing')),(4, ref('account.menu_wizard_account_open_closed_fiscalyear'))
+            ,(4, ref('account.menu_account_end_year_treatments')),(4, ref('account.menu_finance'))]"/>
+        </record>
+
+        <!-- Tiene control de acceso-->
+        <record id="grp_auxiliar_contable" model="res.groups">
+            <field name="name">GRP - Auxiliar Contable</field>
+            <field name="category_id" ref="category_grp_contabilidad"/>
+            <field name="menu_access" eval="[(4, ref('account.menu_finance_payables')),
+            (4, ref('account.menu_action_account_moves_all')),(4, ref('account.menu_finance_entries')),
+            (4, ref('account.menu_action_move_journal_line_form')),(4, ref('account.periodical_processing_reconciliation')),
+            (4, ref('account.menu_finance_configuration')),(4, ref('account.menu_finance_periodical_processing')),
+            (4, ref('base.menu_action_currency_form')),(4, ref('account.menu_finance_configuration')),
+            (4, ref('account.menu_configuration_misc')),(4, ref('account.menu_finance'))]"/>
+        </record>
+        <!-- comentado 31/03-->
+        <!-- (4, ref('account.menu_finance_bank_and_cash')), -->
+
+        <!-- Tiene control de acceso-->
+        <record id="grp_mant_proveedores" model="res.groups">
+            <field name="name">GRP - Mant.Proveedores</field>
+            <field name="category_id" ref="category_grp_contabilidad"/>
+            <field name="menu_access"
+                   eval="[(4, ref('account.menu_finance_payables')),(4, ref('account.menu_finance'))]"/>
+        </record>
+        <!--PENDI-->
+        <!--grp_rupe.grp_rupe_root-->
+
+        <!-- Tiene control de acceso-->
+        <record id="grp_configuracion_contabilidad" model="res.groups">
+            <field name="name">GRP - Configuración Contabilidad</field>
+            <field name="category_id" ref="category_grp_contabilidad"/>
+            <field name="implied_ids" eval="[(4,ref('grp_mant_proveedores'))]"/>
+            <field name="menu_access" eval="[(4, ref('account.menu_finance_payables')),
+            (4, ref('account.account_def_analytic_journal')),(4, ref('account.menu_account_report_tree_hierarchy')),
+            (4, ref('account.account_template_folder')),(4, ref('account.menu_account_financial_reports_tree')),
+            (4, ref('account.account_analytic_def_account')),(4, ref('account.menu_action_tax_code_list')),
+            (4, ref('account.menu_finance_configuration')),(4, ref('account.account_account_menu')),
+            (4, ref('account.menu_journals')),(4, ref('account.next_id_27')),
+            (4, ref('account.menu_action_account_type_form')),(4, ref('account.menu_account_reports')),
+            (4, ref('account.menu_action_tax_code_tree')),
+            (4, ref('account.menu_analytic_accounting')),(4, ref('account.menu_finance'))]"/>
+        </record>
+
+        <!-- Tiene control de acceso-->
+        <record id="grp_monedas_cotizaciones" model="res.groups">
+            <field name="name">GRP - Monedas y Cotizaciones</field>
+            <field name="category_id" ref="category_grp_contabilidad"/>
+            <field name="menu_access" eval="[(4, ref('account.menu_finance_configuration'))
+            ,(4, ref('base.menu_action_currency_form')),(4, ref('account.menu_finance'))
+            ,(4, ref('account.menu_configuration_misc'))]"/>
+        </record>
+        <!-- PEND-->
+
+        <!-- Tiene control de acceso-->
+        <record id="grp_visualizacion_contrato_proveed" model="res.groups">
+            <field name="name">GRP - Visualización Contrato Proveedores</field>
+            <field name="category_id" ref="category_grp_contabilidad"/>
+            <field name="menu_access"
+                   eval="[(4, ref('account.menu_finance_payables')),(4, ref('account.menu_finance'))]"/>
+        </record>
+
+        <!-- Tiene control de acceso-->
+        <record id="grp_analista_contable" model="res.groups">
+            <field name="name">GRP - Analista Contable</field>
+            <field name="category_id" ref="category_grp_contabilidad"/>
+            <field name="implied_ids" eval="[(4,ref('grp_mant_proveedores')),(4,ref('grp_auxiliar_contable'))]"/>
+            <field name="menu_access" eval="[(4, ref('account.periodical_processing_journal_entries_validation')),
+                                             (4, ref('account.menu_finance_recurrent_entries')),
+                                             (4, ref('account.menu_configuration_misc'))]"
+                    />
+        </record>
+
+        <!-- tiene control de acceso-->
+        <record id="grp_cierre_ejercicio" model="res.groups">
+            <field name="name">GRP - Cierre de Ejercicio</field>
+            <field name="category_id" ref="category_grp_contabilidad"/>
+            <field name="menu_access" eval="[(4, ref('account.menu_finance')),
+            (4, ref('account.menu_account_end_year_treatments')),(4, ref('account.menu_finance_periodical_processing')),
+            (4, ref('account.menu_wizard_fy_close_state'))]"/>
+        </record>
+
+        <!-- tiene control de acceso-->
+        <record id="grp_consulta_asientos" model="res.groups">
+            <field name="name">GRP - Consulta asientos y cuentas</field>
+            <field name="category_id" ref="category_grp_contabilidad"/>
+            <field name="menu_access" eval="[(4, ref('account.menu_action_account_moves_all')),
+            (4, ref('account.menu_action_move_journal_line_form')),(4, ref('account.menu_finance_entries')),
+            (4, ref('account.menu_finance')),(4, ref('account.menu_finance_configuration')),
+            (4, ref('account.account_account_menu'))]"/>
+        </record>
+
+        <!-- tiene de control de acceso-->
+        <record id="grp_informes" model="res.groups">
+            <field name="name">GRP - Informes</field>
+            <field name="category_id" ref="category_grp_contabilidad"/>
+            <field name="menu_access" eval="[(4, ref('account.next_id_22')), (4, ref('account.menu_finance_payables')),
+            (4, ref('account.menu_action_account_entries_report_all')),(4, ref('account.menu_action_account_treasury_report_all')),
+            (4, ref('account.menu_tax_report')),(4, ref('account.menu_action_analytic_entries_report')),
+            (4, ref('account.next_id_40')),(4, ref('account.menu_finance_charts')),
+            (4, ref('account.account_analytic_journal_print')),(4, ref('account.menu_action_analytic_account_tree2')),
+            (4, ref('account.menu_unrealized_gains_losses')),(4, ref('account.menu_multi_currency')),
+            (4, ref('account.menu_general_Balance_report')),(4, ref('account.menu_account_report_pl')),
+            (4, ref('account.menu_account_report_bs')),(4, ref('account.final_accounting_reports')),
+            (4, ref('account.menu_journals_report')),(4, ref('account.menu_general_ledger')),
+            (4, ref('account.menu_account_partner_ledger')),(4, ref('account.menu_action_tax_code_tree')),
+            (4, ref('account.menu_finance_reports')),(4, ref('account.menu_finance_reporting')),
+            (4, ref('account.menu_account_report')),
+            (4, ref('account.menu_finance'))]"/>
+        </record> <!--TODO: SPRING 8 GAP 364 K se adiciono el permiso (4, ref('account.menu_finance_payables'))-->
+
+        <!-- Tiene control de acceso -->
+        <record id="grp_consulta_proveedores" model="res.groups">
+            <field name="name">GRP - Consulta proveedores</field>
+            <field name="category_id" ref="category_grp_contabilidad"/>
+            <field name="menu_access" eval="[(4, ref('account.menu_finance_payables')),
+            (4, ref('account.menu_finance'))]"/>
+        </record>
+
+        <!-- Tiene control de acceso -->
+        <record id="grp_periodos_contables" model="res.groups">
+            <field name="name">GRP - Períodos Contables</field>
+            <field name="category_id" ref="category_grp_contabilidad"/>
+            <field name="menu_access" eval="[(4, ref('account.menu_action_account_period_close_tree')),
+            (4, ref('account.next_id_23')),(4, ref('account.menu_action_account_period')),
+            (4, ref('account.menu_action_account_fiscalyear')),(4, ref('account.menu_finance_configuration')),
+            (4, ref('account.menu_finance_periodical_processing')),(4, ref('account.menu_account_end_year_treatments')),
+            (4, ref('account.menu_finance'))]"/>
+        </record>
+
+
+        <!-- Tiene control de acceso -->
+        <record id="grp_consulta_aprobacion_pagos" model="res.groups">
+            <field name="name">GRP - Consulta de Aprobación de pagos</field>
+            <field name="category_id" ref="category_grp_contabilidad"/>
+            <field name="menu_access" eval="[(4, ref('account.menu_finance')),(4, ref('account.menu_finance_payables'))]" />
+
+        </record>
+
+        <!-- Tiene control de acceso -->
+        <record id="grp_aprobacion_pagos" model="res.groups">
+            <field name="name">GRP - Aprobación de pagos</field>
+            <field name="category_id" ref="category_grp_contabilidad"/>
+            <field name="menu_access" eval="[(4, ref('account.menu_finance')),(4, ref('account.menu_finance_payables'))]" />
+        </record>
+
+        <record id="grp_gestor_pagos" model="res.groups">
+            <field name="name">GRP - Gestor de pagos</field>
+            <field name="category_id" ref="category_grp_contabilidad"/>
+            <field name="menu_access" eval="[(4, ref('account.menu_finance')),(4, ref('account.menu_finance_payables'))]" />
+        </record>
+
+    </data>
+</openerp>

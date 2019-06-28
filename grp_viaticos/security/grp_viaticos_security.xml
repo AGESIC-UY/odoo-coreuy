@@ -16,7 +16,8 @@
         <record id="grp_sv_solicitante" model="res.groups">
             <field name="name">Solicitante viaje</field><!--TODO: SPRING 11 GAP 24 L-->
             <field name="category_id" ref="category_grp_viaticos"/>
-            <field name="implied_ids" eval="[(4,ref('grp_viaticos.grp_sv_ingresa_monto'))]"/>
+            <field name="menu_access" eval="[(4, ref('grp_compras_estatales.menu_sr_main'))]"/>
+            <field name="implied_ids" eval="[(4, ref('grp_viaticos.grp_sv_ingresa_monto'))]"/>
         </record>
 
         <record id="grp_sv_solicitantesuperior" model="res.groups">

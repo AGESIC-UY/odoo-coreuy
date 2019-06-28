@@ -30,7 +30,7 @@
     'depends': ['base','account','npg_bank_account_reconciliation', 'grp_account',
                 'grp_factura_siif','grp_factura_sice','account_transfer','grp_seguridad',
                 'grp_viaticos', 'report_xls','base_suspend_security',
-                'account_financial_report_webkit'],
+                'account_financial_report_webkit','base_action_rule'],
     'description': """
 GRP - Tesoreria
 """,

@@ -42,12 +42,12 @@ class GrpRendicionCaja(models.Model):
     #caja_recaudadora_id = fields.Many2one('grp.caja.recaudadora.tesoreria', string='Caja',
     #                                      domain=[('caja_principal', '=', True)])
     caja_recaudadora_ids = fields.Many2many('grp.caja.recaudadora.tesoreria', string='Cajas (principal)',
-                                            domain="[('caja_principal', '=', True),('state','=','checked'),('open_date','>=',period_date_start),('open_date','<=',period_date_stop)]",
+                                            domain="[('id', 'in', available_box_ids[0][2]), ('caja_principal', '=', True),('state','=','checked'),('open_date','>=',period_date_start),('open_date','<=',period_date_stop)]",
                                             readonly=True, states={'draft': [('readonly', False)]})
     caja_recaudadora_siif_ids = fields.Many2many("grp.caja.recaudadora.tesoreria.boleto.siif",
                                                  relation="grp_rendicion_caja_boleto_siif_rel", column1='grp_rendicion_caja_id', column2='boleto_siif_id',
                                                  string="Cajas (no principal)",
-                                                 domain="[('state', '=', 'collection_send'),('open_date','>=',period_date_start),('open_date','<=',period_date_stop)]",
+                                                 domain="[('id', 'in', available_box_siif_ids[0][2]), ('state', '=', 'collection_send'),('open_date','>=',period_date_start),('open_date','<=',period_date_stop)]",
                                                  readonly=True, states={'draft': [('readonly', False)]})
     remesa_ids = fields.Many2many("grp.remesa", string="Depósito", domain="[('state', '=', 'collection_send'),('open_date','>=',period_date_start),('open_date','<=',period_date_stop)]",
                                   readonly=True, states={'draft': [('readonly', False)]})
@@ -87,6 +87,40 @@ class GrpRendicionCaja(models.Model):
     balance_final_cargos = fields.Float(string="Cargos", compute='_compute_balance_final_general')
     balance_final_descargos = fields.Float(string=u"Descargos", compute='_compute_balance_final_general')
     balance_final_general = fields.Float(compute='_compute_balance_final_general', string=u'Saldo final')
+    operating_unit_id = fields.Many2one(
+        comodel_name='operating.unit', string='Operating unit')
+    available_box_ids = fields.Many2many(
+        comodel_name='grp.caja.recaudadora.tesoreria', compute='_compute_available_boxes', string='Available boxes')
+    available_box_siif_ids = fields.Many2many(
+        comodel_name='grp.caja.recaudadora.tesoreria.boleto.siif', compute='_compute_available_boxes_siif',
+        string='Available SIIF boxes')
+
+    @api.multi
+    @api.depends('operating_unit_id')
+    def _compute_available_boxes(self):
+        for record in self:
+            boxes = []
+            if record.operating_unit_id:
+                boxes = self.env['grp.caja.recaudadora.tesoreria'].search([
+                    ('box_id.operating_unit_ids', 'in', record.operating_unit_id.ids)]).ids
+            record.available_box_ids = boxes
+
+    @api.multi
+    @api.depends('operating_unit_id')
+    def _compute_available_boxes_siif(self):
+        for record in self:
+            boxes = []
+            if record.operating_unit_id:
+                boxes = self.env['grp.caja.recaudadora.tesoreria.boleto.siif'].search([
+                    ('box_id.operating_unit_ids', 'in', record.operating_unit_id.ids)]).ids
+            record.available_box_siif_ids = boxes
+
+    @api.multi
+    def action_open_account_move(self):
+        self.ensure_one()
+        action = self.env.ref('account.action_account_moves_all_a').read()[0]
+        action['domain'] = [('operating_unit_id', '=', self.operating_unit_id.id)]
+        return action
 
     @api.one
     @api.constrains('period_id')
@@ -184,6 +218,7 @@ class GrpRendicionCaja(models.Model):
 
     def _get_recaudacion_remesa_ids(self, fecha):
         recaudacion = 0
+
         for remesa in self.remesa_ids.filtered(lambda x:x.date == fecha):
             recaudacion += abs(sum(remesa.total_shipment_ids.mapped('amount')))
         return recaudacion
@@ -191,14 +226,11 @@ class GrpRendicionCaja(models.Model):
     def _get_cargos_ids(self):
         cargos_ids = [(5,)]
         details = self.caja_recaudadora_ids.mapped('voucher_details_ids').filtered(
-                                                lambda x: x.date >= self.period_id.date_start
-                                                and x.date <= self.period_id.date_stop)
+            lambda x: (self.period_id.date_stop >= x.date >= self.period_id.date_start) and x.operating_unit_id.id == self.operating_unit_id.id)
         valores_custodia = self.caja_recaudadora_ids.mapped('valores_custodia_ids').filtered(
-                                                lambda x: x.fecha_recepcion >= self.period_id.date_start
-                                                and x.fecha_recepcion <= self.period_id.date_stop)
+            lambda x: (self.period_id.date_stop >= x.fecha_recepcion >= self.period_id.date_start) and x.operating_unit_id.id == self.operating_unit_id.id)
         transactions = self.caja_recaudadora_ids.mapped('transaction_ids').filtered(
-                                                lambda x: x.date >= self.period_id.date_start
-                                                and x.date <= self.period_id.date_stop)
+            lambda x: self.period_id.date_stop >= x.date >= self.period_id.date_start)
 
         if details or valores_custodia or transactions or self.caja_recaudadora_siif_ids:
             fechas = sorted(list(set(details.mapped('date')) | set(
@@ -212,8 +244,9 @@ class GrpRendicionCaja(models.Model):
                 recaudacion += self._get_recaudacion_cajas_siif(fecha)
 
                 fondos_terceros = self.details_filter(details, 'fondos_terceros', fecha) + self.transactions_filter(
-                                                                            transactions, 'fondos_terceros', fecha)
-                pagos = self.details_filter(details, 'pagos', fecha) + self.transactions_filter(transactions, 'pagos', fecha)
+                    transactions, 'fondos_terceros', fecha)
+                pagos = self.details_filter(details, 'pagos', fecha) + self.transactions_filter(transactions, 'pagos',
+                                                                                                fecha)
 
                 fondos_garantia = self.valores_custodia_filter(valores_custodia, 'fondos_garantia', fecha)
 
@@ -229,40 +262,57 @@ class GrpRendicionCaja(models.Model):
                     cargos_ids.append((0, 0, values))
         return cargos_ids
 
-
+    @api.multi
     def _get_descargos_ids(self):
         descargos_ids = [(5,)]
         details = self.caja_recaudadora_ids.mapped('voucher_details_ids').filtered(
-                        lambda x: x.entrega_caja and (x.fecha_entrega >= self.period_id.date_start
-                        and x.fecha_entrega <= self.period_id.date_stop))
+            lambda x: x.entrega_caja and (
+                        self.period_id.date_stop >= x.fecha_entrega >= self.period_id.date_start) and x.operating_unit_id.id == self.operating_unit_id.id)
 
         transactions = self.caja_recaudadora_ids.mapped('transaction_ids').filtered(
-                        lambda x: x.date >= self.period_id.date_start
-                        and x.date <= self.period_id.date_stop)
+            lambda x: self.period_id.date_stop >= x.date >= self.period_id.date_start)
 
         remesas = self.caja_recaudadora_ids.filtered(
-                        lambda x: x.remittance_date and x.remittance_date >= self.period_id.date_start
-                        and x.remittance_date <= self.period_id.date_stop).mapped('total_shipment_ids')
+            lambda
+                x: x.remittance_date and self.period_id.date_stop >= x.remittance_date >= self.period_id.date_start).mapped(
+            'total_shipment_ids').filtered(lambda y: y.operating_unit_id.id == self.operating_unit_id.id)
+        opi_id = self.env['account.voucher']
+        op_ids = self.env['account.voucher'].search([
+            ('opi', '=', True),
+            ('state', '=', 'pagado'),
+        ]).filtered(
+            lambda x: self.period_id.date_stop >= x.payment_ids[:1].date >= self.period_id.date_start)
+        for op in op_ids:
+            if self.operating_unit_id.id in (op.remittance_ou_id.id, op.treasury_ou_id.id, op.ticket_ou_id.id):
+                opi_id = op
+                break
 
-        if details or transactions or remesas or self.caja_recaudadora_siif_ids or self.remesa_ids:
+        if details or transactions or remesas or self.caja_recaudadora_siif_ids or self.remesa_ids or opi_id:
             fechas = sorted(list(set(details.mapped('fecha_entrega'))
                                  | set(transactions.mapped('date'))
                                  | set(remesas.mapped('caja_recaudadora_id').mapped('remittance_date'))
                                  | set(self.caja_recaudadora_siif_ids.mapped('date'))
                                  | set(self.remesa_ids.mapped('date'))
+                                 | set(opi_id.mapped('date'))
                                  ))
-
             for fecha in fechas:
-                recaudacion = self.descargos_details_filter(details,
+                recaudacion = 0
+                recaudacion += self.descargos_details_filter(details,
                                                             'recaudacion',
                                                             fecha) + self.descargos_transactions_filter(
                     transactions, 'recaudacion',
-                    fecha) + self.descargos_remesas_filter(remesas,
-                                                           'recaudacion', fecha)
+                    fecha) + abs(sum(remesas.filtered(lambda x:x.caja_recaudadora_id.remittance_date == fecha).mapped('amount')))
                 # Recaudacion de boletos_siif (Cajas no principal)
                 recaudacion += self._get_recaudacion_cajas_siif(fecha)
                 # Recaudacion de remesas
                 recaudacion += self._get_recaudacion_remesa_ids(fecha)
+                # OPI
+                remittance_number = False
+                siif_code = False
+                if opi_id.date == fecha:
+                    recaudacion += opi_id.amount
+                    remittance_number = opi_id.remittance_number
+                    siif_code = opi_id.treasury_number
 
                 fondos_terceros = self.descargos_details_filter(details, 'fondos_terceros', fecha) + self.descargos_transactions_filter(
                     transactions, 'fondos_terceros', fecha) + self.descargos_remesas_filter(remesas, 'fondos_terceros', fecha)
@@ -278,6 +328,8 @@ class GrpRendicionCaja(models.Model):
                         'pagos': abs(pagos) or 0,
                         'fondos_garantia': abs(fondos_garantia) or 0,
                         'type': 'descargos',
+                        'remittance_number': remittance_number,
+                        'siif_code': siif_code,
                     }
                     descargos_ids.append([0, 0, values])
         return descargos_ids
@@ -474,6 +526,8 @@ class GrpRendicionCajaLine(models.Model):
                                           related='rendicion_caja_id.caja_recaudadora_ids', readonly=True)
     user_uid = fields.Many2one('res.users', 'Responsable', related='rendicion_caja_id.user_uid', readonly=True)
     balance_inicial = fields.Float(string=u'Saldo inicial',related='rendicion_caja_id.balance_inicial', readonly=True)
+    remittance_number = fields.Char()
+    siif_code = fields.Char(string='SIIF code')
 
     @api.one
     @api.constrains('date', 'period_id','type')

@@ -1,0 +1,200 @@
+<?xml version="1.0"?>
+<document filename="Account Report.pdf">
+  <template pageSize="(595.0,842.0)" title="Financial Report" author="OpenERP S.A. (sales@openerp.com)" allowSplitting="20">
+    <pageTemplate id="first">
+      <frame id="first" x1="23.0" y1="43.0" width="530" height="799"/>
+    </pageTemplate>
+  </template>
+
+  <stylesheet>
+    <blockTableStyle id="Standard_Outline">
+      <blockAlignment value="LEFT"/>
+      <blockValign value="TOP"/>
+    </blockTableStyle>
+
+    <blockTableStyle id="Table_Account_Line_Title">
+      <blockAlignment value="LEFT"/>
+      <blockValign value="MIDDLE"/>
+      <lineStyle kind="LINEBELOW" colorName="#000000" start="0,0" stop="-1,0" thickness="0.5"/>
+      <lineStyle kind="LINEABOVE" colorName="#000000" start="0,0" stop="-1,0" thickness="0.5"/>
+    </blockTableStyle>
+
+    <blockTableStyle id="Table1">
+      <blockAlignment value="LEFT"/>
+      <blockValign value="TOP"/>
+    </blockTableStyle>
+
+    <blockTableStyle id="Table4">
+      <blockAlignment value="LEFT"/>
+      <blockValign value="TOP"/>
+      <lineStyle kind="GRID" colorName="#000000" start="-1,0" stop="-1,1" thickness="0.5"/>
+      <lineStyle kind="GRID" colorName="#000000" start="1,0" stop="0,1" thickness="0.5"/>
+    </blockTableStyle>
+
+   <blockTableStyle id="Table2_header">
+      <blockAlignment value="LEFT"/>
+      <blockValign value="TOP"/>
+    <lineStyle kind="LINEBELOW" colorName="#cccccc" start="0,0" stop="-1,0"/>
+      <lineStyle kind="LINEBEFORE" colorName="#cccccc" start="0,0" stop="0,-1"/>
+      <lineStyle kind="LINEABOVE" colorName="#cccccc" start="0,0" stop="0,0"/>
+      <lineStyle kind="LINEBELOW" colorName="#cccccc" start="0,-1" stop="0,-1"/>
+      <lineStyle kind="LINEBEFORE" colorName="#cccccc" start="1,0" stop="1,-1"/>
+      <lineStyle kind="LINEABOVE" colorName="#cccccc" start="1,0" stop="1,0"/>
+      <lineStyle kind="LINEBELOW" colorName="#cccccc" start="1,-1" stop="1,-1"/>
+      <lineStyle kind="LINEBEFORE" colorName="#cccccc" start="2,0" stop="2,-1"/>
+      <lineStyle kind="LINEAFTER" colorName="#cccccc" start="2,0" stop="2,-1"/>
+      <lineStyle kind="LINEABOVE" colorName="#cccccc" start="2,0" stop="2,0"/>
+      <lineStyle kind="LINEBELOW" colorName="#cccccc" start="2,-1" stop="2,-1"/>
+      <lineStyle kind="LINEBEFORE" colorName="#cccccc" start="3,0" stop="3,-1"/>
+      <lineStyle kind="LINEAFTER" colorName="#cccccc" start="3,0" stop="3,-1"/>
+      <lineStyle kind="LINEABOVE" colorName="#cccccc" start="3,0" stop="3,0"/>
+      <lineStyle kind="LINEBELOW" colorName="#cccccc" start="3,-1" stop="3,-1"/>
+      <lineStyle kind="LINEBEFORE" colorName="#cccccc" start="4,0" stop="4,-1"/>
+      <lineStyle kind="LINEABOVE" colorName="#cccccc" start="4,0" stop="4,0"/>
+      <lineStyle kind="LINEBELOW" colorName="#cccccc" start="4,-1" stop="4,-1"/>
+      <lineStyle kind="LINEBEFORE" colorName="#cccccc" start="5,0" stop="5,-1"/>
+      <lineStyle kind="LINEABOVE" colorName="#cccccc" start="5,0" stop="5,0"/>
+      <lineStyle kind="LINEBELOW" colorName="#cccccc" start="5,-1" stop="5,-1"/>
+      <lineStyle kind="LINEBEFORE" colorName="#cccccc" start="6,0" stop="6,-1"/>
+      <lineStyle kind="LINEAFTER" colorName="#cccccc" start="6,0" stop="6,-1"/>
+      <lineStyle kind="LINEABOVE" colorName="#cccccc" start="6,0" stop="6,0"/>
+      <lineStyle kind="LINEBELOW" colorName="#cccccc" start="6,-1" stop="6,-1"/>
+      <lineStyle kind="LINEBEFORE" colorName="#cccccc" start="7,0" stop="7,-1"/>
+      <lineStyle kind="LINEAFTER" colorName="#cccccc" start="7,0" stop="7,-1"/>
+      <lineStyle kind="LINEABOVE" colorName="#cccccc" start="7,0" stop="7,0"/>
+    </blockTableStyle>
+    <initialize>
+      <paraStyle name="all" alignment="justify"/>
+    </initialize>
+
+    <paraStyle name="P1" fontName="Helvetica-Bold" fontSize="9.0" leading="11" alignment="CENTER" spaceBefore="6.0" spaceAfter="6.0"/>
+    <paraStyle name="P2" fontName="Helvetica-Bold" fontSize="9.0" leading="11" alignment="LEFT" spaceBefore="0.0" spaceAfter="0.0"/>
+    <paraStyle name="P2_rb" fontName="Helvetica-Bold" fontSize="9.0" leading="11" alignment="RIGHT" spaceBefore="6.0" spaceAfter="6.0"/>
+    <paraStyle name="P2_mod" fontName="Helvetica" fontSize="9.0" leading="15" alignment="LEFT" spaceBefore="12.0" spaceAfter="6.0"/>
+    <paraStyle name="P2_r" fontName="Helvetica" fontSize="9.0" leading="15" alignment="RIGHT" spaceBefore="12.0" spaceAfter="6.0"/>
+    <paraStyle name="P2_bold" fontName="Helvetica-Bold" fontSize="9.0" leading="15" alignment="LEFT" spaceBefore="12.0" spaceAfter="6.0"/>
+    <paraStyle name="P3" fontName="Helvetica" fontSize="9.0" leading="11" alignment="CENTER" spaceBefore="0.0" spaceAfter="0.0"/>
+    <paraStyle name="P4" fontName="Helvetica" fontSize="7.0" leading="11" alignment="LEFT" spaceBefore="0.0" spaceAfter="0.0"/>
+    <paraStyle name="P4_bold" fontName="Helvetica-Bold" fontSize="9.0" leading="11" alignment="LEFT" spaceBefore="0.0" spaceAfter="0.0"/>
+    <paraStyle name="P4_bold_r" fontName="Helvetica-Bold" fontSize="9.0" leftIndent="4.0" leading="11" alignment="RIGHT" spaceBefore="0.0" spaceAfter="0.0"/>
+    <paraStyle name="P5" fontName="Helvetica" fontSize="7.0" leading="11" alignment="RIGHT" spaceBefore="0.0" spaceAfter="0.0"/>
+    <paraStyle name="P7" fontName="Helvetica-Bold" fontSize="9.0" leading="11" alignment="RIGHT" spaceBefore="0.0" spaceAfter="10.0"/>
+    <paraStyle name="P8" fontName="Helvetica-Bold" fontSize="9.0" leading="11" alignment="LEFT" spaceBefore="0.0" spaceAfter="5.0"/>
+    <paraStyle name="P9" fontName="Helvetica-Bold" fontSize="9.0" leading="11" alignment="LEFT" spaceBefore="0.0" spaceAfter="5.0"/>
+
+    <paraStyle name="Standard" fontName="Helvetica"/>
+    <paraStyle name="Text body" fontName="Helvetica" spaceBefore="0.0" spaceAfter="6.0"/>
+    <paraStyle name="Heading" fontName="Helvetica" fontSize="14.0" leading="17" spaceBefore="12.0" spaceAfter="6.0"/>
+    <paraStyle name="Heading_bold" fontName="Helvetica-Bold" alignment="CENTER" fontSize="14.0" leading="17" spaceBefore="12.0" spaceAfter="6.0"/>
+    <paraStyle name="List" fontName="Helvetica" spaceBefore="0.0" spaceAfter="6.0"/>
+    <paraStyle name="Table Contents" fontName="Helvetica"/>
+    <paraStyle name="Table Heading" fontName="Helvetica" alignment="CENTER"/>
+    <paraStyle name="Caption" fontName="Helvetica" fontSize="12.0" leading="15" spaceBefore="6.0" spaceAfter="6.0"/>
+    <paraStyle name="Index" fontName="Helvetica"/>
+    <paraStyle name="Footer" fontName="Helvetica"/>
+    <paraStyle name="Horizontal Line" fontName="Helvetica" fontSize="6.0" leading="8" spaceBefore="0.0" spaceAfter="14.0"/>
+    <paraStyle name="terp_header_Centre" fontName="Helvetica-Bold" fontSize="15.0" leading="19" alignment="CENTER" spaceBefore="12.0" spaceAfter="6.0"/>
+    <paraStyle name="terp_header_Centre_10" fontName="Helvetica-Bold" fontSize="12.5" leading="0" alignment="CENTER" spaceBefore="0.0" spaceAfter="0.0"/>
+
+    <blockTableStyle id="Table1">
+      <blockTopPadding start="0,0" stop="-1,0" length="10"/>
+      <blockAlignment value="LEFT"/>
+      <lineStyle kind="LINEBELOW" colorName="#666666" start="1,1" stop="-1,1"/>
+    </blockTableStyle>
+    <blockTableStyle id="Table2">
+      <blockValign value="TOP"/>
+    </blockTableStyle>
+    <blockTableStyle id="Table3">
+      <blockValign value="TOP"/>
+    </blockTableStyle>
+
+</stylesheet>
+  <images/>
+  <story>
+     <blockTable colWidths="200.0,200.0,130.0" style="Table1">
+      <tr>
+        <td>
+          <image x="1.0cm" y="1.0cm" width="150" height="35">[[company.header_image[0].img or removeParentNode('image')]]</image>
+        </td>
+        <td>
+        </td>
+        <td>
+          <image x="1.0cm" y="1.0cm" width="80" height="35">[[company.logo or removeParentNode('image')]]</image>
+        </td>
+      </tr>
+    </blockTable>
+    <blockTable style="Table1" colWidths="300.0,200.0">
+      <tr>
+        <td>
+          <para style="terp_header_Centre_10">LISTADO DE FACTURAS POR DIA</para>
+        </td>
+        <td></td>
+      </tr>
+    </blockTable>
+    <blockTable style="Table1">
+      <tr>
+        <td>
+            <para style="P7">
+               Emisión: [[ get_today_date(data['form'])]]
+            </para>
+        </td>
+      </tr>
+    </blockTable>
+    <blockTable colWidths="500.0" style="Table4">
+      <tr>
+        <td>
+          <para style="P8">Relación de documentos enviados en día de la fecha a la Dirección de Financiero Contable (Liquidaciones) a los efectos de proceder a tramitar su pago.</para>
+        </td>
+      </tr>
+    </blockTable>
+    <blockTable colWidths="500.0">
+      <tr>
+        <td>
+          <para style="P9">
+            Fecha de ingreso: [[ formatLang(get_ingreso_date(data['form']), date = True) or '' ]]
+          </para>
+        </td>
+      </tr>
+    </blockTable>
+
+    <blockTable colWidths="70.0,100.0,60.0,60.0,70.0,70.0,70.0" style="Table_Account_Line_Title">
+      <tr>
+        <td><para style="P4_bold">Orden de Compra</para></td>
+        <td><para style="P4_bold">Proveedor</para></td>
+        <td><para style="P4_bold">Nro. de Factura</para></td>
+        <td><para style="P4_bold">Fecha de Factura</para></td>
+        <td><para style="P4_bold_r">Importe Pesos</para></td>
+        <td><para style="P4_bold_r">Importe Dólares</para></td>
+        <td><para style="P4_bold">Nro. Interno</para></td>
+      </tr>
+      <tr>
+        <td><para style="P4"></para></td>
+      </tr>
+    </blockTable>
+    <para style="Standard">
+        <font color="white"> </font>
+    </para>
+    <para style="Standard">
+        <font color="white"> </font>
+    </para>
+    <section>
+      <para style="terp_default_8">[[repeatIn(get_lines(data['form']), 'a')]]</para>
+      <blockTable rowHeights="0.55cm" colWidths="70.0,100.0,60.0,60.0,70.0,70.0,70.0">
+        <tr>
+          <td><para style="P4"> [[ a.get('orden_compra') ]]</para></td>
+          <td><para style="P4"> [[ a.get('proveedor') ]]</para></td>
+          <td><para style="P4"> [[ a.get('invoice_number') ]]</para></td>
+          <td><para style="P4"> [[ formatLang(a.get('date_invoice'), date=True) or '' ]]</para></td>
+          <td><para style="P5"> [[ a.get('amount_pesos') > 0 and formatLang(a.get('amount_pesos',0.0), currency_obj = a.get('currency_base')) or formatLang(0, digits=0)]]</para></td>
+          <td><para style="P5"> [[ a.get('amount_divisa') > 0 and formatLang(a.get('amount_divisa',0.0), currency_obj = a.get('currency_id')) or formatLang(0, digits=0)]]</para></td>
+          <td><para style="P4"> [[ a.get('nro_interno') ]]</para></td>
+        </tr>
+        <tr></tr>
+      </blockTable>
+    </section>
+
+    <para style="Standard">
+      <font color="white"> </font>
+    </para>
+  </story>
+</document>

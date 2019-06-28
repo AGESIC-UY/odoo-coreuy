@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+
+        <!--TODO: REVISAR, no se ve el boton-->
+        <record id="view_account_invoice_tree_grp_consolidada" model="ir.ui.view">
+            <field name="name">account.invoice.tree.grp_consolidada</field>
+            <field name="model">account.invoice</field>
+            <field name="arch" type="xml">
+                <tree string="Listado Doc. a Pagar" create="false" delete="false">
+                    <field name="doc_type_computed"/>
+                    <field name="partner_id"/>
+                    <field name="date_invoice"/>
+                    <field name="nro_afectacion"/>
+                    <field name="nro_compromiso"/>
+                    <field name="nro_obligacion"/>
+                    <field name="date_due"/>
+                    <field name="currency_id"/>
+                    <field name="residual"/>
+                    <field name="amount_total"/>
+                    <field name="related_document"/>
+                    <field name="voucher_state"/>
+                    <button name="action_link_related_document" type="object" icon="gtk-find"/>
+                    <field name="supplier_invoice_number" string="Nº factura" invisible="1"/>
+                    <field name="state" invisible="1"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_account_invoice_filter_grp_consolidada" model="ir.ui.view">
+            <field name="name">account.invoice.filter.grp_consolidada</field>
+            <field name="model">account.invoice</field>
+            <field name="arch" type="xml">
+                <search string="Listado Doc. a Pagar">
+                    <field name="number" string="Invoice"
+                           filter_domain="['|','|','|','|', ('nro_factura_grp','ilike',self), ('number','ilike',self), ('origin','ilike',self), ('supplier_invoice_number', 'ilike', self), ('partner_id', 'child_of', self)]"/>
+                    <field name="partner_id" operator="child_of"/>
+                    <field name="nro_afectacion"/>
+                    <filter name="draft" string="Borrador" domain="[('state','=','draft')]" help="Draft Invoices"/>
+                    <filter name="sice" string="SICE" domain="[('state','=','sice')]" help="Facturas SICE"/>
+                    <filter name="proforma" string="Proforma" domain="[('state','=','proforma2')]"
+                            help="Proforma Invoices" groups="account.group_proforma_invoices"/>
+                    <filter name="abierta" string="Abiertas" domain="[('state','=','open')]" help="Facturas Abiertas"/>
+                    <filter name="paga" string="Pagas" domain="[('state','=','paid')]" help="Facturas Pagas"/>
+                    <filter name="anulada" string="Canceladas" domain="[('state','=','cancel')]"
+                            help="Facturas Anuladas"/>
+                    <filter name="anuladas_siif_sice" string="Anuladas"
+                            domain="[('state','in',['cancel','cancel_siif','cancel_sice'])]"
+                            help="Facturas anuladas SIIF, SICE y Canceladas"/>
+                    <separator/>
+                    <field name="state"/>
+                    <group expand="0" string="Group By...">
+                        <filter string="Estado" icon="terp-stock_effects-object-colorize" domain="[]"
+                                context="{'group_by':'state'}"/>
+                        <filter string="Tipo de documento" icon="terp-stock_effects-object-colorize" domain="[]"
+                                context="{'group_by':'doc_type_computed'}"/>
+                        <filter string="Proveedor" icon="terp-stock_effects-object-colorize" domain="[]"
+                                context="{'group_by':'partner_id'}"/>
+                        <filter string="Fecha" icon="terp-go-today" context="{'group_by':'date_invoice'}" domain="[]"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record id="action_account_invoice_form_grp_consolidada" model="ir.actions.act_window">
+            <field name="name">Listado Doc. a Pagar</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">account.invoice</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="view_account_invoice_tree_grp_consolidada"/>
+            <field name="domain">[('type','in',['in_invoice','in_refund']),'|',('voucher_state','!=','pagado'),('voucher_state','=',False)]</field>
+            <field name="context">{'default_type':'in_invoice','type':'in_invoice','listado_doc_pagar':True}</field>
+            <field name="search_view_id" ref="view_account_invoice_filter_grp_consolidada"/>
+        </record>
+
+        <menuitem id="menu_grp_fact_prov_consolidada" name="Listado Doc. a Pagar" sequence="55"
+                  parent="account.menu_finance_payables"
+                  action="action_account_invoice_form_grp_consolidada"
+                  groups="grp_seguridad.grp_compras_apg_Responsable_SIIF"/>
+
+
+        <record id="view_account_invoice_tree_grp_fondo_rot" model="ir.ui.view">
+            <field name="name">account.invoice.tree.grp_fondo_rot</field>
+            <field name="model">account.invoice</field>
+            <field name="arch" type="xml">
+                <tree string="Rendición fondo rotatorio" create="false" delete="false">
+                    <field name="partner_id" string="Proveedor"/>
+                    <field name="date_invoice"/>
+                    <field name="supplier_invoice_number" string="Nº factura"/>
+                    <field name="date_due"/>
+                    <field name="origin" string="Doc. Origen"/>
+                    <field name="currency_id"/>
+                    <field name="residual"/>
+                    <field name="amount_total"/>
+                    <field name="state"/>
+                    <field name="rendido_siif"/>
+                    <field name="doc_type"/>
+                    <!-- TODO: definir metodo para que quede visible -->
+                    <!--<button name="factura_opi" string="Ver Factura" type="object" icon="gtk-find"/>-->
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_account_invoice_search_grp_fondo_rot" model="ir.ui.view">
+            <field name="name">account.invoice.search.grp_fondo_rot</field>
+            <field name="model">account.invoice</field>
+            <field name="arch" type="xml">
+                <search string="Search Invoice">
+                    <filter name="abierta" string="Abierto/a" domain="[('state','=','open')]" help="Abierto/a"/>
+                    <filter name="paga" string="Pagados" domain="[('state','=','paid')]" help="Pagados"/>
+                    <filter name="rendido" string="Rendido" domain="[('rendido_siif','=',True)]"
+                            help="Rendido por siif"/>
+                    <filter name="sin_rendir" string="Sin rendir" domain="[('rendido_siif','=',False)]"
+                            help="Sin rendir siif"/>
+                    <separator/>
+                    <field name="state"/>
+                    <group expand="0" string="Group By...">
+                        <filter string="Status" icon="terp-stock_effects-object-colorize" domain="[]"
+                                context="{'group_by':'state'}"/>
+                        <filter string="Tipo de documento" icon="terp-stock_effects-object-colorize" domain="[]"
+                                context="{'group_by':'doc_type'}"/>
+                        <filter string="Rendidas y Sin Rendir" icon="terp-stock_effects-object-colorize" domain="[]"
+                                context="{'group_by':'rendido_siif'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record id="action_account_invoice_grp_fondo_rot" model="ir.actions.act_window">
+            <field name="name">Rendición Fondo Rotatorio</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">account.invoice</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="view_account_invoice_tree_grp_fondo_rot"/>
+            <field name="domain">[('type','=','in_invoice'),('state','!=','draft'),('tipo_ejecucion_codigo_rel','=','P'),('state','!=','cancel')]</field>
+            <field name="context">
+                {'default_type':'in_invoice','type':'in_invoice', 'search_default_abierta':1,'search_default_paga':1}
+            </field>
+            <field name="search_view_id" ref="view_account_invoice_search_grp_fondo_rot"/>
+        </record>
+
+        <menuitem id="menu_grp_facturas_fondo_rotatorio" name="Rendición Fondo Rotatorio" sequence="52"
+                  parent="account.menu_finance_payables" action="action_account_invoice_grp_fondo_rot"
+                  groups="grp_seguridad.grp_compras_apg_Responsable_SIIF"/>
+
+    </data>
+</openerp>

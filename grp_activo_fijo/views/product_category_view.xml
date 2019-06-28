@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+
+
+
+        <!-- PCAR Compras 135 Agregar la categoria es de activo fijo. -->
+        <record id="grp_inherited_product_category_form_view" model="ir.ui.view">
+            <field name="name">Vista heredada de categorias de productos</field>
+            <field name="model">product.category</field>
+            <field name="type">form</field>
+            <field name="inherit_id" ref="product.product_category_form_view"/>
+            <field name="arch" type="xml">
+                <data>
+                    <field name="type" position="after">
+                        <field name="asset_category_id" attrs="{'required': [('activo_fijo', '=', True)]}"/>
+                    </field>
+                </data>
+            </field>
+        </record>
+
+
+
+    </data>
+</openerp>

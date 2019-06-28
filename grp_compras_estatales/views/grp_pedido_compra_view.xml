@@ -1,0 +1,475 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+
+        <record id="view_pedidos_compra_form" model="ir.ui.view">
+            <field name="name">Pedidos de Compra</field>
+            <field name="model">grp.pedido.compra</field>
+            <field eval="1" name="priority"/>
+            <field name="arch" type="xml">
+                <form string="Datos" version="7.0">
+                    <header>
+                        <button name="button_pc_inicio_validado" type="object" states="inicio" string="Validar"
+                                class="oe_highlight" groups="grp_seguridad.grp_compras_pc_Comprador"/>
+                        <!--TODO Sprint 6 GAP 121.193.194-->
+                        <!--TODO Sprint 6 GAP 199: Ocultando este boton cuando ampliacion=True, en espera de respuestas-->
+                        <button name="button_wkf_enviar_aprobar" type="workflow" states="confirmado"
+                                attrs="{'invisible': ['|',('ampliacion','=',True)]}"
+                                class="oe_highlight" string="Enviar a aprobar"
+                                groups="grp_seguridad.grp_compras_pc_Comprador,grp_seguridad.grp_compras_apg_Jefe_de_compras_2"/>
+                        <!--TODO Sprint 6 GAP 199: Ocultando este boton cuando ampliacion=True, en espera de respuestas-->
+                        <button name="button_wkf_aprobar" type="workflow" states="en_aprobacion"
+                                attrs="{'invisible': ['|',('ampliacion','=',True)]}" class="oe_highlight"
+                                string="Aprobar" groups="grp_seguridad.grp_compras_apg_Jefe_de_compras_2"/>
+                        <!--TODO Sprint 6 GAP 199 Mostrando este boton en el estado validado cuando ampliacion=True, en espera de respuestas-->
+                        <button name="button_wkf_enviar_autorizar" type="workflow" class="oe_highlight"
+                                attrs="{'invisible': [('state','!=','aprobado'),'|',('state','!=','confirmado'),('ampliacion','=',False)]}"
+                                string="Enviar a autorizar" groups="grp_seguridad.grp_compras_apg_Jefe_de_compras_2"/>
+
+
+                        <!-- PCAR 31 08 2017 incidente 463 inicio -->
+                        <button name="act_enviar_borrador_aprobar" type="object" states="aprobado"
+                            groups="grp_seguridad.grp_compras_apg_Jefe_de_compras_2"
+                            string="Pasar a borrador" />
+                        <!-- PCAR 31 08 2017 incidente 463 fin -->
+                        <button name="button_wkf_autorizar" type="workflow" states="en_aut_ordenador"
+                                attrs="{'invisible': ['|','|',('sice_id_compra','!=',0),('show_button_authorize','=',False)]}" class="oe_highlight"
+                                string="Autorizar"
+                                groups="grp_seguridad.grp_compras_apg_Ordenador_del_gasto"/>
+                        <!-- Este boton es para cuando el pedido ya se envio a SICE -->
+                        <button name="button_wkf_autorizar_licitacion_ampliacion" type="workflow" states="en_aut_ordenador"
+                                attrs="{'invisible': ['|','|',('sice_id_compra','=',0),('show_button_authorize','=',False)]}" class="oe_highlight"
+                                string="Autorizar" groups="grp_seguridad.grp_compras_apg_Ordenador_del_gasto"/>
+                        <!--TODO: GAP 461 SPRINT 6 R se oculta el botón signal del wkf pues se pierde el flujo, implementacion de un boton object-->
+                        <!--<button name="button_wkf_rechazar" type="workflow" string="Rechazar"-->
+                                <!--attrs="{'invisible':[('show_button', '=', False)]}" />-->
+                        <button name="button_wkf_pc_borrador" type="workflow" states="confirmado,rechazado"
+                                string="Pasar a borrador" groups="grp_seguridad.grp_compras_pc_Comprador"/>
+                        <button name="button_wkf_pc_cancelar" type="workflow" states="confirmado,rechazado,aut_ordenador" string="Cancelar"
+                                confirm="Esta seguro que desea cancelar el documento?"
+                                groups="grp_seguridad.grp_compras_pc_Comprador"/>
+                        <button name="button_wkf_pc_cancel_sice" type="workflow" string="Anular" states="sice"
+                                confirm="¿Está seguro que quiere anular la compra? Esta acción es irreversible. Recuerde anular la compra en SICE."
+                                groups="grp_seguridad.grp_compras_pc_Responsable,grp_seguridad.grp_compras_pc_Comprador"/>
+                        <!--<button name="act_cancel_sice_draft" type="object" string="Modificar" states="cancelado_sice"-->
+                                <!--groups="grp_seguridad.grp_compras_pc_Responsable"/>-->
+                        <button name="act_rechazar_confirm" type="object" string="Rechazar"
+                                attrs="{'invisible':[('show_button_authorize', '=', False)]}" />
+
+                        <button name="act_cancelado_borrador" type="object" string="Volver a Borrador"
+                                states="cancelado"
+                                groups="grp_seguridad.grp_compras_pc_Responsable,grp_seguridad.grp_compras_pc_Comprador" />
+                        <!--<button name="%(grp_compras_estatales.pedido_compra_refused_wizard_act)d" type="action" string="Rechazar"
+                            attrs="{'invisible':[('show_button', '=', False)]}" />-->
+
+                        <field name="state" widget="statusbar" statusbar_visible="inicio,confirmado,en_aprobacion,aprobado,en_aut_ordenador,aut_ordenador,sice"
+                               statusbar_colors='{"sice":"blue"}' readonly="1"/>
+                    </header>
+                    <div name="show_error" attrs="{'invisible' :[('show_error_message','=',False)]}" class="alert alert-danger" style="height: 60px;">
+                        <div class="oe_inline" style="float: left;">
+                            <span class="fa fa-warning" style="color: #DD0000;"/>
+                            <span style="font-weight: bold !important; float: right; margin-left: 10px; width: 610px;">
+                                <p><strong>No hay una APG creada para este procedimiento, motivo por el cual no se permitirá importar la Adjudicación.</strong></p>
+                            </span>
+                        </div>
+                        <field name="show_error_message" invisible="1"/>
+                    </div>
+                    <sheet>
+                        <group>
+                            <div colspan="1">
+                                <label for="name" class="oe_inline" attrs="{'invisible':[('state','=','inicio')]}"/>
+                                <h1>
+                                    <field name="name" attrs="{'invisible':[('state','=','inicio')]}" readonly="1"/>
+                                    <!--<field name="boton_apg_press" invisible="1"/>-->
+                                    <label string="PC borrador" attrs="{'invisible':[('state','!=','inicio')]}"/>
+                                </h1>
+                            </div>
+
+                        </group>
+                        <div class="oe_right oe_button_box" name="buttons" style="float: right; margin-left: -30px;">
+                            <!--TODO Sprint 6 GAP 121.193.194-->
+                            <!--MVARELA se modifica condicion de visibilidad para el caso de las ampliaciones-->
+                            <!--states="aprobado,en_aut_ordenador,aut_ordenador,sice"-->
+                            <button name="button_crear_apg" type="object" string="Crear APG"
+                                    attrs="{'invisible':['|',
+                                        '&amp;',('ampliacion','=', True),('state','not in',['confirmado','sice']),
+                                        '&amp;',('ampliacion','!=', True),('state','not in',['aut_ordenador','aprobado','sice'])]}"
+                                    class="oe_inline oe_stat_button" icon="fa-check" style="white-space: normal;"
+                                    groups="grp_seguridad.grp_compras_pc_Responsable,grp_seguridad.grp_compras_apg_Responsable_SIIF"/>
+                            <button name="apg_tree_view" string="Consultar APG" type="object"
+                                    attrs="{'invisible': [('apg_ids','=',[])]}"
+                                    class="oe_inline oe_stat_button" icon="fa-search" style="white-space: normal;"
+                                    groups="grp_seguridad.grp_compras_pc_Responsable,grp_seguridad.grp_compras_apg_Responsable_SIIF"/>
+                            <button name="oc_tree_view" string="Consultar OC" type="object"
+                                    class="oe_inline oe_stat_button" icon="fa-search" style="white-space: normal;"
+                                    groups="grp_seguridad.grp_compras_pc_Responsable,grp_seguridad.grp_compras_apg_Responsable_SIIF"/>
+                            <button name="adjudicacion_tree_view" string="Consultar adjudicación" type="object"
+                                    class="oe_inline oe_stat_button" icon="fa-search" style="white-space: normal;"
+                                    groups="grp_seguridad.grp_compras_pc_Responsable,grp_seguridad.grp_compras_apg_Responsable_SIIF"/>
+                            <button name="button_view_sr" type="object"
+                                    attrs="{'invisible':[('sr_count','=',0)]}"
+                                    class="oe_inline oe_stat_button" style="white-space: normal;" icon="fa-search">
+                                    <field name="sr_count" widget="statinfo" string="SRs"/>
+                            </button>
+                        </div>
+                        <group cols="4" colspan="2">
+                            <group cols="2">
+                                <!--<field name="boton_estado_sice_press" invisible="1"/>-->
+                                <field name="es_compra_directa" invisible="1"/>
+                                <field name="es_migracion" attrs="{'readonly': [('state','not in',['inicio'])]}" groups="grp_seguridad.grp_compras_migracion_procedimiento"/>
+                                <field name="nro_de_procedimiento"
+                                       attrs="{'readonly': [('state','not in',['inicio'])], 'invisible': [('es_migracion','!=',True)],'required':[('es_migracion','=',True)]}"/>
+                                <field name="anio_de_compra"
+                                       attrs="{'readonly': [('state','not in',['inicio'])], 'invisible': [('es_migracion','!=',True)],'required':[('es_migracion','=',True)]}"/>
+                                <field name="anio_fiscal"
+                                       attrs="{'readonly': [('state','not in',['inicio'])], 'invisible': [('es_migracion','!=',True)],'required':[('es_migracion','=',True)]}"/>
+                                <field name="nro_de_ampliacion"
+                                       attrs="{'readonly': [('state','not in',['inicio'])], 'invisible': [('es_migracion','!=',True)],'required':[('es_migracion','=',True)]}"/>
+
+                                <field name="description" attrs="{'readonly':[('state','not in',['inicio'])]}"/>
+                                <field name="company_id" options="{'limit': 10, 'create': false, 'create_edit': false}"
+                                       class="oe_inline" attrs="{'readonly': [('state','!=','inicio')]}" groups="base.group_multi_company"/>
+                                <field name='sice_id_estado' attrs="{'invisible':True}"/>
+                                <field name="estado" attrs="{'invisible':True}"/>
+                                <field name="ampliacion" readonly="1"/>
+                                <field name="renovacion" attrs="{'invisible':[('ampliacion','=',False)], 'readonly': [('state', 'in', ['sice','rechazado','cancelado','cancelado_sice'])]}"/>
+                                <field name="tipo_de_resolucion" style="width: 60%%" attrs="{'required': [('ampliacion','=',True)], 'invisible':[('ampliacion','=',False)]}"/> <!-- incidencia 350-->
+                                <field name="cond_pago_amp" attrs="{'invisible':[('ampliacion','=',False)]}"/> <!-- incidencia 360-->
+                                <field name="forma_pago_amp" attrs="{'invisible':[('ampliacion','=',False)]}"/> <!-- incidencia 360-->
+                                <field name="nro_ampliacion" readonly="1" attrs="{'invisible':[('ampliacion','=',False)]}"/>
+                                <field name='sice_id_compra_amp' invisible="1"/>
+                                <field name="nro_adj" style="width:50%%" readonly="1"
+                                       attrs="{'invisible':[('ampliacion','=',False)]}"
+                                       options="{'create': false, 'create_edit': false}"/>
+                                <!-- PCARBALLO : Compras 77 Crear campo nro. de licitacion -->
+                                <field name="nro_licitacion" style="width:50%%" invisible="1"/>
+                                <!-- PCARBALLO -->
+                                <field name="sice_id_compra" readonly="1"/>
+                                <field name='comprador_asignado_id' options="{'no_create':True,'no_open':True}"
+                                    attrs="{'readonly': [('state','not in',['inicio','confirmado','en_aprobacion'])]}"/>
+                                <field name="pc_origen_ampliacion_id" readonly="1" attrs="{'invisible':[('ampliacion','=',False)]}"/>
+                                <field name="adj_origen_ampliacion_id" readonly="1" attrs="{'invisible':[('ampliacion','=',False)]}"/>
+                            </group>
+                            <group>
+                                <field name="date_start" class="oe_inline"
+                                       on_change="onchange_date_currency_id(moneda,date_start)"
+                                       attrs="{'readonly': [('state','!=','inicio')]}"/>
+                                <!-- PCARBALLO Se oculta campo procedimiento urgente -->
+                                <!--<field name="proc_urg" on_change="onchange_proc_urg(proc_urg, tipo_compra)"-->
+                                       <!--attrs="{'readonly': [('state','!=','inicio')]}" invisible="1"/>-->
+                                <field name="tipo_compra" on_change="onchange_tipo_compra()" required="1"
+                                       attrs="{'readonly': [('state','!=','inicio')]}"
+                                       options="{'limit': 10, 'create': false, 'create_edit': false}"/>
+                                <!--on_change="onchange_tipo_compra(tipo_compra,context)"/-->
+                                <!-- PCAR 25 01 2016 se agrega condicion de requerido al campo sub_tipo_compra en pedido de compra-->
+                                <!-- No create 10/02 Eliminar creacion -->
+                                <field name="sub_tipo_compra" domain="[('idTipoCompra','=',tipo_compra)]"
+                                       options="{'create_edit': false, 'create': false}" required="1"
+                                       attrs="{'readonly': [('state','!=','inicio')]}"/>
+                                <field name="operating_unit_id"
+                                       options="{'create_edit': false, 'create': false}"
+                                       attrs="{'readonly': [('state','!=','inicio')]}"/>
+                                <!-- PCAR -->
+                                <field name="moneda" string="Divisa"
+                                       options="{'limit': 10, 'create': false, 'create_edit': false}"
+                                       domain="[( 'name','in',('USD','UYU','EUR'))]"
+                                       on_change="onchange_date_currency_id(moneda,date_start)"
+                                       attrs="{'readonly': [('state','!=','inicio')]}"/>
+                                <field name="tipo_de_cambio_fnc" attrs="{'readonly': True}"/>
+                                <field name="tipo_de_cambio" invisible="1"/>
+                                <!--TODO Sprint 6 GAP 121.193.194-->
+                                <field name="sicec_uc_id"
+                                       attrs="{'readonly': [('sice_id_compra','!=',0)]}"
+                                       options="{'create': false, 'create_edit': false}"/>
+                                <field name="show_button" invisible="1"/>
+                                <field name="show_button_authorize" invisible="1"/>
+                                <field name="idTipoCompra" invisible="1"/>
+                                <field name="inciso_proc_compra" attrs="{'required': [('state','in',['inicio']),('idTipoCompra','in',['CM'])],
+                                'invisible': [('idTipoCompra','not in',['CM'])]}"/>
+                                <field name="unidad_ejec_proc_compra" attrs="{'required': [('state','in',['inicio']),('idTipoCompra','in',['CM'])],
+                                'invisible': [('idTipoCompra','not in',['CM'])]}"/>
+                                <!--<field name="es_cd_mayor_menor" invisible="1"/>-->
+                                <!--<field name="estado_sice" invisible="1"/>-->
+                            </group>
+                            <field name="company_currency_id" invisible="1"/>
+                            <field name="tipo_licitacion" invisible="1"/>
+                        </group>
+                        <group>
+                        </group>
+                        <notebook>
+                            <page string="Solicitudes de compra">
+                                <field name="lineas_ids" nolabel="1" attrs="{'readonly': [('state','!=','inicio')]}">
+                                    <tree string="Solicitudes de compra" editable="bottom">
+                                        <button type="object" string="Ver SC" name="open_sc" icon="gtk-find"
+                                                attrs="{'invisible': [('solicitud_compra_id','=',False)]}"/>
+                                        <!-- PCARBALLO: sacar el crear editar de solicitud_compra_id Incidencia 84 -->
+                                        <field name="solicitud_compra_id"
+                                               domain="[('en_pedido_compra','=',0),('state','!=','cancel')]"
+                                               on_change="onchage_linea( solicitud_compra_id )"
+                                               attrs="{'readonly': [('solicitud_compra_id','!=',False)]}"
+                                               options="{'limit': 10, 'create': false, 'create_edit': false, 'save_readonly': true}"/>
+                                        <!-- 025 agregando descripcion -->
+                                        <field name="sc_descripcion" readonly="1"/>
+                                        <field name="sice_cod_articulo"/>
+                                        <field name="product_id"
+                                               options="{'limit': 10, 'create': false, 'create_edit': false}"
+                                               on_change="onchange_product_id( product_id )"
+                                               domain="[('purchase_ok','=',True)]"/>
+                                        <field name="domain_art_uom_ids" invisible="1"/>
+                                        <field name="uom_id" domain="[('id', 'in', domain_art_uom_ids[0][2])]"
+                                               options="{'create': false, 'create_edit': false}"/>
+                                        <field name="odg" string="OdG"/>
+                                        <field name="cantidad_solicitada" string="Cantidad solicitada"
+                                               on_change="onchange_cantidad_solicitada( cantidad_solicitada, precio_estimado, iva )"/>
+                                        <field name='cantidad_comprar_sice'
+                                               on_change="onchange_cantidad_comprar_sice( cantidad_comprar_sice, precio_estimado, iva )"/>
+                                        <field name="precio_estimado" string="Precio estimado IVA incluido"/>
+                                        <field name="iva" widget="many2many_tags"
+                                               on_change="onchange_iva( iva, cantidad_solicitada, precio_estimado )"
+                                               domain="[('parent_id','=',False),('type_tax_use','!=','sale')]"/>
+                                        <field name="monto_divisa"/>
+                                        <field name="monto"/>
+                                        <field name="subtotal"/>
+                                        <!-- PCARBALLO: Compras 76 Crear campo Estado en las líneas de la orden de compra-->
+                                        <field name="estado"/>
+                                        <!-- PCARBALLO -->
+                                        <field name="operating_unit_id"/>
+                                    </tree>
+                                </field>
+
+                                <div style="height:120px;">
+                                    <group class="oe_subtotal_footer oe_right">
+                                        <field name="amount_untaxed_cpy" widget="monetary"
+                                               options="{'currency_field': 'currency_id'}"/>
+                                        <field name="amount_tax_cpy" widget="monetary"
+                                               options="{'currency_field': 'currency_id'}"/>
+                                        <field name="total_estimado_divisa_cpy"
+                                               class="oe_subtotal_footer_separator_custom" widget="monetary"
+                                               options="{'currency_field': 'moneda'}" readonly="1"/>
+                                        <field name="total_estimado_cpy" class="oe_subtotal_footer_separator_custom"
+                                               widget="monetary" options="{'currency_field': 'company_currency_id'}"
+                                               readonly="1"/>
+                                    </group>
+                                </div>
+                            </page>
+                            <page string="Resumen">
+                                <field name="resumen_pedido_compra_ids" nolabel="1" readonly="1">
+                                    <tree string="Resumen" editable="bottom" create="false" delete="false">
+                                        <field name='objeto_del_gasto'/>
+                                        <field name='product_id'/>
+                                        <field name='product_tmpl_id' invisible="1"/>
+                                        <field name='uom_id'/>
+                                        <field name='cantidad_a_comprar'/>
+                                        <!-- <field name='cantidad_entregada'/> -->
+                                        <field name='precio_estimado'/>
+                                        <field name='precio_sin_iva' invisible="1"/>
+                                        <field name='precio_pesos_sin_iva' invisible="1"/>
+
+                                        <!-- agregado 027-->
+                                        <field name='precio_estimado_pesos'/>
+                                        <field name="iva" widget="many2many_tags"
+                                               domain="[('parent_id','=',False),('type_tax_use','!=','sale')]"/>
+                                        <field name='subtotal_divisa'/>
+                                        <field name='subtotal'/>
+                                    </tree>
+                                </field>
+                                <div style="height:160px;">
+                                    <group class="oe_subtotal_footer oe_right">
+                                        <!-- 027 -agregados campos-->
+                                        <field name="amount_untaxed" widget="monetary"
+                                               options="{'currency_field': 'currency_id'}"/>
+                                        <field name="amount_tax" widget="monetary"
+                                               options="{'currency_field': 'currency_id'}"/>
+                                        <field name="total_estimado_divisa" class="oe_subtotal_footer_separator_custom"
+                                               widget="monetary" options="{'currency_field': 'moneda'}" readonly="1"/>
+                                        <field name="total_estimado" class="oe_subtotal_footer_separator_custom"
+                                               widget="monetary" options="{'currency_field': 'company_currency_id'}"
+                                               readonly="1"/>
+                                    </group>
+                                </div>
+                            </page>
+                            <page string="Autorizaciones para gastar"
+                                  attrs="{'invisible':[('apg_ids','=',[])], 'readonly': [('state','!=','inicio')]}">
+                                <field name="apg_ids" readonly="1">
+                                    <tree>
+                                        <field name='name'/>
+                                        <field name='descripcion'/>
+                                        <field name='moneda'/>
+                                        <field name='monto_divisa'/>
+                                        <field name='fecha'/>
+                                        <field name="state"/>
+                                    </tree>
+                                </field>
+                            </page>
+                            <page string="Adjuntos">
+                                <group>
+                                    <field name="attachment_ids" nolabel="1">
+                                        <!--widget="many2many_binary">-->
+                                        <tree string="Adjuntos" delete="true" create="true">
+                                            <field name="res_name_computed" string="Nro doc"/>
+                                            <field name="name" string="Nombre Doc"/>
+                                            <field name="create_date"/>
+                                            <!--<field name="datas_fname"/>-->
+                                            <field name="res_model" string="Tipo Doc" invisible="1"/>
+                                        </tree>
+                                    </field>
+                                </group>
+                            </page>
+                            <!--TODO: SPRINT 6 GAP 461--><!--TODO: SPRINT 6 GAP 461 R CI-->
+                            <!--<page string="Cancelación / Modificación" attrs="{'invisible':[('state','not in',['rechazado','inicio','confirmado'])]}">-->
+                            <page string="Cancelación / Modificación" attrs="{'invisible':[('motive','=',False)]}">
+                                <group name="main_group">
+                                    <group >
+                                        <field name="motive" />
+                                        <field name="note" />
+                                    </group>
+                                </group>
+
+                            </page>
+
+                        </notebook>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <!-- Vista Tree Inicio-->
+        <record id="view_pedido_compras_tree" model="ir.ui.view">
+            <field name="name">new.tree</field>
+            <field name="model">grp.pedido.compra</field>
+            <field eval="1" name="priority"/>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="datos"> <!-- LE SAQUE  colors="blue:state == 'draft';red:state == 'rejected'; green:por_sc==True"
+                <field name="por_sc"  invisible="1"/-->
+                    <field name="name"/>
+                    <field name="sice_id_compra"/>
+                    <!--field name="description"/-->
+                    <field name="date_start"/>
+                    <field name="tipo_compra"/>
+                    <field name="sub_tipo_compra"/>
+                    <field name="description"/>
+                    <field name="operating_unit_id"/>
+                    <field name="state"/>
+                    <field name="user_id"/>
+                    <!--<field name="estado_sice"/>-->
+                    <field name="usr_solicitante"/>
+                    <!--TODO Sprint 6 GAP 121.193.194-->
+                    <field name="sicec_uc_id"/>
+                </tree>
+            </field>
+        </record>
+
+
+        <!-- Vista Busqueda -->
+        <record id="view_pedido_compras_filter" model="ir.ui.view">
+            <field name="name">new.select</field>
+            <field name="model">grp.pedido.compra</field>
+            <field name="arch" type="xml">
+                <search string="Search Datos">
+                    <!--<field name="name" filter_domain="[('name','ilike',self)]"/> -->
+                    <field name="name" filter_domain="[('name','ilike',self)]"/>
+                    <!--FALTA Solicitante 'product_qty','uom_id','requisition_id','nota',-->
+                    <group expand="0" string="Agrupar por...">
+                        <filter string="Estado" name="state" icon="terp-stock_effects-object-colorize" domain="[]"
+                                context="{'group_by':'state'}"/>
+                        <filter string="Unidad ejecutora responsable" name="operating_unit" icon="terp-stock_effects-object-colorize" domain="[]"
+                                context="{'group_by':'operating_unit_id'}"/>
+                        <!-- agregando agrupador de estado 16/12-->
+                        <filter string="Tipo de compra" icon="terp-stock_effects-object-colorize" domain="[]"
+                                context="{'group_by':'tipo_compra'}"/>
+                        <filter string="Sub-Tipo de Compra" icon="terp-stock_effects-object-colorize" domain="[]"
+                                context="{'group_by':'sub_tipo_compra'}"/>
+                    </group>
+                    <!-- PCAR 11 08 2017 inicio -->
+                    <group expand="0" string="Filtrar por...">
+                        <filter string="APG Afectada" name="apg_afectada"
+                                icon="terp-stock_effects-object-colorize" domain="[('apg_afectada','=',True)]"/>
+                    </group>
+                    <!-- PCAR 11 08 2017 fin -->
+                </search>
+            </field>
+        </record>
+
+        <!-- ***************************************************************************** -->
+        <!-- Vista Formulario 1 -->
+        <!-- ****************** -->
+        <record id="action_pedidos_compra_form" model="ir.actions.act_window">
+            <field name="name">Pedido de compra</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">grp.pedido.compra</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="view_pedido_compras_filter"/>
+            <field name="context">{'search_default_state':1}</field>
+            <!-- <field name="filter" eval="True"/> -->
+        </record>
+
+        <!-- ************************************* -->
+        <menuitem id="menu_pedido_de_compra" parent="menu_grp_main" name="Pedido de compra" sequence="7"
+                  groups="grp_seguridad.grp_compras_pc_Comprador,grp_seguridad.grp_compras_apg_Comprador,grp_seguridad.grp_compras_apg_Ordenador_del_gasto"/>
+        <menuitem id="menu_pedido_de_compra_1" parent="menu_pedido_de_compra" sequence="2"
+                  name="Armado de pedido de compra" action="action_pedidos_compra_form"
+                  groups="grp_seguridad.grp_compras_apg_Jefe_de_compras_2,grp_seguridad.grp_compras_pc_Comprador,grp_seguridad.grp_compras_apg_Ordenador_del_gasto"/>
+
+
+        <!-- VISTA TREE LISTA DE COMPRAS POR EXCEPCION -->
+        <record id="view_tree_listado_pedido_compra" model="ir.ui.view">
+            <field name="name">grp.pedido.compra.listado</field>
+            <field name="model">grp.pedido.compra</field>
+            <field name="arch" type="xml">
+                <tree string="Listado Compras por Excepción">
+                    <field name="name"/>
+                    <field name="date_start"/>
+                    <field name="tipo_compra"/>
+                    <field name="sub_tipo_compra"/>
+                    <field name="total_estimado_divisa_cpy" string="Total divisa"/>
+                    <field name="moneda"/>
+                    <field name="total_estimado_cpy" string="Total pesos"/>
+                    <!--<field name="proc_urg"/>-->
+                </tree>
+            </field>
+        </record>
+
+        <!-- FILTRO Y AGRUPADOR LISTA DE COMPRAS POR EXCEPCION-->
+        <record id="view_listado_pedido_compra_filter" model="ir.ui.view">
+            <field name="name">grp.pedido.compra.listado.filter</field>
+            <field name="model">grp.pedido.compra</field>
+            <field name="arch" type="xml">
+                <search string="Listado Compras por Excepción">
+                    <field name="sub_tipo_compra"/>
+                    <group expand="0" string="Agrupar por...">
+                        <filter string="Sub-Tipo de Compra" name="group_subtipo_compra"
+                                icon="terp-stock_effects-object-colorize" domain="[]"
+                                context="{'group_by':'sub_tipo_compra'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <!-- ACCION VENTANA LISTA DE COMPRAS POR EXCEPCION -->
+        <record id="action_listado_pedido_compra_form" model="ir.actions.act_window">
+            <field name="name">Listado Compras por Excepción</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">grp.pedido.compra</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="view_tree_listado_pedido_compra"/>
+            <field name="search_view_id" ref="view_listado_pedido_compra_filter"/>
+            <field name="domain">[('tipo_compra','=','Compra Directa por Excepción')]</field>
+            <field name="context">{'search_default_group_subtipo_compra':1}</field>
+        </record>
+
+
+        <!-- MENU ITEM - GESTIÓN VIAJES -->
+        <menuitem id="menu_pedido_de_compra_3" parent="grp_compras_estatales.menu_pedido_de_compra" sequence="3"
+                  name="Listado Compras por Excepción" action="action_listado_pedido_compra_form"
+                  groups="grp_seguridad.grp_compras_pc_Comprador"/>
+
+    </data>
+</openerp>
+

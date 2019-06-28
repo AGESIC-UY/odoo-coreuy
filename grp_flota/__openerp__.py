@@ -32,7 +32,9 @@ Control de Flota GRP
 * Registro de cambio de cubierta
 
 """,
-    'depends' : ['fleet','account','hr','calendar','account_auto_fy_sequence','readonly_fields'],# TODO SPRING 5 GAP 249
+    'depends' : ['fleet','account','hr','calendar',
+                 'account_auto_fy_sequence','readonly_fields',
+                 'grp_mro'],# TODO SPRING 5 GAP 249
                                                     #TODO SPRING 5 GAP 51: Agregando la dependecia de calendar para poder crear eventos
     'data' : [
         'data/grp_flota_data.xml',

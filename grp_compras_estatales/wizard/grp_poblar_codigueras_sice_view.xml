@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <!-- ACCION DE CARGA DEL CATALOGO -->
+        <record model="ir.actions.act_window" id="action_poblar_codigueras_sice">
+            <field name="name">Carga inicial de codigueras SICE</field>
+            <field name="res_model">poblar.codigueras.sice</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+        <!-- MENU DE CARGA DE CODIGUERAS -->
+        <!--<menuitem name="Cargar Codigueras SICE" id="menu_wizard_codigueras_sice" action="action_poblar_codigueras_sice" parent="grp_codigueras_sice_root"   sequence="40"/>-->
+
+        <!-- FORMUALRIO DEL WIZARD DE CARGA DE CODIGUERAS -->
+        <record model="ir.ui.view" id="view_poblar_codigueras_sice_form">
+            <field name="name">poblar.codigueras.sice.form</field>
+            <field name="model">poblar.codigueras.sice</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="poblar.sice" version="7.0">
+                    <group>
+                        <group>
+                            <img src="grp_compras_estatales/static/src/img/acce.png"/>
+                        </group>
+                        <group>
+                            <h3>
+                                Carga de las codigueras SICE pertinentes
+                                <br/>
+                                a los procedimientos de compras.
+                                <br/>
+                                <ul>
+                                    <li>Tipos de Compras</li>
+                                    <li>Subtipos de Compras</li>
+                                    <li>Estados de la Compra</li>
+                                    <li>Monedas</li>
+                                    <li>Incisos</li>
+                                    <li>Unidades Ejecutoras</li>
+                                    <li>Unidades de Compra</li>
+                                    <li>Tipos de Documentos de Proveedores</li>
+                                </ul>
+                            </h3>
+                        </group>
+                    </group>
+                    <footer>
+                        <button name="poblar_codigueras" string="Cargar" type="object"/>
+                        <button string="Cancelar" class="oe_link" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+
+    </data>
+</openerp>

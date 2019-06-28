@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <menuitem name="Procesos" id="grp_rupe_menu_procesos" parent="grp_rupe_root" sequence="20"
+                  groups="base.group_system"/>
+
+        <!-- ACCION DE CARGA -->
+        <!--<record model="ir.actions.act_window" id="action_poblar_staging_rupe">-->
+            <!--<field name="name">Carga inicial del staging de RUPE</field>-->
+            <!--<field name="res_model">poblar.staging.rupe</field>-->
+            <!--<field name="view_type">form</field>-->
+            <!--<field name="view_mode">form</field>-->
+            <!--<field name="target">new</field>-->
+        <!--</record>-->
+
+        <!-- MENU DE CARGA DEL STAGING -->
+        <!--<menuitem-->
+                <!--name="Carga inicial del staging de RUPE"-->
+                <!--id="menu_wizard_staging_rupe"-->
+                <!--action="action_poblar_staging_rupe"-->
+                <!--parent="grp_rupe_menu_procesos"-->
+                <!--sequence="40"-->
+        <!--/>-->
+
+        <!-- FORMUALRIO DEL WIZARD -->
+        <!--<record model="ir.ui.view" id="view_poblar_staging_rupe_form">-->
+            <!--<field name="name">poblar.staging.rupe.form</field>-->
+            <!--<field name="model">poblar.staging.rupe</field>-->
+            <!--<field name="type">form</field>-->
+            <!--<field name="arch" type="xml">-->
+                <!--<form string="poblar_staging_rupe" version="7.0">-->
+                    <!--<group>-->
+                        <!--<group>-->
+                            <!--<img src="grp_rupe/static/src/img/acce.png"/>-->
+                        <!--</group>-->
+                        <!--<group>-->
+                            <!--<h3>-->
+                                <!--Carga las tablas de RUPE en-->
+                                <!--<br/>-->
+                                <!--un "staging" inicial.-->
+                                <!--<br/>-->
+                                <!--<ul>-->
+                                    <!--<li>Cuentas Bancarias</li>-->
+                                    <!--<li>Datos Comunicacion Proveedor</li>-->
+                                    <!--<li>Proveedores</li>-->
+                                <!--</ul>-->
+                            <!--</h3>-->
+                        <!--</group>-->
+                    <!--</group>-->
+                    <!--<footer>-->
+                        <!--<button name="poblar_staging_rupe" string="Cargar" type="object"/>-->
+                        <!--<button string="Cancelar" class="oe_link" special="cancel"/>-->
+                    <!--</footer>-->
+                <!--</form>-->
+            <!--</field>-->
+        <!--</record>-->
+
+    </data>
+</openerp>

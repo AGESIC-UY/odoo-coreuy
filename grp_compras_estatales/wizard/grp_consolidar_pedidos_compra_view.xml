@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="view_grp_consolidar_pedidos_compra" model="ir.ui.view">
+            <field name="name">Consolida Solicitudes de Compra</field>
+            <field name="model">grp.consolidar.pedido.compra</field>
+            <field name="arch" type="xml">
+                <form string="Consolidar solicitudes" version="7.0">
+                    <group>
+                        <separator
+                                string="¿Desea consolidar las solicitudes de compra selecionadas en un nuevo pedido de compra?"/>
+                    </group>
+
+                    <footer>
+                        <button name="merge_orders"
+                                string="Consolidar Solicitudes de Compra"
+                                type="object"
+                                class="oe_highlight"/>
+                        o
+                        <button string="Cancel"
+                                class="oe_link"
+                                special="cancel"/>
+
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <act_window name="Consolidar Solicitudes de Compra"
+                    res_model="grp.consolidar.pedido.compra"
+                    src_model="grp.solicitud.compra"
+                    view_mode="form"
+                    target="new"
+                    multi="True"
+                    key2="client_action_multi"
+                    id="action_view_grp_consolidar_pedidos_compra"/>
+
+    </data>
+</openerp>
+

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="grp_account.action_aprobacion_pagos_tree" model="ir.actions.act_window">
+            <field name="domain">['|','&amp;',('state','in',['open','paid']),('tipo_ejecucion_codigo_rel','=','P'),'&amp;','&amp;',('state','in',['open','intervened','prioritized']),('tipo_ejecucion_codigo_rel','=','N'),('siif_concepto_gasto.concepto','=','1')]</field>
+        </record>
+    </data>
+</openerp>

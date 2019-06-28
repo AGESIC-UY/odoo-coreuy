@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record id="view_solicitud_recursos_almacen_solicitante_uca_form" model="ir.ui.view">
+            <field name="name">grp.compras.solicitud.recursos.almacen.uca.inherited</field>
+            <field name="model">grp.compras.solicitud.recursos.almacen</field>
+            <field name="inherit_id" ref="grp_compras_estatales.view_solicitud_recursos_almacen_solicitante_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='tipo_sr']" position="after">
+                    <field name="sentencia_ordenanza" on_change="onchange_compra_uca_ids(sentencia_ordenanza,grp_sr_id)"
+                           attrs="{'readonly':[('state','!=','inicio')]}"/><!--TODO SPRING 7 GAP 465 -->
+                </xpath>
+                <!-- 26 09 2017 inicio -->
+                <xpath expr="//page[@string='Solicitud']/field[@name='grp_sr_id']/tree/field[@name='product_id']" position="before">
+                    <field name="sentencia_ordenanza" invisible="1"/>
+                    <field name="parent_state" invisible="1"/>
+                </xpath>
+                <xpath expr="//page[@string='Solicitud']/field[@name='grp_sr_id']/tree/field[@name='product_id']" position="attributes">
+                    <attribute name="attrs">{'required': ['|',('domain_almacenero','=',True),'&amp;',('parent_state','=','inicio'),('sentencia_ordenanza','=','compra_uca')]}</attribute>
+                </xpath>
+                <!-- 26 09 2017 fin -->
+                <notebook position="inside">
+                    <page string="UCA" attrs="{'invisible' : [('sentencia_ordenanza','!=','compra_uca')]}">
+                        <group>
+                            <group>
+                                <field name="number_uca"
+                                       attrs="{'readonly' : [('state','not in',['inicio'])],'required' : [('sentencia_ordenanza','=','compra_uca'),('state','=','inicio')]}"
+                                       style="width:25%%"/>
+                            </group>
+                            <field name='compra_uca_ids' nolabel="1" widget='one2many_list' colspan="4">
+                                <tree string="UCA" editable="bottom" create="false" delete="false">
+                                    <field name="solicitud_id" invisible="1"/>
+                                    <field name="state_solicitud" invisible="1"/>
+                                    <field name="sentencia_ordenanza" invisible="1"/>
+                                    <field name="description"
+                                           attrs="{'readonly' : [('state_solicitud','not in',['inicio'])],'required': [('sentencia_ordenanza','=','compra_uca'),('state_solicitud','=','inicio')]}"/>
+                                    <field name="product_id" readonly="1"/>
+                                    <field name="uom_id" readonly="1"/>
+                                    <field name="quantity" readonly="1"/>
+                                    <field name="number"
+                                           attrs="{'readonly' : [('state_solicitud','not in',['inicio'])],'required': [('sentencia_ordenanza','=','compra_uca'),('state_solicitud','=','inicio')]}"/>
+                                    <field name="price"
+                                           attrs="{'readonly' : [('state_solicitud','not in',['inicio'])],'required': [('sentencia_ordenanza','=','compra_uca'),('state_solicitud','=','inicio')]}"/>
+                                    <field name="provider_id" domain="[('supplier','=',True)]"
+                                           attrs="{'readonly' : [('state_solicitud','not in',['inicio'])],'required': [('sentencia_ordenanza','=','compra_uca'),('state_solicitud','=','inicio')]}"/>
+                                </tree>
+                            </field>
+                        </group>
+                    </page>
+                </notebook>
+            </field>
+        </record>
+
+    </data>
+</openerp>

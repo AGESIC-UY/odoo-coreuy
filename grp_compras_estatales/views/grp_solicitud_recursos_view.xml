@@ -1,0 +1,703 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+
+        <!-- Solicitud de recursos filtro -->
+        <record id="view_solicitud_recursos_almacen_filter" model="ir.ui.view">
+            <field name="name">grp.compras.solicitud.recursos.almacen.filter</field>
+            <field name="model">grp.compras.solicitud.recursos.almacen</field>
+            <field name="arch" type="xml">
+                <search string="Buscar solicitud">
+                    <field name="name" string="Solicitud"/>
+                    <field name="operating_unit_id"/>
+                    <filter name="sr_open" string="SR Abiertas" domain="[('state','not in',['aprobado'])]"
+                            help="Solicitudes abiertas"/>
+                    <separator/>
+                    <field name="state"/>
+                    <group expand="0" string="Agrupar por...">
+                        <filter name="estado" string="Estado" icon="terp-stock_effects-object-colorize" domain="[]"
+                                context="{'group_by':'state'}"/>
+                        <filter name="uec" string="Unidad ejecutora responsable" icon="terp-stock_effects-object-colorize" domain="[]"
+                                context="{'group_by':'operating_unit_id'}"/>
+                        <filter name="estado_en_proc" string="Estado en proceso"
+                                icon="terp-stock_effects-object-colorize" domain="[]"
+                                context="{'group_by':'estado_en_proc'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <!--Vista tree de Solicitud de Recursos-->
+        <record id="view_solicitud_recursos_tree" model="ir.ui.view">
+            <field name="name">Solicitud de Recursos</field>
+            <field name="model">grp.compras.solicitud.recursos.almacen</field>
+            <field name="priority" eval="14"/>
+            <field name="arch" type="xml">
+                <tree string="Solicitud de Recursos">
+                    <field name="name"/>
+                    <field name="date_start"/>
+                    <field name="tipo_sr"/>
+                    <field name="ubicacion"/>
+                    <field name="operating_unit_id"/>
+                    <field name="solicitante_id"/>
+                    <field name="aprobador_id"/>
+                    <field name="description"/>
+                    <field name="state"/>
+                    <field name="estado_en_proc"/>
+                </tree>
+            </field>
+        </record>
+
+        <!--Accion de Solicitud de Recursos-->
+        <record id="action_sr" model="ir.actions.act_window">
+            <field name="name">Solicitud de Recursos</field>
+            <field name="res_model">grp.compras.solicitud.recursos.almacen</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="view_solicitud_recursos_tree"/>
+            <field name="context">{'search_default_estado':1}</field>
+            <field name="search_view_id" ref="view_solicitud_recursos_almacen_filter"/>
+        </record>
+
+        <!--Vista tree de Solicitud de Recursos para ver desde almacen-->
+        <record id="view_solicitud_recursos_en_almacen_tree" model="ir.ui.view">
+            <field name="name">Solicitud de Recursos</field>
+            <field name="model">grp.compras.solicitud.recursos.almacen</field>
+            <field name="arch" type="xml">
+                <tree string="Solicitud de Recursos">
+                    <field name="name"/>
+                    <field name="description"/>
+                    <field name="aprobador_id"/>
+                    <field name="solicitante_id"/>
+                    <field name="operating_unit_id"/>
+                    <field name="ubicacion"/>
+                    <field name="department_id"/>
+                    <field name="date_start" string="Fecha SR"/>
+                    <field name="state"/>
+                    <field name="estado_en_proc"/>
+                    <!--cambio estado en proceso despues de proceso 18/12-->
+                </tree>
+            </field>
+        </record>
+
+        <!--Accion de Solicitud de Recursos en almacen-->
+        <record id="action_sr_almacen" model="ir.actions.act_window">
+            <field name="name">Solicitud de Recursos</field>
+            <field name="res_model">grp.compras.solicitud.recursos.almacen</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="view_solicitud_recursos_en_almacen_tree"/>
+            <field name="context">{'search_default_estado':1, 'search_default_estado_en_proc': 1}</field>
+            <field name="domain">[('state','in',['codificando','esperando_almacen'])]</field>
+        </record>
+
+
+        <!--Vista tree de Listado SR por Solicitante , en almacen-->
+        <record id="view_listado_solicitud_recursos_tree" model="ir.ui.view">
+            <field name="name">Listado SR por Solicitante</field>
+            <field name="model">grp.compras.solicitud.recursos.line.sr</field>
+            <field name="priority" eval="14"/>
+            <field name="arch" type="xml">
+                <tree string="Listado SR por Solicitante" create="false" edit="false" delete="false">
+                    <field name="nro_solicitud"/>
+                    <field name="fecha_solicitud"/>
+                    <field name="cantidad_solicitada"/>
+                    <field name="description" string="Descripción"/>
+                    <field name="solicitante_id"/>
+                    <field name="department_id"/>
+                    <field name="parent_state"/>
+                    <!-- Cambiado estado en proceso, echviano 16/12-->
+                    <field name="estado_en_proc"/>
+                </tree>
+            </field>
+        </record>
+        <!-- FILTRO Y AGRUPADOR Listado SR por Solicitante -->
+        <record id="view_listado_solicitud_recursos_filter" model="ir.ui.view">
+            <field name="name">Listado SR por Solicitant</field>
+            <field name="model">grp.compras.solicitud.recursos.line.sr</field>
+            <field name="arch" type="xml">
+                <search string="Solicitud de Recursos">
+                    <field name="solicitante_id"/>
+                    <field name="department_id"/>
+                    <group expand="0" string="Agrupar por...">
+                        <filter string="Solicitante" icon="terp-stock_effects-object-colorize" domain="[]"
+                                context="{'group_by':'solicitante_id'}"/>
+                        <filter string="Departamento" icon="terp-stock_effects-object-colorize" domain="[]"
+                                context="{'group_by':'department_id'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <!--Accion de Listado SR por Solicitante-->
+        <record id="action_sr_listado" model="ir.actions.act_window">
+            <field name="name">Listado SR por Solicitante</field>
+            <field name="res_model">grp.compras.solicitud.recursos.line.sr</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="view_listado_solicitud_recursos_tree"/>
+            <field name="search_view_id" ref="view_listado_solicitud_recursos_filter"/>
+        </record>
+
+        <record model="ir.actions.act_window" id="act_make_procurement">
+            <field name="name">Procurement Request</field>
+            <field name="res_model">grp.solicitar.compra</field>
+            <field name="src_model">grp.compras.solicitud.recursos.almacen</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+        <!--Vista form Generica de Solicitud de recursos-->
+        <!-- Utilizada solamente para cuando se muestra la SR a partir de la SC -->
+        <record id="view_solicitud_recursos_generica" model="ir.ui.view">
+            <field name="name">Solicitud de Recursos</field>
+            <field name="model">grp.compras.solicitud.recursos</field>
+            <field name="arch" type="xml">
+                <form string="Solicitud de Recursos">
+                    <header>
+                        <field name="state" widget="statusbar" statusbar_visible="aprobado"
+                               statusbar_colors='{"closed_total":"blue"}'/>
+                    </header>
+                    <sheet string="Solicitud">
+                        <div class="oe_right oe_button_box" name="buttons" style="float: right; margin-left: -30px;">
+                            <button string="Solicitar Compra" name="button_solicitar_compra"
+                                    attrs="{'invisible':['|',('tipo_sr','in',('S'))]}" type="object"
+                                    states="esperando_almacen"/>
+                            <button name="button_cumplir_stock" string="Cumplir con Stock"
+                                    attrs="{'invisible':['|',('tipo_sr','in',('S'))]}" type="object"
+                                    states="esperando_almacen"/>
+                            <button name="button_view_pickings" string="Transferencias de Stock"
+                                    attrs="{'invisible':['|',('tipo_sr','in',('S'))]}" type="object"
+                                    states="esperando_almacen,aprobado"/>
+                        </div>
+                        <group id="numero_solicitud">
+                            <div>
+                                <label for="name" class="oe_inline"/>
+                                <h1>
+                                    <field name="name" readonly="1"/>
+                                </h1>
+                            </div>
+                        </group>
+                        <group>
+                            <group>
+                                <field name="solicitante_editable" invisible="True"/>
+                                <field name="aprobador_editable" invisible="True"/>
+                                <field name="almacenero_editable" invisible="True"/>
+                                <field name="tipo_sr"
+                                       attrs="{'readonly':['&amp;',('aprobador_editable','!=',True),('solicitante_editable','!=',True)]}"
+                                       on_change="onchange_tipo_sr(tipo_sr)"/>
+                                <field name="warehouse"
+                                       attrs="{'required':[('tipo_sr','in',['AF','I'])],'readonly':['&amp;',('aprobador_editable','!=',True),('solicitante_editable','!=',True)]}"/>
+                                <field name="encargado_ids" widget="many2many_tags" attrs="{'invisible':[('tipo_sr','not in',['I','AF'])]}"/>
+                                <field name="company_id" groups="base.group_multi_company"/>
+                                <field name="solicitante_id" attrs="{'readonly':[('solicitante_editable','!=',True)]}"
+                                       on_change="onchange_solicitante_id(solicitante_id)"/>
+                                <field name="department_id"/>
+                                <field name="aprobador_id"/>
+                                <field name="description" attrs="{'readonly':[('state','not in',['inicio','nuevo'])]}"/>
+                            </group>
+                            <group>
+                                <field name="date_start"/>
+                            </group>
+                        </group>
+                        <group colspan="6">
+                            <group>
+                                <field name="inciso" readonly="1"/>
+                            </group>
+                            <group>
+                                <field name="u_e" readonly="1"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Solicitud">
+                                <field name='grp_sr_id' nolabel="1" widget='one2many_list'>
+                                    <tree string="Solicitud" editable="bottom">
+                                        <field name="descripcion"
+                                               attrs="{'readonly':[('domain_solicitante','!=',True)]}"/>
+                                        <field name="product_id" attrs="{'readonly':[('domain_product','!=',True)]}" options="{'no_create': True}"
+                                               domain="[('purchase_ok','=',True)]"/>
+                                        <field name="uom_id" options="{'no_create': True}"
+                                               attrs="{'readonly':['&amp;',('domain_aprobador','!=',True),('domain_solicitante','!=',True)]}"/>
+                                        <field name="cantidad_solicitada"
+                                               attrs="{'readonly':['&amp;',('domain_aprobador','!=',True),('domain_solicitante','!=',True)]}"/>
+                                        <field name="estado"/>
+                                        <field name="cantidad_entregada" readonly="True"/>
+                                        <field name="domain_solicitante" readonly="True" invisible="True"/>
+                                        <field name="domain_aprobador" readonly="True" invisible="True"/>
+                                        <field name="domain_almacenero" readonly="True" invisible="True"/>
+                                        <field name="domain_product" readonly="True" invisible="True"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+
+        <!--Vista form de Solicitud de Recursos-->
+        <record id="view_solicitud_recursos_almacen_solicitante_form" model="ir.ui.view">
+            <field name="name">Solicitud de Recursos</field>
+            <field name="model">grp.compras.solicitud.recursos.almacen</field>
+            <field name="arch" type="xml">
+                <form string="Solicitud de Recursos, almacén">
+                    <header>
+                        <!-- Solicitar -->
+                        <button name="button_wkf_sr_almacen_enviar_a_aprobar" type="workflow" states="inicio"
+                                string="Enviar a aprobar"
+                                groups="grp_seguridad.grp_compras_sr_Solicitante,grp_compras_estatales.grp_sr_solicitante_planif"/>
+
+                        <!-- Aprobar -->
+                        <button name="button_wkf_sr_almacen_codificar" type="workflow"
+                                states="en_aprobacion" attrs="{'invisible':['|',('tipo_sr','in',['PL','S'])]}"
+                                string="Aprobar" groups="grp_seguridad.grp_compras_sr_Aprobador" class="oe_highlight"/>
+
+                        <button name="button_wkf_sr_almacen_aprobar_servicio_o_protocolo" type="workflow"
+                                states="en_aprobacion" attrs="{'invisible':['|',('tipo_sr','not in',['S'])]}"
+                                string="Aprobar servicio" groups="grp_seguridad.grp_compras_sr_Aprobador" class="oe_highlight"/>
+
+                        <!--<button name="button_wkf_sr_almacen_aprobar_servicio_o_protocolo_2" type="workflow"-->
+                        <button name="sr_aprobar_planificada" type="object"
+                                states="en_aprobacion" attrs="{'invisible':['|',('tipo_sr','not in',['PL'])]}"
+                                string="Aprobar planificada" groups="grp_compras_estatales.grp_sr_aprobador_planif" class="oe_highlight"/>
+
+                        <!-- Rechazar -->
+                        <button name="button_wkf_sr_almacen_rechazar" type="workflow"
+                                states="en_aprobacion" string="Rechazar"
+                                groups="grp_seguridad.grp_compras_sr_Aprobador,grp_compras_estatales.grp_sr_aprobador_planif"/>
+
+                        <!-- Cerrar -->
+                        <button name="button_wkf_sr_cerrar_sr_almacen" type="workflow" states="esperando_almacen"
+                                string="Cerrar" attrs="{'invisible':['|',('tipo_sr','in',['PL','S'])]}"
+                                confirm="Esta acción es irreversible ¿Desea Cerrar definitivamente esta solicitud?"
+                                groups="grp_seguridad.grp_compras_sr_Encargado_de_almacen"/>
+
+                        <button name="button_wkf_sr_cerrar_sr_almacen" type="workflow" states="esperando_almacen"
+                                string="Cerrar" attrs="{'invisible':['|',('tipo_sr','not in',['S'])]}"
+                                confirm="Esta acción es irreversible ¿Desea Cerrar definitivamente esta solicitud?"
+                                groups="grp_seguridad.grp_compras_sr_Aprobador,grp_seguridad.grp_compras_sr_Solicitante"/>
+
+                        <button name="button_wkf_sr_cerrar_sr_almacen" type="workflow" states="esperando_almacen"
+                                string="Cerrar" attrs="{'invisible':['|',('tipo_sr','not in',['PL'])]}"
+                                confirm="Esta acción es irreversible ¿Desea Cerrar definitivamente esta solicitud?"
+                                groups="grp_compras_estatales.grp_sr_solicitante_planif,grp_compras_estatales.grp_sr_aprobador_planif"/>
+
+                        <!-- Validar -->
+                        <button name="button_wkf_sr_almacen_aprobar_almacen" type="workflow" states="codificando"
+                                string="Validar" class="oe_highlight"
+                                groups="grp_seguridad.grp_compras_sr_Encargado_de_almacen"/>
+
+                        <!-- En proceso -->
+                        <!--<button name="action_regresar_en_proceso" type="object" states="aprobado"
+                                attrs="{'invisible':['|',('tipo_sr','in',('PL'))]}" string="En proceso"
+                                groups="grp_seguridad.grp_compras_sr_Encargado_de_almacen"/>-->
+
+                        <field name="state" widget="statusbar"
+                               statusbar_visible="inicio,en_aprobacion,codificando,esperando_almacen,aprobado"
+                               statusbar_colors='{"aprobado":"blue"}'/>
+                    </header>
+                    <sheet string="Solicitud">
+                        <group>
+                            <div>
+                                <label for="name" class="oe_inline"
+                                       attrs="{'invisible':[( 'state','in', ( 'inicio') )]}"/>
+                                <h1>
+                                    <field name="name" readonly="1"/>
+                                </h1>
+                            </div>
+                            <group>
+                                <div class="oe_right oe_button_box" style="width: 300px; height: 50px;" name="buttons">
+                                    <button string="Solicitar Compra" name="button_solicitar_compra" type="object"
+                                                attrs="{'invisible':['|','|',('tipo_sr','in',('S','PL')),('show_buttons_compra_stock','=',False)]}"
+                                                states="esperando_almacen" class="oe_stat_button" style="white-space: normal;"
+                                                icon="fa-shopping-cart"
+                                                groups="grp_seguridad.grp_compras_sr_Encargado_de_almacen"/>
+
+                                    <button string="Cumplir con Stock" name="button_cumplir_stock" type="object"
+                                                attrs="{'invisible':['|','|',('tipo_sr','in',('S','AF','PL')),('show_buttons_compra_stock','=',False)]}"
+                                                states="esperando_almacen" class="oe_stat_button" style="white-space: normal;"
+                                                icon="fa-cube"
+                                                groups="grp_seguridad.grp_compras_sr_Encargado_de_almacen"/>
+                                    <button string="Transferencias de Stock" name="button_view_pickings" type="object"
+                                                attrs="{'invisible':['|','|',('tipo_sr','in',('S','PL')),('show_buttons_compra_stock','=',False)]}"
+                                                states="esperando_almacen,aprobado" class="oe_stat_button" style="white-space: normal;"
+                                                icon="fa-search"
+                                                groups="grp_seguridad.grp_compras_sr_Encargado_de_almacen"/>
+                                    <button name="button_view_pedidos" type="object"
+                                            attrs="{'invisible':[('pedidos_count','=',0)]}"
+                                            class="oe_inline oe_stat_button" style="white-space: normal;" icon="fa-search">
+                                            <field name="pedidos_count" widget="statinfo" string="Pedidos"/>
+                                    </button>
+
+                                    <!--<button name="button_cumplir_af" string="Cumplir con AF" type="object"-->
+                                                <!--attrs="{'invisible':['|',('tipo_sr','in',('S','I'))]}"-->
+                                                <!--states="esperando_almacen" class="oe_stat_button" style="white-space: normal;"-->
+                                                <!--icon="fa-check-square-o"-->
+                                                <!--groups="grp_seguridad.grp_compras_sr_Encargado_de_almacen"/>-->
+
+                                    <!-- PCAR 04 04 2017 Mej-AF-2 -->
+                                   <!--<button name="button_cumplir_af" string="Cumplir con AF"  type="object" attrs="{'invisible':['|',('tipo_sr','in',('S','I'))]}" states="esperando_almacen" groups="grp_compras_estatales.grp_compras_sr_Encargado_de_almacen"  />-->
+                                        <button name="button_cumplido_af" string="Cumplido con AF"  type="object"
+                                                attrs="{'invisible':['|',('tipo_sr','in',('S','I','PL'))]}"
+                                                states="esperando_almacen"
+                                                class="oe_stat_button" style="white-space: normal;"
+                                                icon="fa-shopping-cart"
+                                                groups="grp_seguridad.grp_compras_sr_Encargado_de_almacen"  />
+                                <!--   PCARBALLO 04 04 2017 Mej-AF-2 -->
+                                </div>
+                            </group>
+                        </group>
+                        <group>
+                        </group>
+                        <group>
+                            <group>
+                                <field name="show_buttons_compra_stock" invisible="1"/>
+                                <field name="solicitante_editable" invisible="True"/>
+                                <field name="aprobador_editable" invisible="True"/>
+                                <field name="almacenero_editable" invisible="True"/>
+                                <field name="lineas_readonly" invisible="1"/>
+                                <!-- Agregado cambios de tipo sr, de PCARBALLO, 14/03-->
+                                <field name="tipo_sr"
+                                       attrs="{'readonly':[('state','!=', 'inicio')]}"
+                                       on_change="onchange_tipo_sr(tipo_sr)"/>
+                                <field name="operating_unit_id"
+                                       attrs="{'readonly':[('state','!=', 'inicio')]}"
+                                       options="{'create': false, 'create_edit': false}"/>
+                                <field name="estado_en_proc" invisible="1"/>
+                                <field name="ubicacion" options="{'limit': 10, 'create': false, 'create_edit': false}"
+                                       attrs="{'invisible': [('tipo_sr','in',['S','AF'])], 'required': [('tipo_sr','in',['I','PL'])], 'readonly':[('state','=','aprobado')]}"
+                                       domain="[('active','=',True),('usage','=','internal')]"/>
+                                <field name="warehouse_view" attrs="{'invisible': [('tipo_sr','in',['S','AF'])] }"/>
+                                <field name="warehouse" invisible="1"/>
+                                <field name="encargado_ids" widget="many2many_tags" attrs="{'invisible':[('tipo_sr','in',['S','AF','PL'])]}"/>
+                                <field name="company_id" groups="base.group_multi_company"/>
+                                <field name="solicitante_id" on_change="onchange_solicitante_id(solicitante_id)"/>
+                                <field name="department_id"/>
+                                <field name="aprobador_id"/>
+                                <!--CFERNANDZ INCIDENCIA 57 - SR Y ALMACENES SE CAMBIA EL NOMBRE DEL CAMPO y se agregan nuevos campos-->
+                                <field name="check_aprobacion" invisible="1"/>
+                                <field name="check_button_solicitar" invisible="1"/>
+                            </group>
+                            <group>
+                                <field name="date_start" attrs="{'readonly':1}"/>
+                            </group>
+                        </group>
+                        <group style="width:80%%;">
+                            <!-- Comento la version anterior del campo tomaba css de la clase text_high -->
+                            <!--<field name="description" string="Observaciones"-->
+                                   <!--attrs="{'readonly':[('state','not in',['inicio','nuevo'])]}"-->
+                                   <!--class="text_high" style="overflow: auto;;"/>-->
+                            <field name="description" string="Observaciones"
+                                   attrs="{'readonly':[('state','not in',['inicio','nuevo'])]}"/>
+                        </group>
+                        <group colspan="6">
+                            <group>
+                                <field name="inciso" readonly="1" invisible="1"/>
+                            </group>
+                            <group>
+                                <field name="u_e" readonly="1" invisible="1"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Solicitud">
+                                <field name="domain_almacenero" readonly="True" invisible="True"/>
+                                <!--<field name='grp_sr_id' nolabel="1" widget='one2many_list' context="{'default_tipo_sr': tipo_sr}">-->
+                                <field name='grp_sr_id' nolabel="1" widget='one2many_list' attrs="{'readonly':[('lineas_readonly','=',True)]}" context="{'tipo_sr': tipo_sr, 'from_sr': True}">
+                                    <tree string="Solicitud" editable="bottom">
+                                        <field name="id" invisible="1"/>
+                                        <field name="descripcion"
+                                               attrs="{'readonly':[('id','!=',False),('domain_solicitante','!=',True),('domain_aprobador','!=',True)]}"/>
+                                        <field name="product_id" attrs="{'required':[('domain_almacenero','=',True)]}"
+                                               on_change="onchange_product_id( product_id )"
+                                               context="{'tipo_sr': context.get('tipo_sr'), 'from_sr': True}"
+                                               options="{'limit': 10, 'create': false, 'create_edit': false}"/>
+                                        <field name="udm_domain_ids" invisible="1"/>
+                                        <field name="uom_id" domain="[('id','in',udm_domain_ids[0][2])]" attrs="{'required':[('domain_almacenero','=',True)]}"/>
+                                        <!--Modificado string cantidad solicitada-->
+                                        <field name="cantidad_solicitada" string="Cantidad solicitada"
+                                               attrs="{'readonly':[('id','!=',False),('domain_solicitante','!=',True),('domain_aprobador','!=',True),('domain_almacenero','!=',True)]}"/>
+                                        <field name="cantidad_entregada" string="Cantidad entregada" readonly="True"/>
+                                        <!--agregado cantidad pendiente-->
+                                        <field name="cantidad_pendiente" string="Cantidad pendiente" readonly="True"/>
+                                        <field name="estado"/>
+                                        <field name="domain_solicitante" readonly="True" invisible="True"/>
+                                        <field name="domain_aprobador" readonly="True" invisible="True"/>
+                                        <field name="domain_almacenero" readonly="True" invisible="True"/>
+                                        <field name="domain_product" readonly="True" invisible="True"/>
+                                        <!--<field name="tipo_sr" on_change="onchange_tipo_sr(tipo_sr)" invisible="1"/>-->
+                                        <field name="fecha_necesidad" />
+                                    </tree>
+                                </field>
+                            </page>
+                            <page string="Activo Fijo"
+                                  attrs="{'invisible':['|',('tipo_sr','!=','AF'),('state','not in',['esperando_almacen','aprobado'])]}">
+                                <field name='grp_sr_af_id' nolabel="1" widget='one2many_list'
+                                       attrs="{'readonly':[('state','!=','esperando_almacen')]}"
+                                        context="{'tipo_sr': tipo_sr, 'from_sr': True}">
+                                    <tree string="Activo Fijo" editable="bottom">
+                                        <field name="product_id"
+                                               context="{'tipo_sr': context.get('tipo_sr'), 'from_sr': True}"/>
+                                        <field name="domain_account_asset_asset" invisible="1" />
+                                        <field name="articulo_af"
+                                               domain="[('id','in',domain_account_asset_asset[0][2])]" options="{'no_create': true, 'no_create_edit': true, 'no_quick_create': true}"/>
+                                        <!-- PCAR 04 04 2017 inicio Mej-AF-2 Actualizar AF desde la SR -->
+                                        <field name="ubicacion_origen" />
+                                        <field name="responsable_actual" />
+                                        <field name="restrict_lot_id" context="{'product_id': product_id}" domain="[('product_id', '=', product_id)]" groups="stock.group_production_lot"/>
+                                        <!-- PCAR 04 04 2017 fin -->
+                                        <field name="estado_aprob_af" readonly="1"/>
+                                    </tree>
+                                </field>
+                            </page>
+                            <!--   PCARBALLO: Se agrega nueva pestaña "Presupuesto".     -->
+                            <page string="Presupuesto" attrs="{'invisible' : [('check_aprobacion','=',False)]}">
+                                <field name="ir_filter_id" invisible="1"/>
+                                <field name="presup_view_line_copy" nolabel="1">
+                                    <tree string="Solicitud" editable="bottom">
+                                        <field name="estado" invisible="1"/>
+                                        <field name="boton_check" invisible="1"/>
+                                        <field name="product_id" readonly="1"/>
+                                        <field name="cantidad_solicitada" readonly="1"/>
+                                        <field name="cantidad_entregada" readonly="1"/>
+                                        <field name="cantidad_pendiente" readonly="1"/>
+                                        <field name="monto" readonly="1"/>
+                                        <field name="moneda" readonly="1"/>
+                                        <field name="cuenta_analitica" readonly="1"/>
+                                        <field name="cuenta_contable" readonly="1"/>
+                                        <field name="disponible" readonly="1"/>
+                                    </tree>
+                                </field>
+                            </page>
+                            <page string="Adjuntos">
+                                <group>
+                                    <field name="attachment_ids" nolabel="1">
+                                        <tree string="Adjuntos" delete="true" create="true">
+                                            <field name="res_name_computed" string="Nro doc"/>
+                                            <field name="name" string="Nombre Doc"/>
+                                            <field name="create_date"/>
+                                            <field name="res_model" string="Tipo Doc" invisible="1"/>
+                                        </tree>
+                                    </field>
+                                </group>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+
+        <!-- PCARBALLO: Los siguientes campos son editables solamente para el grupo del aprobador.  -->
+        <record id="view_solicitud_recursos_almacen_solicitante_form_inherited" model="ir.ui.view">
+            <field name="name">grp.compras.solicitud.recursos.almacen.inherited</field>
+            <field name="model">grp.compras.solicitud.recursos.almacen</field>
+            <field name="inherit_id" ref="view_solicitud_recursos_almacen_solicitante_form"/>
+            <field name="groups_id" eval="[(6, 0, [ref('grp_seguridad.grp_compras_sr_Aprobador') ])]"/>
+            <field name="arch" type="xml">
+                <field name="monto" position="attributes">
+                    <attribute name="readonly">0</attribute>
+                </field>
+                <field name="moneda" position="attributes">
+                    <attribute name="readonly">0</attribute>
+                </field>
+                <field name="cuenta_analitica" position="attributes">
+                    <attribute name="readonly">0</attribute>
+                </field>
+                <field name="cuenta_contable" position="attributes">
+                    <attribute name="readonly">0</attribute>
+                </field>
+                <field name="disponible" position="attributes">
+                    <attribute name="readonly">0</attribute>
+                </field>
+            </field>
+        </record>
+
+
+        <!--Lineas solicitud recursos-->
+        <!--Vista tree de Lineas Solicitud de Recursos -->
+        <record id="view_lineas_solicitud_recursos_en_almacen_tree" model="ir.ui.view">
+            <field name="name">Lineas Solicitud de Recursos</field>
+            <field name="model">grp.compras.solicitud.recursos.line.sr</field>
+            <field name="arch" type="xml">
+                <tree string="Líneas solicitud de recursos" create="false" delete="false">
+                    <field name="descripcion"/>
+                    <field name="product_id"/>
+                    <field name="uom_id"/>
+                    <field name="grp_id" invisible="1"/>
+                    <field name="cantidad_solicitada"/>
+                    <!-- <field name="cantidad_en_pedido"/> incidencia sacar campos-->
+                    <field name="cantidad_entregada"/>
+                    <!-- <field name="cantidad_pedida"/>-->
+                    <field name="cantidad_pendiente"/>
+                    <field name="estado"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_lineas_solicitud_recursos_en_almacen_filter" model="ir.ui.view">
+            <field name="name">grp.compras.solicitud.recursos.line.sr.filter</field>
+            <field name="model">grp.compras.solicitud.recursos.line.sr</field>
+            <field name="arch" type="xml">
+                <search string="Buscar Líneas">
+                    <field name="descripcion"/>
+                    <field name="grp_id" invisible="1"/>
+                    <field name="estado"/>
+                    <field name="product_id" string="Producto"/>
+                    <separator/>
+                    <filter icon="terp-document-new" name="parcial" string="Parcial" domain="[('estado','=','parcial')]"
+                            help="Entregado parcial"/>
+                    <filter icon="terp-check" name="total" string="Total" domain="[('estado','=','total')]"
+                            help="Entregadas total"/>
+                    <filter icon="terp-emblem-important" name="acompra" string="A compras"
+                            domain="[('estado','in',('acompra',))]" help="Enviado a compras"/>
+                    <filter icon="terp-gtk-go-back-rtl" name="rechazado" string="Rechazado"
+                            domain="[('estado','=','rechazado')]" help="Rechazado por Compras"/>
+                    <filter icon="terp-gtk-go-back-rtl" name="not_entregado" string="No entregado"
+                            domain="[('estado','=','noe')]" help="No entregado"/>
+                    <filter icon="terp-gtk-go-back-rtl" name="not_hay" string="No hay"
+                            domain="[('estado','in',('noh',))]" help="No hay"/>
+                    <group expand="0" string="Group By...">
+                        <filter string="Producto" icon="terp-partner" domain="[]" context="{'group_by':'product_id'}"/>
+                        <filter string="Origen" icon="terp-gtk-jump-to-rtl" domain="[]"
+                                context="{'group_by':'grp_id'}"/>
+                        <filter string="Estado" icon="terp-stock_effects-object-colorize" domain="[]"
+                                context="{'group_by':'estado'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <!--Accion de Lineas Solicitud de Recursos en almacen-->
+        <record id="action_sr_lineas_almacen" model="ir.actions.act_window">
+            <field name="name">Listado de Solicitudes</field>
+            <field name="res_model">grp.compras.solicitud.recursos.line.sr</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree</field>
+            <field name="search_view_id" ref="view_lineas_solicitud_recursos_en_almacen_filter"/>
+            <field name="view_id" ref="view_lineas_solicitud_recursos_en_almacen_tree"/>
+            <field name="context">{'search_default_not_entregado': 1, 'search_default_parcial': 1}</field>
+            <!--   <field name="domain">[('state','in',['codificando','esperando_almacen','aprobado'])]</field>-->
+        </record>
+
+        <!--Lineas solicitud recursos-->
+        <!--PO_60 – Nueva vista con transacciones unificadas para los Solicitantes-->
+        <!--Vista tree de Lineas Solicitud de Recursos -->
+        <record id="view_lineas_sr_transacciones_tree" model="ir.ui.view">
+            <field name="name">Transacciones Unificadas</field>
+            <field name="model">grp.compras.sr.lines.transacciones</field>
+            <field name="arch" type="xml">
+                <tree string="Líneas solicitud de recursos" create="false" delete="false">
+                    <field name="descripcion"/>
+                    <field name="product_id"/>
+                    <field name="uom_id"/>
+                    <field name="id" invisible="1"/>
+                    <field name="cantidad_solicitada"/>
+                    <field name="cantidad_entregada"/>
+                    <field name="cantidad_pendiente"/>
+                    <field name="estado"/>
+                    <field name="sr_id"/>
+                    <button type="object" string="Ver" name="open_sr" icon="gtk-find"
+                            attrs="{'invisible': [('sr_id','=',False)]}"/>
+                    <field name="sc_id"/>
+                    <button type="object" string="Ver" name="open_sc" icon="gtk-find"
+                            attrs="{'invisible': [('sc_id','=',False)]}"/>
+                    <field name="pedido_compra_id"/>
+                    <button type="object" string="Ver" name="open_pdc" icon="gtk-find"
+                            attrs="{'invisible': [('pedido_compra_id','=',False)]}"/>
+                    <field name="order_id"/>
+                    <button type="object" string="Ver" name="open_oc" icon="gtk-find"
+                            attrs="{'invisible': [('order_id','=',False)]}"/>
+                    <field name="operating_unit_id"/>
+                    <field name="date_start"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_lineas_sr_transacciones_filter" model="ir.ui.view">
+            <field name="name">grp.compras.sr.lines.transacciones.filter</field>
+            <field name="model">grp.compras.sr.lines.transacciones</field>
+            <field name="arch" type="xml">
+                <search string="Buscar Líneas">
+                    <field name="descripcion"/>
+                    <field name="estado"/>
+                    <field name="pedido_compra_id"/>
+                    <field name="sr_id"/>
+                    <field name="order_id"/>
+                    <field name="product_id" string="Producto"/>
+                    <field name="operating_unit_id" string="UE"/>
+                    <separator/>
+                    <filter icon="terp-document-new" name="parcial" string="Parcial" domain="[('estado','=','parcial')]"
+                            help="Entregado parcial"/>
+                    <filter icon="terp-check" name="total" string="Total" domain="[('estado','=','total')]"
+                            help="Entregadas total"/>
+                    <filter icon="terp-emblem-important" name="acompra" string="A compras"
+                            domain="[('estado','in',('acompra',))]" help="Enviado a compras"/>
+                    <filter icon="terp-gtk-go-back-rtl" name="rechazado" string="Rechazado"
+                            domain="[('estado','=','rechazado')]" help="Rechazado por Compras"/>
+                    <filter icon="terp-gtk-go-back-rtl" name="not_entregado" string="No entregado"
+                            domain="[('estado','=','noe')]" help="No entregado"/>
+                    <filter icon="terp-gtk-go-back-rtl" name="not_hay" string="No hay"
+                            domain="[('estado','in',('noh',))]" help="No hay"/>
+                    <group expand="0" string="Group By...">
+                        <filter string="Producto" icon="terp-partner" domain="[]" context="{'group_by':'product_id'}"/>
+                        <!-- PCAR 29 12 2015 -->
+                        <filter string="SR" name="group_sr_id" icon="terp-gtk-jump-to-rtl" domain="[]"
+                                context="{'group_by':'sr_id'}"/>
+                        <!-- PCAR 29 12 2015 -->
+                        <filter string="SC" icon="terp-gtk-jump-to-rtl" domain="[]" context="{'group_by':'sc_id'}"/>
+                        <filter string="PC" icon="terp-gtk-jump-to-rtl" domain="[]" context="{'group_by':'pedido_compra_id'}"/>
+                        <filter string="OC" icon="terp-gtk-jump-to-rtl" domain="[]" context="{'group_by':'order_id'}"/>
+                        <filter string="Estado" icon="terp-stock_effects-object-colorize" domain="[]"
+                                context="{'group_by':'estado'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <!--Accion de Lineas Solicitud de Recursos en almacen-->
+        <record id="action_sr_lineas_transacciones_unif" model="ir.actions.act_window">
+            <field name="name">Transacciones Unificadas</field>
+            <field name="res_model">grp.compras.sr.lines.transacciones</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree</field>
+            <field name="search_view_id" ref="view_lineas_sr_transacciones_filter"/>
+            <field name="view_id" ref="view_lineas_sr_transacciones_tree"/>
+            <!-- PCAR 29 12 2015 -->
+            <field name="domain">[('sr_id.state','not in',['inicio'])]</field>
+            <field name="context">{'search_default_group_sr_id': 1}</field>
+            <!-- PCAR 29 12 2015 -->
+        </record>
+
+                <!-- menu -->
+        <menuitem id="menu_sr_main" name="Solicitud de Recursos" parent="menu_grp_main" sequence="1"
+                  groups="grp_seguridad.grp_compras_sr_Solicitante,grp_seguridad.grp_compras_sr_Aprobador,grp_sr_solicitante_planif,grp_sr_aprobador_planif,grp_seguridad.grp_compras_pc_Comprador"/>
+        <menuitem id="menu_sr" parent="menu_sr_main" name="Solicitud de Recursos" action="action_sr" sequence="1"/>
+        <!--MENU lISTADO-->
+        <menuitem id="menu_listado_sr_solicitante" parent="menu_sr_main" name="Listado SR por Solicitante"
+                  action="action_sr_listado" sequence="2"
+                  groups="grp_seguridad.grp_compras_apg_Jefe_de_compras_2"/>
+        <!--groups="grp_seguridad.grp_compras_pc_Comprador"/> cambiado a Jefe Compras 17/12-->
+
+        <menuitem id="menu_sr_al" name="Solicitudes de recurso" parent="stock.menu_stock_root" sequence="1"
+                  groups="grp_seguridad.grp_compras_sr_Encargado_de_almacen"/>
+        <menuitem id="menu_al" parent="menu_sr_al" name="Solicitudes de recurso" action="action_sr_almacen"
+                  sequence="1"/>
+        <menuitem id="menu_sr_lineas" parent="menu_sr_al" name="Listado de Solicitudes"
+                  action="action_sr_lineas_almacen" sequence="2"/>
+
+        <!-- Vista para SR Solicitantes-->
+        <menuitem id="menu_sr_lineas_transacciones_unificadas" parent="menu_sr_main" name="Transacciones Unificadas"
+                  action="action_sr_lineas_transacciones_unif" sequence="4"
+                  groups="grp_seguridad.grp_compras_sr_Solicitante,grp_seguridad.grp_compras_pc_Comprador"/>
+
+    </data>
+</openerp>

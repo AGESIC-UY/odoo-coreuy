@@ -1,0 +1,1935 @@
+IN;1;Poder Legislativo
+UE;1;Cámara de Senadores
+UC;1;prueba222we2w;N
+::;1;Cámara de Senadores;1;Cámara de Senadores;1;prueba222we2w;N
+UC;7;ss;N
+::;1;Cámara de Senadores;1;Cámara de Senadores;7;ss;N
+UC;3;sss;N
+::;1;Cámara de Senadores;1;Cámara de Senadores;3;sss;N
+UC;6;sssss;N
+::;1;Cámara de Senadores;1;Cámara de Senadores;6;sssss;N
+UE;2;Cámara de Representantes
+UC;2;prueba;N
+::;2;Cámara de Representantes;2;Cámara de Representantes;2;prueba;N
+UC;1;test;N
+::;2;Cámara de Representantes;2;Cámara de Representantes;1;test;N
+UE;3;Comisión Administrativa del Poder Legislativo
+UC;1;o;N
+::;3;Comisión Administrativa del Poder Legislativo;3;Comisión Administrativa del Poder Legislativo;1;o;N
+IN;2;Presidencia de la Republica
+UE;1; Presidencia de la República y Unidades Dependientes
+UC;1009;a;N
+::;1; Presidencia de la República y Unidades Dependientes;1; Presidencia de la República y Unidades Dependientes;1009;a;N
+UC;999;Compras;N
+::;1; Presidencia de la República y Unidades Dependientes;1; Presidencia de la República y Unidades Dependientes;999;Compras;N
+UC;1005;ne_TEST;N
+::;1; Presidencia de la República y Unidades Dependientes;1; Presidencia de la República y Unidades Dependientes;1005;ne_TEST;N
+UC;1010;Plan Juntos - Administradora;N
+::;1; Presidencia de la República y Unidades Dependientes;1; Presidencia de la República y Unidades Dependientes;1010;Plan Juntos - Administradora;N
+UC;1011;Plan Juntos - Territorio 1;N
+::;1; Presidencia de la República y Unidades Dependientes;1; Presidencia de la República y Unidades Dependientes;1011;Plan Juntos - Territorio 1;N
+UC;1012;Plan Juntos - Territorio 2;N
+::;1; Presidencia de la República y Unidades Dependientes;1; Presidencia de la República y Unidades Dependientes;1012;Plan Juntos - Territorio 2;N
+UC;1013;Plan Juntos - Territorio 3;N
+::;1; Presidencia de la República y Unidades Dependientes;1; Presidencia de la República y Unidades Dependientes;1013;Plan Juntos - Territorio 3;N
+UC;9;Presidencia-Knock Out a las Drogas;N
+::;1; Presidencia de la República y Unidades Dependientes;1; Presidencia de la República y Unidades Dependientes;9;Presidencia-Knock Out a las Drogas;N
+UC;1000;Prueba;N
+::;1; Presidencia de la República y Unidades Dependientes;1; Presidencia de la República y Unidades Dependientes;1000;Prueba;N
+UC;1001;prueba karina;N
+::;1; Presidencia de la República y Unidades Dependientes;1; Presidencia de la República y Unidades Dependientes;1001;prueba karina;N
+UC;1006;prueba 1;N
+::;1; Presidencia de la República y Unidades Dependientes;1; Presidencia de la República y Unidades Dependientes;1006;prueba 1;N
+UC;1007;prueba 2;N
+::;1; Presidencia de la República y Unidades Dependientes;1; Presidencia de la República y Unidades Dependientes;1007;prueba 2;N
+UC;1008;prueba 3;N
+::;1; Presidencia de la República y Unidades Dependientes;1; Presidencia de la República y Unidades Dependientes;1008;prueba 3;N
+UC;1002;test;N
+::;1; Presidencia de la República y Unidades Dependientes;1; Presidencia de la República y Unidades Dependientes;1002;test;N
+UC;1004;test2;N
+::;1; Presidencia de la República y Unidades Dependientes;1; Presidencia de la República y Unidades Dependientes;1004;test2;N
+UE;3;Casa Militar
+UC;1;Compras;N
+::;3;Casa Militar;3;Casa Militar;1;Compras;N
+UC;8;prueba 1;N
+::;3;Casa Militar;3;Casa Militar;8;prueba 1;N
+UC;9;PRUEBA 2;N
+::;3;Casa Militar;3;Casa Militar;9;PRUEBA 2;N
+UC;6;so;N
+::;3;Casa Militar;3;Casa Militar;6;so;N
+UC;4;test;N
+::;3;Casa Militar;3;Casa Militar;4;test;N
+UC;5;testss;N
+::;3;Casa Militar;3;Casa Militar;5;testss;N
+UC;2;Unidad de Prueba;N
+::;3;Casa Militar;3;Casa Militar;2;Unidad de Prueba;N
+UE;4;Oficina de Planeamiento y Presupuesto
+UC;197;A.T.P.S.;S
+::;4;Oficina de Planeamiento y Presupuesto;4;Oficina de Planeamiento y Presupuesto;197;A.T.P.S.;S
+UC;192;C.E.P.R.E;S
+::;4;Oficina de Planeamiento y Presupuesto;4;Oficina de Planeamiento y Presupuesto;192;C.E.P.R.E;S
+UC;193;Depto. de Coop. Internacional;S
+::;4;Oficina de Planeamiento y Presupuesto;4;Oficina de Planeamiento y Presupuesto;193;Depto. de Coop. Internacional;S
+UC;195;Dpto. Polit. Econ. y Regulacisn;N
+::;4;Oficina de Planeamiento y Presupuesto;4;Oficina de Planeamiento y Presupuesto;195;Dpto. Polit. Econ. y Regulacisn;N
+UC;200;ff;S
+::;4;Oficina de Planeamiento y Presupuesto;4;Oficina de Planeamiento y Presupuesto;200;ff;S
+UC;199;k;N
+::;4;Oficina de Planeamiento y Presupuesto;4;Oficina de Planeamiento y Presupuesto;199;k;N
+UC;190;Prog. Desarrollo Municipal;N
+::;4;Oficina de Planeamiento y Presupuesto;4;Oficina de Planeamiento y Presupuesto;190;Prog. Desarrollo Municipal;N
+UC;191;Prog. Integ. Asent. Irreg.;N
+::;4;Oficina de Planeamiento y Presupuesto;4;Oficina de Planeamiento y Presupuesto;191;Prog. Integ. Asent. Irreg.;N
+UC;198;test11;N
+::;4;Oficina de Planeamiento y Presupuesto;4;Oficina de Planeamiento y Presupuesto;198;test11;N
+UC;9;UCAMAE;N
+::;4;Oficina de Planeamiento y Presupuesto;4;Oficina de Planeamiento y Presupuesto;9;UCAMAE;N
+UC;194;Unidad de compras central de OPP;N
+::;4;Oficina de Planeamiento y Presupuesto;4;Oficina de Planeamiento y Presupuesto;194;Unidad de compras central de OPP;N
+UC;196;U.R.S.E.C;N
+::;4;Oficina de Planeamiento y Presupuesto;4;Oficina de Planeamiento y Presupuesto;196;U.R.S.E.C;N
+UE;5;Dirección de Proyectos de Desarrollo
+UC;11;Conglomerados;N
+::;5;Dirección de Proyectos de Desarrollo;5;Dirección de Proyectos de Desarrollo;11;Conglomerados;N
+UC;780;Cuenca lechera II;N
+::;5;Dirección de Proyectos de Desarrollo;5;Dirección de Proyectos de Desarrollo;780;Cuenca lechera II;N
+UC;721;Cuenca Lechera 1;N
+::;5;Dirección de Proyectos de Desarrollo;5;Dirección de Proyectos de Desarrollo;721;Cuenca Lechera 1;N
+UC;720;Cunca Arrocera;N
+::;5;Dirección de Proyectos de Desarrollo;5;Dirección de Proyectos de Desarrollo;720;Cunca Arrocera;N
+UC;10;Microfinanzas;N
+::;5;Dirección de Proyectos de Desarrollo;5;Dirección de Proyectos de Desarrollo;10;Microfinanzas;N
+UC;8;PASP;N
+::;5;Dirección de Proyectos de Desarrollo;5;Dirección de Proyectos de Desarrollo;8;PASP;N
+UC;1;Presidencia-Knock Out a las Drogas;N
+::;5;Dirección de Proyectos de Desarrollo;5;Dirección de Proyectos de Desarrollo;1;Presidencia-Knock Out a las Drogas;N
+UC;0;Presupuesto;N
+::;5;Dirección de Proyectos de Desarrollo;5;Dirección de Proyectos de Desarrollo;0;Presupuesto;N
+UC;728;Saneamiento;N
+::;5;Dirección de Proyectos de Desarrollo;5;Dirección de Proyectos de Desarrollo;728;Saneamiento;N
+UC;742;UDR11;N
+::;5;Dirección de Proyectos de Desarrollo;5;Dirección de Proyectos de Desarrollo;742;UDR11;N
+UE;6;Unidad Reguladora de Serv. de Energía y Agua-URSEA
+UC;1;Prueba;N
+::;6;Unidad Reguladora de Serv. de Energía y Agua-URSEA;6;Unidad Reguladora de Serv. de Energía y Agua-URSEA;1;Prueba;N
+UE;7;Instituto Nacional de EstadÍstica
+UC;180;Compras;S
+::;7;Instituto Nacional de EstadÍstica;7;Instituto Nacional de EstadÍstica;180;Compras;S
+UE;8;Oficina Nacional del Servicio Civil
+UC;1;Compras;N
+::;8;Oficina Nacional del Servicio Civil;8;Oficina Nacional del Servicio Civil;1;Compras;N
+UE;9;Unidad Reguladora de Servic.de Comunicaciones-URSEC
+UC;1;Compras;S
+::;9;Unidad Reguladora de Servic.de Comunicaciones-URSEC;9;Unidad Reguladora de Servic.de Comunicaciones-URSEC;1;Compras;S
+UE;10;Agen.p/Des.del Gob.de Gest.Electr.y Soc.Inform.y del Conoc.
+UC;1;AGESIC;S
+::;10;Agen.p/Des.del Gob.de Gest.Electr.y Soc.Inform.y del Conoc.;10;Agen.p/Des.del Gob.de Gest.Electr.y Soc.Inform.y del Conoc.;1;AGESIC;S
+UC;2;sin inter;N
+::;10;Agen.p/Des.del Gob.de Gest.Electr.y Soc.Inform.y del Conoc.;10;Agen.p/Des.del Gob.de Gest.Electr.y Soc.Inform.y del Conoc.;2;sin inter;N
+IN;3;Ministerio de Defensa Nacional
+UE;1;Dirección General de Secretaría de Estado
+UC;74;Compras;N
+::;1;Dirección General de Secretaría de Estado;1;Dirección General de Secretaría de Estado;74;Compras;N
+UC;3;Departamento de Suministros;N
+::;1;Dirección General de Secretaría de Estado;1;Dirección General de Secretaría de Estado;3;Departamento de Suministros;N
+UC;73;Dirección Contabilidad;N
+::;1;Dirección General de Secretaría de Estado;1;Dirección General de Secretaría de Estado;73;Dirección Contabilidad;N
+UC;77;Lore con interrelación;N
+::;1;Dirección General de Secretaría de Estado;1;Dirección General de Secretaría de Estado;77;Lore con interrelación;N
+UC;78;Lore sin interrelación;N
+::;1;Dirección General de Secretaría de Estado;1;Dirección General de Secretaría de Estado;78;Lore sin interrelación;N
+UC;76;nnnppp;N
+::;1;Dirección General de Secretaría de Estado;1;Dirección General de Secretaría de Estado;76;nnnppp;N
+UC;75;Para testear Nico;N
+::;1;Dirección General de Secretaría de Estado;1;Dirección General de Secretaría de Estado;75;Para testear Nico;N
+UE;3;Dirección Nacional de Inteligencia de Estado
+UC;74;Compras;N
+::;3;Dirección Nacional de Inteligencia de Estado;3;Dirección Nacional de Inteligencia de Estado;74;Compras;N
+UC;76;ggg_TEST;N
+::;3;Dirección Nacional de Inteligencia de Estado;3;Dirección Nacional de Inteligencia de Estado;76;ggg_TEST;N
+UC;75;ñññ;N
+::;3;Dirección Nacional de Inteligencia de Estado;3;Dirección Nacional de Inteligencia de Estado;75;ñññ;N
+UC;77;123;N
+::;3;Dirección Nacional de Inteligencia de Estado;3;Dirección Nacional de Inteligencia de Estado;77;123;N
+UE;4;Comando General del Ejército
+UC;75;Comando del Ejército;N
+::;4;Comando General del Ejército;4;Comando General del Ejército;75;Comando del Ejército;N
+UC;77;escudero;N
+::;4;Comando General del Ejército;4;Comando General del Ejército;77;escudero;N
+UC;76;hh;N
+::;4;Comando General del Ejército;4;Comando General del Ejército;76;hh;N
+UE;18;Comando General de la Armada
+UC;3;ARNAV;N
+::;18;Comando General de la Armada;18;Comando General de la Armada;3;ARNAV;N
+UC;77;CURSO1;N
+::;18;Comando General de la Armada;18;Comando General de la Armada;77;CURSO1;N
+UC;86;CURSO10;N
+::;18;Comando General de la Armada;18;Comando General de la Armada;86;CURSO10;N
+UC;87;CURSO11;N
+::;18;Comando General de la Armada;18;Comando General de la Armada;87;CURSO11;N
+UC;88;CURSO12;N
+::;18;Comando General de la Armada;18;Comando General de la Armada;88;CURSO12;N
+UC;89;CURSO13;N
+::;18;Comando General de la Armada;18;Comando General de la Armada;89;CURSO13;N
+UC;90;CURSO14;N
+::;18;Comando General de la Armada;18;Comando General de la Armada;90;CURSO14;N
+UC;91;CURSO15;N
+::;18;Comando General de la Armada;18;Comando General de la Armada;91;CURSO15;N
+UC;92;CURSO16;N
+::;18;Comando General de la Armada;18;Comando General de la Armada;92;CURSO16;N
+UC;93;CURSO17;N
+::;18;Comando General de la Armada;18;Comando General de la Armada;93;CURSO17;N
+UC;94;CURSO18;N
+::;18;Comando General de la Armada;18;Comando General de la Armada;94;CURSO18;N
+UC;95;CURSO19;N
+::;18;Comando General de la Armada;18;Comando General de la Armada;95;CURSO19;N
+UC;78;CURSO2;N
+::;18;Comando General de la Armada;18;Comando General de la Armada;78;CURSO2;N
+UC;96;CURSO20;N
+::;18;Comando General de la Armada;18;Comando General de la Armada;96;CURSO20;N
+UC;97;CURSO21;N
+::;18;Comando General de la Armada;18;Comando General de la Armada;97;CURSO21;N
+UC;98;CURSO22;N
+::;18;Comando General de la Armada;18;Comando General de la Armada;98;CURSO22;N
+UC;99;CURSO23;N
+::;18;Comando General de la Armada;18;Comando General de la Armada;99;CURSO23;N
+UC;100;CURSO24;N
+::;18;Comando General de la Armada;18;Comando General de la Armada;100;CURSO24;N
+UC;101;CURSO25;N
+::;18;Comando General de la Armada;18;Comando General de la Armada;101;CURSO25;N
+UC;102;CURSO26;N
+::;18;Comando General de la Armada;18;Comando General de la Armada;102;CURSO26;N
+UC;103;CURSO27;N
+::;18;Comando General de la Armada;18;Comando General de la Armada;103;CURSO27;N
+UC;104;CURSO28;N
+::;18;Comando General de la Armada;18;Comando General de la Armada;104;CURSO28;N
+UC;108;CURSO29;N
+::;18;Comando General de la Armada;18;Comando General de la Armada;108;CURSO29;N
+UC;79;CURSO3;N
+::;18;Comando General de la Armada;18;Comando General de la Armada;79;CURSO3;N
+UC;107;CURSO30;N
+::;18;Comando General de la Armada;18;Comando General de la Armada;107;CURSO30;N
+UC;106;CURSO31;N
+::;18;Comando General de la Armada;18;Comando General de la Armada;106;CURSO31;N
+UC;105;CURSO32;N
+::;18;Comando General de la Armada;18;Comando General de la Armada;105;CURSO32;N
+UC;111;CURSO33;N
+::;18;Comando General de la Armada;18;Comando General de la Armada;111;CURSO33;N
+UC;110;CURSO34;N
+::;18;Comando General de la Armada;18;Comando General de la Armada;110;CURSO34;N
+UC;109;CURSO35;N
+::;18;Comando General de la Armada;18;Comando General de la Armada;109;CURSO35;N
+UC;112;CURSO36;N
+::;18;Comando General de la Armada;18;Comando General de la Armada;112;CURSO36;N
+UC;116;CURSO37;N
+::;18;Comando General de la Armada;18;Comando General de la Armada;116;CURSO37;N
+UC;115;CURSO38;N
+::;18;Comando General de la Armada;18;Comando General de la Armada;115;CURSO38;N
+UC;114;CURSO39;N
+::;18;Comando General de la Armada;18;Comando General de la Armada;114;CURSO39;N
+UC;80;CURSO4;N
+::;18;Comando General de la Armada;18;Comando General de la Armada;80;CURSO4;N
+UC;113;CURSO40;N
+::;18;Comando General de la Armada;18;Comando General de la Armada;113;CURSO40;N
+UC;119;CURSO41;N
+::;18;Comando General de la Armada;18;Comando General de la Armada;119;CURSO41;N
+UC;118;CURSO42;N
+::;18;Comando General de la Armada;18;Comando General de la Armada;118;CURSO42;N
+UC;120;CURSO43;N
+::;18;Comando General de la Armada;18;Comando General de la Armada;120;CURSO43;N
+UC;121;CURSO44;N
+::;18;Comando General de la Armada;18;Comando General de la Armada;121;CURSO44;N
+UC;122;CURSO45;N
+::;18;Comando General de la Armada;18;Comando General de la Armada;122;CURSO45;N
+UC;123;CURSO46;N
+::;18;Comando General de la Armada;18;Comando General de la Armada;123;CURSO46;N
+UC;124;CURSO47;N
+::;18;Comando General de la Armada;18;Comando General de la Armada;124;CURSO47;N
+UC;125;CURSO48;N
+::;18;Comando General de la Armada;18;Comando General de la Armada;125;CURSO48;N
+UC;126;CURSO49;N
+::;18;Comando General de la Armada;18;Comando General de la Armada;126;CURSO49;N
+UC;81;CURSO5;N
+::;18;Comando General de la Armada;18;Comando General de la Armada;81;CURSO5;N
+UC;127;CURSO50;N
+::;18;Comando General de la Armada;18;Comando General de la Armada;127;CURSO50;N
+UC;128;CURSO51;N
+::;18;Comando General de la Armada;18;Comando General de la Armada;128;CURSO51;N
+UC;129;CURSO52;N
+::;18;Comando General de la Armada;18;Comando General de la Armada;129;CURSO52;N
+UC;130;CURSO53;N
+::;18;Comando General de la Armada;18;Comando General de la Armada;130;CURSO53;N
+UC;131;CURSO54;N
+::;18;Comando General de la Armada;18;Comando General de la Armada;131;CURSO54;N
+UC;132;CURSO55;N
+::;18;Comando General de la Armada;18;Comando General de la Armada;132;CURSO55;N
+UC;82;CURSO6;N
+::;18;Comando General de la Armada;18;Comando General de la Armada;82;CURSO6;N
+UC;83;CURSO7;N
+::;18;Comando General de la Armada;18;Comando General de la Armada;83;CURSO7;N
+UC;84;CURSO8;N
+::;18;Comando General de la Armada;18;Comando General de la Armada;84;CURSO8;N
+UC;85;CURSO9;N
+::;18;Comando General de la Armada;18;Comando General de la Armada;85;CURSO9;N
+UC;1;GRUBU;N
+::;18;Comando General de la Armada;18;Comando General de la Armada;1;GRUBU;N
+UC;18;GRUYO;N
+::;18;Comando General de la Armada;18;Comando General de la Armada;18;GRUYO;N
+UC;8;OPREN - Oficina de planeamiento y presupuesto naval;N
+::;18;Comando General de la Armada;18;Comando General de la Armada;8;OPREN - Oficina de planeamiento y presupuesto naval;N
+UC;15;SEARM;N
+::;18;Comando General de la Armada;18;Comando General de la Armada;15;SEARM;N
+UC;17;SEBAX;N
+::;18;Comando General de la Armada;18;Comando General de la Armada;17;SEBAX;N
+UC;14;SECON;N
+::;18;Comando General de la Armada;18;Comando General de la Armada;14;SECON;N
+UC;13;SEFIC;N
+::;18;Comando General de la Armada;18;Comando General de la Armada;13;SEFIC;N
+UC;16;SELAR;N
+::;18;Comando General de la Armada;18;Comando General de la Armada;16;SELAR;N
+UC;76;SERAP;N
+::;18;Comando General de la Armada;18;Comando General de la Armada;76;SERAP;N
+UC;19;SERBA;N
+::;18;Comando General de la Armada;18;Comando General de la Armada;19;SERBA;N
+UC;4;SERIN;N
+::;18;Comando General de la Armada;18;Comando General de la Armada;4;SERIN;N
+UC;2;SETRA;N
+::;18;Comando General de la Armada;18;Comando General de la Armada;2;SETRA;N
+UC;20;SOHMA;N
+::;18;Comando General de la Armada;18;Comando General de la Armada;20;SOHMA;N
+UC;11;1.1    COMAR;N
+::;18;Comando General de la Armada;18;Comando General de la Armada;11;1.1    COMAR;N
+UC;12;1.2      ROU 20;N
+::;18;Comando General de la Armada;18;Comando General de la Armada;12;1.2      ROU 20;N
+UC;21;2.1    FUEMA;N
+::;18;Comando General de la Armada;18;Comando General de la Armada;21;2.1    FUEMA;N
+UC;22;2.2    COMAN;N
+::;18;Comando General de la Armada;18;Comando General de la Armada;22;2.2    COMAN;N
+UC;23;2.3      FUSNA;N
+::;18;Comando General de la Armada;18;Comando General de la Armada;23;2.3      FUSNA;N
+UC;31;3.1    CIRC. RIO DE LA PLATA;N
+::;18;Comando General de la Armada;18;Comando General de la Armada;31;3.1    CIRC. RIO DE LA PLATA;N
+UC;32;3.2    CIRC. RIO URUGUAY;N
+::;18;Comando General de la Armada;18;Comando General de la Armada;32;3.2    CIRC. RIO URUGUAY;N
+UC;33;3.3    CIRC. OCEÁNO ATLÁNTICO;N
+::;18;Comando General de la Armada;18;Comando General de la Armada;33;3.3    CIRC. OCEÁNO ATLÁNTICO;N
+UC;41;4.1         DIPER;N
+::;18;Comando General de la Armada;18;Comando General de la Armada;41;4.1         DIPER;N
+UC;42;4.2           DIMAT;N
+::;18;Comando General de la Armada;18;Comando General de la Armada;42;4.2           DIMAT;N
+UE;23;Comando General de la Fuerza Aérea
+UC;86;Dirección de Adquisiciones;N
+::;23;Comando General de la Fuerza Aérea;23;Comando General de la Fuerza Aérea;86;Dirección de Adquisiciones;N
+UC;87;Sección Adquisiciones de B.A.I.;N
+::;23;Comando General de la Fuerza Aérea;23;Comando General de la Fuerza Aérea;87;Sección Adquisiciones de B.A.I.;N
+UC;88;Sección Adquisiciones de B.A.II.;N
+::;23;Comando General de la Fuerza Aérea;23;Comando General de la Fuerza Aérea;88;Sección Adquisiciones de B.A.II.;N
+UC;89;Sección Adquisiciones de B.A.III.;N
+::;23;Comando General de la Fuerza Aérea;23;Comando General de la Fuerza Aérea;89;Sección Adquisiciones de B.A.III.;N
+UC;92;Sección Adquisiciones de la E.C.E.M.A.;N
+::;23;Comando General de la Fuerza Aérea;23;Comando General de la Fuerza Aérea;92;Sección Adquisiciones de la E.C.E.M.A.;N
+UC;90;Sección Adquisiciones de la E.M.A.;N
+::;23;Comando General de la Fuerza Aérea;23;Comando General de la Fuerza Aérea;90;Sección Adquisiciones de la E.M.A.;N
+UC;91;Sección Adquisiciones de la E.T.A.;N
+::;23;Comando General de la Fuerza Aérea;23;Comando General de la Fuerza Aérea;91;Sección Adquisiciones de la E.T.A.;N
+UC;93;Sección Adquisiciones Servicio Infraestructura;N
+::;23;Comando General de la Fuerza Aérea;23;Comando General de la Fuerza Aérea;93;Sección Adquisiciones Servicio Infraestructura;N
+UE;30;*NO VALE Ex-Dirección Nal.Aviac.Civil e Infraestr. Aeronau.
+UC;1;Compras;N
+::;30;*NO VALE Ex-Dirección Nal.Aviac.Civil e Infraestr. Aeronau.;30;*NO VALE Ex-Dirección Nal.Aviac.Civil e Infraestr. Aeronau.;1;Compras;N
+UE;31;*NO VALE Ex-Dirección General de Aviación Civil
+UC;77;Departamento de Adquisiciones;N
+::;31;*NO VALE Ex-Dirección General de Aviación Civil;31;*NO VALE Ex-Dirección General de Aviación Civil;77;Departamento de Adquisiciones;N
+UE;32;*NO VALE Ex-Dirección General Infraestructura Aeronáutica
+UC;78;Sección Compras;N
+::;32;*NO VALE Ex-Dirección General Infraestructura Aeronáutica;32;*NO VALE Ex-Dirección General Infraestructura Aeronáutica;78;Sección Compras;N
+UE;33;Dirección Nacional de Sanidad de las Fuerzas Armadas
+UC;163;Departamento de Medicamentos;N
+::;33;Dirección Nacional de Sanidad de las Fuerzas Armadas;33;Dirección Nacional de Sanidad de las Fuerzas Armadas;163;Departamento de Medicamentos;N
+UC;79;División Adquisiciones;N
+::;33;Dirección Nacional de Sanidad de las Fuerzas Armadas;33;Dirección Nacional de Sanidad de las Fuerzas Armadas;79;División Adquisiciones;N
+UC;10;Laboratorio Análisis Clinicos-Economato;N
+::;33;Dirección Nacional de Sanidad de las Fuerzas Armadas;33;Dirección Nacional de Sanidad de las Fuerzas Armadas;10;Laboratorio Análisis Clinicos-Economato;N
+UC;165;Secretaría;N
+::;33;Dirección Nacional de Sanidad de las Fuerzas Armadas;33;Dirección Nacional de Sanidad de las Fuerzas Armadas;165;Secretaría;N
+UC;162;Servicios Varios y Alimentos;N
+::;33;Dirección Nacional de Sanidad de las Fuerzas Armadas;33;Dirección Nacional de Sanidad de las Fuerzas Armadas;162;Servicios Varios y Alimentos;N
+UE;34;Dirección General de los Servicios
+UC;4;CD;N
+::;34;Dirección General de los Servicios;34;Dirección General de los Servicios;4;CD;N
+UC;1;Compra;N
+::;34;Dirección General de los Servicios;34;Dirección General de los Servicios;1;Compra;N
+UC;3;hhhhkkkk;N
+::;34;Dirección General de los Servicios;34;Dirección General de los Servicios;3;hhhhkkkk;N
+UC;2;licitaciones;S
+::;34;Dirección General de los Servicios;34;Dirección General de los Servicios;2;licitaciones;S
+UC;5;4545;S
+::;34;Dirección General de los Servicios;34;Dirección General de los Servicios;5;4545;S
+UE;35;Servicio de Retiros y Pensiones de las Fuerzas Armadas
+UC;82;Sección Compras;S
+::;35;Servicio de Retiros y Pensiones de las Fuerzas Armadas;35;Servicio de Retiros y Pensiones de las Fuerzas Armadas;82;Sección Compras;S
+UE;39;Dirección Nacional de Meteorología
+UC;80;Departamento de Proveeduría;S
+::;39;Dirección Nacional de Meteorología;39;Dirección Nacional de Meteorología;80;Departamento de Proveeduría;S
+UE;40;*NO VALE Ex-D.N.Comunicaciones-TRANSIT.Grupo0-A70a88L17296
+UC;81;Departamento de Compras;N
+::;40;*NO VALE Ex-D.N.Comunicaciones-TRANSIT.Grupo0-A70a88L17296;40;*NO VALE Ex-D.N.Comunicaciones-TRANSIT.Grupo0-A70a88L17296;81;Departamento de Compras;N
+UE;41;Dirección Nacional Aviación Civil e Infraestructura Aeronáut
+UC;1;Compras;S
+::;41;Dirección Nacional Aviación Civil e Infraestructura Aeronáut;41;Dirección Nacional Aviación Civil e Infraestructura Aeronáut;1;Compras;S
+IN;4;Ministerio del Interior
+UE;1;Secretaría del Ministerio del Interior
+UC;14;Compras ;N
+::;1;Secretaría del Ministerio del Interior;1;Secretaría del Ministerio del Interior;14;Compras ;N
+UC;17;Compras Exe;S
+::;1;Secretaría del Ministerio del Interior;1;Secretaría del Ministerio del Interior;17;Compras Exe;S
+UC;12;Proveeduría;S
+::;1;Secretaría del Ministerio del Interior;1;Secretaría del Ministerio del Interior;12;Proveeduría;S
+UC;16;val;S
+::;1;Secretaría del Ministerio del Interior;1;Secretaría del Ministerio del Interior;16;val;S
+UC;13;vale;S
+::;1;Secretaría del Ministerio del Interior;1;Secretaría del Ministerio del Interior;13;vale;S
+UC;15;valeria;N
+::;1;Secretaría del Ministerio del Interior;1;Secretaría del Ministerio del Interior;15;valeria;N
+UE;2;Dirección Nacional de Migración
+UC;13;Proveeduría;S
+::;2;Dirección Nacional de Migración;2;Dirección Nacional de Migración;13;Proveeduría;S
+UC;14;t;S
+::;2;Dirección Nacional de Migración;2;Dirección Nacional de Migración;14;t;S
+UE;3;Ex-Intendencia General de Policía NO VIG. desde 1/3/01
+UC;14;Proveeduría;N
+::;3;Ex-Intendencia General de Policía NO VIG. desde 1/3/01;3;Ex-Intendencia General de Policía NO VIG. desde 1/3/01;14;Proveeduría;N
+UE;4;Jefatura de Policía de Montevideo
+UC;16;pppp;N
+::;4;Jefatura de Policía de Montevideo;4;Jefatura de Policía de Montevideo;16;pppp;N
+UC;15;Proveeduría;N
+::;4;Jefatura de Policía de Montevideo;4;Jefatura de Policía de Montevideo;15;Proveeduría;N
+UE;5;Jefatura de Policía de Artigas
+UC;16;Administración;S
+::;5;Jefatura de Policía de Artigas;5;Jefatura de Policía de Artigas;16;Administración;S
+UC;17;ppp;N
+::;5;Jefatura de Policía de Artigas;5;Jefatura de Policía de Artigas;17;ppp;N
+UE;6;Jefatura de Policía de Canelones
+UC;17;Administración;S
+::;6;Jefatura de Policía de Canelones;6;Jefatura de Policía de Canelones;17;Administración;S
+UE;7;Jefatura de Policía de Cerro Largo
+UC;18;Administración;S
+::;7;Jefatura de Policía de Cerro Largo;7;Jefatura de Policía de Cerro Largo;18;Administración;S
+UE;8;Jefatura de Policía de Colonia
+UC;19;Administración;S
+::;8;Jefatura de Policía de Colonia;8;Jefatura de Policía de Colonia;19;Administración;S
+UE;9;Jefatura de Policía de Durazno
+UC;20;Administración;S
+::;9;Jefatura de Policía de Durazno;9;Jefatura de Policía de Durazno;20;Administración;S
+UE;10;Jefatura de Policía de Flores
+UC;21;Administración;S
+::;10;Jefatura de Policía de Flores;10;Jefatura de Policía de Flores;21;Administración;S
+UE;11;Jefatura de Policía de Florida
+UC;22;Administración;S
+::;11;Jefatura de Policía de Florida;11;Jefatura de Policía de Florida;22;Administración;S
+UE;12;Jefatura de Policía de Lavalleja
+UC;23;Administración;S
+::;12;Jefatura de Policía de Lavalleja;12;Jefatura de Policía de Lavalleja;23;Administración;S
+UE;13;Jefatura de Policía de Maldonado
+UC;24;Administración;S
+::;13;Jefatura de Policía de Maldonado;13;Jefatura de Policía de Maldonado;24;Administración;S
+UC;25;dfv;S
+::;13;Jefatura de Policía de Maldonado;13;Jefatura de Policía de Maldonado;25;dfv;S
+UC;26;test;S
+::;13;Jefatura de Policía de Maldonado;13;Jefatura de Policía de Maldonado;26;test;S
+UE;14;Jefatura de Policía de Paysandú
+UC;25;Administración;S
+::;14;Jefatura de Policía de Paysandú;14;Jefatura de Policía de Paysandú;25;Administración;S
+UE;15;Jefatura de Policía de Río Negro
+UC;26;Administración;S
+::;15;Jefatura de Policía de Río Negro;15;Jefatura de Policía de Río Negro;26;Administración;S
+UE;16;Jefatura de Policía de Rivera
+UC;27;Administración;S
+::;16;Jefatura de Policía de Rivera;16;Jefatura de Policía de Rivera;27;Administración;S
+UE;17;Jefatura de Policía de Rocha
+UC;28;Administración;S
+::;17;Jefatura de Policía de Rocha;17;Jefatura de Policía de Rocha;28;Administración;S
+UE;18;Jefatura de Policía de Salto
+UC;29;Administración;S
+::;18;Jefatura de Policía de Salto;18;Jefatura de Policía de Salto;29;Administración;S
+UE;19;Jefatura de Policía de San José
+UC;30;Administración;S
+::;19;Jefatura de Policía de San José;19;Jefatura de Policía de San José;30;Administración;S
+UE;20;Jefatura de Policía de Soriano
+UC;31;Administración;S
+::;20;Jefatura de Policía de Soriano;20;Jefatura de Policía de Soriano;31;Administración;S
+UE;21;Jefatura de Policía de Tacuarembó
+UC;32;Administración;S
+::;21;Jefatura de Policía de Tacuarembó;21;Jefatura de Policía de Tacuarembó;32;Administración;S
+UC;33;test 1;N
+::;21;Jefatura de Policía de Tacuarembó;21;Jefatura de Policía de Tacuarembó;33;test 1;N
+UE;22;Jefatura de Policía de Treinta y Tres
+UC;33;Administración;S
+::;22;Jefatura de Policía de Treinta y Tres;22;Jefatura de Policía de Treinta y Tres;33;Administración;S
+UE;23;Dirección Nacional de Policía Caminera
+UC;2;Compras;S
+::;23;Dirección Nacional de Policía Caminera;23;Dirección Nacional de Policía Caminera;2;Compras;S
+UE;24;Dirección Nacional de Bomberos
+UC;35;Proveeduría;S
+::;24;Dirección Nacional de Bomberos;24;Dirección Nacional de Bomberos;35;Proveeduría;S
+UE;25;Dirección Nacional de Asistencia y Seguridad Social Policial
+UC;36;Proveeduría;S
+::;25;Dirección Nacional de Asistencia y Seguridad Social Policial;25;Dirección Nacional de Asistencia y Seguridad Social Policial;36;Proveeduría;S
+UE;26;Instituto Nacional de Rehabilitación
+UC;37;Proveeduría;S
+::;26;Instituto Nacional de Rehabilitación;26;Instituto Nacional de Rehabilitación;37;Proveeduría;S
+UE;27;Dirección Nacional de Información e Inteligencia
+UC;39;NJI;S
+::;27;Dirección Nacional de Información e Inteligencia;27;Dirección Nacional de Información e Inteligencia;39;NJI;S
+UC;38;Proveeduría;S
+::;27;Dirección Nacional de Información e Inteligencia;27;Dirección Nacional de Información e Inteligencia;38;Proveeduría;S
+UE;28;Dirección Nacional de Policia Técnica
+UC;39;Proveeduría;S
+::;28;Dirección Nacional de Policia Técnica;28;Dirección Nacional de Policia Técnica;39;Proveeduría;S
+UC;40;yyuu;S
+::;28;Dirección Nacional de Policia Técnica;28;Dirección Nacional de Policia Técnica;40;yyuu;S
+UE;29;Escuela Nacional de Policía
+UC;40;Proveeduría;S
+::;29;Escuela Nacional de Policía;29;Escuela Nacional de Policía;40;Proveeduría;S
+UE;30;Dirección Nacional de Sanidad Policial
+UC;41;Proveeduría;S
+::;30;Dirección Nacional de Sanidad Policial;30;Dirección Nacional de Sanidad Policial;41;Proveeduría;S
+UE;31;Dirección Nacional de Identificación Civil
+UC;42;Proveeduría;S
+::;31;Dirección Nacional de Identificación Civil;31;Dirección Nacional de Identificación Civil;42;Proveeduría;S
+UE;32;Dirección Nacional de Prevención Social del Delito
+UC;1;Compras;S
+::;32;Dirección Nacional de Prevención Social del Delito;32;Dirección Nacional de Prevención Social del Delito;1;Compras;S
+UE;33;Guardia Republicana
+IN;5;Ministerio de Economía y Finanzas
+UE;1;Dir. Gral. Secretaría del  Mrio. de Economía y Finanzas
+UC;66;Departamento de Recursos materiales y servicios;S
+::;1;Dir. Gral. Secretaría del  Mrio. de Economía y Finanzas;1;Dir. Gral. Secretaría del  Mrio. de Economía y Finanzas;66;Departamento de Recursos materiales y servicios;S
+UC;68;escudero;S
+::;1;Dir. Gral. Secretaría del  Mrio. de Economía y Finanzas;1;Dir. Gral. Secretaría del  Mrio. de Economía y Finanzas;68;escudero;S
+UC;1;UCA;S
+::;1;Dir. Gral. Secretaría del  Mrio. de Economía y Finanzas;1;Dir. Gral. Secretaría del  Mrio. de Economía y Finanzas;1;UCA;S
+UC;67;vallll;S
+::;1;Dir. Gral. Secretaría del  Mrio. de Economía y Finanzas;1;Dir. Gral. Secretaría del  Mrio. de Economía y Finanzas;67;vallll;S
+UE;2;Contaduría General de la Nación
+UC;67;Compras;S
+::;2;Contaduría General de la Nación;2;Contaduría General de la Nación;67;Compras;S
+UC;70;doble;S
+::;2;Contaduría General de la Nación;2;Contaduría General de la Nación;70;doble;S
+UC;71;nm;S
+::;2;Contaduría General de la Nación;2;Contaduría General de la Nación;71;nm;S
+UC;68;Para test 1;S
+::;2;Contaduría General de la Nación;2;Contaduría General de la Nación;68;Para test 1;S
+UC;2;UCAMAE;S
+::;2;Contaduría General de la Nación;2;Contaduría General de la Nación;2;UCAMAE;S
+UC;69;UCC VV;N
+::;2;Contaduría General de la Nación;2;Contaduría General de la Nación;69;UCC VV;N
+UE;3;Auditoría Interna de la Nación
+UC;72;Para test;N
+::;3;Auditoría Interna de la Nación;3;Auditoría Interna de la Nación;72;Para test;N
+UC;71;Sección Contaduría;S
+::;3;Auditoría Interna de la Nación;3;Auditoría Interna de la Nación;71;Sección Contaduría;S
+UC;74;test2;S
+::;3;Auditoría Interna de la Nación;3;Auditoría Interna de la Nación;74;test2;S
+UC;75;test3 m;S
+::;3;Auditoría Interna de la Nación;3;Auditoría Interna de la Nación;75;test3 m;S
+UC;76;test4;N
+::;3;Auditoría Interna de la Nación;3;Auditoría Interna de la Nación;76;test4;N
+UE;4;Tesorería General de la Nación
+UC;1;Compras;S
+::;4;Tesorería General de la Nación;4;Tesorería General de la Nación;1;Compras;S
+UC;2;Para test;S
+::;4;Tesorería General de la Nación;4;Tesorería General de la Nación;2;Para test;S
+UE;5;Dirección General Impositiva
+UC;103;?¿';S
+::;5;Dirección General Impositiva;5;Dirección General Impositiva;103;?¿';S
+UC;105;cc;N
+::;5;Dirección General Impositiva;5;Dirección General Impositiva;105;cc;N
+UC;106;cccrrr;N
+::;5;Dirección General Impositiva;5;Dirección General Impositiva;106;cccrrr;N
+UC;101;Compras;S
+::;5;Dirección General Impositiva;5;Dirección General Impositiva;101;Compras;S
+UC;104;Compras (CURSO) ;N
+::;5;Dirección General Impositiva;5;Dirección General Impositiva;104;Compras (CURSO) ;N
+UC;100;Compras (NS);N
+::;5;Dirección General Impositiva;5;Dirección General Impositiva;100;Compras (NS);N
+UC;69;Departamento de Contrataciones y Suministros;S
+::;5;Dirección General Impositiva;5;Dirección General Impositiva;69;Departamento de Contrataciones y Suministros;S
+UC;86;FEDE;S
+::;5;Dirección General Impositiva;5;Dirección General Impositiva;86;FEDE;S
+UC;1111;FEDE TEST 4 DIGITOS;S
+::;5;Dirección General Impositiva;5;Dirección General Impositiva;1111;FEDE TEST 4 DIGITOS;S
+UC;96;FEDERRICOR;S
+::;5;Dirección General Impositiva;5;Dirección General Impositiva;96;FEDERRICOR;S
+UC;83;jv;N
+::;5;Dirección General Impositiva;5;Dirección General Impositiva;83;jv;N
+UC;76;karina test;N
+::;5;Dirección General Impositiva;5;Dirección General Impositiva;76;karina test;N
+UC;88;MULTIPLE_TEST_1;N
+::;5;Dirección General Impositiva;5;Dirección General Impositiva;88;MULTIPLE_TEST_1;N
+UC;89;MULTIPLE_TEST_2;N
+::;5;Dirección General Impositiva;5;Dirección General Impositiva;89;MULTIPLE_TEST_2;N
+UC;82;nn;S
+::;5;Dirección General Impositiva;5;Dirección General Impositiva;82;nn;S
+UC;98;NO INTERRELACION;N
+::;5;Dirección General Impositiva;5;Dirección General Impositiva;98;NO INTERRELACION;N
+UC;91;PARA TEST BANDERA NO;N
+::;5;Dirección General Impositiva;5;Dirección General Impositiva;91;PARA TEST BANDERA NO;N
+UC;90;PARA TEST BANDERA SI;S
+::;5;Dirección General Impositiva;5;Dirección General Impositiva;90;PARA TEST BANDERA SI;S
+UC;95;PUNTO UPD;S
+::;5;Dirección General Impositiva;5;Dirección General Impositiva;95;PUNTO UPD;S
+UC;94;PUNTO 217;S
+::;5;Dirección General Impositiva;5;Dirección General Impositiva;94;PUNTO 217;S
+UC;87;PUNTO22;N
+::;5;Dirección General Impositiva;5;Dirección General Impositiva;87;PUNTO22;N
+UC;85;sss;S
+::;5;Dirección General Impositiva;5;Dirección General Impositiva;85;sss;S
+UC;92;TEST PUNTO 26;S
+::;5;Dirección General Impositiva;5;Dirección General Impositiva;92;TEST PUNTO 26;S
+UC;93;TEST PUNTO 26 2;N
+::;5;Dirección General Impositiva;5;Dirección General Impositiva;93;TEST PUNTO 26 2;N
+UC;74;UC DE FEDE;S
+::;5;Dirección General Impositiva;5;Dirección General Impositiva;74;UC DE FEDE;S
+UC;71;UC DE FEDERICO CON INT;S
+::;5;Dirección General Impositiva;5;Dirección General Impositiva;71;UC DE FEDERICO CON INT;S
+UC;73;UC DE FEDERICO SIN INT;N
+::;5;Dirección General Impositiva;5;Dirección General Impositiva;73;UC DE FEDERICO SIN INT;N
+UC;80;vare;S
+::;5;Dirección General Impositiva;5;Dirección General Impositiva;80;vare;S
+UC;72;VIVIANA SIN INTERRELACIÓN;N
+::;5;Dirección General Impositiva;5;Dirección General Impositiva;72;VIVIANA SIN INTERRELACIÓN;N
+UC;81;vv;S
+::;5;Dirección General Impositiva;5;Dirección General Impositiva;81;vv;S
+UC;99;VVV;S
+::;5;Dirección General Impositiva;5;Dirección General Impositiva;99;VVV;S
+UE;7;Dirección Nacional de Aduanas
+UC;3;sofitest;S
+::;7;Dirección Nacional de Aduanas;7;Dirección Nacional de Aduanas;3;sofitest;S
+UC;2;Unidad Abastecimiento;S
+::;7;Dirección Nacional de Aduanas;7;Dirección Nacional de Aduanas;2;Unidad Abastecimiento;S
+UE;8;Dirección Nacional de Loterías y Quinielas
+UC;72;División Servicios Generales;S
+::;8;Dirección Nacional de Loterías y Quinielas;8;Dirección Nacional de Loterías y Quinielas;72;División Servicios Generales;S
+UE;9;Dirección Nacional de Catastro
+UC;70;Departamento de Compras;S
+::;9;Dirección Nacional de Catastro;9;Dirección Nacional de Catastro;70;Departamento de Compras;S
+UC;71;test 22/6;S
+::;9;Dirección Nacional de Catastro;9;Dirección Nacional de Catastro;71;test 22/6;S
+UE;11;Secretaría Administrativa del Grupo Mercado Común
+UE;13;Dirección General de Casinos
+UC;1;Adquisiciones;S
+::;13;Dirección General de Casinos;13;Dirección General de Casinos;1;Adquisiciones;S
+UE;14;Dirección General de Comercio
+UC;68;Departamento de Compras;S
+::;14;Dirección General de Comercio;14;Dirección General de Comercio;68;Departamento de Compras;S
+UC;69;test 22/6;S
+::;14;Dirección General de Comercio;14;Dirección General de Comercio;69;test 22/6;S
+IN;6;Ministerio de Relaciones Exteriores
+UE;1;Ministerio de Relaciones Exteriores
+UC;1;Compras;S
+::;1;Ministerio de Relaciones Exteriores;1;Ministerio de Relaciones Exteriores;1;Compras;S
+UC;3;Contrataciones-Protocolo;S
+::;1;Ministerio de Relaciones Exteriores;1;Ministerio de Relaciones Exteriores;3;Contrataciones-Protocolo;S
+UC;2;Pasajes y Viaticos;S
+::;1;Ministerio de Relaciones Exteriores;1;Ministerio de Relaciones Exteriores;2;Pasajes y Viaticos;S
+UC;4;pp;S
+::;1;Ministerio de Relaciones Exteriores;1;Ministerio de Relaciones Exteriores;4;pp;S
+IN;7;Ministerio de Ganadería, Agricultura y Pesca
+UE;1;Dirección General de Secretaría
+UC;4;Departamento de Adquisiciones;S
+::;1;Dirección General de Secretaría;1;Dirección General de Secretaría;4;Departamento de Adquisiciones;S
+UC;1;PAEFA;S
+::;1;Dirección General de Secretaría;1;Dirección General de Secretaría;1;PAEFA;S
+UC;11;Proyecto Ganadero;S
+::;1;Dirección General de Secretaría;1;Dirección General de Secretaría;11;Proyecto Ganadero;S
+UC;10;Servicios Agropecuarios;S
+::;1;Dirección General de Secretaría;1;Dirección General de Secretaría;10;Servicios Agropecuarios;S
+UC;12;Uruguay Rural;S
+::;1;Dirección General de Secretaría;1;Dirección General de Secretaría;12;Uruguay Rural;S
+UE;2;Dir.Nal. de Rec.Acuáticos(Ex-INAPE)
+UC;5;Compras;S
+::;2;Dir.Nal. de Rec.Acuáticos(Ex-INAPE);2;Dir.Nal. de Rec.Acuáticos(Ex-INAPE);5;Compras;S
+UE;3;Dirección General de Recursos Naturales Renovables
+UC;6;Compras;S
+::;3;Dirección General de Recursos Naturales Renovables;3;Dirección General de Recursos Naturales Renovables;6;Compras;S
+UE;4;Dirección General de Servicios Agrícolas
+UC;7;Proveeduría;S
+::;4;Dirección General de Servicios Agrícolas;4;Dirección General de Servicios Agrícolas;7;Proveeduría;S
+UE;5;Dirección General de Servicios Ganaderos
+UC;9;DI.CO.SE. - Sector Adquisiciones;S
+::;5;Dirección General de Servicios Ganaderos;5;Dirección General de Servicios Ganaderos;9;DI.CO.SE. - Sector Adquisiciones;S
+UC;8;DILAVE - Sección Proveeduría;S
+::;5;Dirección General de Servicios Ganaderos;5;Dirección General de Servicios Ganaderos;8;DILAVE - Sección Proveeduría;S
+UC;14;Dirección General de Servicios Ganaderos;S
+::;5;Dirección General de Servicios Ganaderos;5;Dirección General de Servicios Ganaderos;14;Dirección General de Servicios Ganaderos;S
+UC;13;División Industria Animal;S
+::;5;Dirección General de Servicios Ganaderos;5;Dirección General de Servicios Ganaderos;13;División Industria Animal;S
+UC;12;División Sanidad Animal;S
+::;5;Dirección General de Servicios Ganaderos;5;Dirección General de Servicios Ganaderos;12;División Sanidad Animal;S
+UC;11;Financiero  Contable;S
+::;5;Dirección General de Servicios Ganaderos;5;Dirección General de Servicios Ganaderos;11;Financiero  Contable;S
+UC;7;Proyecto PAEFA;S
+::;5;Dirección General de Servicios Ganaderos;5;Dirección General de Servicios Ganaderos;7;Proyecto PAEFA;S
+UC;10;Servicios Agropecuarios;S
+::;5;Dirección General de Servicios Ganaderos;5;Dirección General de Servicios Ganaderos;10;Servicios Agropecuarios;S
+UE;6;Dirección General de la Granja
+UC;10;Proveeduría;N
+::;6;Dirección General de la Granja;6;Dirección General de la Granja;10;Proveeduría;N
+UE;7;Dirección Gral .Desarr.Rural
+UC;11;Proveeduría;S
+::;7;Dirección Gral .Desarr.Rural;7;Dirección Gral .Desarr.Rural;11;Proveeduría;S
+UE;8;Dirección General Forestal
+UC;1;Compras;S
+::;8;Dirección General Forestal;8;Dirección General Forestal;1;Compras;S
+IN;8;Ministerio de Industria, Energía  y Minería
+UE;1;Dirección General de Secretaría
+UC;59;Administración y Proveeduría;S
+::;1;Dirección General de Secretaría;1;Dirección General de Secretaría;59;Administración y Proveeduría;S
+UE;2;Dirección Nacional de Industrias
+UC;60;Administración y Proveedurías;S
+::;2;Dirección Nacional de Industrias;2;Dirección Nacional de Industrias;60;Administración y Proveedurías;S
+UC;61;Prueba3;S
+::;2;Dirección Nacional de Industrias;2;Dirección Nacional de Industrias;61;Prueba3;S
+UE;4;Dirección Nacional de la Propiedad Industrial
+UC;61;Administración y Proveeduría;S
+::;4;Dirección Nacional de la Propiedad Industrial;4;Dirección Nacional de la Propiedad Industrial;61;Administración y Proveeduría;S
+UE;7;Dirección Nacional de Minería y Geología
+UC;62;Administración y Proveeduría;S
+::;7;Dirección Nacional de Minería y Geología;7;Dirección Nacional de Minería y Geología;62;Administración y Proveeduría;S
+UE;8;Dirección Nacional de Energía
+UC;63;Administración y Proveeduría;S
+::;8;Dirección Nacional de Energía;8;Dirección Nacional de Energía;63;Administración y Proveeduría;S
+UE;9;Dirección Nacional de Artesanías y Pequeñas y Medianas Empre
+UC;64;Administración y Proveeduría;S
+::;9;Dirección Nacional de Artesanías y Pequeñas y Medianas Empre;9;Dirección Nacional de Artesanías y Pequeñas y Medianas Empre;64;Administración y Proveeduría;S
+UE;10;Dir. Nal. de Telecom.y Serv.comun.audiovisual
+UC;1;Administración y Proveduria;N
+::;10;Dir. Nal. de Telecom.y Serv.comun.audiovisual;10;Dir. Nal. de Telecom.y Serv.comun.audiovisual;1;Administración y Proveduria;N
+UE;11;Autoridad Reguladora Nacional en Radioprotección
+UC;65;Administración y Proveeduría;S
+::;11;Autoridad Reguladora Nacional en Radioprotección;11;Autoridad Reguladora Nacional en Radioprotección;65;Administración y Proveeduría;S
+IN;9;Ministerio de Turismo y Deporte
+UE;1;Dirección General de Secretaría
+UC;132;Administración;S
+::;1;Dirección General de Secretaría;1;Dirección General de Secretaría;132;Administración;S
+UC;137;Compras (CURSO);N
+::;1;Dirección General de Secretaría;1;Dirección General de Secretaría;137;Compras (CURSO);N
+UC;134;Contrataciones;S
+::;1;Dirección General de Secretaría;1;Dirección General de Secretaría;134;Contrataciones;S
+UC;135;Financiero Contable;S
+::;1;Dirección General de Secretaría;1;Dirección General de Secretaría;135;Financiero Contable;S
+UC;133;Proveeduría;S
+::;1;Dirección General de Secretaría;1;Dirección General de Secretaría;133;Proveeduría;S
+UC;136;Unidad de Prueba;N
+::;1;Dirección General de Secretaría;1;Dirección General de Secretaría;136;Unidad de Prueba;N
+UE;2;Dirección Nacional de Deporte
+UC;2;Compras;S
+::;2;Dirección Nacional de Deporte;2;Dirección Nacional de Deporte;2;Compras;S
+IN;10;Ministerio de Transporte y Obras Públicas
+UE;1;Despacho de la Secretaría  Estado y Oficinas Dependientes
+UC;999;Compras;S
+::;1;Despacho de la Secretaría  Estado y Oficinas Dependientes;1;Despacho de la Secretaría  Estado y Oficinas Dependientes;999;Compras;S
+UE;2;Registro Nacional de Empresas de Obras Públicas
+UE;3;Dirección Nacional de Vialidad
+UC;148;Proveeduría;N
+::;3;Dirección Nacional de Vialidad;3;Dirección Nacional de Vialidad;148;Proveeduría;N
+UE;4;Dirección Nacional de Hidrografía
+UC;999;Compras;S
+::;4;Dirección Nacional de Hidrografía;4;Dirección Nacional de Hidrografía;999;Compras;S
+UE;5;Dirección Nacional de Arquitectura
+UC;1;Compras;N
+::;5;Dirección Nacional de Arquitectura;5;Dirección Nacional de Arquitectura;1;Compras;N
+UC;2;vvv;S
+::;5;Dirección Nacional de Arquitectura;5;Dirección Nacional de Arquitectura;2;vvv;S
+UE;6;Dirección Nacional de Topografía
+UC;1;Departamento Gestión Expropiatoria;S
+::;6;Dirección Nacional de Topografía;6;Dirección Nacional de Topografía;1;Departamento Gestión Expropiatoria;S
+UE;7;Dirección Nacional de Transporte
+UC;99;Dpto. Administración Sección Proveeduría;S
+::;7;Dirección Nacional de Transporte;7;Dirección Nacional de Transporte;99;Dpto. Administración Sección Proveeduría;S
+UC;2;Organo de Control de Transporte de carga;S
+::;7;Dirección Nacional de Transporte;7;Dirección Nacional de Transporte;2;Organo de Control de Transporte de carga;S
+UC;101;Regional Chuy;S
+::;7;Dirección Nacional de Transporte;7;Dirección Nacional de Transporte;101;Regional Chuy;S
+UC;103;Regional Colonia;S
+::;7;Dirección Nacional de Transporte;7;Dirección Nacional de Transporte;103;Regional Colonia;S
+UC;102;Regional Lavalleja;S
+::;7;Dirección Nacional de Transporte;7;Dirección Nacional de Transporte;102;Regional Lavalleja;S
+UC;106;Regional Paysandú;S
+::;7;Dirección Nacional de Transporte;7;Dirección Nacional de Transporte;106;Regional Paysandú;S
+UC;104;Regional Río Branco;S
+::;7;Dirección Nacional de Transporte;7;Dirección Nacional de Transporte;104;Regional Río Branco;S
+UC;105;Regional Río Negro;S
+::;7;Dirección Nacional de Transporte;7;Dirección Nacional de Transporte;105;Regional Río Negro;S
+UC;100;Regional Rivera;S
+::;7;Dirección Nacional de Transporte;7;Dirección Nacional de Transporte;100;Regional Rivera;S
+UE;9;Dirección Nacional de Inversiones y Planificación
+IN;11;Ministerio de Educación y Cultura
+UE;1;Dirección General de Secretaría
+UC;43;Proveeduría;S
+::;1;Dirección General de Secretaría;1;Dirección General de Secretaría;43;Proveeduría;S
+UE;3;Dirección Nacional de Cultura
+UC;1;Compras;S
+::;3;Dirección Nacional de Cultura;3;Dirección Nacional de Cultura;1;Compras;S
+UE;4;Museo Histórico Nacional
+UC;44;Proveeduría;S
+::;4;Museo Histórico Nacional;4;Museo Histórico Nacional;44;Proveeduría;S
+UE;6;Museo Nacional de Historia Natural y Antropología
+UC;45;Contaduría;S
+::;6;Museo Nacional de Historia Natural y Antropología;6;Museo Nacional de Historia Natural y Antropología;45;Contaduría;S
+UE;7;Archivo General de la Nación
+UC;46;Compras;S
+::;7;Archivo General de la Nación;7;Archivo General de la Nación;46;Compras;S
+UE;8;Comisión del Patrimonio Cultural de la Nación
+UC;47;Proveeduría;S
+::;8;Comisión del Patrimonio Cultural de la Nación;8;Comisión del Patrimonio Cultural de la Nación;47;Proveeduría;S
+UE;10;Museo Nacional de Artes Visuales
+UC;48;Financiero Contable;S
+::;10;Museo Nacional de Artes Visuales;10;Museo Nacional de Artes Visuales;48;Financiero Contable;S
+UE;11;Instituto de Investigaciones Biológicas Clemente Estable
+UC;49;Proveeduría;S
+::;11;Instituto de Investigaciones Biológicas Clemente Estable;11;Instituto de Investigaciones Biológicas Clemente Estable;49;Proveeduría;S
+UE;12;Direc.de Innovación,Ciencia y Tecnología para el Desarrollo
+UC;50;Administración y Finanzas;S
+::;12;Direc.de Innovación,Ciencia y Tecnología para el Desarrollo;12;Direc.de Innovación,Ciencia y Tecnología para el Desarrollo;50;Administración y Finanzas;S
+UE;13;Ex-Comisión Nacional de Educación Física NO VIGENTE
+UC;51;Adquisiciones;N
+::;13;Ex-Comisión Nacional de Educación Física NO VIGENTE;13;Ex-Comisión Nacional de Educación Física NO VIGENTE;51;Adquisiciones;N
+UE;15;Dirección General de la Biblioteca Nacional
+UC;52;Proveeduría;S
+::;15;Dirección General de la Biblioteca Nacional;15;Dirección General de la Biblioteca Nacional;52;Proveeduría;S
+UE;16;Serv. Oficial Difusión, Radiotelevisión, Espectáculos
+UC;53;Compras;S
+::;16;Serv. Oficial Difusión, Radiotelevisión, Espectáculos;16;Serv. Oficial Difusión, Radiotelevisión, Espectáculos;53;Compras;S
+UE;17;Fiscalías de Gobierno de Primer y Segundo Turno
+UC;54;Contaduría;S
+::;17;Fiscalías de Gobierno de Primer y Segundo Turno;17;Fiscalías de Gobierno de Primer y Segundo Turno;54;Contaduría;S
+UE;18;Dirección General de Registros
+UC;55;Proveeduría;S
+::;18;Dirección General de Registros;18;Dirección General de Registros;55;Proveeduría;S
+UE;19;Fiscalía de Corte, Procuraduría General de la Nación
+UC;56;Proveeduría;S
+::;19;Fiscalía de Corte, Procuraduría General de la Nación;19;Fiscalía de Corte, Procuraduría General de la Nación;56;Proveeduría;S
+UE;20;Procuraduría Estado en Contencioso-Administrativo
+UC;57;Proveeduría;S
+::;20;Procuraduría Estado en Contencioso-Administrativo;20;Procuraduría Estado en Contencioso-Administrativo;57;Proveeduría;S
+UE;21;Dirección General del Registro de Estado Civil
+UC;58;Proveeduría;S
+::;21;Dirección General del Registro de Estado Civil;21;Dirección General del Registro de Estado Civil;58;Proveeduría;S
+UE;22;Junta de Transparencia y Etica Pública-JUTEP
+UC;1;Compras;S
+::;22;Junta de Transparencia y Etica Pública-JUTEP;22;Junta de Transparencia y Etica Pública-JUTEP;1;Compras;S
+UC;2;COMPRAS (NS);N
+::;22;Junta de Transparencia y Etica Pública-JUTEP;22;Junta de Transparencia y Etica Pública-JUTEP;2;COMPRAS (NS);N
+UE;23;Dir.Nal.Biblio.Arch.y Museos Hist.
+UE;24;Canal 5 - Servicio de Televisión Nacional
+UC;1;Comprass;S
+::;24;Canal 5 - Servicio de Televisión Nacional;24;Canal 5 - Servicio de Televisión Nacional;1;Comprass;S
+IN;12;Ministerio de Salud Pública
+UE;1;Dirección General de Secretaría
+UC;31;A. Integral Centro Auxiliar de Aiguá;S
+::;1;Dirección General de Secretaría;1;Dirección General de Secretaría;31;A. Integral Centro Auxiliar de Aiguá;S
+UC;40;A. Integral Centro Auxiliar de Batlle y Ordoñez;S
+::;1;Dirección General de Secretaría;1;Dirección General de Secretaría;40;A. Integral Centro Auxiliar de Batlle y Ordoñez;S
+UC;32;A. Integral Centro Auxiliar de Bella Unión;S
+::;1;Dirección General de Secretaría;1;Dirección General de Secretaría;32;A. Integral Centro Auxiliar de Bella Unión;S
+UC;33;A. Integral Centro Auxiliar de Cardona y Florencio Sánchez;S
+::;1;Dirección General de Secretaría;1;Dirección General de Secretaría;33;A. Integral Centro Auxiliar de Cardona y Florencio Sánchez;S
+UC;34;A. Integral Centro Auxiliar de Carmelo;S
+::;1;Dirección General de Secretaría;1;Dirección General de Secretaría;34;A. Integral Centro Auxiliar de Carmelo;S
+UC;35;A. Integral Centro Auxiliar de Castillos;S
+::;1;Dirección General de Secretaría;1;Dirección General de Secretaría;35;A. Integral Centro Auxiliar de Castillos;S
+UC;36;A. Integral Centro Auxiliar de Cerro Chato;S
+::;1;Dirección General de Secretaría;1;Dirección General de Secretaría;36;A. Integral Centro Auxiliar de Cerro Chato;S
+UC;37;A. Integral Centro Auxiliar de Dolores;S
+::;1;Dirección General de Secretaría;1;Dirección General de Secretaría;37;A. Integral Centro Auxiliar de Dolores;S
+UC;39;A. Integral Centro Auxiliar de Guichón;S
+::;1;Dirección General de Secretaría;1;Dirección General de Secretaría;39;A. Integral Centro Auxiliar de Guichón;S
+UC;41;A. Integral Centro Auxiliar de Juan Lacaze;S
+::;1;Dirección General de Secretaría;1;Dirección General de Secretaría;41;A. Integral Centro Auxiliar de Juan Lacaze;S
+UC;69;A. Integral Centro Auxiliar de la Ciudad de la Costa;S
+::;1;Dirección General de Secretaría;1;Dirección General de Secretaría;69;A. Integral Centro Auxiliar de la Ciudad de la Costa;S
+UC;60;A. Integral Centro Auxiliar de las Piedras;S
+::;1;Dirección General de Secretaría;1;Dirección General de Secretaría;60;A. Integral Centro Auxiliar de las Piedras;S
+UC;42;A. Integral Centro Auxiliar de Lascano;S
+::;1;Dirección General de Secretaría;1;Dirección General de Secretaría;42;A. Integral Centro Auxiliar de Lascano;S
+UC;43;A. Integral Centro Auxiliar de Libertad;S
+::;1;Dirección General de Secretaría;1;Dirección General de Secretaría;43;A. Integral Centro Auxiliar de Libertad;S
+UC;44;A. Integral Centro Auxiliar de Minas de Corrales;S
+::;1;Dirección General de Secretaría;1;Dirección General de Secretaría;44;A. Integral Centro Auxiliar de Minas de Corrales;S
+UC;45;A. Integral Centro Auxiliar de Nueva Helvecia;S
+::;1;Dirección General de Secretaría;1;Dirección General de Secretaría;45;A. Integral Centro Auxiliar de Nueva Helvecia;S
+UC;46;A. Integral Centro Auxiliar de Nueva Palmira;S
+::;1;Dirección General de Secretaría;1;Dirección General de Secretaría;46;A. Integral Centro Auxiliar de Nueva Palmira;S
+UC;47;A. Integral Centro Auxiliar de Pan de Azúcar;S
+::;1;Dirección General de Secretaría;1;Dirección General de Secretaría;47;A. Integral Centro Auxiliar de Pan de Azúcar;S
+UC;48;A. Integral Centro Auxiliar de Pando;S
+::;1;Dirección General de Secretaría;1;Dirección General de Secretaría;48;A. Integral Centro Auxiliar de Pando;S
+UC;49;A. Integral Centro Auxiliar de Paso de los Toros;S
+::;1;Dirección General de Secretaría;1;Dirección General de Secretaría;49;A. Integral Centro Auxiliar de Paso de los Toros;S
+UC;68;A. Integral Centro Auxiliar de Rincón de la Bolsa;S
+::;1;Dirección General de Secretaría;1;Dirección General de Secretaría;68;A. Integral Centro Auxiliar de Rincón de la Bolsa;S
+UC;50;A. Integral Centro Auxiliar de Río Branco;S
+::;1;Dirección General de Secretaría;1;Dirección General de Secretaría;50;A. Integral Centro Auxiliar de Río Branco;S
+UC;51;A. Integral Centro Auxiliar de Rosario;S
+::;1;Dirección General de Secretaría;1;Dirección General de Secretaría;51;A. Integral Centro Auxiliar de Rosario;S
+UC;52;A. Integral Centro Auxiliar de San Carlos;S
+::;1;Dirección General de Secretaría;1;Dirección General de Secretaría;52;A. Integral Centro Auxiliar de San Carlos;S
+UC;53;A. Integral Centro Auxiliar de San Gregorio de Polanco;S
+::;1;Dirección General de Secretaría;1;Dirección General de Secretaría;53;A. Integral Centro Auxiliar de San Gregorio de Polanco;S
+UC;54;A. Integral Centro Auxiliar de San Ramón;S
+::;1;Dirección General de Secretaría;1;Dirección General de Secretaría;54;A. Integral Centro Auxiliar de San Ramón;S
+UC;55;A. Integral Centro Auxiliar de Santa Lucía;S
+::;1;Dirección General de Secretaría;1;Dirección General de Secretaría;55;A. Integral Centro Auxiliar de Santa Lucía;S
+UC;57;A. Integral Centro Auxiliar de Sarandí del Yí;S
+::;1;Dirección General de Secretaría;1;Dirección General de Secretaría;57;A. Integral Centro Auxiliar de Sarandí del Yí;S
+UC;56;A. Integral Centro Auxiliar de Sarandí Grande;S
+::;1;Dirección General de Secretaría;1;Dirección General de Secretaría;56;A. Integral Centro Auxiliar de Sarandí Grande;S
+UC;58;A. Integral Centro Auxiliar de Tala;S
+::;1;Dirección General de Secretaría;1;Dirección General de Secretaría;58;A. Integral Centro Auxiliar de Tala;S
+UC;59;A. Integral Centro Auxiliar de Vergara;S
+::;1;Dirección General de Secretaría;1;Dirección General de Secretaría;59;A. Integral Centro Auxiliar de Vergara;S
+UC;38;A. Integral Centro Auxiliar de Young;S
+::;1;Dirección General de Secretaría;1;Dirección General de Secretaría;38;A. Integral Centro Auxiliar de Young;S
+UC;67;A. Integral Centro Auxiliar del Chuy;S
+::;1;Dirección General de Secretaría;1;Dirección General de Secretaría;67;A. Integral Centro Auxiliar del Chuy;S
+UC;14;A. Integral Centro Departamental de Canelones;S
+::;1;Dirección General de Secretaría;1;Dirección General de Secretaría;14;A. Integral Centro Departamental de Canelones;S
+UC;15;A. Integral Centro Departamental de Cerro Largo;S
+::;1;Dirección General de Secretaría;1;Dirección General de Secretaría;15;A. Integral Centro Departamental de Cerro Largo;S
+UC;17;A. Integral Centro Departamental de Durazno;S
+::;1;Dirección General de Secretaría;1;Dirección General de Secretaría;17;A. Integral Centro Departamental de Durazno;S
+UC;18;A. Integral Centro Departamental de Flores;S
+::;1;Dirección General de Secretaría;1;Dirección General de Secretaría;18;A. Integral Centro Departamental de Flores;S
+UC;20;A. Integral Centro Departamental de Lavalleja;S
+::;1;Dirección General de Secretaría;1;Dirección General de Secretaría;20;A. Integral Centro Departamental de Lavalleja;S
+UC;21;A. Integral Centro Departamental de Maldonado;S
+::;1;Dirección General de Secretaría;1;Dirección General de Secretaría;21;A. Integral Centro Departamental de Maldonado;S
+UC;22;A. Integral Centro Departamental de Paysandú;S
+::;1;Dirección General de Secretaría;1;Dirección General de Secretaría;22;A. Integral Centro Departamental de Paysandú;S
+UC;24;A. Integral Centro Departamental de Río Negro;S
+::;1;Dirección General de Secretaría;1;Dirección General de Secretaría;24;A. Integral Centro Departamental de Río Negro;S
+UC;23;A. Integral Centro Departamental de Rivera;S
+::;1;Dirección General de Secretaría;1;Dirección General de Secretaría;23;A. Integral Centro Departamental de Rivera;S
+UC;25;A. Integral Centro Departamental de Rocha;S
+::;1;Dirección General de Secretaría;1;Dirección General de Secretaría;25;A. Integral Centro Departamental de Rocha;S
+UC;26;A. Integral Centro Departamental de Salto;S
+::;1;Dirección General de Secretaría;1;Dirección General de Secretaría;26;A. Integral Centro Departamental de Salto;S
+UC;16;A. Integral Centro Departamental de Salud Pública de Colonia;S
+::;1;Dirección General de Secretaría;1;Dirección General de Secretaría;16;A. Integral Centro Departamental de Salud Pública de Colonia;S
+UC;27;A. Integral Centro Departamental de San José;S
+::;1;Dirección General de Secretaría;1;Dirección General de Secretaría;27;A. Integral Centro Departamental de San José;S
+UC;28;A. Integral Centro Departamental de Soriano;S
+::;1;Dirección General de Secretaría;1;Dirección General de Secretaría;28;A. Integral Centro Departamental de Soriano;S
+UC;29;A. Integral Centro Departamental de Tacuarembó;S
+::;1;Dirección General de Secretaría;1;Dirección General de Secretaría;29;A. Integral Centro Departamental de Tacuarembó;S
+UC;30;A. Integral Centro Departamental de Treinta y Tres;S
+::;1;Dirección General de Secretaría;1;Dirección General de Secretaría;30;A. Integral Centro Departamental de Treinta y Tres;S
+UC;64;A. Integral Colonia  Dr. Santín Carlos Rossi;S
+::;1;Dirección General de Secretaría;1;Dirección General de Secretaría;64;A. Integral Colonia  Dr. Santín Carlos Rossi;S
+UC;12;A. Integral Colonia de Asist. Siquiatrica Dr. Bernado Etchepare;S
+::;1;Dirección General de Secretaría;1;Dirección General de Secretaría;12;A. Integral Colonia de Asist. Siquiatrica Dr. Bernado Etchepare;S
+UC;65;A. Integral Dirección General de la Salud;S
+::;1;Dirección General de Secretaría;1;Dirección General de Secretaría;65;A. Integral Dirección General de la Salud;S
+UC;2;A. Integral Dirección General de Secretaría;S
+::;1;Dirección General de Secretaría;1;Dirección General de Secretaría;2;A. Integral Dirección General de Secretaría;S
+UC;61;A. Integral Hospital Centro Geriátrico Dr. L. Piñeyro del Campo;S
+::;1;Dirección General de Secretaría;1;Dirección General de Secretaría;61;A. Integral Hospital Centro Geriátrico Dr. L. Piñeyro del Campo;S
+UC;5;A. Integral Hospital Maciel;S
+::;1;Dirección General de Secretaría;1;Dirección General de Secretaría;5;A. Integral Hospital Maciel;S
+UC;6;A. Integral Hospital Pasteur;S
+::;1;Dirección General de Secretaría;1;Dirección General de Secretaría;6;A. Integral Hospital Pasteur;S
+UC;7;A. Integral Hospital Vilardebó;S
+::;1;Dirección General de Secretaría;1;Dirección General de Secretaría;7;A. Integral Hospital Vilardebó;S
+UC;66;A. Integral Inst. Nacional Don.y Transp.Cél. Tej. Or.;S
+::;1;Dirección General de Secretaría;1;Dirección General de Secretaría;66;A. Integral Inst. Nacional Don.y Transp.Cél. Tej. Or.;S
+UC;9;A. Integral Instituto Nacional de Ortopedia y Traumatología;S
+::;1;Dirección General de Secretaría;1;Dirección General de Secretaría;9;A. Integral Instituto Nacional de Ortopedia y Traumatología;S
+UC;10;A. Integral Instituto Nacional de Reumatología;S
+::;1;Dirección General de Secretaría;1;Dirección General de Secretaría;10;A. Integral Instituto Nacional de Reumatología;S
+UC;62;A. Integral Laboratorio Químico Industrial Francisco Dorrego;S
+::;1;Dirección General de Secretaría;1;Dirección General de Secretaría;62;A. Integral Laboratorio Químico Industrial Francisco Dorrego;S
+UC;3;A. Integral Red de Atención 1er. Nivel. ASSE;S
+::;1;Dirección General de Secretaría;1;Dirección General de Secretaría;3;A. Integral Red de Atención 1er. Nivel. ASSE;S
+UC;63;A. Integral Servicio Nacional de Sangre;S
+::;1;Dirección General de Secretaría;1;Dirección General de Secretaría;63;A. Integral Servicio Nacional de Sangre;S
+UC;13;A.Integral Centro Departamental de Artigas;S
+::;1;Dirección General de Secretaría;1;Dirección General de Secretaría;13;A.Integral Centro Departamental de Artigas;S
+UC;19;A.Integral Centro Departamental de Florida;S
+::;1;Dirección General de Secretaría;1;Dirección General de Secretaría;19;A.Integral Centro Departamental de Florida;S
+UC;11;A.Integral Hospital Saint Bois;S
+::;1;Dirección General de Secretaría;1;Dirección General de Secretaría;11;A.Integral Hospital Saint Bois;S
+UC;8;A.Integral Instituto Nacional del Cáncer;S
+::;1;Dirección General de Secretaría;1;Dirección General de Secretaría;8;A.Integral Instituto Nacional del Cáncer;S
+UC;1;Compras;S
+::;1;Dirección General de Secretaría;1;Dirección General de Secretaría;1;Compras;S
+UC;4;Integral Centro Hospitalario Pereira Rossell;S
+::;1;Dirección General de Secretaría;1;Dirección General de Secretaría;4;Integral Centro Hospitalario Pereira Rossell;S
+UE;2;NO VIGENTE Red de Atenc.1er.nivel ASSE
+UC;1;Compras;S
+::;2;NO VIGENTE Red de Atenc.1er.nivel ASSE;2;NO VIGENTE Red de Atenc.1er.nivel ASSE;1;Compras;S
+UE;3;NO VIGENTE Unidad de Atención Cardio-Respiratoria
+UE;4;NO VIGENTE Centro Hospitalario Pereira Rossell
+UC;1;Compras;S
+::;4;NO VIGENTE Centro Hospitalario Pereira Rossell;4;NO VIGENTE Centro Hospitalario Pereira Rossell;1;Compras;S
+UE;5;NO VIGENTE Hospital Maciel
+UC;1;Compras;S
+::;5;NO VIGENTE Hospital Maciel;5;NO VIGENTE Hospital Maciel;1;Compras;S
+UC;147;papapapa;N
+::;5;NO VIGENTE Hospital Maciel;5;NO VIGENTE Hospital Maciel;147;papapapa;N
+UC;146;U.F.R.R.;S
+::;5;NO VIGENTE Hospital Maciel;5;NO VIGENTE Hospital Maciel;146;U.F.R.R.;S
+UE;6;NO VIGENTE Hospital Pasteur
+UC;1;Compras;S
+::;6;NO VIGENTE Hospital Pasteur;6;NO VIGENTE Hospital Pasteur;1;Compras;S
+UE;7;NO VIGENTE Hospital Vilardebó
+UC;136;Compras;S
+::;7;NO VIGENTE Hospital Vilardebó;7;NO VIGENTE Hospital Vilardebó;136;Compras;S
+UE;8;NO VIGENTE Instituto Nacional del Cáncer
+UC;1;Compras;S
+::;8;NO VIGENTE Instituto Nacional del Cáncer;8;NO VIGENTE Instituto Nacional del Cáncer;1;Compras;S
+UE;9;NO VIGENTE Serv. Nal de Ortopedia y Traumatología
+UC;1;Compras;S
+::;9;NO VIGENTE Serv. Nal de Ortopedia y Traumatología;9;NO VIGENTE Serv. Nal de Ortopedia y Traumatología;1;Compras;S
+UE;10;NO VIGENTE Inst.Nal.de Reumat.Prof.Dr. Moisés Mizraji
+UC;1;Compras;S
+::;10;NO VIGENTE Inst.Nal.de Reumat.Prof.Dr. Moisés Mizraji;10;NO VIGENTE Inst.Nal.de Reumat.Prof.Dr. Moisés Mizraji;1;Compras;S
+UC;125;Compras y Licitaciones;S
+::;10;NO VIGENTE Inst.Nal.de Reumat.Prof.Dr. Moisés Mizraji;10;NO VIGENTE Inst.Nal.de Reumat.Prof.Dr. Moisés Mizraji;125;Compras y Licitaciones;S
+UE;11;NO VIGENTE Ex-Instit.Hanseniano
+UC;143;Gastos Generales;S
+::;11;NO VIGENTE Ex-Instit.Hanseniano;11;NO VIGENTE Ex-Instit.Hanseniano;143;Gastos Generales;S
+UE;12;NO VIGENTE Hospital Dr. Gustavo Saint Bois
+UC;1;Compras;S
+::;12;NO VIGENTE Hospital Dr. Gustavo Saint Bois;12;NO VIGENTE Hospital Dr. Gustavo Saint Bois;1;Compras;S
+UE;13;NO VIGENTE Colonia Siquiátrica Dr. Bernardo Etchepare
+UC;1;Compras;S
+::;13;NO VIGENTE Colonia Siquiátrica Dr. Bernardo Etchepare;13;NO VIGENTE Colonia Siquiátrica Dr. Bernardo Etchepare;1;Compras;S
+UE;14;NO VIGENTE Ex-Hosp.Siquiátrico
+UE;15;NO VIGENTE Centro Departamental de Artigas
+UC;1;Compras;S
+::;15;NO VIGENTE Centro Departamental de Artigas;15;NO VIGENTE Centro Departamental de Artigas;1;Compras;S
+UC;122;Contaduría;S
+::;15;NO VIGENTE Centro Departamental de Artigas;15;NO VIGENTE Centro Departamental de Artigas;122;Contaduría;S
+UE;16;NO VIGENTE Centro Departamental de Canelones
+UC;1;Compras;S
+::;16;NO VIGENTE Centro Departamental de Canelones;16;NO VIGENTE Centro Departamental de Canelones;1;Compras;S
+UE;17;NO VIGENTE Centro Departamental de Cerro Largo
+UC;1;Compras;S
+::;17;NO VIGENTE Centro Departamental de Cerro Largo;17;NO VIGENTE Centro Departamental de Cerro Largo;1;Compras;S
+UC;123;Gerencia de Recursos Económicos Financieros y Materiales;S
+::;17;NO VIGENTE Centro Departamental de Cerro Largo;17;NO VIGENTE Centro Departamental de Cerro Largo;123;Gerencia de Recursos Económicos Financieros y Materiales;S
+UE;18;NO VIGENTE Centro Departamental de Sal.Púb.de Colonia
+UC;117;Compras;S
+::;18;NO VIGENTE Centro Departamental de Sal.Púb.de Colonia;18;NO VIGENTE Centro Departamental de Sal.Púb.de Colonia;117;Compras;S
+UE;19;NO VIGENTE Centro Departamental de Durazno
+UC;1;Compras;S
+::;19;NO VIGENTE Centro Departamental de Durazno;19;NO VIGENTE Centro Departamental de Durazno;1;Compras;S
+UE;20;NO VIGENTE Centro Departamental de Flores
+UC;1;Compras;S
+::;20;NO VIGENTE Centro Departamental de Flores;20;NO VIGENTE Centro Departamental de Flores;1;Compras;S
+UE;21;NO VIGENTE Centro Departamental de Florida
+UC;1;Compras;S
+::;21;NO VIGENTE Centro Departamental de Florida;21;NO VIGENTE Centro Departamental de Florida;1;Compras;S
+UE;22;NO VIGENTE Centro Departamental de Lavalleja
+UC;1;Compras;S
+::;22;NO VIGENTE Centro Departamental de Lavalleja;22;NO VIGENTE Centro Departamental de Lavalleja;1;Compras;S
+UE;23;NO VIGENTE Centro Departamental de Maldonado
+UC;1;Compras;S
+::;23;NO VIGENTE Centro Departamental de Maldonado;23;NO VIGENTE Centro Departamental de Maldonado;1;Compras;S
+UC;115;Unidad Funcional de Recepción y Registro;S
+::;23;NO VIGENTE Centro Departamental de Maldonado;23;NO VIGENTE Centro Departamental de Maldonado;115;Unidad Funcional de Recepción y Registro;S
+UE;24;NO VIGENTE Centro Departamental de Paysandú
+UC;1;Compras;S
+::;24;NO VIGENTE Centro Departamental de Paysandú;24;NO VIGENTE Centro Departamental de Paysandú;1;Compras;S
+UE;25;NO VIGENTE Centro Departamental de Rivera
+UC;129;Compras;S
+::;25;NO VIGENTE Centro Departamental de Rivera;25;NO VIGENTE Centro Departamental de Rivera;129;Compras;S
+UC;1;Compras;S
+::;25;NO VIGENTE Centro Departamental de Rivera;25;NO VIGENTE Centro Departamental de Rivera;1;Compras;S
+UE;26;NO VIGENTE Centro Departamental de Río Negro
+UC;1;Compras;S
+::;26;NO VIGENTE Centro Departamental de Río Negro;26;NO VIGENTE Centro Departamental de Río Negro;1;Compras;S
+UC;145;U.F.R.R.;S
+::;26;NO VIGENTE Centro Departamental de Río Negro;26;NO VIGENTE Centro Departamental de Río Negro;145;U.F.R.R.;S
+UE;27;NO VIGENTE Centro Departamental de Rocha
+UC;1;Compras;S
+::;27;NO VIGENTE Centro Departamental de Rocha;27;NO VIGENTE Centro Departamental de Rocha;1;Compras;S
+UE;28;NO VIGENTE Centro Departamental de Salto
+UC;1;Compras;S
+::;28;NO VIGENTE Centro Departamental de Salto;28;NO VIGENTE Centro Departamental de Salto;1;Compras;S
+UC;127;Unidad Funcional de Recepción y Registro;S
+::;28;NO VIGENTE Centro Departamental de Salto;28;NO VIGENTE Centro Departamental de Salto;127;Unidad Funcional de Recepción y Registro;S
+UE;29;NO VIGENTE Centro Departamental de San José
+UC;1;Compras;S
+::;29;NO VIGENTE Centro Departamental de San José;29;NO VIGENTE Centro Departamental de San José;1;Compras;S
+UE;30;NO VIGENTE Centro Departamental de Soriano
+UC;1;Compras;S
+::;30;NO VIGENTE Centro Departamental de Soriano;30;NO VIGENTE Centro Departamental de Soriano;1;Compras;S
+UE;31;NO VIGENTE Centro Departamental de Tacuarembó
+UC;1;Compras;S
+::;31;NO VIGENTE Centro Departamental de Tacuarembó;31;NO VIGENTE Centro Departamental de Tacuarembó;1;Compras;S
+UE;32;NO VIGENTE Centro Departamental de Treinta y Tres
+UC;1;Compras;S
+::;32;NO VIGENTE Centro Departamental de Treinta y Tres;32;NO VIGENTE Centro Departamental de Treinta y Tres;1;Compras;S
+UE;33;NO VIGENTE Centro Auxiliar de Aiguá
+UC;1;Compras;S
+::;33;NO VIGENTE Centro Auxiliar de Aiguá;33;NO VIGENTE Centro Auxiliar de Aiguá;1;Compras;S
+UE;34;NO VIGENTE Centro Auxiliar de Bella Unión
+UC;1;Compras;S
+::;34;NO VIGENTE Centro Auxiliar de Bella Unión;34;NO VIGENTE Centro Auxiliar de Bella Unión;1;Compras;S
+UE;35;NO VIGENTE Centro Aux.de Cardona y Florencio Sánchez
+UC;1;Compras;S
+::;35;NO VIGENTE Centro Aux.de Cardona y Florencio Sánchez;35;NO VIGENTE Centro Aux.de Cardona y Florencio Sánchez;1;Compras;S
+UE;36;NO VIGENTE Centro Auxiliar de Carmelo
+UC;126;Compras;S
+::;36;NO VIGENTE Centro Auxiliar de Carmelo;36;NO VIGENTE Centro Auxiliar de Carmelo;126;Compras;S
+UE;37;NO VIGENTE Centro Auxiliar de Castillos
+UC;1;Compras;S
+::;37;NO VIGENTE Centro Auxiliar de Castillos;37;NO VIGENTE Centro Auxiliar de Castillos;1;Compras;S
+UE;38;NO VIGENTE Centro Auxiliar  de Cerro Chato
+UC;1;Compras;S
+::;38;NO VIGENTE Centro Auxiliar  de Cerro Chato;38;NO VIGENTE Centro Auxiliar  de Cerro Chato;1;Compras;S
+UE;39;NO VIGENTE Centro Auxiliar de Dolores
+UC;177;Compras;S
+::;39;NO VIGENTE Centro Auxiliar de Dolores;39;NO VIGENTE Centro Auxiliar de Dolores;177;Compras;S
+UE;40;NO VIGENTE Centro Auxiliar de Young
+UC;1;Compras;S
+::;40;NO VIGENTE Centro Auxiliar de Young;40;NO VIGENTE Centro Auxiliar de Young;1;Compras;S
+UE;41;NO VIGENTE Centro Auxiliar de Guichón
+UC;1;Compras;S
+::;41;NO VIGENTE Centro Auxiliar de Guichón;41;NO VIGENTE Centro Auxiliar de Guichón;1;Compras;S
+UE;42;NO VIGENTE Centro Auxiliar de José Batlle y  Ordoñez
+UC;1;Compras;S
+::;42;NO VIGENTE Centro Auxiliar de José Batlle y  Ordoñez;42;NO VIGENTE Centro Auxiliar de José Batlle y  Ordoñez;1;Compras;S
+UC;110;Compras en general;S
+::;42;NO VIGENTE Centro Auxiliar de José Batlle y  Ordoñez;42;NO VIGENTE Centro Auxiliar de José Batlle y  Ordoñez;110;Compras en general;S
+UC;109;Farmacia;S
+::;42;NO VIGENTE Centro Auxiliar de José Batlle y  Ordoñez;42;NO VIGENTE Centro Auxiliar de José Batlle y  Ordoñez;109;Farmacia;S
+UE;43;NO VIGENTE Centro Auxiliar de Juan Lacaze
+UC;1;Compras;S
+::;43;NO VIGENTE Centro Auxiliar de Juan Lacaze;43;NO VIGENTE Centro Auxiliar de Juan Lacaze;1;Compras;S
+UE;44;NO VIGENTE Centro Auxiliar de Lascano
+UC;1;Compras;S
+::;44;NO VIGENTE Centro Auxiliar de Lascano;44;NO VIGENTE Centro Auxiliar de Lascano;1;Compras;S
+UE;45;NO VIGENTE Centro Auxiliar de Libertad
+UC;1;Compras;S
+::;45;NO VIGENTE Centro Auxiliar de Libertad;45;NO VIGENTE Centro Auxiliar de Libertad;1;Compras;S
+UC;142;Despensa General;S
+::;45;NO VIGENTE Centro Auxiliar de Libertad;45;NO VIGENTE Centro Auxiliar de Libertad;142;Despensa General;S
+UC;141;Farmacia;S
+::;45;NO VIGENTE Centro Auxiliar de Libertad;45;NO VIGENTE Centro Auxiliar de Libertad;141;Farmacia;S
+UE;46;NO VIGENTE Centro Auxiliar de Minas Corrales
+UC;1;Compras;S
+::;46;NO VIGENTE Centro Auxiliar de Minas Corrales;46;NO VIGENTE Centro Auxiliar de Minas Corrales;1;Compras;S
+UE;47;NO VIGENTE Centro Auxiliar de Nueva Helvecia
+UC;1;Compras;S
+::;47;NO VIGENTE Centro Auxiliar de Nueva Helvecia;47;NO VIGENTE Centro Auxiliar de Nueva Helvecia;1;Compras;S
+UE;48;NO VIGENTE Centro Auxiliar de Nueva Palmira
+UC;1;Compras;S
+::;48;NO VIGENTE Centro Auxiliar de Nueva Palmira;48;NO VIGENTE Centro Auxiliar de Nueva Palmira;1;Compras;S
+UE;49;NO VIGENTE Centro Auxiliar de Pan De Azúcar
+UC;1;Compras;S
+::;49;NO VIGENTE Centro Auxiliar de Pan De Azúcar;49;NO VIGENTE Centro Auxiliar de Pan De Azúcar;1;Compras;S
+UE;50;NO VIGENTE Centro Auxiliar de Pando
+UC;1;Compras;S
+::;50;NO VIGENTE Centro Auxiliar de Pando;50;NO VIGENTE Centro Auxiliar de Pando;1;Compras;S
+UE;51;NO VIGENTE Centro Auxiliar de Paso de los Toros
+UC;1;Compras;S
+::;51;NO VIGENTE Centro Auxiliar de Paso de los Toros;51;NO VIGENTE Centro Auxiliar de Paso de los Toros;1;Compras;S
+UE;52;NO VIGENTE Centro Auxiliar de Río Branco
+UC;1;Compras;S
+::;52;NO VIGENTE Centro Auxiliar de Río Branco;52;NO VIGENTE Centro Auxiliar de Río Branco;1;Compras;S
+UE;53;NO VIGENTE Centro Auxiliar de Rosario
+UC;140;Administración;S
+::;53;NO VIGENTE Centro Auxiliar de Rosario;53;NO VIGENTE Centro Auxiliar de Rosario;140;Administración;S
+UC;139;Cocina;S
+::;53;NO VIGENTE Centro Auxiliar de Rosario;53;NO VIGENTE Centro Auxiliar de Rosario;139;Cocina;S
+UC;1;Compras;S
+::;53;NO VIGENTE Centro Auxiliar de Rosario;53;NO VIGENTE Centro Auxiliar de Rosario;1;Compras;S
+UC;138;Farmacia;S
+::;53;NO VIGENTE Centro Auxiliar de Rosario;53;NO VIGENTE Centro Auxiliar de Rosario;138;Farmacia;S
+UE;54;NO VIGENTE Centro Auxiliar de San Carlos
+UC;1;Compras;S
+::;54;NO VIGENTE Centro Auxiliar de San Carlos;54;NO VIGENTE Centro Auxiliar de San Carlos;1;Compras;S
+UE;55;NO VIGENTE Centro Auxiliar de San Gregorio Polanco
+UC;1;Compras;S
+::;55;NO VIGENTE Centro Auxiliar de San Gregorio Polanco;55;NO VIGENTE Centro Auxiliar de San Gregorio Polanco;1;Compras;S
+UE;56;NO VIGENTE Centro Auxiliar de San Ramón
+UC;1;Compras;S
+::;56;NO VIGENTE Centro Auxiliar de San Ramón;56;NO VIGENTE Centro Auxiliar de San Ramón;1;Compras;S
+UE;57;NO VIGENTE Centro Auxiliar de Santa Lucía
+UC;1;Compras;S
+::;57;NO VIGENTE Centro Auxiliar de Santa Lucía;57;NO VIGENTE Centro Auxiliar de Santa Lucía;1;Compras;S
+UC;176;Medicamentos y material médico menor quirúrgico;S
+::;57;NO VIGENTE Centro Auxiliar de Santa Lucía;57;NO VIGENTE Centro Auxiliar de Santa Lucía;176;Medicamentos y material médico menor quirúrgico;S
+UC;175;Varios (traslados, Estudios, Empresa de limpieza);S
+::;57;NO VIGENTE Centro Auxiliar de Santa Lucía;57;NO VIGENTE Centro Auxiliar de Santa Lucía;175;Varios (traslados, Estudios, Empresa de limpieza);S
+UE;58;NO VIGENTE Centro Auxiliar de Sarandí Grande
+UC;1;Compras;S
+::;58;NO VIGENTE Centro Auxiliar de Sarandí Grande;58;NO VIGENTE Centro Auxiliar de Sarandí Grande;1;Compras;S
+UE;59;NO VIGENTE Centro Auxiliar de Sarandí Del Yí
+UC;1;Compras;S
+::;59;NO VIGENTE Centro Auxiliar de Sarandí Del Yí;59;NO VIGENTE Centro Auxiliar de Sarandí Del Yí;1;Compras;S
+UE;60;NO VIGENTE Centro Auxiliar de Tala
+UC;1;Compras;S
+::;60;NO VIGENTE Centro Auxiliar de Tala;60;NO VIGENTE Centro Auxiliar de Tala;1;Compras;S
+UE;61;NO VIGENTE Centro Auxiliar de Vergara
+UC;1;Compras;S
+::;61;NO VIGENTE Centro Auxiliar de Vergara;61;NO VIGENTE Centro Auxiliar de Vergara;1;Compras;S
+UE;62;NO VIGENTE Centro Auxiliar de las Piedras
+UC;1;Compras;S
+::;62;NO VIGENTE Centro Auxiliar de las Piedras;62;NO VIGENTE Centro Auxiliar de las Piedras;1;Compras;S
+UC;130;Oficina de Recepción y Registros;S
+::;62;NO VIGENTE Centro Auxiliar de las Piedras;62;NO VIGENTE Centro Auxiliar de las Piedras;130;Oficina de Recepción y Registros;S
+UE;63;NO VIGENTE Hosp-CTro Geriátrico Dr. Luis Piñeiro del Campo
+UC;1;Compras;S
+::;63;NO VIGENTE Hosp-CTro Geriátrico Dr. Luis Piñeiro del Campo;63;NO VIGENTE Hosp-CTro Geriátrico Dr. Luis Piñeiro del Campo;1;Compras;S
+UC;121;Gerencia de Recursos Materiales;S
+::;63;NO VIGENTE Hosp-CTro Geriátrico Dr. Luis Piñeiro del Campo;63;NO VIGENTE Hosp-CTro Geriátrico Dr. Luis Piñeiro del Campo;121;Gerencia de Recursos Materiales;S
+UE;64;NO VIGENTE Laboratorio Químico IndusT.Francisco Dorrego
+UC;1;Compras;S
+::;64;NO VIGENTE Laboratorio Químico IndusT.Francisco Dorrego;64;NO VIGENTE Laboratorio Químico IndusT.Francisco Dorrego;1;Compras;S
+UC;128;Departamento Licitaciones y Compras;S
+::;64;NO VIGENTE Laboratorio Químico IndusT.Francisco Dorrego;64;NO VIGENTE Laboratorio Químico IndusT.Francisco Dorrego;128;Departamento Licitaciones y Compras;S
+UE;65;NO VIGENTE Ex-Com.H.Lucha ctr./Hidat.
+UC;137;Unidad de Recepción y Registro;S
+::;65;NO VIGENTE Ex-Com.H.Lucha ctr./Hidat.;65;NO VIGENTE Ex-Com.H.Lucha ctr./Hidat.;137;Unidad de Recepción y Registro;S
+UE;66;NO VIGENTE Servicio Nacional de Sangre
+UC;178;Compras;S
+::;66;NO VIGENTE Servicio Nacional de Sangre;66;NO VIGENTE Servicio Nacional de Sangre;178;Compras;S
+UE;67;NO VIGENTE Escuela de Sanidad Dr.José Scosería
+UC;159;Compras;S
+::;67;NO VIGENTE Escuela de Sanidad Dr.José Scosería;67;NO VIGENTE Escuela de Sanidad Dr.José Scosería;159;Compras;S
+UE;68;NO VIGENTE Adm.de Servicios de Salud del Estado
+UC;147;Departamento de Licitaciones y Compras;S
+::;68;NO VIGENTE Adm.de Servicios de Salud del Estado;68;NO VIGENTE Adm.de Servicios de Salud del Estado;147;Departamento de Licitaciones y Compras;S
+UE;69;NO VIGENTE Colonia Dr.Santín Carlos Rossi
+UC;1;Compras;S
+::;69;NO VIGENTE Colonia Dr.Santín Carlos Rossi;69;NO VIGENTE Colonia Dr.Santín Carlos Rossi;1;Compras;S
+UE;70;NO VIGENTE Dirección General de la Salud
+UC;1;Compras;S
+::;70;NO VIGENTE Dirección General de la Salud;70;NO VIGENTE Dirección General de la Salud;1;Compras;S
+UE;71;NO VIGENTE Inst.Nal.Don.yTransp.Cél.Tej.Or
+UC;1;Compras;S
+::;71;NO VIGENTE Inst.Nal.Don.yTransp.Cél.Tej.Or;71;NO VIGENTE Inst.Nal.Don.yTransp.Cél.Tej.Or;1;Compras;S
+UE;73;NO VIGENTE Centro Auxiliar Chuy
+UC;1;Compras;S
+::;73;NO VIGENTE Centro Auxiliar Chuy;73;NO VIGENTE Centro Auxiliar Chuy;1;Compras;S
+UE;74;NO VIGENTE Centro Auxiliar Rincón de la Bolsa
+UC;1;Compras;S
+::;74;NO VIGENTE Centro Auxiliar Rincón de la Bolsa;74;NO VIGENTE Centro Auxiliar Rincón de la Bolsa;1;Compras;S
+UE;75;NO VIGENTE Centro Auxiliar Ciudad de la Costa
+UC;1;Compras;S
+::;75;NO VIGENTE Centro Auxiliar Ciudad de la Costa;75;NO VIGENTE Centro Auxiliar Ciudad de la Costa;1;Compras;S
+UE;76;NO VIGENTE Hospital Español
+UC;1;Compras;N
+::;76;NO VIGENTE Hospital Español;76;NO VIGENTE Hospital Español;1;Compras;N
+UE;78;NO VIGENTE Ctro Inf.y Ref.Nal de Red Drogas
+UE;102;Junta Nacional de Salud
+UC;1;Compras;S
+::;102;Junta Nacional de Salud;102;Junta Nacional de Salud;1;Compras;S
+UE;103;Dirección General de la Salud
+UC;1;Compras;S
+::;103;Dirección General de la Salud;103;Dirección General de la Salud;1;Compras;S
+UE;104;Inst.Nal.Donac.yTrasp.Células,Tej.y Organos
+UC;1;Compras;S
+::;104;Inst.Nal.Donac.yTrasp.Células,Tej.y Organos;104;Inst.Nal.Donac.yTrasp.Células,Tej.y Organos;1;Compras;S
+UE;105;Dir.Gral.Sist.Nal.Integrado Salud
+IN;13;Ministerio de Trabajo y Seguridad Social
+UE;1;Dirección General de Secretaría
+UC;1;compras;S
+::;1;Dirección General de Secretaría;1;Dirección General de Secretaría;1;compras;S
+UE;2;Dirección Nacional de Trabajo
+UC;1;Compras;S
+::;2;Dirección Nacional de Trabajo;2;Dirección Nacional de Trabajo;1;Compras;S
+UE;3;Dirección Nacional de Empleo
+UC;1;Compras;S
+::;3;Dirección Nacional de Empleo;3;Dirección Nacional de Empleo;1;Compras;S
+UE;4;Dirección Nacional de Coordinación en el Interior
+UC;1;Compras;S
+::;4;Dirección Nacional de Coordinación en el Interior;4;Dirección Nacional de Coordinación en el Interior;1;Compras;S
+UE;5;Direc.Nal de Seg.Social
+UE;6;Instituto Nacional de Alimentación
+UC;999;Compras;S
+::;6;Instituto Nacional de Alimentación;6;Instituto Nacional de Alimentación;999;Compras;S
+UC;1000;SIN INTERR PARA TEST;N
+::;6;Instituto Nacional de Alimentación;6;Instituto Nacional de Alimentación;1000;SIN INTERR PARA TEST;N
+UE;7;Inspección General del Trabajo y de la Seguridad Social
+UC;1;Compras;S
+::;7;Inspección General del Trabajo y de la Seguridad Social;7;Inspección General del Trabajo y de la Seguridad Social;1;Compras;S
+IN;14;Mtrio. de Vivienda,Ordenamiento Territorial y Medio Ambiente
+UE;1;Dirección General de Secretaría
+UC;1;Adquisiciones;N
+::;1;Dirección General de Secretaría;1;Dirección General de Secretaría;1;Adquisiciones;N
+UC;2;Para testear Nico;S
+::;1;Dirección General de Secretaría;1;Dirección General de Secretaría;2;Para testear Nico;S
+UC;3;viviendas;S
+::;1;Dirección General de Secretaría;1;Dirección General de Secretaría;3;viviendas;S
+UE;2;Dirección Nacional de Vivienda
+UC;1;Adquisiciones;S
+::;2;Dirección Nacional de Vivienda;2;Dirección Nacional de Vivienda;1;Adquisiciones;S
+UE;3;Dirección Nacional de Ordenamiento Territorial
+UC;1;Adquisiciones;S
+::;3;Dirección Nacional de Ordenamiento Territorial;3;Dirección Nacional de Ordenamiento Territorial;1;Adquisiciones;S
+UC;131;Compras;S
+::;3;Dirección Nacional de Ordenamiento Territorial;3;Dirección Nacional de Ordenamiento Territorial;131;Compras;S
+UE;4;Dirección Nacional de Medio Ambiente
+UC;1;Adquisiciones;N
+::;4;Dirección Nacional de Medio Ambiente;4;Dirección Nacional de Medio Ambiente;1;Adquisiciones;N
+UE;5;Dirección Nacional de Aguas (DI.NA.GUA)
+IN;15;Ministerio de Desarrollo Social
+UE;1;Direc. General de Secretaría.
+UC;1;Compras;S
+::;1;Direc. General de Secretaría.;1;Direc. General de Secretaría.;1;Compras;S
+UC;8;Compras (NS);N
+::;1;Direc. General de Secretaría.;1;Direc. General de Secretaría.;8;Compras (NS);N
+UC;7;ooo;N
+::;1;Direc. General de Secretaría.;1;Direc. General de Secretaría.;7;ooo;N
+UC;3;Programa Infamilia;N
+::;1;Direc. General de Secretaría.;1;Direc. General de Secretaría.;3;Programa Infamilia;N
+UC;5;sofix;N
+::;1;Direc. General de Secretaría.;1;Direc. General de Secretaría.;5;sofix;N
+UC;6;sofix1;N
+::;1;Direc. General de Secretaría.;1;Direc. General de Secretaría.;6;sofix1;N
+UC;4;Test s;N
+::;1;Direc. General de Secretaría.;1;Direc. General de Secretaría.;4;Test s;N
+UE;2;Dirección de Desarrollo Social
+UC;2;Compras;N
+::;2;Dirección de Desarrollo Social;2;Dirección de Desarrollo Social;2;Compras;N
+UC;1;Compras (NS);N
+::;2;Dirección de Desarrollo Social;2;Dirección de Desarrollo Social;1;Compras (NS);N
+IN;16;Poder Judicial
+UE;1;NO VIGENTE SCJ
+UE;2;NO VIG.Trib.Apel.Civ.Pen.,Trab.Juz.Let.Fam.Men.Ad.Penal
+UE;3;NO VIGENTE Juzg.Letrad,Primera Inst. Interior Juz.Paz Int.
+UE;4;NO VIGENTEInst.TForense,Serv.Asis.Pro Soc,Of.Notif,Dep.Jud
+UE;101;Poder Judicial
+UC;1;Adquisiciones;N
+::;101;Poder Judicial;101;Poder Judicial;1;Adquisiciones;N
+IN;17;Tribunal de Cuentas
+UE;1;Tribunal de Cuentas
+UC;1;Compras;N
+::;1;Tribunal de Cuentas;1;Tribunal de Cuentas;1;Compras;N
+IN;18;Corte Electoral
+UE;1;Corte Electoral
+UC;3;Prueba_Nuevo;N
+::;1;Corte Electoral;1;Corte Electoral;3;Prueba_Nuevo;N
+IN;19;Tribunal de lo  Contencioso  Administrativo
+UE;1;Tribunal de lo Contencioso Administrativo
+IN;20;Intereses y Otros Gastos de la Deuda
+IN;21;Subsidios y Subvenciones
+IN;22;Transferencias Financieras al Sector Seguridad Social
+IN;23;Partidas a Reaplicar
+IN;24;Diversos Créditos
+UE;1;UNIDAD NO VIGENTE
+UC;1;aa;N
+::;1;UNIDAD NO VIGENTE;1;UNIDAD NO VIGENTE;1;aa;N
+UE;2;Presidencia de la República
+UC;1;Compras;S
+::;2;Presidencia de la República;2;Presidencia de la República;1;Compras;S
+UC;195;Compras (sin interrelación);N
+::;2;Presidencia de la República;2;Presidencia de la República;195;Compras (sin interrelación);N
+UC;193;deb;S
+::;2;Presidencia de la República;2;Presidencia de la República;193;deb;S
+UC;194;deborah cecilia;S
+::;2;Presidencia de la República;2;Presidencia de la República;194;deborah cecilia;S
+UC;5;DI.PRO.DE;S
+::;2;Presidencia de la República;2;Presidencia de la República;5;DI.PRO.DE;S
+UC;2;DIPRODE;S
+::;2;Presidencia de la República;2;Presidencia de la República;2;DIPRODE;S
+UC;10;Fortalecimiento Institucional de AGESIC (Proy. 903);S
+::;2;Presidencia de la República;2;Presidencia de la República;10;Fortalecimiento Institucional de AGESIC (Proy. 903);S
+UC;7;Interconexión y Modernización de PRICEV (995);S
+::;2;Presidencia de la República;2;Presidencia de la República;7;Interconexión y Modernización de PRICEV (995);S
+UC;3;ONSC;S
+::;2;Presidencia de la República;2;Presidencia de la República;3;ONSC;S
+UC;104;Presidencia-Coop.Téc Reemb.de Apoyo al Prog.de trans. del Estado_ONSC;S
+::;2;Presidencia de la República;2;Presidencia de la República;104;Presidencia-Coop.Téc Reemb.de Apoyo al Prog.de trans. del Estado_ONSC;S
+UC;103;Presidencia-Coop.Téc Reemb.de Apoyo al Prog.de trans. del Estado_OPP;S
+::;2;Presidencia de la República;2;Presidencia de la República;103;Presidencia-Coop.Téc Reemb.de Apoyo al Prog.de trans. del Estado_OPP;S
+UC;190;Presidencia-Fondo de Desarrollo del Interior;S
+::;2;Presidencia de la República;2;Presidencia de la República;190;Presidencia-Fondo de Desarrollo del Interior;S
+UC;100;Presidencia-Funcionamiento;S
+::;2;Presidencia de la República;2;Presidencia de la República;100;Presidencia-Funcionamiento;S
+UC;9;Presidencia-Knock Out a las Drogas;S
+::;2;Presidencia de la República;2;Presidencia de la República;9;Presidencia-Knock Out a las Drogas;S
+UC;102;Presidencia-Programa Salúd Bucal Escolar;S
+::;2;Presidencia de la República;2;Presidencia de la República;102;Presidencia-Programa Salúd Bucal Escolar;S
+UC;6;Prog.Apoyo Sec. a la cohesión social y territorial - OPP;S
+::;2;Presidencia de la República;2;Presidencia de la República;6;Prog.Apoyo Sec. a la cohesión social y territorial - OPP;S
+UC;196;Proyecto 950 - Plan Juntos;S
+::;2;Presidencia de la República;2;Presidencia de la República;196;Proyecto 950 - Plan Juntos;S
+UC;192;Proyectos (Agesic);S
+::;2;Presidencia de la República;2;Presidencia de la República;192;Proyectos (Agesic);S
+UC;197;Sistema Nacional de Emergencia (Proyecto 911);S
+::;2;Presidencia de la República;2;Presidencia de la República;197;Sistema Nacional de Emergencia (Proyecto 911);S
+UE;3;Ministerio de Defensa Nacional
+UC;1;Prueba1;S
+::;3;Ministerio de Defensa Nacional;3;Ministerio de Defensa Nacional;1;Prueba1;S
+UC;2;Prueba2;S
+::;3;Ministerio de Defensa Nacional;3;Ministerio de Defensa Nacional;2;Prueba2;S
+UE;4;Ministerio del Interior
+UE;5;Ministerio de Economía y Finanzas
+UC;2;Proyecto BID 1971;S
+::;5;Ministerio de Economía y Finanzas;5;Ministerio de Economía y Finanzas;2;Proyecto BID 1971;S
+UC;905;Proyecto 905;S
+::;5;Ministerio de Economía y Finanzas;5;Ministerio de Economía y Finanzas;905;Proyecto 905;S
+UC;906;Prueba TEST;S
+::;5;Ministerio de Economía y Finanzas;5;Ministerio de Economía y Finanzas;906;Prueba TEST;S
+UC;1;UAEP;S
+::;5;Ministerio de Economía y Finanzas;5;Ministerio de Economía y Finanzas;1;UAEP;S
+UE;6;Ministerio de Relaciones Exteriores
+UE;7;Ministerio de Agricultura y Pesca
+UE;8;Ministerio de Industria y Energía
+UE;9;Ministerio de Turismo
+UE;10;Ministerio de Transporte y Obras Públicas
+UC;1;ff;N
+::;10;Ministerio de Transporte y Obras Públicas;10;Ministerio de Transporte y Obras Públicas;1;ff;N
+UC;2;kk;N
+::;10;Ministerio de Transporte y Obras Públicas;10;Ministerio de Transporte y Obras Públicas;2;kk;N
+UE;11;Ministerio de Educación y Cultura
+UE;12;Ministerio de Salud Pública
+UE;13;Ministerio de Trabajo y Seguridad Social
+UE;14;Ministerio de Vivienda, Ordenamiento Territorial y Medio Amb
+UE;15;Ministerio de Deporte y Juventud
+UE;16;Suprema Corte de Justicia
+UE;18;Corte Electoral
+UE;19;Tribunal de lo Contencioso Administrativo
+UE;24;Dir. Gral. de Secretaría (M.E.F.)
+UE;25;Administración Nal.de Educación Pública
+UE;26;Universidad de la República
+UE;27;Instituto Nacional del Menor (INAME)
+UE;29;ASSE
+UC;2;deb;S
+::;29;ASSE;29;ASSE;2;deb;S
+UC;1;ss;S
+::;29;ASSE;29;ASSE;1;ss;S
+UE;31;Universidad Tecnológica del Uruguay
+UE;79;Intendencias sin discriminar(OPP- DIPRODE)
+IN;25;Administración Nacional de Educación Pública
+UE;1;Consejo Directivo Central
+UE;2;Consejo de Educación Inicial y Primaria
+UC;1;Compras;N
+::;2;Consejo de Educación Inicial y Primaria;2;Consejo de Educación Inicial y Primaria;1;Compras;N
+UE;3;Consejo de Educación Secundaria
+UE;4;Consejo de Educación Técnico-Profesional
+UE;5;Consejo de Formación en Educación
+IN;26;Universidad de la República
+UE;1;Oficinas Centrales y Escuelas Dependientes de Rectorado
+UC;4;Suministros;N
+::;1;Oficinas Centrales y Escuelas Dependientes de Rectorado;1;Oficinas Centrales y Escuelas Dependientes de Rectorado;4;Suministros;N
+UE;2;Facultad de Agronomía
+UE;3;Facultad de Arquitectura
+UE;4;Facultad de Ciencias Económicas y de Administración
+UE;5;Facultad de Derecho
+UE;6;Facultad de Ingenieria
+UE;7;Facultad de Medicina
+UE;8;Instituto de Higiene
+UE;9;Facultad de Odontología
+UC;1;Compras;N
+::;9;Facultad de Odontología;9;Facultad de Odontología;1;Compras;N
+UE;10;Facultad de Química
+UE;11;Facultad de Veterinaria
+UE;12;Facultad de Humanidades y Ciencias de la Educación
+UE;13;Regional Norte
+UE;15;Hospital de Clínicas
+UC;1;Compras;N
+::;15;Hospital de Clínicas;15;Hospital de Clínicas;1;Compras;N
+UE;16;IEMBAyEUM(Bellas Artes y Música)
+UE;19;Facultad de Psicología
+UE;22;Facultad de Enfermería
+UE;23;Facultad de Ciencias Sociales
+UE;24;Facultad de Ciencias
+UE;25;Facultad de Información y Comunicación
+UE;50;Unidad Central
+IN;27;Instituto del Niño y Adolescente del Uruguay
+UE;1;Instituto del Niño y Adolescente del Uruguay INAU
+UC;1;Compras;N
+::;1;Instituto del Niño y Adolescente del Uruguay INAU;1;Instituto del Niño y Adolescente del Uruguay INAU;1;Compras;N
+UC;2;Compras Salud;N
+::;1;Instituto del Niño y Adolescente del Uruguay INAU;1;Instituto del Niño y Adolescente del Uruguay INAU;2;Compras Salud;N
+UC;3;123;N
+::;1;Instituto del Niño y Adolescente del Uruguay INAU;1;Instituto del Niño y Adolescente del Uruguay INAU;3;123;N
+IN;28;Banco de Previsión Social
+UE;1;Banco de Previsión Social
+UC;1;Compras Salud;N
+::;1;Banco de Previsión Social;1;Banco de Previsión Social;1;Compras Salud;N
+UC;2;vv;N
+::;1;Banco de Previsión Social;1;Banco de Previsión Social;2;vv;N
+UE;2;Consejo de Prestaciones de Actividad
+UE;3;Directorio del Banco de Previsión Social
+UE;5;Dir. B.P.S. Cons. Prest. Pas. Ancian. Act. Ases.Trib.
+UE;6;Consejo de Administración y Servicios Generales
+IN;29;Administración de Servicios de Salud del Estado
+UE;2;Red de Atención Primaria Area Metropolitana
+UC;1;Compras;N
+::;2;Red de Atención Primaria Area Metropolitana;2;Red de Atención Primaria Area Metropolitana;1;Compras;N
+UE;3;Unidad de Atención Cardio - Respiratoria
+UE;4;Centro Hospitalario  Pereira Rossell
+UC;1;Compras;N
+::;4;Centro Hospitalario  Pereira Rossell;4;Centro Hospitalario  Pereira Rossell;1;Compras;N
+UE;5;Hospital Maciel
+UC;1;Compras;N
+::;5;Hospital Maciel;5;Hospital Maciel;1;Compras;N
+UC;147;lñ;N
+::;5;Hospital Maciel;5;Hospital Maciel;147;lñ;N
+UC;146;U.F.R.R.;N
+::;5;Hospital Maciel;5;Hospital Maciel;146;U.F.R.R.;N
+UE;6;Hospital Pasteur
+UC;1;Compras;N
+::;6;Hospital Pasteur;6;Hospital Pasteur;1;Compras;N
+UE;7;Hospital Vilardebó
+UC;136;Compras;N
+::;7;Hospital Vilardebó;7;Hospital Vilardebó;136;Compras;N
+UE;8;Instituto Nacional del Cáncer
+UC;1;Compras;N
+::;8;Instituto Nacional del Cáncer;8;Instituto Nacional del Cáncer;1;Compras;N
+UE;9;Servicio Nacional de Ortopedia y Traumatología
+UC;1;Compras;N
+::;9;Servicio Nacional de Ortopedia y Traumatología;9;Servicio Nacional de Ortopedia y Traumatología;1;Compras;N
+UE;10;Instituto Nal.de Reumatalogía Prof.Dr. Moisés Mizraji
+UC;1;Compras;N
+::;10;Instituto Nal.de Reumatalogía Prof.Dr. Moisés Mizraji;10;Instituto Nal.de Reumatalogía Prof.Dr. Moisés Mizraji;1;Compras;N
+UC;125;Compras y Licitaciones;N
+::;10;Instituto Nal.de Reumatalogía Prof.Dr. Moisés Mizraji;10;Instituto Nal.de Reumatalogía Prof.Dr. Moisés Mizraji;125;Compras y Licitaciones;N
+UE;11;NO VIGENTE Ex-Instit.Hanseniano(Dec460/001Ax.ICap.III
+UC;143;Gastos Generales;N
+::;11;NO VIGENTE Ex-Instit.Hanseniano(Dec460/001Ax.ICap.III;11;NO VIGENTE Ex-Instit.Hanseniano(Dec460/001Ax.ICap.III;143;Gastos Generales;N
+UE;12;Hospital Dr. Gustavo Saint Bois
+UC;1;Compras;N
+::;12;Hospital Dr. Gustavo Saint Bois;12;Hospital Dr. Gustavo Saint Bois;1;Compras;N
+UE;13;Colonia Siquiátrica Dr. Bernardo Etchepare
+UC;1;Compras;N
+::;13;Colonia Siquiátrica Dr. Bernardo Etchepare;13;Colonia Siquiátrica Dr. Bernardo Etchepare;1;Compras;N
+UE;14;NO VIGENTE Ex-Hosp.Siquiátrico(Dec460/001Ax.ICap.III)
+UE;15;Centro Departamental de Artigas
+UC;1;Compras;N
+::;15;Centro Departamental de Artigas;15;Centro Departamental de Artigas;1;Compras;N
+UC;122;Contaduría;N
+::;15;Centro Departamental de Artigas;15;Centro Departamental de Artigas;122;Contaduría;N
+UE;16;Centro Departamental de Canelones
+UC;1;Compras;N
+::;16;Centro Departamental de Canelones;16;Centro Departamental de Canelones;1;Compras;N
+UE;17;Centro Departamental de Cerro Largo
+UC;1;Compras;N
+::;17;Centro Departamental de Cerro Largo;17;Centro Departamental de Cerro Largo;1;Compras;N
+UC;123;Gerencia de Recursos Económicos Financieros y Materiales;N
+::;17;Centro Departamental de Cerro Largo;17;Centro Departamental de Cerro Largo;123;Gerencia de Recursos Económicos Financieros y Materiales;N
+UE;18;Centro Departamental de Salud Pública de Colonia
+UC;117;Compras;N
+::;18;Centro Departamental de Salud Pública de Colonia;18;Centro Departamental de Salud Pública de Colonia;117;Compras;N
+UE;19;Centro Departamental de Durazno
+UC;1;Compras;N
+::;19;Centro Departamental de Durazno;19;Centro Departamental de Durazno;1;Compras;N
+UE;20;Centro Departamental de Flores
+UC;1;Compras;N
+::;20;Centro Departamental de Flores;20;Centro Departamental de Flores;1;Compras;N
+UE;21;Centro Departamental de Florida
+UC;1;Compras;N
+::;21;Centro Departamental de Florida;21;Centro Departamental de Florida;1;Compras;N
+UE;22;Centro Departamental de Lavalleja
+UC;1;Compras;N
+::;22;Centro Departamental de Lavalleja;22;Centro Departamental de Lavalleja;1;Compras;N
+UE;23;Centro Departamental de Maldonado
+UC;1;Compras;N
+::;23;Centro Departamental de Maldonado;23;Centro Departamental de Maldonado;1;Compras;N
+UC;115;Unidad Funcional de Recepción y Registro;N
+::;23;Centro Departamental de Maldonado;23;Centro Departamental de Maldonado;115;Unidad Funcional de Recepción y Registro;N
+UE;24;Centro Departamental de Paysandú
+UC;1;Compras;N
+::;24;Centro Departamental de Paysandú;24;Centro Departamental de Paysandú;1;Compras;N
+UE;25;Centro Departamental de Rivera
+UC;129;Compras;N
+::;25;Centro Departamental de Rivera;25;Centro Departamental de Rivera;129;Compras;N
+UE;26;Centro Departamental de Río Negro
+UC;1;Compras;N
+::;26;Centro Departamental de Río Negro;26;Centro Departamental de Río Negro;1;Compras;N
+UC;145;U.F.R.R.;N
+::;26;Centro Departamental de Río Negro;26;Centro Departamental de Río Negro;145;U.F.R.R.;N
+UE;27;Centro Departamental de Rocha
+UC;1;Compras;N
+::;27;Centro Departamental de Rocha;27;Centro Departamental de Rocha;1;Compras;N
+UE;28;Centro Departamental de Salto
+UC;1;Compras;N
+::;28;Centro Departamental de Salto;28;Centro Departamental de Salto;1;Compras;N
+UC;127;Unidad Funcional de Recepción y Registro;N
+::;28;Centro Departamental de Salto;28;Centro Departamental de Salto;127;Unidad Funcional de Recepción y Registro;N
+UE;29;Centro Departamental de San José
+UC;1;Compras;N
+::;29;Centro Departamental de San José;29;Centro Departamental de San José;1;Compras;N
+UC;2;ii;N
+::;29;Centro Departamental de San José;29;Centro Departamental de San José;2;ii;N
+UE;30;Centro Departamental de Soriano
+UC;1;Compras;N
+::;30;Centro Departamental de Soriano;30;Centro Departamental de Soriano;1;Compras;N
+UC;4;ff;N
+::;30;Centro Departamental de Soriano;30;Centro Departamental de Soriano;4;ff;N
+UC;2;jjjjjjj;N
+::;30;Centro Departamental de Soriano;30;Centro Departamental de Soriano;2;jjjjjjj;N
+UC;3;kk;N
+::;30;Centro Departamental de Soriano;30;Centro Departamental de Soriano;3;kk;N
+UE;31;Centro Departamental de Tacuarembó
+UC;1;Compras;N
+::;31;Centro Departamental de Tacuarembó;31;Centro Departamental de Tacuarembó;1;Compras;N
+UE;32;Centro Departamental de Treinta y Tres
+UC;1;Compras;N
+::;32;Centro Departamental de Treinta y Tres;32;Centro Departamental de Treinta y Tres;1;Compras;N
+UE;33;NO VIGENTE Centro Auxiliar de Aiguá
+UC;1;Compras;N
+::;33;NO VIGENTE Centro Auxiliar de Aiguá;33;NO VIGENTE Centro Auxiliar de Aiguá;1;Compras;N
+UE;34;Centro Auxiliar de Bella Unión
+UC;1;Compras;N
+::;34;Centro Auxiliar de Bella Unión;34;Centro Auxiliar de Bella Unión;1;Compras;N
+UE;35;Centro Aux. de Cardona y Florencio Sánchez
+UC;1;Compras;N
+::;35;Centro Aux. de Cardona y Florencio Sánchez;35;Centro Aux. de Cardona y Florencio Sánchez;1;Compras;N
+UE;36;Centro Auxiliar de Carmelo
+UC;126;Compras;N
+::;36;Centro Auxiliar de Carmelo;36;Centro Auxiliar de Carmelo;126;Compras;N
+UE;37;Centro Auxiliar de Castillos
+UC;1;Compras;N
+::;37;Centro Auxiliar de Castillos;37;Centro Auxiliar de Castillos;1;Compras;N
+UE;38;NO VIGENTE Centro Auxiliar  de Cerro Chato
+UC;1;Compras;N
+::;38;NO VIGENTE Centro Auxiliar  de Cerro Chato;38;NO VIGENTE Centro Auxiliar  de Cerro Chato;1;Compras;N
+UE;39;Centro Auxiliar de Dolores
+UC;177;Compras;N
+::;39;Centro Auxiliar de Dolores;39;Centro Auxiliar de Dolores;177;Compras;N
+UE;40;Centro Auxiliar de Young
+UC;1;Compras;N
+::;40;Centro Auxiliar de Young;40;Centro Auxiliar de Young;1;Compras;N
+UE;41;Red de Atención Primaria de Paysandú
+UC;1;Compras;N
+::;41;Red de Atención Primaria de Paysandú;41;Red de Atención Primaria de Paysandú;1;Compras;N
+UE;42;Red de Atención Primaria de Lavalleja
+UC;110;Compras en general;N
+::;42;Red de Atención Primaria de Lavalleja;42;Red de Atención Primaria de Lavalleja;110;Compras en general;N
+UC;1;Compras66;N
+::;42;Red de Atención Primaria de Lavalleja;42;Red de Atención Primaria de Lavalleja;1;Compras66;N
+UC;109;Farmacia3;N
+::;42;Red de Atención Primaria de Lavalleja;42;Red de Atención Primaria de Lavalleja;109;Farmacia3;N
+UE;43;Centro Auxiliar de Juan Lacaze
+UC;1;Compras;N
+::;43;Centro Auxiliar de Juan Lacaze;43;Centro Auxiliar de Juan Lacaze;1;Compras;N
+UE;44;Red de Atención Primaria de Rocha
+UC;1;Compras;N
+::;44;Red de Atención Primaria de Rocha;44;Red de Atención Primaria de Rocha;1;Compras;N
+UE;45;Red de Atención Primaria de San José
+UC;1;Compras;N
+::;45;Red de Atención Primaria de San José;45;Red de Atención Primaria de San José;1;Compras;N
+UC;142;Despensa General;N
+::;45;Red de Atención Primaria de San José;45;Red de Atención Primaria de San José;142;Despensa General;N
+UC;141;Farmacia;N
+::;45;Red de Atención Primaria de San José;45;Red de Atención Primaria de San José;141;Farmacia;N
+UE;46;Red de Atención Primaria de Rivera
+UC;1;Compras;N
+::;46;Red de Atención Primaria de Rivera;46;Red de Atención Primaria de Rivera;1;Compras;N
+UE;47;Centro Auxiliar de Nueva Helvecia
+UC;1;Compras;N
+::;47;Centro Auxiliar de Nueva Helvecia;47;Centro Auxiliar de Nueva Helvecia;1;Compras;N
+UE;48;Red de Atención Primaria de Colonia
+UC;1;Compras;N
+::;48;Red de Atención Primaria de Colonia;48;Red de Atención Primaria de Colonia;1;Compras;N
+UE;49;Red de Atención Primaria de Maldonado
+UC;1;Compras;N
+::;49;Red de Atención Primaria de Maldonado;49;Red de Atención Primaria de Maldonado;1;Compras;N
+UE;50;Centro Auxiliar de Pando
+UC;1;Compras;N
+::;50;Centro Auxiliar de Pando;50;Centro Auxiliar de Pando;1;Compras;N
+UE;51;Centro Auxiliar de Paso de los Toros
+UC;1;Compras;N
+::;51;Centro Auxiliar de Paso de los Toros;51;Centro Auxiliar de Paso de los Toros;1;Compras;N
+UE;52;Centro Auxiliar de Río Branco
+UC;1;Compras;N
+::;52;Centro Auxiliar de Río Branco;52;Centro Auxiliar de Río Branco;1;Compras;N
+UE;53;Centro Auxiliar de Rosario
+UC;140;Administración;N
+::;53;Centro Auxiliar de Rosario;53;Centro Auxiliar de Rosario;140;Administración;N
+UC;139;Cocina;N
+::;53;Centro Auxiliar de Rosario;53;Centro Auxiliar de Rosario;139;Cocina;N
+UC;1;Compras;N
+::;53;Centro Auxiliar de Rosario;53;Centro Auxiliar de Rosario;1;Compras;N
+UC;138;Farmacia;N
+::;53;Centro Auxiliar de Rosario;53;Centro Auxiliar de Rosario;138;Farmacia;N
+UE;54;Centro Auxiliar de San Carlos
+UC;1;Compras;N
+::;54;Centro Auxiliar de San Carlos;54;Centro Auxiliar de San Carlos;1;Compras;N
+UE;55;Red de Atención Primaria de Tacuarembó
+UC;1;Compras;N
+::;55;Red de Atención Primaria de Tacuarembó;55;Red de Atención Primaria de Tacuarembó;1;Compras;N
+UE;56;NO VIGENTE Centro Auxiliar de San Ramón
+UC;1;Compras;N
+::;56;NO VIGENTE Centro Auxiliar de San Ramón;56;NO VIGENTE Centro Auxiliar de San Ramón;1;Compras;N
+UE;57;Red de Atención Primaria de Canelones
+UC;1;Compras;N
+::;57;Red de Atención Primaria de Canelones;57;Red de Atención Primaria de Canelones;1;Compras;N
+UC;176;Medicamentos y material médico menor quirúrgico;N
+::;57;Red de Atención Primaria de Canelones;57;Red de Atención Primaria de Canelones;176;Medicamentos y material médico menor quirúrgico;N
+UC;175;Varios (traslados, Estudios, Empresa de limpieza);N
+::;57;Red de Atención Primaria de Canelones;57;Red de Atención Primaria de Canelones;175;Varios (traslados, Estudios, Empresa de limpieza);N
+UE;58;Centro Auxiliar de Sarandí Grande
+UC;1;Compras;N
+::;58;Centro Auxiliar de Sarandí Grande;58;Centro Auxiliar de Sarandí Grande;1;Compras;N
+UE;59;Red de Atención Primaria de Durazno
+UC;1;Compras;N
+::;59;Red de Atención Primaria de Durazno;59;Red de Atención Primaria de Durazno;1;Compras;N
+UE;60;NO VIGENTE Centro Auxiliar de Tala
+UC;1;Compras;N
+::;60;NO VIGENTE Centro Auxiliar de Tala;60;NO VIGENTE Centro Auxiliar de Tala;1;Compras;N
+UE;61;Red de Atención Primaria de Treinta y Tres
+UC;1;Compras;N
+::;61;Red de Atención Primaria de Treinta y Tres;61;Red de Atención Primaria de Treinta y Tres;1;Compras;N
+UE;62;Centro Auxiliar de las Piedras
+UC;1;Compras;N
+::;62;Centro Auxiliar de las Piedras;62;Centro Auxiliar de las Piedras;1;Compras;N
+UC;130;Oficina de Recepción y Registros;N
+::;62;Centro Auxiliar de las Piedras;62;Centro Auxiliar de las Piedras;130;Oficina de Recepción y Registros;N
+UE;63;Hospital -Centro Geriátrico Dr. Luis Piñeiro del Campo
+UC;1;Compras;N
+::;63;Hospital -Centro Geriátrico Dr. Luis Piñeiro del Campo;63;Hospital -Centro Geriátrico Dr. Luis Piñeiro del Campo;1;Compras;N
+UC;121;Gerencia de Recursos Materiales;N
+::;63;Hospital -Centro Geriátrico Dr. Luis Piñeiro del Campo;63;Hospital -Centro Geriátrico Dr. Luis Piñeiro del Campo;121;Gerencia de Recursos Materiales;N
+UE;64;Laboratorio Químico Industrial Francisco Dorrego
+UC;1;Compras;N
+::;64;Laboratorio Químico Industrial Francisco Dorrego;64;Laboratorio Químico Industrial Francisco Dorrego;1;Compras;N
+UC;128;Departamento Licitaciones y Compras;N
+::;64;Laboratorio Químico Industrial Francisco Dorrego;64;Laboratorio Químico Industrial Francisco Dorrego;128;Departamento Licitaciones y Compras;N
+UE;65;NO VIG.Ex-Com.H.Lucha ctr./Hidat.A133L17556 D67/003
+UC;137;Unidad de Recepción y Registro;N
+::;65;NO VIG.Ex-Com.H.Lucha ctr./Hidat.A133L17556 D67/003;65;NO VIG.Ex-Com.H.Lucha ctr./Hidat.A133L17556 D67/003;137;Unidad de Recepción y Registro;N
+UE;66;Servicio Nacional de Sangre
+UC;178;Compras;N
+::;66;Servicio Nacional de Sangre;66;Servicio Nacional de Sangre;178;Compras;N
+UE;67;NO VIGENTE Escuela de Sanidad Dr.José Scosería
+UC;159;Compras;N
+::;67;NO VIGENTE Escuela de Sanidad Dr.José Scosería;67;NO VIGENTE Escuela de Sanidad Dr.José Scosería;159;Compras;N
+UE;68;Administración de Servicios de Salud del Estado
+UC;147;Departamento de Licitaciones y Compras;N
+::;68;Administración de Servicios de Salud del Estado;68;Administración de Servicios de Salud del Estado;147;Departamento de Licitaciones y Compras;N
+UE;69;Colonia Dr.Santín Carlos Rossi
+UC;1;Compras;N
+::;69;Colonia Dr.Santín Carlos Rossi;69;Colonia Dr.Santín Carlos Rossi;1;Compras;N
+UE;71;NO VIGENTE Inst.Nal.Don.yTransp.Cél.Tej.Or
+UC;1;Compras;N
+::;71;NO VIGENTE Inst.Nal.Don.yTransp.Cél.Tej.Or;71;NO VIGENTE Inst.Nal.Don.yTransp.Cél.Tej.Or;1;Compras;N
+UE;73;Centro Auxiliar Chuy
+UC;1;Compras;N
+::;73;Centro Auxiliar Chuy;73;Centro Auxiliar Chuy;1;Compras;N
+UE;74;NO VIGENTE Centro Auxiliar Rincón de la Bolsa
+UC;1;Compras;N
+::;74;NO VIGENTE Centro Auxiliar Rincón de la Bolsa;74;NO VIGENTE Centro Auxiliar Rincón de la Bolsa;1;Compras;N
+UE;75;NO VIGENTE Centro Auxiliar Ciudad de la Costa
+UC;1;Compras;N
+::;75;NO VIGENTE Centro Auxiliar Ciudad de la Costa;75;NO VIGENTE Centro Auxiliar Ciudad de la Costa;1;Compras;N
+UE;76;Hospital Español
+UC;1;Compras;N
+::;76;Hospital Español;76;Hospital Español;1;Compras;N
+UE;78;Ctro Inf.y Ref.Nal de Red Drogas
+UE;79;Red de Atención Primaria de Artigas
+UE;80;Red de Atención Primaria de Cerro Largo
+UE;81;Red de Atención Primaria de Flores
+UE;82;Red de Atención Primaria de Río Negro
+UE;83;Red de Atención Primaria de Soriano
+UE;84;Red de Atención Primaria de Salto
+UE;86;Direc.Sistema de Atenciòn Integral Personas Privad. Libertad
+UE;87;Asistencia Integral
+UE;101;Centro Hospitalario Libertad
+UE;105;Atencion de Urgencia Emergencia Prehospitalaria y Traslado.
+IN;30;Deuda Pública
+UE;1;Poder Legislativo
+UE;2;Presidencia de la República
+UE;3;Ministerio de Defensa Nacional
+UE;4;Ministerio del Interior
+UE;5;Ministerio de Economia y Finanzas
+UE;6;Ministerio de Relaciones Exteriores
+UE;7;Ministerio de Ganadaría, Agricultura y Pesca
+UE;8;Ministerio de  Industria, Energía
+UE;9;Ministerio de Turismo
+UE;10;Ministerio de Transporte y Obras Públicas
+UE;11;Ministerio de Educación y Cultura
+UE;12;Ministerio de Salud Pública
+UE;13;Ministerio de Trabajo y Seguridad Social
+UE;14;Ministerio de Vivienda, Ordenamiento Territorial y Medio Amb
+UE;16;Poder Judicial
+UE;17;Tribunal de Cuentas
+UE;18;Corte Electoral
+UE;19;Tribunal de lo Contencioso Administrativo
+UE;25;Administración Nacional de Educación Pública (A.N.E.P.)
+UE;26;Universidad de la República
+UE;27;Instituto Nacional del Menor (I.NA.ME.)
+UE;30;Contaduría General de la Nación  (CGN)
+IN;31;Universidad Tecnológica del Uruguay
+UE;1;Universidad Tecnológica del Uruguay
+IN;40;Instituciones sin fines de lucro públicas
+UE;1;Fondo Nacional de Solidaridad
+UE;2;Fondo Nacional de Recursos
+UE;3;Comis.Hon.Lucha Contra Cáncer
+UE;4;Comis.Hon.para la Lucha Antituberculosa
+UE;5;Comis.Hon.de la Salud Cardiovascular
+UE;6;MEVIR
+UE;7;Fondo Seguro de Salud (OSE)
+UE;8;COCAP
+UE;9;INAC
+UE;10;INAVI
+UE;11;NO VIGENTE-Com.N.H.LuchaContraHidatidósis
+UE;12;Fondo Nal. de Música
+UE;13;URUGUAY XXI
+UE;14;Plan Agropecuario
+UE;15;Impresiones y Publics.Oficiales (IMPO)
+UE;16;Inst.Nal. de Inves.Agropecuaria (INIA)
+UE;17;Instituto Nal. de Semillas
+UE;18;Adm.del Mercado Eléctrico (ADME)
+UE;19;Laboratorio Tecnológico del Uruguay (LATU)
+UE;20;Corporación Nacional para el Desarrollo (CND)
+UE;21;NO VIGENTE-Fdo.Nal del Teatro (FNT)
+UE;22;Fondo de Cesantía y Retiro(Construcción)
+UE;23;Instituto Nacional de la Leche
+UE;24;Fdo.Fin.y Des.Susten.de la Act.Lechera
+UE;25;Instituto Nacional de Calidad
+UE;26;Ag.Nal. de Investigación e Innovación
+UE;27;Centro Uruguayo de Imagenología Molecular
+UE;28;Parque Científico y Tecnológico de Pando
+UE;29;Corporación de Protección del Ahorro Bancario
+UE;30;Instituto Nacional del Cooperativismo
+UE;31;Inst.Nal.de Evaluación Educativa
+UE;32;Colegio Médico del Uruguay
+UE;33;Agencia Nacional de Desarrollo (ANDE)
+UE;34;Ctro.para la Inclusión Tecnológica y Social (CICS)
+UE;35;Inst.Nal. de Empleo y Formación Profesional
+IN;45;Instituciones sin fines de lucro privadas
+IN;46;Familias
+IN;47;Cajas paraestatales
+IN;49;Organismos Internacionales
+IN;50;Banco Central del Uruguay
+UE;1;Banco Central del Uruguay
+IN;51;Banco de la República del Uruguay
+UE;1;Banco de la República del Uruguay
+UC;1;Compras;N
+::;1;Banco de la República del Uruguay;1;Banco de la República del Uruguay;1;Compras;N
+IN;52;Banco Hipotecario del Uruguay
+UE;1;Banco Hipotecario del Uruguay
+UC;1;Compras Salud;N
+::;1;Banco Hipotecario del Uruguay;1;Banco Hipotecario del Uruguay;1;Compras Salud;N
+IN;53;Banco de Seguros del Estado
+UE;1;Banco de Seguros del Estado
+UC;1;Compras Salud;N
+::;1;Banco de Seguros del Estado;1;Banco de Seguros del Estado;1;Compras Salud;N
+IN;59;Organismos Financieros Internacionales
+UE;1;Banco Mundial (BM)
+UE;2;Fondo Monetario Internacional (FMI)
+UE;3;Banco Interamericano de Desarrollo (BID)
+UE;4;Banco Internacional de Reconstrucción y Fomento (BIRF)
+UE;5;Corporación Financiera Internacional (CFI)
+UE;6;Corporación Interamericana de Inversiones(CII)
+UE;7;Organismo Multilateral de Garantía de Inversiones (OMGI)
+IN;60;Administración Nacional de Combustible, Alcohol y Portland
+UE;1;Administración Nacional de Combustible, Alcohol y Portland
+UC;1;Compras Salud;N
+::;1;Administración Nacional de Combustible, Alcohol y Portland;1;Administración Nacional de Combustible, Alcohol y Portland;1;Compras Salud;N
+IN;61;Administración Nacional de Usinas y Trasmisiones Eléctricas
+UE;1;Administración Nacional de Usinas y Trasmisiones Eléctricas
+UC;1;ff;N
+::;1;Administración Nacional de Usinas y Trasmisiones Eléctricas;1;Administración Nacional de Usinas y Trasmisiones Eléctricas;1;ff;N
+UC;2;fff;N
+::;1;Administración Nacional de Usinas y Trasmisiones Eléctricas;1;Administración Nacional de Usinas y Trasmisiones Eléctricas;2;fff;N
+IN;62;Administración de los Ferrocarriles del Estado
+UE;1;Administración de los Ferrocarriles del Estado
+IN;63;Primera Líneas Uruguayas de Navegación Aérea
+UE;1;Primeras Líneas Uruguayas de Navegación Aérea
+IN;64;Administración Nacional de Puertos
+UE;1;Administración Nacional de Puertos
+IN;65;Administración Nacional de Telecomunicaciones
+UE;1;Administración Nacional de Telecomunicaciones
+IN;66;Administración de las Obras Sanitarias del Estado
+UE;1;Administración de las Obras Sanitarias del Estado
+IN;67;Administración Nacional de Correos
+UE;1;Adminstración Nacional de Correos
+IN;68;Agencia Nacional de Vivienda
+UE;1;Agencia Nacional de Vivienda
+IN;70;Instituto Nacional de Colonización
+UE;1;Instituto Nacional de Colonización
+IN;79;Intendencias Municipales (sin discriminar)
+UE;1;Intendencias Municipales (sin discriminar)
+IN;80;Intendencia Municipal de Artigas
+UE;1;Intendencia Municipal de Artigas
+UC;1;test;N
+::;1;Intendencia Municipal de Artigas;1;Intendencia Municipal de Artigas;1;test;N
+UE;2;Junta Departamental de Artigas
+IN;81;Intendencia Municipal de Canelones
+UE;1;Intendencia Municipal de Canelones
+UC;1;Compras ;N
+::;1;Intendencia Municipal de Canelones;1;Intendencia Municipal de Canelones;1;Compras ;N
+UC;3;Laboratorio Bromatológico;N
+::;1;Intendencia Municipal de Canelones;1;Intendencia Municipal de Canelones;3;Laboratorio Bromatológico;N
+UE;2;Junta Departamental de Canelones
+IN;82;Intendencia Municipal de Cerro Largo
+UE;1;Intendencia Municipal de Cerro Largo
+UE;2;Junta Departamental de Cerro Largo
+IN;83;Intendencia Municipal de Colonia
+UE;1;Intendencia Municipal de Colonia
+UE;2;Junta Departamental de Colonia
+IN;84;Intendencia Municipal de Durazno
+UE;1;Intendencia Municiapl de Durazno
+UE;2;Junta Departamental de Durazno
+IN;85;Intendencia Municipal de Flores
+UE;1;Intendencia Municipal de Flores
+UE;2;Junta Departamental de Flores
+IN;86;Intendencia Municipal de Florida
+UE;1;Intendencia Municiapl de Florida
+UC;1;COMPRAS;N
+::;1;Intendencia Municiapl de Florida;1;Intendencia Municiapl de Florida;1;COMPRAS;N
+UE;2;Junta Departamental de Florida
+IN;87;Intendencia Municipal de Lavalleja
+UE;1;Intendencia Municipal de Lavalleja
+UE;2;Junta Departamental de Lavalleja
+IN;88;Intendencia Municipal de Maldonado
+UE;1;Intendencia Municipal de Maldonado
+UC;1;Compras Salud;N
+::;1;Intendencia Municipal de Maldonado;1;Intendencia Municipal de Maldonado;1;Compras Salud;N
+UE;2;Junta Departamental de Maldonado
+IN;89;Intendencia Municipal de Paysandú
+UE;1;Intendencia Municipal de Paysandú
+UC;1;Compras Salud;N
+::;1;Intendencia Municipal de Paysandú;1;Intendencia Municipal de Paysandú;1;Compras Salud;N
+UE;2;Junta Departamental de Paysandú
+IN;90;Intendencia Municipal de Río Negro
+UE;1;Intendencia Municipal de Río Negro
+UC;1;Compras;N
+::;1;Intendencia Municipal de Río Negro;1;Intendencia Municipal de Río Negro;1;Compras;N
+UE;2;Junta Departamental de Río Negro
+IN;91;Intendencia Municipal de Rivera
+UE;1;Intendencia Municipal de Rivera
+UE;2;Junta Departamental de Rivera
+IN;92;Intendencia Municipal de Rocha
+UE;1;Intendencia Municipal de Rocha
+UE;2;Junta Departamental de Rocha
+IN;93;Intendencia Municipal de Salto
+UE;1;Intendencia Municipal de Salto
+UE;2;Junta Departamental de Salto
+IN;94;Intendencia Municipal de San José
+UE;1;Intendencia Municipal de San José
+UE;2;Junta Departamental de San José
+IN;95;Intendencia Municipal de Soriano
+UE;1;Intendencia Municipal de Soriano
+UE;2;Junta Departamental deSoriano
+IN;96;Intendencia Municipal de Tacuarembó
+UE;1;Intendencia Municipal de Tacuarembó
+UE;2;Junta Departamental de Tacuarembó
+IN;97;Intendencia Municipal de Treinta y Tres
+UE;1;Intendencia Municipal de Treinta y Tres
+UC;1;ACA;N
+::;1;Intendencia Municipal de Treinta y Tres;1;Intendencia Municipal de Treinta y Tres;1;ACA;N
+UC;2;Compras;N
+::;1;Intendencia Municipal de Treinta y Tres;1;Intendencia Municipal de Treinta y Tres;2;Compras;N
+UE;2;Junta Departamental de Treinta y Tres
+IN;98;Intendencia Municipal de Montevideo
+UE;1;Intendencia Municipal de Montevideo
+UC;1;FEDE;N
+::;1;Intendencia Municipal de Montevideo;1;Intendencia Municipal de Montevideo;1;FEDE;N
+UC;2;FEDE TEST CERRADA;N
+::;1;Intendencia Municipal de Montevideo;1;Intendencia Municipal de Montevideo;2;FEDE TEST CERRADA;N
+UE;2;Junta Departamental de Montevideo
+UC;1;ARTIGAS;N
+::;2;Junta Departamental de Montevideo;2;Junta Departamental de Montevideo;1;ARTIGAS;N

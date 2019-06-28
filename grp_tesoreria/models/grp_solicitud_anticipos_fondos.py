@@ -22,6 +22,7 @@
 
 from openerp import models, fields, api, exceptions,_
 import openerp.addons.decimal_precision as dp
+from dateutil.relativedelta import relativedelta
 
 # TODO: M SPRING 14 GAP 29_31
 
@@ -73,6 +74,8 @@ class GrpSolicitudAnticiposFondos(models.Model):
     amount_total = fields.Float(string=u'Total', compute='_compute_amount_total', digits_compute=dp.get_precision('Account'))
     adelanto_pagado = fields.Boolean(string=u'Anticipo pagado', default=False)
     state = fields.Selection(SOLICITUD_STATE, u'Estado', default='borrador', track_visibility='onchange')
+
+    write_date = fields.Datetime(u'Fecha de modificación', readonly=True)
 
     @api.model
     @api.depends('user_uid')
@@ -145,8 +148,14 @@ class GrpSolicitudAnticiposFondos(models.Model):
 
     @api.multi
     def action_autorizado(self):
+        context_write_date = self._context.get('_write_date', False)
+        if context_write_date:
+            _last_update = {
+            '%s,%s' % (self._name, rec.id): fields.Datetime.from_string(context_write_date) + relativedelta(seconds=1)
+            for rec in self}
+            self.with_context({'__last_update': _last_update}).write({'state': 'autorizado'})
         self.generar_anticipo_fondos()
-        self.write({'state': 'autorizado'})
+        return True
 
     # TODO: M SPRING 14 GAP 29_31
     @api.multi

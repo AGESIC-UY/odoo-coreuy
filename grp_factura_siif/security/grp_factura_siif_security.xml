@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data noupdate="0">
+
+        <!-- ================  REGLAS PARA AUTORIZACION PARA GASTAR  ================ -->
+
+        <record id="rule_grp_compras_apg_lineas_llavep_Comprador" model="ir.rule">
+            <field name="name">APG Comprador grp_compras_apg_lineas_llavep</field>
+            <field name="model_id" ref="model_grp_compras_lineas_llavep"/>
+            <field name="groups" eval="[(4,ref('grp_seguridad.grp_compras_apg_Comprador'))]"/>
+            <field name="perm_read" eval="1"/>
+            <field name="perm_write" eval="1"/>
+            <field name="perm_unlink" eval="1"/>
+            <field name="perm_create" eval="1"/>
+        </record>
+
+        <record id="rule_grp_compras_apg_lineas_llavep_Jefe_de_compras" model="ir.rule">
+            <field name="name">APG Jefe de compras grp_compras_apg_lineas_llavep</field>
+            <field name="model_id" ref="model_grp_compras_lineas_llavep"/>
+            <field name="groups" eval="[(4,ref('grp_seguridad.grp_compras_apg_Jefe_de_compras'))]"/>
+            <field name="perm_read" eval="1"/>
+            <field name="perm_write" eval="1"/>
+            <field name="perm_unlink" eval="0"/>
+            <field name="perm_create" eval="0"/>
+        </record>
+
+        <record id="rule_grp_compras_apg_lineas_llavep_Ordenador_del_gasto" model="ir.rule">
+            <field name="name">APG Ordenador del gasto grp_compras_apg_lineas_llavep</field>
+            <field name="model_id" ref="model_grp_compras_lineas_llavep"/>
+            <field name="groups" eval="[(4,ref('grp_seguridad.grp_compras_apg_Ordenador_del_gasto'))]"/>
+            <field name="perm_read" eval="1"/>
+            <field name="perm_write" eval="0"/>
+            <field name="perm_unlink" eval="0"/>
+            <field name="perm_create" eval="0"/>
+        </record>
+
+        <record id="rule_grp_compras_apg_lineas_llavep_Responsable_SIIF" model="ir.rule">
+            <field name="name">APG Responsable SIIF grp_compras_apg_lineas_llavep</field>
+            <field name="model_id" ref="model_grp_compras_lineas_llavep"/>
+            <field name="groups" eval="[(4,ref('grp_seguridad.grp_compras_apg_Responsable_SIIF'))]"/>
+            <field name="perm_read" eval="1"/>
+            <field name="perm_write" eval="0"/>
+            <field name="perm_unlink" eval="0"/>
+            <field name="perm_create" eval="0"/>
+        </record>
+        <!-- ================  ================ -->
+
+        <!-- Regla para seguridad por Operating Unit en los agrupadores -->
+        <record id="rule_OU_agrupador_suministro" model="ir.rule">
+            <field name="model_id" ref="model_grp_agrupar_suministros_facturas"/>
+            <field name="domain_force">['|',('operating_unit_id','=',False),('operating_unit_id','in',[g.id for g in user.operating_unit_ids])]</field>
+            <field name="name">Agrupadores Suministro de Unidades Operativas permitidas</field>
+            <field name="global" eval="True"/>
+        </record>
+
+        <!-- Regla para seguridad por Operating Unit en los FR -->
+        <record id="rule_OU_regularizacion_clearing" model="ir.rule">
+            <field name="model_id" ref="model_regularizacion_clearing"/>
+            <field name="domain_force">['|',('operating_unit_id','=',False),('operating_unit_id','in',[g.id for g in user.operating_unit_ids])]</field>
+            <field name="name">Regularización clearing de Unidades Operativas permitidas</field>
+            <field name="global" eval="True"/>
+        </record>
+
+        <!-- Regla para seguridad por Operating Unit en la Afectacion -->
+        <record id="rule_grp_afectacion_OU_permitidas" model="ir.rule">
+            <field name="model_id" ref="model_grp_afectacion"/>
+            <field name="domain_force">['|',('operating_unit_id','=',False),('operating_unit_id','in',[g.id for g in user.operating_unit_ids])]</field>
+            <field name="name">Afectacion de Unidades Operativas permitidas</field>
+            <field name="global" eval="True"/>
+        </record>
+
+        <!-- Regla para seguridad por Operating Unit en la Afectacion -->
+        <record id="rule_grp_compromiso_OU_permitidas" model="ir.rule">
+            <field name="model_id" ref="model_grp_compromiso"/>
+            <!--<field name="domain_force">['|',('operating_unit_id','=',False),('operating_unit_id','in',[g.id for g in user.operating_unit_ids])]</field>-->
+            <field name="domain_force">['|','&amp;',('tipo_afectacion','=','afectacion'),('afectacion_id.operating_unit_id','in',[g.id for g in user.operating_unit_ids]),
+                                            '&amp;',('tipo_afectacion','=','apg'),('apg_id.operating_unit_id','in',[g.id for g in user.operating_unit_ids])]</field>
+
+            <field name="name">Compromiso de Unidades Operativas permitidas</field>
+            <field name="global" eval="True"/>
+        </record>
+
+        <!-- Regla para seguridad por Operating Unit en compromiso por proveedor -->
+        <record id="rule_grp_compromiso_proveedor_OU_permitidas" model="ir.rule">
+            <field name="model_id" ref="model_grp_cotizaciones_compromiso_proveedor"/>
+            <field name="domain_force">['|',('apg_id.operating_unit_id','=',False),('apg_id.operating_unit_id','in',[g.id for g in user.operating_unit_ids])]</field>
+            <field name="name">Compromiso por proveedor de Unidades Operativas permitidas</field>
+            <field name="global" eval="True"/>
+        </record>
+
+    </data>
+</openerp>

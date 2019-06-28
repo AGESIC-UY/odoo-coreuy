@@ -1,0 +1,536 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="invoice_siif_retention_supplier_form_inherit" model="ir.ui.view">
+            <field name="name">account.invoice.siif.retention.supplier.form_h</field>
+            <field name="model">account.invoice</field>
+            <field name="type">form</field>
+            <field name="priority" eval="1"/> <!--TODO Spring 6 GAP 206-->
+            <field name="inherit_id" ref="account.invoice_supplier_form"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="/form/sheet" position="before">
+                    <div name="show_error" attrs="{'invisible':['|',('show_warning','=',False),('tipo_ejecucion_alert', '=',False)]}" class="alert alert-danger" style="height: 60px;">
+                        <div class="oe_inline" style="float: left;">
+                            <span class="fa fa-warning" style="color: #DD0000;"/>
+                                <span style="font-weight: bold !important; float: right; margin-left: 10px; width: 610px;">
+                                    <p><strong>El cambio de ejecución puede implicar una modificación de afectación y compromiso. <br/>
+                        Verifique si tiene que regularizar esas instancias.</strong></p>
+                                </span>
+                            <field name="show_warning" invisible="1"/>
+                            <field name="tipo_ejecucion_alert" invisible="1"/>
+                        </div>
+                        <div class="oe_right">
+                            <button name="do_not_show_warning" string="[No volver a mostrar]" type="object" class="oe_link"/>
+                            <div class="fa fa-close" style="font-weight: bold !important; cursor: pointer; color: #DD0000;"
+                            onclick="$('div[name|=\'show_error\']').slideUp();"/><br/>
+                        </div>
+                    </div>
+                </xpath>
+
+                <button name="%(account.action_account_invoice_refund)d" position="attributes">
+                    <attribute name="string">Nueva modificación</attribute>
+                    <attribute name="states">intervened,open,prioritized</attribute>
+                    <attribute name="attrs">{'invisible':['|',('tipo_ejecucion_codigo_rel','in',['P','R'])]}</attribute>
+                    <attribute name="context">{'default_date': date_invoice, 'ajuste_siif': True}</attribute>
+                </button>
+
+                <button name="%(account.action_account_invoice_refund)d" position="after">
+                    <button name="%(account.action_account_invoice_refund)d"
+                            type='action'
+                            string='Nota de Crédito'
+                            states='open,paid'
+                            groups="account.group_account_invoice"
+                            attrs="{'invisible': ['|','|',('tipo_ejecucion_codigo_rel','not in',['P']),('type','in',['in_refund'])]}"/>
+
+                    <button name="%(account.action_account_invoice_refund)d" type="action" string="Devolución al Crédito" states="intervened,prioritized"
+                            context="{'default_tipo_nota_credito':'D', 'default_date': date_invoice, 'ajuste_siif': True}" groups="grp_seguridad.grp_compras_apg_Responsable_SIIF"/>
+
+                    <button name="btn_observ_tribunal"
+                            type="object"
+                            string="Consulta Observaciones Tribunal"
+                            states="intervened,paid,prioritized"
+                            groups="grp_seguridad.grp_compras_apg_Responsable_SIIF"/>
+
+                </button>
+                <field name="partner_id" position="after">
+                    <field name="domain_beneficiario_ids" invisible="1"/>
+                    <field name="beneficiario_siif_id" domain="[('id', 'in', domain_beneficiario_ids[0][2])]"
+                           attrs="{'readonly':['|',('nro_obligacion','&gt;',0),('partner_id','=',False)], 'required': [('state','!=','draft'),('tipo_ejecucion_codigo_rel','not in',['P'])]}"
+                            options="{'limit': 10, 'create': false, 'create_edit': false}" on_change="onchange_beneficiario_siif_id(beneficiario_siif_id)"
+                              />
+                    <!--attrs="{'readonly':['|',('state','=','forced'),('partner_id','=',False)], 'required': [('tipo_ejecucion_codigo_rel','not in',['P'])]}"-->
+                    <field name="rupe_cuenta_bancaria_id" domain="[('cnt_proveedor_prv_id','=',id_rupe_benef),('codigo_moneda','in',('UYU',))]" options="{'create': false, 'create_edit': false}"
+                            attrs="{'readonly':['|',('nro_obligacion','&gt;',0),('partner_id','=',False)], 'required':['&amp;',('state','!=','draft'),('beneficiario_siif_id','!=',False),('benef_es_inciso_default','!=',True),('benef_es_inciso','!=',True),('tipo_ejecucion_codigo_rel','not in',['P'])], 'invisible':['|','|',('benef_es_inciso_default','!=',False),('benef_es_inciso','!=',False),('beneficiario_siif_id','=',False)]}" groups="grp_seguridad.grp_compras_apg_Responsable_SIIF"/>
+                            <!--attrs="{'readonly':['|',('state','=','forced'),('partner_id','=',False)],'required':[('beneficiario_siif_id','!=',False),('benef_es_inciso_default','!=',True),('benef_es_inciso','!=',True),('tipo_ejecucion_codigo_rel','not in',['P'])], 'invisible':['|','|',('benef_es_inciso_default','!=',False),('benef_es_inciso','!=',False),('beneficiario_siif_id','=',False)]}" groups="grp_seguridad.grp_compras_apg_Responsable_SIIF"/>-->
+
+                    <!-- Para cuando beneficiario es mrree -->
+                    <field name="res_partner_bank_id" domain="[('partner_id','=',beneficiario_siif_id)]" options="{'create': false, 'create_edit': false}"
+                           groups="grp_seguridad.grp_compras_apg_Responsable_SIIF"
+                           attrs="{'readonly':['|',('partner_id','=',False),('nro_obligacion','&gt;',0)], 'required':['&amp;',('state','!=','draft'),('beneficiario_siif_id','!=',False),'|',('benef_es_inciso_default','=',True),('benef_es_inciso','=',True)], 'invisible':['|',('beneficiario_siif_id','=',False),'&amp;',('benef_es_inciso_default','=',False),('benef_es_inciso','=',False)]}"/>
+                           <!--attrs="{'readonly':['|',('partner_id','=',False),('state','in',('forced'))], 'required':[('beneficiario_siif_id','!=',False),'|',('benef_es_inciso_default','=',True),('benef_es_inciso','=',True)], 'invisible':['|',('beneficiario_siif_id','=',False),'&amp;',('benef_es_inciso_default','=',False),('benef_es_inciso','=',False)]}"/>-->
+
+                    <field name="id_rupe_benef" invisible="1"/>
+                    <field name="benef_es_inciso_default" invisible="1"/>
+                    <field name="benef_es_inciso" invisible="1"/>
+                </field>
+
+                <field name="supplier_invoice_number" position="after">
+                    <!--<field name="oc_envia_sice" invisible="1"/>-->
+                </field>
+
+                <field name="date_due" position="after">
+                    <field name="doc_type" invisible="1"/>
+                    <field name="fiscalyear_siif_id" options="{'create': false, 'create_edit': false}"
+                           on_change="onchange_fiscalyear_siif_id(fiscalyear_siif_id,False)"
+                           required="1"/>
+                </field>
+
+                <xpath expr="//page[@string='Invoice']/div[1]" position="replace">
+                    <group col="6">
+                        <group colspan="2">
+                            <field name="tax_line" nolabel="1">
+                                <tree editable="bottom" string="Taxes">
+                                    <field name="name"/>
+                                    <field name="account_id" groups="account.group_account_invoice"/>
+                                    <field name="account_analytic_id"
+                                           domain="[('type','&lt;&gt;','view'), ('company_id', '=', parent.company_id)]"
+                                           groups="analytic.group_analytic_accounting"/>
+                                    <field name="base"
+                                           on_change="base_change(base,parent.currency_id,parent.company_id,parent.date_invoice)"
+                                           readonly="1"/>
+                                    <field name="amount"
+                                           on_change="amount_change(amount,parent.currency_id,parent.company_id,parent.date_invoice)"/>
+                                    <field invisible="True" name="base_amount"/>
+                                    <field invisible="True" name="tax_amount"/>
+                                    <field name="factor_base" invisible="True"/>
+                                    <field name="factor_tax" invisible="True"/>
+                                    <field name="impuesto_moneda_base"/>
+                                </tree>
+                            </field>
+                        </group>
+                        <div>
+                            <group class="oe_subtotal_footer oe_right" colspan="2">
+                                <separator string="Importes SIIF" colspan="2" style="text-align:center"/>
+                                <field name="tc_presupuesto_fnc_res"/>
+                                <field name="total_nominal" widget="monetary"
+                                       options="{'currency_field': 'company_currency_id'}"/>
+                                <field name="amount_total_paid" widget="monetary"
+                                       options="{'currency_field': 'company_currency_id'}"
+                                       attrs="{'invisible': ['|',('state','not in',('paid','forced')),('diferent_currency','!=',True)]}"
+                                       groups="base.group_no_one"/>
+                                <field name="total_reponer" widget="monetary"
+                                       options="{'currency_field': 'company_currency_id'}"
+                                       attrs="{'invisible': ['|',('state','not in',('paid','forced')),('diferent_currency','!=',True)]}"/>
+                                <field name="amount_ttal_impuestos_pesos" widget="monetary"
+                                       options="{'currency_field': 'company_currency_id'}"/>
+                                <field name="amount_ttal_ret_pesos" widget="monetary"
+                                       options="{'currency_field': 'company_currency_id'}"/>
+                                <field name="amount_ttal_liq_pesos" class="oe_subtotal_footer_separator"
+                                       widget="monetary" options="{'currency_field': 'company_currency_id'}"/>
+                                <field name="prioritize_total"/><!--TODO SPRING 8 GAP 60 L: Agregando campo Total priorizado-->
+                            </group>
+                        </div>
+                    </group>
+                </xpath>
+                <xpath expr="//sheet/notebook/page[@string='Payments']/field[@name='payment_ids']"
+                       position="before">
+                    <group>
+                        <field name="account_voucher_id" readonly="1"/>
+                     </group>
+                </xpath>
+
+                <field name="payment_ids" position="after">
+                    <field name="payment_ret_ids" nolabel="1"
+                           attrs="{'invisible': ['|',('invoice_ret_lines','=',False),('state','not in',['paid'])]}">
+                        <tree string="Payments">
+                            <field name="date" string="Payment Date"/>
+                            <field name="move_id"/>
+                            <field name="ref"/>
+                            <field name="name"/>
+                            <field name="journal_id"/>
+                            <field name="debit"/>
+                            <field name="credit"/>
+                            <field name="amount_currency"/>
+                            <field name="currency_id" groups="base.group_multi_currency"/>
+                        </tree>
+                    </field>
+                </field>
+
+                <xpath expr="//sheet/notebook" position="inside">
+                    <page string="Priorizaciones">
+                        <field name="inv_prioritized_line" readonly="1">
+                            <tree>
+                                <field name="fecha_confirmado"/>
+                                <field name="ruc"/>
+                                <field name="monto_priorizado" sum="1"/>
+                            </tree>
+                        </field>
+                    </page>
+
+                    <page string="Observaciones">
+                        <field name="observacion_ids" readonly="1">
+                            <tree>
+                                <field name="descripcion"/>
+                                <field name="observacion"/>
+                            </tree>
+                        </field>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+
+        <!-- TODO: SPRING 10 GAP 493 C-->
+        <record id="invoice_supplier_cancel_form_inherit" model="ir.ui.view">
+            <field name="name">invoice.supplier.cancel.form.inherit</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account_cancel.invoice_supplier_cancel_form_inherit"/>
+            <field name="arch" type="xml">
+                <xpath expr="//button[@name='invoice_cancel']" position="attributes">
+                    <attribute name="attrs">{'invisible':['|','&amp;',('state','=', 'open'),('tipo_ejecucion_codigo_rel','not in',['P','R'])]}</attribute>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="invoice_siif_ce_supplier_form_inherit" model="ir.ui.view">
+            <field name="name">account.invoice.siif.ce.supplier.form_h</field>
+            <field name="model">account.invoice</field>
+            <field name="type">form</field>
+            <field name="inherit_id" ref="grp_compras_estatales.invoice_grp_view_form_supplier"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="/form/header/button[@name='invoice_sice_temp']" position="after">
+                    <button name="btn_obligar" states="sice" string="Obligar" type="object" attrs="{'invisible':['|','|',('tipo_ejecucion_codigo_rel','=',False),('tipo_ejecucion_codigo_rel','in',['P','R'])]}" class="oe_highlight" groups="grp_seguridad.grp_compras_apg_Responsable_SIIF"/><!-- TODO: SPRING 8 GAP 236.237 M-->
+                    <button name="btn_cancel_obligacion" states="intervened,prioritized" string="Anular obligación SIIF" type="object" groups="grp_seguridad.grp_compras_apg_Responsable_SIIF"/><!--TODO: SPRING 8 GAP 226 L:-->
+                    <!-- TODO: UNIFICAR-->
+                    <button name="btn_borrar_obligacion" states="open" string="Borrar obligación SIIF" attrs="{'invisible':['|',('tipo_ejecucion_codigo_rel','in',['P','T','R'])]}" type="object" groups="grp_seguridad.grp_compras_apg_Responsable_SIIF"/><!--TODO: SPRING 8 GAP 226 L:-->
+                    <button name="btn_borrar_obligacion" states="forced" string="Borrar obligación SIIF" attrs="{'invisible':['|',('tipo_ejecucion_codigo_rel','not in',['P','T','R'])]}" type="object" groups="grp_seguridad.grp_compras_apg_Responsable_SIIF"/><!--TODO: SPRING 8 GAP 226 L:-->
+
+                     <!--TODO Spring 8 GAP 115 C-->
+                     <button name='%(enviar_cesion_siif_wizard_act)d' attrs="{'invisible':[('mostrar_boton_enviar','=', False)]}" type="action" string="Enviar Cesiones a SIIF" groups="grp_seguridad.grp_compras_apg_Responsable_SIIF"/>
+
+                </xpath>
+
+                <button name="invoice_open" position="attributes">
+                    <attribute name="states">proforma2,sice,forced</attribute>
+                    <attribute name="attrs">{'invisible':['|','|',('tipo_ejecucion_codigo_rel','=',False),'|','|','&amp;',('state','in',('proforma2')),('tipo_ejecucion_codigo_rel','!=','P'),'&amp;',('state','=','forced'),('tipo_ejecucion_codigo_rel','=','P'),'&amp;',('state','=','sice'),('tipo_ejecucion_codigo_rel','not in',['P','R'])]}</attribute><!-- TODO: SPRING 8 GAP 236.237 M-->
+                </button>
+                <!-- TODO: SPRING 8 GAP 236.237 M-->
+                <button name="invoice_sice_temp" position="attributes">
+                    <attribute name="attrs">{'invisible':['|',('tipo_ejecucion_codigo_rel','not in',['R','P'])]}</attribute>
+                </button>
+                <!-- TODO: SPRING 8 GAP 236.237 M-->
+                <button name="invoice_cancel_sice" position="attributes">
+                    <attribute name="attrs">{'invisible':['|',('tipo_ejecucion_codigo_rel','=','R')]}</attribute>
+                </button>
+                <!-- TODO: SPRING 8 GAP 236.237 M-->
+                <!--<button name="%(account.action_account_invoice_refund)d" position="attributes">-->
+                    <!--<attribute name="attrs">{'invisible':['|','|',('tipo_ejecucion_codigo_rel','in',['P','R']),('state','=','open')]}</attribute>-->
+                <!--</button>-->
+                <!-- TODO: SPRING 8 GAP 236.237 M-->
+                 <button name="button_cancel_pago_parcial" position="attributes">
+                    <attribute name="attrs">{'invisible':['|','|',('payment_ids', '=', [(6, False, [])]),('tipo_ejecucion_codigo_rel','=','R')]}</attribute>
+                 </button>
+                <!-- TODO: SPRING 8 GAP 236.237 M-->
+                <button name="action_cancel_draft" position="attributes">
+                    <attribute name="attrs">{'invisible':['|',('tipo_ejecucion_codigo_rel','!=','R'),('state','!=','sice')]}</attribute>
+                 </button>
+
+                <field name="fecha_tipo_cambio" position="attributes">
+                    <attribute name="on_change">onchange_tc_date(currency_id, fecha_tipo_cambio)</attribute>
+                </field>
+                <field name="tipo_de_cambio_fnc" position="after">
+                    <field name="tc_presupuesto" invisible="1"/>
+                    <field name="tc_presupuesto_fnc" attrs="{'invisible':[('diferent_currency','=',False)]}"/>
+                    <field name="siif_tipo_ejecucion" readonly="context.get('apply_default_fr',False)"
+                           attrs="{'readonly': [('state','not in',['draft','sice'])], 'required': ['|','&amp;',('state','=','sice'),('tipo_ejecucion_codigo_rel','!=','P'),'&amp;',('state','=','paid'),('tipo_ejecucion_codigo_rel','=','P')]}"
+                           on_change="onchange_tipo_ejecucion(siif_tipo_ejecucion)"/><!--TODO SPRING 8 GAP 235 R pasando a readonly si es FR-->
+                    <field name="siif_concepto_gasto" attrs="{'readonly': ['|','&amp;',('state','not in',['draft','sice']),('tipo_ejecucion_codigo_rel','!=','P'),'&amp;',('state','not in',('sice','paid')),('tipo_ejecucion_codigo_rel','=','P')], 'required': [('state','=','sice'),('tipo_ejecucion_codigo_rel','!=','P')]}"/>
+                    <field name="siif_financiamiento" attrs="{'readonly': ['|','&amp;',('state','not in',['draft','sice']),('tipo_ejecucion_codigo_rel','!=','P'),'&amp;',('state','not in',('sice','paid')),('tipo_ejecucion_codigo_rel','=','P')], 'required': [('state','=','sice'),('tipo_ejecucion_codigo_rel','!=','P')]}" on_change="onchange_siif_financiamiento(siif_financiamiento)"/>
+                    <field name="filtro_sir" invisible="1"/>
+                    <field name="siif_codigo_sir"
+                           domain="[('codigo','like',filtro_sir)]"
+                           attrs="{'readonly': ['|','&amp;',('state','not in',['draft','sice']),('tipo_ejecucion_codigo_rel','!=','P'),'&amp;',('state','not in',('sice','paid')),('tipo_ejecucion_codigo_rel','=','P')], 'required': [('state','=','sice'),('tipo_ejecucion_codigo_rel','!=','P')]}"/>
+                    <field name="siif_nro_fondo_rot" domain="[('fiscal_year','=',fiscalyear_siif_id)]" attrs="{'readonly': ['|','&amp;',('state','not in',['draft','sice']),('tipo_ejecucion_codigo_rel','!=','P'),'&amp;',('state','not in',('sice','paid')),('tipo_ejecucion_codigo_rel','=','P')]}"/>
+                    <!-- Quitar el requerido a los campos compromiso_proveedor_id, siif_tipo_documento y siif_descripcion en Facturas de proveedor -->
+                    <!-- , 'required': [('state','=','sice'),('tipo_ejecucion_codigo_rel','not in',['P','R'])] -->
+                    <!-- , 'required': [('state','=','sice'),('tipo_ejecucion_codigo_rel','!=','P')] -->
+                    <!-- , 'required': [('state','=','sice'),('tipo_ejecucion_codigo_rel','not in',['P','R'])] -->
+                    <field name="compromiso_proveedor_id" domain="[('cot_id.purchase_order_ids','in', orden_compra_id),('provider_id','=',partner_id),('state','=','committed')]" attrs="{'readonly': ['|','&amp;',('state','not in',['draft','sice']),('tipo_ejecucion_codigo_rel','!=','P'),'&amp;',('state','not in',('sice','paid')),('tipo_ejecucion_codigo_rel','=','P')]}"/>
+                    <field name="siif_tipo_documento"  attrs="{'readonly': ['|','&amp;',('state','not in',['draft','sice']),('tipo_ejecucion_codigo_rel','!=','P'),'&amp;',('state','not in',('sice','paid')),('tipo_ejecucion_codigo_rel','=','P')]}"/>
+                    <field name="siif_descripcion"  attrs="{'readonly': ['|','&amp;',('state','not in',['draft','sice']),('tipo_ejecucion_codigo_rel','!=','P'),'&amp;',('state','not in',('sice','paid')),('tipo_ejecucion_codigo_rel','=','P')]}"/>
+                    <field name="tipo_ejecucion_codigo_rel" readonly="1" invisible="1"/>
+                    <!--TODO Spring 8 GAP 115 C-->
+                    <field name="mostrar_boton_enviar" invisible="1"/>
+                </field>
+                <group name="data_siif" position="attributes">
+                        <attribute name="invisible">0</attribute>
+                </group>
+                <group name="data_siif" position="inside">
+                    <field name="nro_afectacion" invisible="1" />
+                    <field name="monto_afectado" invisible="1"/>
+                    <field name="nro_compromiso" invisible="1"/>
+                    <field name="monto_comprometido" invisible="1"/>
+                    <field name="nro_afectacion_fnc" widget="char"/>
+                    <field name="monto_afectado_fnc" />
+                    <field name="nro_compromiso_fnc" widget="char"/>
+                    <field name="monto_comprometido_fnc" />
+                    <field name="nro_obligacion" readonly="1" widget="char"/>
+                    <field name="cesion_embargo" attrs="{'readonly': [('nro_obligacion','!=',False)],'invisible': [('type','not in',['in_invoice'])]}"/>
+                    <field name="obligacion_paga_tgn" attrs="{'invisible':[('tipo_ejecucion_codigo_rel','!=','P')]}"/>
+                    <field name="intervenido_con_observ" readonly="1"/>
+                </group>
+
+                <field name="move_id" position="after">
+                    <field name="in_regulation_clearing" readonly="1"/><!-- TODO: SPTING 8 GAP 236.237 M-->
+                    <field name="regularizacion_id" readonly="1"/><!-- TODO: SPTING 8 GAP 236.237 M-->
+                </field>
+
+                <!--TODO: R AL ELIMINAR EL TAB NOTA DE CREDITO SE MUEVE LA HERENCIA QUE DEPENDIA DE ESTE-->
+                <xpath expr="//notebook" position="inside">
+                    <page string="Llave presupuestal" name="llave_presp">
+                        <group>
+                            <group>
+                                <field name="inciso_siif_id" domain="[('fiscal_year_id','=', fiscalyear_siif_id)]" style="width:20%%"/>
+                                <field name="ue_siif_id" domain="[('inciso_id','=', inciso_siif_id)]" style="width:20%%"/>
+                            </group>
+                            <newline/>
+                            <button name="action_llpapg_reload" string="Actualizar" type="object"
+                                    confirm="Esta seguro desea actualizar las líneas de la Llave presupuestal?"
+                                    attrs="{'invisible': [('state','not in',['draft','sice'])]}" icon="terp-stock_effects-object-colorize" class="oe_inline"/>
+                            <newline/>
+                            <field name="llpapg_ids" nolabel="1" widget="one2many_list" attrs="{'readonly':[('nro_obligacion','!=',False)]}" colspan="4">
+                                <tree string="Llave Presupuestal" delete="true" edit="true" create="true" editable="bottom">
+                                    <field name="odg_id" domain="[('ue_id','=',parent.ue_siif_id)]" on_change="onchange_objeto_del_gasto(odg_id)"/>
+                                    <field name="auxiliar_id" domain="[('odg_id','=',odg_id)]" on_change="onchange_auxiliar(auxiliar_id)"/>
+                                    <field name="fin_id" required="1" domain="[('aux_id','=',auxiliar_id)]" on_change="onchange_fuente_de_financiamiento(fin_id)"/>
+                                    <field name="programa_id" required="1" domain="[('ff_id','=',fin_id)]" on_change="onchange_programa(programa_id)"/>
+                                    <field name="proyecto_id" required="1" domain="[('programa_id','=',programa_id)]" on_change="onchange_proyecto(proyecto_id)"/>
+                                    <field name="mon_id" required="1" domain="[('proyecto_id','=',proyecto_id)]" on_change="onchange_moneda(mon_id)"/>
+                                    <field name="tc_id" required="1" domain="[('moneda_id','=',mon_id)]"/>
+                                    <field name="disponible"/>
+                                    <field name="importe"/>
+                                </tree>
+                            </field>
+
+                            <field name="modif_obligacion_log_ids" nolabel="1" readonly="1" colspan="4">
+                                <tree string="Modificaciones">
+                                    <field name="tipo"/>
+                                    <field name="fecha"/>
+                                    <field name="objeto_gasto"/>
+                                    <field name="auxiliar"/>
+                                    <field name="financiamiento"/>
+                                    <field name="programa"/>
+                                    <field name="proyecto"/>
+                                    <field name="moneda"/>
+                                    <field name="tipo_credito"/>
+                                    <field name="importe"/>
+                                </tree>
+                            </field>
+                        </group>
+                    </page>
+                    <page string="Historial de anulaciones" attrs="{'invisible': [('anulacion_siif_log_ids', '=', [] )]}">
+                        <field name="anulacion_siif_log_ids" nolabel="1" widget="one2many_list">
+                            <tree string="Historial anulaciones" delete="false" edit="false" create="false">
+                                 <field name="invoice_id" invisible="1"/>
+                                 <field name="nro_obl_sist_aux" invisible="1"/>
+                                 <field name="fecha"/>
+                                 <field name="nro_afectacion_siif" widget="char"/>
+                                 <field name="nro_compromiso" widget="char"/>
+                                <field name="nro_obligacion" widget="char"/>
+                            </tree>
+                          </field>
+                    </page>
+                    <page string= "Cesiones" attrs="{'invisible': [('cesion_embargo','=',False)]}"  >
+                        <field name="cesion_ids" attrs="{'readonly': [('nro_obligacion','!=',False)]}">
+                            <tree string="Cesiones" editable="bottom" colors="blue:asentado == False;gray:asentado != False"><!--TODO Spring 8 GAP 115 C: Agregando colores a las cesiones-->
+                                <field name="tipo_ces_emb" style="width: 60%" required="1" attrs="{'readonly': [('asentado','!=',False)]}"/><!--TODO Spring 8 GAP 115 C: Modificando el readonly-->
+                                <field name="cesion_partner_id" required="1" on_change="onchange_beneficiario_cesion_id(cesion_partner_id)" attrs="{'readonly': [('asentado','!=',False)]}"/><!--TODO Spring 8 GAP 115 C: Modificando el readonly-->
+                                <field name="unidad_ejecutora_id"
+                                       options="{'create': false, 'create_edit': false, 'save_readonly':True}"
+                                       attrs="{'readonly': ['|',('cesion_es_inciso_default','=',False),('asentado','!=',False)],
+                                               'required':[('cesion_es_inciso_default','=',True)]}"/>
+                                <field name="cesion_rupe_cta_bnc_id" domain="[('cnt_proveedor_prv_id','=',id_rupe_cesion_benef),('codigo_moneda','in',('UYU',))]"
+                                       options="{'create': false, 'create_edit': false, 'save_readonly':True}"
+                                       attrs="{'readonly': ['|','|',('asentado','!=',False),('cesion_es_inciso','!=',False),('cesion_es_inciso_default','!=',False)],
+                                               'required':[('cesion_es_inciso','!=',True),('cesion_es_inciso_default','!=',True)]}"/>
+                                <field name="cesion_res_partner_bank_id" domain="[('partner_id','=',cesion_partner_id)]"
+                                       options="{'create': false, 'create_edit': false, 'save_readonly':True}"
+                                       attrs="{'readonly': ['|',('asentado','!=',False),'&amp;',('cesion_es_inciso','=',False),('cesion_es_inciso_default','=',False)],
+                                               'required':['|',('cesion_es_inciso','=',True),('cesion_es_inciso_default','=',True)]}"/>
+                                <field name="monto_cedido_embargado" required="1" attrs="{'readonly': [('asentado','!=',False)]}"/><!--TODO Spring 8 GAP 115 C: Modificando el readonly-->
+
+                                <field name="id_rupe_cesion_benef" invisible="1"/>
+                                <field name="cesion_es_inciso" invisible="1"/>
+                                <field name="cesion_es_inciso_default" invisible="1"/>
+
+                                <!--TODO Spring 8 GAP 115 C-->
+                                <field name="asentado"/>
+                                <field name="account_move_name"/>
+                                <!--<field name="entornado" invisible="1"/>-->
+                                <button name="crear_extorno" string="Crear extorno" type="object" attrs="{'invisible': [('asentado','=', False)]}" icon="STOCK_EXECUTE"/>
+                            </tree>
+                        </field>
+                    </page>
+                </xpath>
+
+            </field>
+        </record>
+
+        <!-- TODO: SPRING 8 GAP 236.237 M-->
+        <record id="inherited_view_grp_factura_proveed_form_base_siif" model="ir.ui.view">
+            <field name="name">account.invoice.supplier.form.inherit.base.siif</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="facturas_uy.inherited_view_grp_factura_proveed_form_base"/>
+                <field name="arch" type="xml">
+                    <xpath expr="//sheet[@string='Supplier Invoice']/group/group/field[@name='journal_id']" position="attributes">
+                        <attribute name="attrs">{'readonly': ['|','|',('factura_original','!=',False),('state','not in',['draft','sice']),'&amp;',('state','in',['sice']),('tipo_ejecucion_codigo_rel','!=','R')]}</attribute>
+                    </xpath>
+                    <xpath expr="//sheet[@string='Supplier Invoice']/group/group/field[@name='operating_unit_id']" position="attributes">
+                        <attribute name="attrs">{'readonly': ['|','|',('factura_original','!=',False),('state','not in',['draft','sice']),'&amp;',('state','in',['sice']),('tipo_ejecucion_codigo_rel','!=','R')]}</attribute>
+                    </xpath>
+                    <xpath expr="//sheet[@string='Supplier Invoice']/group/group/field[@name='account_id']" position="attributes">
+                        <attribute name="attrs">{'readonly': ['|','|',('factura_original','!=',False),('state','not in',['draft','sice']),'&amp;',('state','in',['sice']),('tipo_ejecucion_codigo_rel','!=','R')]}</attribute>
+                    </xpath>
+                </field>
+        </record>
+
+        <!-- TODO: SPRING 8 GAP 236.237 M-->
+        <record model="ir.ui.view" id="view_invoice_supplier_voucher_inherit_facturas_uy">
+            <field name="name">account.invoice.supplier.pay.inherit.facturas_uy.siif</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="facturas_uy.view_invoice_supplier_voucher_inherit_facturas_uy"/>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <button name="invoice_pay_adjustment" position="attributes">
+                    <!--<attribute name="attrs">{'invisible': ['|',('tipo_ejecucion_codigo_rel','=','R')]}</attribute>-->
+                    <attribute name="attrs">{'invisible': ['|','|',('fecha_aprobacion','=',False),('tipo_ejecucion_codigo_rel','!=','P')]}</attribute>
+                </button>
+
+            </field>
+        </record>
+
+        <!-- TODO: SPRING 8 GAP 236.237 M-->
+        <record id="view_account_suplier_form_sice" model="ir.ui.view">
+            <field name="name">account.invoice.supplier.form.sice.siif</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="grp_factura_sice.view_account_suplier_form_sice"/>
+            <field name="arch" type="xml">
+                <button name="invoice_sice" position="attributes">
+                    <attribute name="attrs">{'invisible': ['|', '|', ('tipo_ejecucion_codigo_rel','=','R')]}</attribute>
+                </button>
+            </field>
+        </record>
+
+        <!-- VISTA DE RETENCIONES HEREDADA -->
+        <record id="invoice_siif_retention_form_inherit" model="ir.ui.view">
+            <field name="name">account.invoice.siif.retention.form_h</field>
+            <field name="model">account.invoice</field>
+            <field name="type">form</field>
+            <field name="inherit_id" ref="uy_retenciones.invoice_retention_supplier_form_inherit"/>
+            <field name="arch" type="xml">
+                <xpath expr="//page[@string='Retentions']" position="inside">
+                    <div style="width: 99%%">
+                        <field name="ret_summary_group_line"
+                               attrs="{'invisible': [('ret_summary_group_line','=',[]),('state','not in',('draft','sice'))]}">
+                            <tree string="Summary Group Retention" create="false" delete="false" edit="false">
+                                <field name="invoice_id" invisible="1"/>
+                                <field name="tipo_retencion"/>
+                                <field name="iva" string="Retención"/>
+                                <field name="base_linea" string="Importe sin impuestos"/>
+                                <field name="base_linea_pesos"/>
+                                <field name="base_impuesto" string="Impuesto"/>
+                                <field name="base_impuesto_pesos"/>
+                                <field name="monto_retencion" sum="Total retenciones"/>
+                                <field name="monto_retencion_unround" sum="Total retenciones unround" invisible="1"/>
+                                <field name="monto_retencion_pesos" sum="Total retenciones pesos"/>
+                                <field name="base_impuesto_unround" invisible="1"/>
+                                <field name="base_impuesto_pesos_unround" invisible="1"/>
+                                <field name="ret_amount_round" invisible="1" sum="Retenciones redondeado"/>
+                                <field name="ret_amount_pesos_round" sum="Retenciones redondeado pesos"/>
+                                <field name="group_id" readonly="1"/>
+                                <field name="creditor_id" readonly="1"/>
+                            </tree>
+                        </field>
+                    </div>
+                </xpath>
+                <xpath expr="//page[@string='Retentions']" position="after">
+                    <page string="Detalle retenciones" attrs="{'invisible': [('ret_summary_line','=',[])]}">
+                        <div style="width: 99%%">
+                            <field name="ret_summary_line" readonly="1">
+                                <tree string="Summary Retention" create="false" delete="false" edit="false">
+                                    <field name="invoice_id" invisible="1"/>
+                                    <field name="tipo_retencion"/>
+                                    <field name="iva" string="Retención"/>
+                                    <field name="base_linea" string="Importe sin impuestos"/>
+                                    <field name="base_impuesto" string="Impuesto"/>
+                                    <field name="monto_retencion" sum="Total retenciones"/>
+                                    <field name="group_id" readonly="1"/>
+                                    <field name="creditor_id" readonly="1"/>
+                                    <field name="invoice_ret_line_id" invisible="True"/>
+                                    <field name="invoice_ret_global_line_id" invisible="True"/>
+                                </tree>
+                            </field>
+                        </div>
+                    </page>
+                </xpath>
+
+                <xpath expr="//field[@name='invoice_ret_global_line_ids']/tree/field[@name='invoice_id']" position="before">
+                    <field name="group_id" string="Grupo" on_change="onchange_group_id(group_id)" required="1"/>
+                    <field name="creditor_id" string="Acreedor" domain="[('group_id','=',group_id)]" required="1"/>
+                </xpath>
+
+            </field>
+        </record>
+
+        <!--TODO SPRING 8 GAP 235 R adicionando action y menu especifico para FR-->
+        <record id="action_invoice_fr" model="ir.actions.act_window">
+            <field name="name">Facturas de fondos rotatorios</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">account.invoice</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('type','=','in_invoice'),('doc_type','=','invoice'),('siif_tipo_ejecucion.codigo','=','P')]</field>
+            <field name="context">{'doc_type':'invoice','default_doc_type':'invoice','journal_type': 'purchase','default_type':'in_invoice','type':'in_invoice', 'apply_default_fr':True}</field>
+            <field name="search_view_id" ref="account.view_account_invoice_filter"/>
+        </record>
+
+        <menuitem id="menu_invoice_fr_item" action="action_invoice_fr"
+              parent="account.menu_finance_payables" sequence="50" groups="grp_seguridad.grp_compras_apg_Responsable_SIIF,grp_seguridad.grp_compras_apg_Jefe_de_compras"/>
+
+        <record id="account.action_invoice_tree2" model="ir.actions.act_window">
+            <field name="domain">[('type','=','in_invoice'),('doc_type','=','invoice'),'|',('siif_tipo_ejecucion.codigo','!=','P'),('siif_tipo_ejecucion','=',False)]</field>
+        </record>
+
+        <record id="view_account_invoice_filter_siif" model="ir.ui.view">
+            <field name="name">account.invoice.filter.siif</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.view_account_invoice_filter"/>
+            <field name="arch" type="xml">
+                <field name="partner_id" position="after">
+                    <field name="nro_afectacion"/>
+                    <!--Incidencia 2382 campos dobles al filtrar-->
+                    <field name="res_partner_bank_id" />
+                    <field name="rupe_cuenta_bancaria_id" />
+                    <!---->
+                </field>
+            </field>
+        </record>
+
+        <record id="invoice_tree_siif" model="ir.ui.view">
+            <field name="name">account.invoice.tree.siif</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_tree" />
+            <field name="arch" type="xml">
+                <field name="number" position="after">
+                    dde <field name="nro_factura_grp" string="Nro Doc"/>
+                    <field name="nro_afectacion"/>
+                    <field name="nro_compromiso"/>
+                    <field name="nro_obligacion"/>
+                </field>
+          </field>
+        </record>
+
+    </data>
+</openerp>

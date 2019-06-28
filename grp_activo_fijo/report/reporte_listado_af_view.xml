@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <report id="report_asset_listado_af"
+                model="account.asset.asset"
+                name="grp_activo_fijo.report_af_barcode"
+                string="Listado AF"
+                report_type="qweb-pdf"
+                file="report_af_barcode"
+                groups="grp_activo_fijo.grp_af_consulta,grp_activo_fijo.grp_af_responsable"
+
+        />
+
+    </data>
+</openerp>

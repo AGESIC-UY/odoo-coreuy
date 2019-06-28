@@ -1,0 +1,73 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+
+        <!-- VIEW: budget line list -->
+        <record model="ir.ui.view" id="view_grp_presupuesto_linea_list">
+            <field name="name">grp.presupuesto.linea.list</field>
+            <field name="model">presupuesto.linea</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Líneas de presupuestos" create="false" edit="false" delete="false">
+                    <field name="budget_id"/>
+                    <field name="budget_fiscal_year"/>
+                    <field name="budget_inciso"/>
+					<field name="ue"/>
+					<field name="programa"/>
+                    <field name="proyecto"/>
+                    <field name="moneda"/>
+                    <field name="tipo_credito"/>
+                    <field name="financiamiento"/>
+                    <field name="objeto_gasto"/>
+                    <field name="auxiliar"/>
+                     <field name="descripcion"/>
+                    <!--<field name="monto" string="Monto Inicial" widget="integer"/>-->
+                    <!--<field name="ajuste" widget="integer"/>-->
+                    <field name="total" widget="integer"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_grp_presupuesto_linea_search" model="ir.ui.view">
+            <field name="name">presupuesto.linea.select</field>
+            <field name="model">presupuesto.linea</field>
+            <field name="arch" type="xml">
+                <search string="Lineas">
+                    <field name="budget_id"/>
+                    <field name="ue"/>
+					<field name="programa"/>
+                    <field name="proyecto"/>
+                    <field name="moneda"/>
+                    <field name="tipo_credito"/>
+                    <field name="financiamiento"/>
+                    <field name="objeto_gasto"/>
+                    <field name="auxiliar"/>
+                    <field name="descripcion"/>
+                    <group expand="0" string="Group By...">
+                        <filter string="Presupuesto" domain="[]" context="{'group_by' : 'budget_id'}"/>
+                        <filter string="Unidad Ejecutora" domain="[]" context="{'group_by' : 'ue'}"/>
+                        <filter string="Programa" domain="[]" context="{'group_by' : 'programa'}"/>
+                        <filter string="Proyecto" domain="[]" context="{'group_by' : 'proyecto'}"/>
+                        <filter string="Moneda" domain="[]" context="{'group_by' : 'moneda'}"/>
+                        <filter string="Tipo credito" domain="[]" context="{'group_by' : 'tipo_credito'}"/>
+                        <filter string="Financiamiento" domain="[]" context="{'group_by' : 'financiamiento'}"/>
+			            <filter string="OG / Auxiliar" domain="[]" context="{'group_by' : ['objeto_gasto', 'auxiliar']}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="open_grp_presupuesto_linea">
+            <field name="res_model">presupuesto.linea</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree</field>
+            <field name="name">Líneas de presupuesto</field>
+            <field name="search_view_id" ref="view_grp_presupuesto_linea_search"/>
+            <field name="view_id" ref="view_grp_presupuesto_linea_list"/>
+        </record>
+
+        <menuitem id="menu_grp_presupuesto_linea" name="Líneas Presupuesto" action="open_grp_presupuesto_linea"
+                  parent="menu_grp_presupuesto" sequence="20"/>
+
+    </data>
+</openerp>

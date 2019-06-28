@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+
+        <record id="view_form_alta_bancos" model="ir.ui.view">
+            <field name="name">res.bank.inh.cf</field>
+            <field name="model">res.bank</field>
+            <field name="inherit_id" ref="base.view_res_bank_form"/>
+            <field name="arch" type="xml">
+                <field name="name" position="after">
+                    <field name="agencia"/>
+                </field>
+            </field>
+        </record>
+
+
+        <menuitem name="Bancos" id="menu_grp_bancos"
+                  parent="account.menu_finance_configuration" sequence="27"
+                  groups="grp_seguridad.grp_configuracion_contabilidad"/>
+
+        <menuitem name="Alta de Bancos" id="menu_alta_bancos"
+                  parent="menu_grp_bancos" sequence="1" action="base.action_res_bank_form"/>
+
+    </data>
+</openerp>

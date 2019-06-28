@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <!--Vista tree de Solicitud de Recursos-->
+        <record id="view_solicitud_recursos_tablero_tree" model="ir.ui.view">
+            <field name="name">Solicitud de Recursos</field>
+            <field name="model">grp.solicitud.recurso.tablero</field>
+            <field name="priority" eval="14"/>
+            <field name="arch" type="xml">
+                <tree string="Solicitud de Recursos" create="false" edit="false" delete="false">
+                    <field name="name"/>
+                    <field name="date_start"/>
+                    <field name="tipo_sr"/>
+                    <field name="ubicacion"/>
+                    <field name="operating_unit_id"/>
+                    <field name="solicitante_id"/>
+                    <field name="aprobador_id"/>
+                    <field name="description"/>
+                    <field name="state"/>
+                    <field name="estado_en_proc"/>
+                </tree>
+            </field>
+        </record>
+
+        <!--Listado de recursos-->
+        <record id="view_solicitud_recursos_en_almacen_search" model="ir.ui.view">
+            <field name="name">Solicitud de Recursos</field>
+            <field name="model">grp.solicitud.recurso.tablero</field>
+            <field name="arch" type="xml">
+                <search string="Search Datos">
+                    <group expand="0" string="Agrupar por...">
+                        <filter string="Unidad ejecutora" name="operating_unit"
+                                icon="terp-stock_effects-object-colorize" domain="[]"
+                                context="{'group_by':'operating_unit_id'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+
+        <record id="action_sr_almacen_tablero" model="ir.actions.act_window">
+            <field name="name">Solicitud de Recursos</field>
+            <field name="res_model">grp.solicitud.recurso.tablero</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="view_solicitud_recursos_tablero_tree"/>
+            <field name="search_view_id" ref="view_solicitud_recursos_en_almacen_search"/>
+            <field name="context">{'search_default_operating_unit':1}</field>
+            <field name="domain">[]</field>
+        </record>
+
+        <menuitem id="dashboard_menu" name="Listado de Recursos"
+                  parent="grp_solicitudcompras_report" action="action_sr_almacen_tablero"
+                  groups="grp_seguridad.grp_compras_apg_Jefe_de_compras_2,grp_seguridad.grp_compras_pc_Comprador"
+                  sequence="3"/>
+
+    </data>
+
+</openerp>

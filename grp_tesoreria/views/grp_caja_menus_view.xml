@@ -5,7 +5,7 @@
         <!--TODO: SPRING 10 GAP 474 M-->
         <menuitem id="menu_grp_account_tesoreria" name="Tesorería"
                   parent="account.menu_finance" sequence="4"
-                  groups="grp_tesoreria.group_grp_consulta_cajas,grp_tesoreria.group_grp_cajero_pagador,grp_tesoreria.group_grp_cajero_verificador,grp_tesoreria.group_grp_cajero_recaudador,grp_seguridad.grp_configuracion_contabilidad,grp_tesoreria.group_grp_recaudacion_interior,grp_tesoreria.group_grp_cashbox_register,grp_tesoreria.group_grp_cashbox_register_responsible,grp_tesoreria.group_grp_cashbox_register_manager"
+                  groups="grp_tesoreria.group_grp_consulta_cajas,grp_tesoreria.group_grp_cajero_pagador,grp_tesoreria.group_grp_cajero_verificador,grp_tesoreria.group_grp_cajero_recaudador,grp_seguridad.grp_configuracion_contabilidad,grp_tesoreria.group_grp_recaudacion_interior,grp_tesoreria.group_grp_cashbox_register,grp_tesoreria.group_grp_cashbox_register_responsible,grp_tesoreria.group_grp_cashbox_register_manager,grp_tesoreria.group_grp_gestor_OPI,grp_tesoreria.group_grp_remesa"
                 /><!--108-->
                   <!--groups="grp_tesoreria.group_grp_contabilidad_tesoreria,grp_tesoreria.group_grp_tesoreria_interior"-->
 

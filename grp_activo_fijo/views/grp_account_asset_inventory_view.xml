@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <!-- Vista tree de Inventario de activo fijo -->
+        <record id="view_grp_account_asset_inventory_tree" model="ir.ui.view">
+            <field name="name">grp.account_asset_inventory.tree</field>
+            <field name="model">grp.account_asset_inventory</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <tree string="Inventarios de activo fijo">
+                    <field name="referencia"/>
+                    <field name="ubicacion_id"/>
+                    <field name="fecha_inventario"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- Vista form de Inventario de activo fijo -->
+        <record id="view_grp_account_asset_inventory_form" model="ir.ui.view">
+            <field name="name">grp.account_asset_inventory.form</field>
+            <field name="model">grp.account_asset_inventory</field>
+            <field name="arch" type="xml">
+                <form string="Inventario de activo fijo" >
+                    <header>
+                    <button name="iniciar_inventario" states="borrador" string="Iniciar Inventario" type="object" class="oe_highlight"/>
+                    <button name="validar" states="enproceso" string="Validar Inventario" type="object" class="oe_highlight" groups="grp_activo_fijo.grp_af_inventory_admin"/>
+                    <button name="cancelar" states="enproceso" string="Cancelar Inventario" type="object" class="oe_highlight" groups="grp_activo_fijo.grp_af_inventory_admin"/>
+                    <field name="state" widget="statusbar" statusbar_visible="borrador,enproceso,validado"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_title">
+                            <label for="referencia" class="oe_edit_only"/>
+                            <h1>
+                                <field name="referencia" class="oe_inline" attrs="{'readonly':[('state','!=','borrador')]}"/>
+                            </h1>
+                        </div>
+                        <group colspan="4" col="4" >
+                            <group colspan="2" col="2">
+                                <field name="ubicacion_id" attrs="{'readonly':[('state','!=','borrador')]}"/>
+                                <field name="inventario_de" widget="radio" attrs="{'readonly':[('state','!=','borrador')]}"
+                                on_change="onchange_inventario_de(inventario_de)"/>
+                                <field name="categoria_id"  attrs="{'invisible':[('inventario_de','!=','categoria')], 'required':[('inventario_de','=','categoria')],'readonly':[('state','!=','borrador')]}"/>
+                            </group>
+                            <group colspan="2" col="2">
+                                <field name="fecha_inventario" />
+                                <field name="fecha_validacion" states="validado"/>
+                                <field name="company_id" attrs="{'readonly':[('state','!=','borrador')]}" groups="base.group_multi_company"/>
+                            </group>
+                        </group>
+                        <notebook >
+                            <page string="Detalles de inventario" states="enproceso,validado" >
+                                <field name="activo_ids" colspan="4" nolabel="1" attrs="{'readonly':[('state','!=','enproceso')]}">
+                                    <tree editable="bottom" create="false" delete="false">
+                                        <field name="activo_id"/>
+                                        <field name="no_activo"/>
+                                        <field name="recuento" required="1"/>
+                                        <field name="comentario"/>
+                                    </tree>
+                                </field>
+                            </page>
+                            <page string="Sin inventariar" states="enproceso,validado">
+                                <field name="activo_no_inv_ids" colspan="4" nolabel="1" attrs="{'readonly':[('state','!=','enproceso')]}">
+                                    <tree editable="bottom">
+                                        <field name="activo_id"/>
+                                        <field name="no_activo"/>
+                                        <field name="comentario"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <!-- Vista search de Inventario de activo fijo -->
+        <record id="view_grp_account_asset_inventory_search" model="ir.ui.view">
+            <field name="name">grp.account_asset_inventory.search</field>
+            <field name="model">grp.account_asset_inventory</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <search string="Inventarios de activo fijo">
+                    <field name="referencia"/>
+                    <field name="ubicacion_id"/>
+                    <newline/>
+                </search>
+            </field>
+        </record>
+
+        <!-- Vista action de Inventario de activo fijo -->
+        <record model="ir.actions.act_window" id="action_grp_account_asset_inventory_view">
+            <field name="name">Inventarios de activo</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">grp.account_asset_inventory</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="view_grp_account_asset_inventory_search"/>
+            <field name="domain">[]</field>
+            <field name="context">{}</field>
+        </record>
+        <!-- MENUITEM de Inventarios de activo fijo -->
+        <menuitem id="menu_grp_account_asset_inventory" action="action_grp_account_asset_inventory_view" name="Inventario AF"
+                  parent="account_asset.menu_finance_assets" sequence="200"/>
+
+    </data>
+</openerp>

@@ -1,0 +1,315 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>
+
+        <!--Supplier-->
+        <record model="ir.ui.view" id="invoice_grp_view_form_supplier">
+            <field name="name">account.invoice.grp.view.form.suppl</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_supplier_form"/>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <button name="invoice_open" position="before">
+                    <button name="invoice_sice_temp" states="draft" string="Financiero" type="object" class="oe_highlight" groups="grp_seguridad.grp_compras_apg_Jefe_de_compras,grp_seguridad.grp_compras_pc_Comprador,grp_seguridad.grp_compras_apg_Comprador"/>
+                </button>
+                <button name="invoice_open" position="after">
+                    <button name="invoice_cancel_sice" type="workflow" states="sice" string="Cancelar SICE"
+                            confirm="Esta seguro que desea cancelar el documento?"
+                            groups="grp_seguridad.grp_compras_apg_Jefe_de_compras,grp_seguridad.grp_compras_apg_Comprador,grp_seguridad.grp_compras_pc_Comprador"/>
+                    <button name="button_cancelar_pago" states="paid" type="object" string="Cancelar"
+                            confirm="Esta seguro que desea cancelar el documento?"
+                            groups="grp_seguridad.grp_compras_apg_Responsable_SIIF"/>
+                    <button name="button_cancel_pago_parcial" states="open" type="object" string="Cancelar pago parcial"
+                            groups="grp_seguridad.grp_compras_apg_Responsable_SIIF" attrs="{'invisible': ['|',('payment_ids', '=', [(6, False, [])])]}"/> <!--Cancelar pagos parciales-->
+                </button>
+                <button name="invoice_open" position="attributes">
+                    <attribute name="states">proforma2,sice</attribute>
+                    <attribute name="groups">grp_seguridad.grp_compras_apg_Responsable_SIIF</attribute>
+                    <attribute name="confirm"></attribute>
+                </button>
+
+                <button name="action_cancel_draft" position="attributes">
+                    <attribute name="states">cancel,cancel_sice</attribute>
+                    <attribute name="groups">account.group_account_invoice,grp_seguridad.grp_compras_apg_Responsable_SIIF</attribute>
+                </button>
+                <field name="state" position="attributes">
+                    <attribute name="statusbar_visible">draft,sice,open,paid</attribute>
+                </field>
+
+                <div class="oe_title" position="replace">
+                    <div class="oe_title">
+                        <h1>
+                            <label string="Factura borrador" attrs="{'invisible': ['|',('state','&lt;&gt;','draft'), ('type','&lt;&gt;','in_invoice')]}"/>
+                            <div class="oe_form_field oe_form_field_char oe_inline">
+                                <label string="Factura" style="width:110px; display:inline-block;" attrs="{'invisible': ['|',('state', '=', 'draft'), ('type','&lt;&gt;','in_invoice')]}"/>
+                            </div>
+                            <field name="nro_factura_grp" nolabel="1" class="oe_inline"  attrs="{'invisible': [('state', '=', 'draft')]}"/>
+                        </h1>
+                    </div>
+					<div class="oe_right oe_button_box" name="buttons" style="float: right; margin-left: -30px; margin-bottom: 30px;" groups="grp_seguridad.grp_compras_apg_Jefe_de_compras">
+                        <button name="ordenes_compra_tree_view" string="Órdenes de Compra" type="object"
+                            class="oe_inline oe_stat_button" icon="fa-strikethrough" style="white-space: normal;"/>
+                        <button name="contratos_tree_view" string="Contratos" type="object"
+                            class="oe_inline oe_stat_button" icon="fa-users" style="white-space: normal;"/>
+                    </div>
+                </div>
+                <!--<field name="partner_id" position="before">-->
+                    <!--<field name="factura_original" attrs="{'invisible':[('factura_original','=',False)]}"/>-->
+                <!--</field>-->
+                <field name="partner_id" position="attributes">
+                    <attribute name="attrs">{'readonly':['|',('orden_compra_id','!=',False),('state','!=','draft')]}</attribute>
+                    <attribute name="options">{'no_create':True, 'no_open':True, 'save_readonly':True}</attribute>
+                </field>
+
+                <field name="fiscal_position" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </field>
+
+                <field name="origin" position="before">
+                    <field name="orden_compra_id" domain="[('state','not in',['draft','sent','confirmed'])]"
+                           attrs="{'readonly':['|',('state','!=','draft'),('orden_compra_id','!=',False)]}"
+                           on_change="onchange_orden_compra(orden_compra_id)"
+                           options="{'no_create':True, 'no_open':True, 'save_readonly':True}"/>
+                </field>
+
+                <field name="supplier_invoice_number" position="attributes">
+                    <attribute name="attrs">{'required':[('origin','!=',False),('state','=','draft')], 'readonly':[('state','not in',['draft','sice'])]}</attribute>
+                </field>
+
+                <label for="reference_type" position="attributes">
+                        <attribute name="invisible">1</attribute>
+                </label>
+
+                <xpath expr="//sheet/group/group/div" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+
+                <field name="date_invoice" position="attributes">
+                    <attribute name="required">1</attribute>
+                    <attribute name="attrs">{'readonly':[('state','not in',['draft','sice'])]}</attribute>
+                    <attribute name="on_change">onchange_date_currency_id(currency_id, date_invoice, partner_id, fecha_tipo_cambio)</attribute>
+                </field>
+
+                <field name="date_due" position="attributes">
+                    <attribute name="required">1</attribute>
+                    <attribute name="attrs">{'readonly':[('state','not in',['draft','sice'])]}</attribute>
+                </field>
+
+                <field name="account_id" position="attributes">
+                    <attribute name="attrs">{'readonly':[('state','not in',['draft','sice'])]}</attribute>
+                    <attribute name="groups"></attribute>
+                </field>
+
+                <field name="journal_id" position="attributes">
+                    <attribute name="attrs">{'readonly':[('state','not in',['draft','sice'])]}</attribute>
+                    <attribute name="groups">account.group_account_user,grp_seguridad.grp_compras_pc_Comprador,grp_seguridad.grp_compras_apg_Jefe_de_compras_2,grp_seguridad.grp_compras_apg_Responsable_SIIF</attribute>
+                </field>
+
+                <field name="currency_id" position="attributes">
+                    <attribute name="domain">[('name','in',('USD','UYU','EUR'))]</attribute>
+                    <attribute name="attrs">{'readonly':[('state','not in',['draft','sice'])]}</attribute>
+                    <attribute name="on_change">onchange_date_currency_id(currency_id, date_invoice, partner_id, fecha_tipo_cambio)</attribute>
+                </field>
+
+                <field name="currency_id" position="after">
+                    <field name="currency_rate" invisible="1"/>
+                    <field name="fecha_tipo_cambio"
+                           attrs="{'readonly':[('state','in',('cancel',))],'invisible':[('diferent_currency','=',False)]}"/>
+                    <field name="diferent_currency" invisible="1"/>
+			        <field name="tipo_de_cambio_fnc"/>
+                    <field name="number" attrs="{'invisible': ['|',('state', '=', 'draft'),('number','=',False)]}"/>
+                </field>
+
+                <xpath expr="//sheet/group/group[1]" position="inside">
+                    <group string="Datos SICE" name="data_sice" invisible="1" colspan="2">
+                    </group>
+                    <newline/>
+                    <group string="Datos SIIF" name="data_siif" invisible="1" colspan="2">
+                    </group>
+
+                </xpath>
+
+                <field name="invoice_line" position="attributes">
+                    <attribute name="attrs">{'readonly':[('state','not in',['draft','sice'])]}</attribute>
+                </field>
+
+                <xpath expr="//sheet/notebook/page[@string='Invoice']/field[@name='invoice_line']/tree[@string='Invoice lines']/field[@name='product_id']" position="attributes">
+                    <attribute name="domain">[('purchase_ok','=',True)]</attribute>
+                    <attribute name="required">1</attribute>
+                    <attribute name="attrs">{'readonly':[('invoice_state','not in', ['draft', False])]}</attribute>
+                </xpath>
+
+                <xpath expr="//sheet/notebook/page[@string='Invoice']/field[@name='invoice_line']/tree[@string='Invoice lines']/field[@name='product_id']" position="after">
+                    <field name="product_es_activo_fijo"/>
+                    <field name="invoice_state" invisible="1"/>
+                </xpath>
+
+                <xpath expr="//sheet/notebook/page[@string='Invoice']/field[@name='invoice_line']/tree[@string='Invoice lines']/field[@name='account_id']" position="attributes">
+                    <attribute name="groups"></attribute>
+                </xpath>
+
+                <xpath expr="//sheet/notebook/page[@string='Invoice']/field[@name='invoice_line']/tree[@string='Invoice lines']/field[@name='quantity']" position="attributes">
+                    <attribute name="attrs">{'readonly':[('invoice_state','not in', ['draft', False])]}</attribute>
+                </xpath>
+
+
+                <!--<xpath expr="//sheet/notebook/page[@string='Invoice']/field[@name='invoice_line']/tree[@string='Invoice lines']/field[@name='account_analytic_id']" position="attributes">-->
+                    <!--<attribute name="string">Centro de costos</attribute>-->
+                    <!--<attribute name="domain">[('type','!=','view'), ('company_id', '=', parent.company_id)]</attribute>-->
+                <!--</xpath>-->
+
+                <xpath expr="//sheet/notebook/page[@string='Invoice']/field[@name='invoice_line']/tree[@string='Invoice lines']/field[@name='price_subtotal']" position="after">
+                    <field name= "monto_moneda_base" readonly="1"/>
+                </xpath>
+
+                <field name="factor_tax" position="after">
+                    <field name="impuesto_moneda_base"/>
+                </field>
+
+                <xpath expr="//sheet/notebook/page[@string='Other Info']/group/group/field[@name='user_id']" position="attributes">
+                    <attribute name="context"></attribute>
+                </xpath>
+
+                <xpath expr="//sheet/notebook/page[@string='Other Info']/group/group/field[@name='name']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                    <attribute name="attrs"></attribute>
+                </xpath>
+
+                <xpath expr="//sheet/notebook/page[@string='Other Info']/group/group/field[@name='payment_term']" position="attributes">
+                    <attribute name="widget">selection</attribute>
+                    <attribute name="options"></attribute>
+                    <attribute name="on_change"></attribute>
+                </xpath>
+
+                <xpath expr="//sheet/notebook/page[@string='Other Info']/group/group/field[@name='move_id']" position="attributes">
+                    <attribute name="groups">account.group_account_user</attribute>
+                </xpath>
+
+                <page string="Payments" position="after">
+                    <page string="Adjuntos">
+                        <group>
+                            <field name="attachment_ids" nolabel="1">
+                                <tree string="Adjuntos" delete="true" create="true">
+                                    <field name="res_name_computed" string="Nro doc"/>
+                                    <field name="name" string="Nombre Doc"/>
+                                    <field name="create_date"/>
+                                    <field name="res_model" string="Tipo Doc" invisible="1"/>
+                                </tree>
+                            </field>
+                        </group>
+                    </page>
+                </page>
+
+            </field>
+        </record>
+
+        <record id="invoice_supplier_form_ou" model="ir.ui.view">
+            <field name="name">account.invoice.supplier.form.ou</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account_operating_unit.invoice_supplier_form" />
+            <field name="arch" type="xml">
+                <field name="operating_unit_id" position="replace">
+                    <field name="operating_unit_id"
+                           required="1"
+                           options="{'no_create':True,'no_open':True, 'save_readonly':True}"
+                           attrs="{'readonly':[('orden_compra_id','!=',False)]}"
+                           groups="operating_unit.group_multi_operating_unit"/>
+                </field>
+            </field>
+        </record>
+
+
+
+        <record id="invoice_supplier_cancel_form_inherit_grp" model="ir.ui.view">
+            <field name="name">invoice.supplier.cancel.form.inherit</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account_cancel.invoice_supplier_cancel_form_inherit"/>
+            <field name="arch" type="xml">
+                <xpath expr="//button[@name='invoice_cancel']" position="attributes">
+                    <attribute name="groups">account.group_account_invoice,grp_seguridad.grp_compras_apg_Responsable_SIIF</attribute>
+                </xpath>
+            </field>
+        </record>
+
+        <!--Customer-->
+        <record model="ir.ui.view" id="invoice_grp_view_form_customer">
+            <field name="name">account.invoice.grp.view.form.customer</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_form"/>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <xpath expr="//page[@string='Invoice Lines']/field[@name='invoice_line']/tree[@string='Invoice Lines']/field[@name='product_id']"
+                       position="attributes">
+                    <attribute name="domain">[('sale_ok','=',True)]</attribute>
+                    <attribute name="required">1</attribute>
+                </xpath>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="view_account_invoice_asset_form_grp_inherit">
+            <field name="name">account.invoice.line.form.grp_inherit</field>
+            <field name="model">account.invoice.line</field>
+            <field name="inherit_id" ref="account_asset.view_account_invoice_asset_form"/>
+            <field name="arch" type="xml">
+                <field name="asset_category_id" position="before">
+                    <field name="product_es_activo_fijo" readonly="1"/>
+                </field>
+                <field name="asset_category_id" position="attributes">
+                    <attribute name="attrs">{'required':[('product_es_activo_fijo','=',True)],'readonly':[('product_es_activo_fijo','=',False)]}</attribute>
+                </field>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="view_invoice_asset_category_grp_inherit">
+            <field name="name">account.invoice.supplier.form.grp_inherit</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account_asset.view_invoice_asset_category"/>
+            <field name="arch" type="xml">
+                <field name="asset_category_id" position="attributes">
+                    <attribute name="attrs">{'required':[('product_es_activo_fijo','=',True)],'readonly':[('product_es_activo_fijo','=',False)]}</attribute>
+                </field>
+            </field>
+        </record>
+
+
+        <record id="view_account_invoice_filter_grp" model="ir.ui.view">
+            <field name="name">account.invoice.filter.proveed</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.view_account_invoice_filter"/>
+            <field name="arch" type="xml">
+                <field name="number" position="attributes">
+                    <attribute name="filter_domain">['|','|','|','|', ('nro_factura_grp','ilike',self), ('number','ilike',self), ('origin','ilike',self), ('supplier_invoice_number', 'ilike', self), ('partner_id', 'child_of', self)]</attribute>
+                </field>
+                <filter name="draft" position="after">
+					<filter name="sice" string="SICE" domain="[('state','=','sice')]" help="Facturas SICE"/>
+				</filter>
+				<filter name="invoices" position="replace">
+					<filter name="paga" string="Pagas" domain="[('state','=','paid')]" help="Facturas Pagas"/>
+                    <filter name="anulada" string="Canceladas" domain="[('state','=','cancel')]" help="Facturas Anuladas"/>
+					<filter name="anulada_sice" string="Anuladas SICE" domain="[('state','=','cancel_sice')]" help="Facturas anuladas SICE"/>
+				</filter>
+				<filter name="unpaid" position="attributes">
+					<attribute name="string">Abiertas</attribute>
+					<attribute name="help">Facturas Abiertas</attribute>
+				</filter>
+            </field>
+        </record>
+
+        <record id="view_account_tree_grp" model="ir.ui.view">
+			<field name="name">account.invoice.tree.financiero</field>
+			<field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_tree"/>
+			<field name="arch" type="xml">
+                <field name="partner_id" position="attributes">
+                    <attribute name="groups"></attribute>
+                </field>
+                <field name="user_id" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </field>
+                <field name="origin" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </field>
+			</field>
+		</record>
+    </data>
+</openerp>

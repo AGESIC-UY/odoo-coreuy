@@ -1,0 +1,507 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <template id="report_contract_format_basic">
+            <head>
+                <style>
+                    body
+                    {margin:0px;
+                    padding:0px;
+                    //background:#222222;
+                    }
+                    *
+                    {margin:0px;
+                    padding:0px;
+                    }
+                    a
+                    {
+                    text-decoration:none;
+                    outline:none;
+                    }
+                    #wrap
+                    {
+                    width:903px;
+                    margin:0 auto;
+
+                    }
+                    #wrap-sup
+                    {
+                    width:903px;
+                    float:left;
+                    background:#ffffff;
+
+                    }
+                    #head
+                    {
+                    width:903px;
+                    float:left;
+                    margin:29px 0 0 0;
+                    position:relative;
+                    }
+                    #headlft
+                    {
+                    width:100px;
+                    float:left;
+                    }
+                    #headcntr
+                    {
+                    width:470px;
+                    float:left;
+                    }
+                    #headcntr h1
+                    {
+                    width: auto;
+                    float:left;
+                    font-family:Arial, Helvetica, sans-serif;
+                    font-size:40px;
+                    color:#46ace1;
+                    font-weight:bold;
+                    margin:0 0 0 220px;
+                    text-shadow:#959494 1px 1px 1px ;
+                    }
+                    #headlft img
+                    {
+                    width:auto;
+                    float:left;
+                    margin:3px 0 0 108px;
+                    }
+                    #headcntr p
+                    {
+                    width:107px;
+                    float:left;
+                    font-family: Arial, Helvetica, sans-serif;
+                    font-size:10px;
+                    color:#7c7c7c;
+                    margin:3px 0 0 300px;
+                    }
+                    #headlft img.logo
+                    {
+                    max-width:250px;
+                    max-height:150px;
+                    float:left;
+                    margin:0 0 0 0;
+                    margin-left: 20px
+                    }
+                    #headrht img.person
+                    {
+                    width:auto;
+                    float:left;
+                    margin:5px 0 0 0;
+                    border: 1px solid;
+                    border-color: #46ace1;
+                    }
+                    #headrht img.bookmark
+                    {
+                    width:auto;
+                    float:left;
+                    margin:126px 0 0 33px;
+                    }
+                    #headrht
+                    {
+                    width:150px;
+                    float:left;
+                    margin:0 0 0 37px;
+                    margin-left: 80px;
+                    }
+                    ul#menu
+                    {
+                    width:594px;
+                    height:54px;
+                    float:left;
+                    position:fixed;
+                    background:url(../images/menubg.png) no-repeat;
+                    left:50%;
+                    top:140px;
+                    margin-left:-469px;
+                    z-index:100;
+                    }
+                    ul#menu li
+                    {
+                    width:auto;
+                    float:left;
+                    list-style:none;
+                    margin-left:17px;
+                    margin-top:10px;
+                    }
+                    ul#menu li.space
+                    {width:6px; height:6px; margin:17px 0 0 17px; float:left; text-indent:-9999px; background:url(../images/dot.png) no-repeat center 50%;}
+                    ul#menu li a:hover,ul#menu li a.active{
+                    background:url(../images/menuHover.png) repeat-x
+
+                    }
+                    ul#menu li a
+                    {
+                    width:auto;
+                    padding:0 6px;
+                    float:left;
+                    font-family:Arial, Helvetica, sans-serif;
+                    font-size:16px;
+                    font-weight:bold;
+                    color:#ffffff;
+                    }
+                    #center
+                    {
+                    width:840px;
+                    float:left;
+                    margin:123px 0 0 28px;
+                    position:relative;
+                    padding:0 0 87px 0;
+                    }
+                    #centerobj
+                    {
+                    width:840px;
+                    float:left;
+                    }
+                    #centereducation
+                    {
+                    width:840px;
+                    float:left;
+                    position:relative;
+                    margin-top:0px;
+                    }
+                    #centereducation h2
+                    {
+                    width:138px;
+                    height:40px;
+                    background:url(../images/personal.png) no-repeat;
+                    position:absolute;
+                    left:-45px;
+                    top:50px;
+                    font-family:Arial, Helvetica, sans-serif;
+                    font-size:14px;
+                    color:#ffffff;
+                    font-weight:normal;
+                    padding:5px 0 0 35px;
+
+
+
+                    }
+
+                    #centerexp
+                    {
+                    width:840px;
+                    float:left;
+                    position:relative;
+                    margin-top:40px;
+                    }
+                    #centerexp h2
+                    {
+                    width:138px;
+                    height:40px;
+                    background:url(../images/personal.png) no-repeat;
+                    position:absolute;
+                    left:-45px;
+                    top:50px;
+                    font-family:Arial, Helvetica, sans-serif;
+                    font-size:14px;
+                    color:#ffffff;
+                    font-weight:normal;
+                    padding:5px 0 0 35px;
+
+
+
+                    }
+                    #centerskills
+                    {
+                    width:840px;
+                    float:left;
+                    position:relative;
+                    margin-top:40px;
+                    }
+                    #centerskills h2
+                    {
+                    width:138px;
+                    height:40px;
+                    background:url(../images/personal.png) no-repeat;
+                    position:absolute;
+                    left:-45px;
+                    top:50px;
+                    font-family:Arial, Helvetica, sans-serif;
+                    font-size:14px;
+                    color:#ffffff;
+                    font-weight:normal;
+                    padding:5px 0 0 35px;
+
+
+
+                    }
+                    #centercontact
+                    {
+                    width:840px;
+                    float:left;
+                    position:relative;
+                    margin-top:40px;
+                    }
+                    #centercontact h2
+                    {
+                    width:138px;
+                    height:40px;
+                    background:url(../images/personal.png) no-repeat;
+                    position:absolute;
+                    left:-45px;
+                    top:50px;
+                    font-family:Arial, Helvetica, sans-serif;
+                    font-size:14px;
+                    color:#ffffff;
+                    font-weight:normal;
+                    padding:5px 0 0 35px;
+
+
+
+                    }
+                    #center h2.head
+                    {
+                    width:138px;
+                    height:40px;
+                    background:url(../images/personal.png) no-repeat;
+                    position:absolute;
+                    left:-45px;
+                    top:-50px;
+                    font-family:Arial, Helvetica, sans-serif;
+                    font-size:14px;
+                    color:#ffffff;
+                    font-weight:normal;
+                    padding:5px 0 0 35px;
+
+
+
+                    }
+
+
+                    #center h3
+                    {
+                    width:100%;
+                    float:left;
+                    font-family:Arial, Helvetica, sans-serif;
+                    font-size:21px;
+                    font-weight: bold;
+                    //color:#ff7928;
+                    //padding:0 0 10px 0;
+                    //border-bottom:#edd3c3 solid 1px;
+                    font-weight:normal;
+                    //text-shadow:#c4c4c4 1px 1px 0px
+                    }
+                    #center p
+                    {
+                    width:818px;
+                    float:left;
+                    font-family: Arial, Helvetica, sans-serif;
+                    font-size:13px;
+                    color:#7a7a7a;
+                    line-height:22px;
+                    margin:32px 0 0 0;
+                    }
+                    #center h3.margin
+                    {
+                    margin:32px 0 0 0;
+                    }
+                    #center h3.margin1
+                    {
+                    margin:50px 0 0 0;
+                    }
+                    #center h4
+                    {
+                    width:290px;
+                    float:left;
+                    margin:30px 0 0 0;
+                    font-family: Arial, Helvetica, sans-serif;
+                    font-size:13px;
+                    font-weight:bold;
+                    font-style: italic;
+                    //color:#46ace1;
+                    }
+                    #center p.para
+                    {
+                    width:150px;
+                    margin:28px 0 0 0;
+                    font-weight: bold;
+                    }
+                    #center p.para2
+                    {
+                    margin:5px 0 0 0;
+                    }
+                    ul.list
+                    {
+                    width:807px;
+                    float:left;
+                    margin:29px 0 0 0;
+                    }
+                    ul.list li
+                    {
+                    width:111px;
+                    float:left;
+                    list-style:none;
+                    margin-right:60px;
+                    margin-bottom:10px;
+                    font-family:Arial, Helvetica, sans-serif;
+                    font-size:13px;
+                    color:#7a7a7a;
+                    }
+
+                    .btm
+                    {
+                    width:121px;
+                    float:left;
+                    margin:32px 70px 0 0;
+                    }
+                    .btm h4.btmhead
+                    {
+                    width:100%;
+                    float:left;
+                    font-family:Arial, Helvetica, sans-serif;
+                    font-size:12px;
+                    color:#46ace1;
+                    font-weight:bold;
+                    }
+                    #center p.btmpara
+                    {
+                    width:100%;
+                    float:left;
+                    font-family:Arial, Helvetica, sans-serif;
+                    font-size:12px;
+                    color:#7c7c7c;
+                    margin:20px 0 0 0;
+                    line-height:15px;
+                    }
+
+                    #btmformlft
+                    {
+                    width:auto;
+                    float:left;
+                    margin:34px 0 0 0;
+                    padding:0;
+                    }
+                    #btmformlft input
+                    {
+                    width:178px;
+                    float:left;
+                    border:#edd3c3 solid 1px;
+                    margin:0 0 12px 0;
+                    font-family:Arial, Helvetica, sans-serif;
+                    font-size:12px;
+                    color:#7a7777;
+                    padding:2px 15px;
+                    height:20px;
+                    clear:left;
+                    }
+                    #btmformrht
+                    {
+                    width:auto;
+                    float:left;
+                    margin:34px 0 0 27px;
+                    }
+                    #btmformrht input
+                    {
+                    width:162px;
+                    float:left;
+                    border:#edd3c3 solid 1px;
+                    margin:0 0 12px 0;
+                    font-family:Arial, Helvetica, sans-serif;
+                    font-size:12px;
+                    color:#7a7777;
+                    padding:2px 15px;
+                    height:20px;
+                    clear:left;
+                    }
+
+                    #btmformrht .text
+                    {
+                    width:180px;
+                    height:58px;
+                    float:left;
+                    border:#edd3c3 solid 1px;
+                    font-family:Arial, Helvetica, sans-serif;
+                    font-size:12px;
+                    color:#7a7777;
+                    padding:2px 5px;
+                    clear:left;
+
+                    }
+                    #btmformrht input.submit
+                    {
+                    width:53px;
+                    float:right;
+                    background:#46ace1;
+                    color:#fff;
+                    padding:3px 10px 10px 10px;
+                    height:27px;
+                    margin:25px 0 0 0px;
+                    border:none;
+                    cursor:pointer;
+                    }
+                    #footer
+                    {width:850px;
+                    float:left;
+                    background:#ff7928;
+                    margin-top:100px;
+                    height:14px;
+                    }
+                    #per{width:2px; height:2px; float:left; margin-top:-30px}
+                    #edu{width:2px; height:2px; float:left; margin-top:-160px}
+                    #exp{width:2px; height:2px; float:left; margin-top:-160px}
+                    #skl{width:2px; height:2px; float:left; margin-top:-160px}
+                    #cnt{width:2px; height:2px; float:left; margin-top:-160px}
+                    .mtop{margin-top:20px}
+
+
+
+                </style>
+            </head>
+            <body class="container">
+                <t t-foreach="docs" t-as="o">
+                    <div class="page">
+
+                        <div id="wrap">
+                            <div id="wrap-sup">
+                                <div id="head">
+                                    <a id="per"></a>
+
+                                    <div id="headlft">
+                                            <img class="logo" src="/web/static/img/logo.png" />
+
+                                    </div>
+                                    <div id="headcntr">
+
+                                        <h1 >Contract Title</h1>
+                                        <!--<img src="images/lline.png" alt=""/>-->
+
+                                        <p>
+                                            <t>
+                                                eMail<br/>Mobile<br/>Address<br/>
+                                            </t>
+                                        </p>
+                                    </div>
+
+                                </div>
+                                <div id="center">
+
+                                    <div id="centerobj" t-if="o.intro_clause_id">
+                                        <h3><t t-esc="o.get_intro_clause(o.id, False)['title']"/></h3>
+                                        <p><t t-esc="o.get_intro_clause(o.id, False)['content']"/></p>
+
+                                    </div>
+                                    <div id="centereducation">
+                                        <t t-foreach="o.get_sections(o.id)" t-as="section">
+                                            <h3 class="margin1"> <t t-esc="section.name"/></h3>
+                                            <t t-foreach="o.get_clauses_completed(o.id, section.id)" t-as="clause">
+                                                <h4><t t-if="clause['clause_nbr']"><t t-esc="clause['clause_nbr']"/> - </t><t t-if="clause['title']"><t t-esc="clause['title']"/></t></h4>
+                                                <p class="para2"><t t-esc="clause['content']"/></p>
+                                            </t>
+                                        </t>
+                                        <div id="centercontact">
+                                            <a id="cnt"></a>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--<div id="footer"></div>-->
+                            </div>
+                        </div>
+
+                    </div>
+                </t>
+
+            </body>
+        </template>
+    </data>
+</openerp>

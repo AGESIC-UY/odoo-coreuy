@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+
+        <record id="view_grp_cot_tree_dashboard" model="ir.ui.view">
+            <field name="name">grp.cotizaciones.tree.dashboard</field>
+            <field name="model">grp.cotizaciones</field>
+            <field name="arch" type="xml">
+                <tree string="Adjudicaciones" create="false" edit="false" delete="false">
+                    <field name="name"/>
+                    <field name="comprador_id"/>
+                    <field name="pedido_compra_id"/>
+                    <field name="operating_unit_id"/>
+                    <field name="fecha_respuesta"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="action_adj_autorizados_tablero" model="ir.actions.act_window">
+            <field name="name">Adjudicaciones Autorizadas</field>
+            <field name="res_model">grp.cotizaciones</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="view_grp_cot_tree_dashboard"/>
+            <field name="domain">[('state','in',('authorized','aprobado_sice')),('purchase_order_ids','=', False)]
+            </field>
+        </record>
+
+        <menuitem id="grp_solicitudcompras_report" name="Solicitud-Compras" parent="base.menu_reporting" sequence="1"/>
+
+        <menuitem action="action_adj_autorizados_tablero"
+                  groups="grp_seguridad.grp_compras_apg_Jefe_de_compras_2,grp_seguridad.grp_compras_pc_Comprador"
+                  id="menu_adj_autorizados_report" parent="grp_solicitudcompras_report" sequence="1"/>
+
+    </data>
+
+</openerp>

@@ -18,19 +18,7 @@
             <field name="view_mode">tree,form</field>
             <field name="target">current</field>
             <field name="domain">[('contrato_general_id','=',active_id)]</field>
-            <field name="view_id" ref="view_contract_proveedores_form"/>
-        </record>
-        <record model="ir.actions.act_window.view" id="action_grp_ver_particulares_act_tree">
-            <field name="sequence" eval="0"/>
-            <field name="view_mode">tree</field>
-            <field name="view_id" ref="view_contract_proveedores_tree"/>
-            <field name="act_window_id" ref="grp_ver_particulares_act"/>
-        </record>
-        <record model="ir.actions.act_window.view" id="action_grp_ver_particulares_act_form">
-            <field name="sequence" eval="1"/>
-            <field name="view_mode">form</field>
-            <field name="view_id" ref="view_contract_proveedores_form"/>
-            <field name="act_window_id" ref="grp_ver_particulares_act"/>
+            <!--<field name="view_id" ref="view_contract_proveedores_form"/>-->
         </record>
 
         <record id="view_contract_proveedores_form" model="ir.ui.view">
@@ -354,7 +342,7 @@
                                         <field name="parametrica_periodicidad_id"
                                                attrs="{'readonly': [('realizado','=',True)]}"/>
                                         <field name="fecha_base_ajuste"
-                                               attrs="{'required':[('parametrica_formula_id', '!=', False)],'readonly': [('realizado','=',True)]}"/>
+                                               attrs="{'required':[('parametrica_formula_id', '!=', False)],'readonly': ['|',('realizado','=',True),('state','=','vigente')]}"/>
                                         <field name="realizado" invisible="1"/>
                                     </group>
                                     <group>
@@ -509,6 +497,23 @@
                         <field name="state" />
                     </tree>
                 </field>
+        </record>
+
+        <record model="ir.actions.act_window.view" id="action_grp_ver_particulares_act_tree">
+            <field name="sequence" eval="0"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="view_contract_proveedores_tree"/>
+            <field name="act_window_id" ref="grp_ver_particulares_act"/>
+        </record>
+        <record model="ir.actions.act_window.view" id="action_grp_ver_particulares_act_form">
+            <field name="sequence" eval="1"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="view_contract_proveedores_form"/>
+            <field name="act_window_id" ref="grp_ver_particulares_act"/>
+        </record>
+
+        <record model="ir.actions.act_window" id="grp_ver_particulares_act">
+            <field name="view_id" ref="view_contract_proveedores_form"/>
         </record>
 
         <!-- FILTER CONTRATO PROVEEDORES CON_03 -->

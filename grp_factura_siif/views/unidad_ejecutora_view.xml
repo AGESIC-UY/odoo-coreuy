@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <!-- Unidades ejecutoras -->
+        <!-- Vista tree -->
+        <record model="ir.ui.view" id="view_unidad_ejecutora_tree">
+            <field name="name">unidad.ejecutora.tree</field>
+            <field name="model">unidad.ejecutora</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Unidad ejecutora">
+                    <field name="name"/>
+                    <field name="codigo"/>
+                    <field name="descripcion"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- Vista form  -->
+        <record model="ir.ui.view" id="view_unidad_ejecutora_form">
+            <field name="name">unidad.ejecutora.form</field>
+            <field name="model">unidad.ejecutora</field>
+            <field name="arch" type="xml">
+                <form string="Unidad ejecutora">
+                    <sheet>
+                        <group colspan="2" col="2">
+                            <field name="name"/>
+                            <field name="codigo"/>
+                            <field name="descripcion"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- Vista search -->
+        <record id="view_unidad_ejecutora_search" model="ir.ui.view">
+            <field name="name">unidad.ejecutora.search</field>
+            <field name="model">unidad.ejecutora</field>
+            <field name="arch" type="xml">
+                <search string="Unidad ejecutora">
+                    <field name="codigo"/>
+                    <field name="descripcion"/>
+                </search>
+            </field>
+        </record>
+
+        <!-- Vista action -->
+        <record model="ir.actions.act_window" id="action_unidad_ejecutora">
+            <field name="name">Unidades ejecutora</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">unidad.ejecutora</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="view_unidad_ejecutora_search"/>
+            <field name="domain">[]</field>
+            <field name="context">{}</field>
+        </record>
+
+        <menuitem id="menu_unidad_ejecutora" action="action_unidad_ejecutora"
+                  name="Unidades ejecutoras" parent="grp_factura_siif.menu_config_siif" sequence="10"
+                  groups="grp_seguridad.grp_compras_apg_Responsable_SIIF"/>
+
+    </data>
+</openerp>

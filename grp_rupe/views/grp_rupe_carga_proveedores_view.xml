@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+
+        <record id="grp_rupe_carga_proveedores_form" model="ir.ui.view">
+            <field name="name">grp.rupe.carga.proveedores.form.view</field>
+            <field name="model">carga.proveedores</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Importar Proveedores">
+                    <header>
+                        <button name="cargar_proveedores" string="Importar Proveedores" type="object"/>
+                    </header>
+                    <sheet>
+                        <group>
+                            <field name="filename"/>
+                            <field name="archivo"/>
+                        </group>
+
+                        <notebook colspan="4">
+                            <page string="Proveedores no creados">
+                                <field name="errores_ids" colspan="4" nolabel="1" >
+                                    <tree string="Proveedores no creados" create="false" edit="false" delete="false">
+                                        <field name="numero" />
+                                        <field name="nombre" />
+                                        <field name="error"/>
+
+                                    </tree>
+                        </field>
+                        </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="grp_rupe_carga_proveedores_view" model="ir.ui.view">
+            <field name="name">grp.rupe.carga.proveedores.tree.view</field>
+            <field name="model">carga.proveedores</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Importar Proveedores">
+                    <field name="filename"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="grp_rupe_carga_proveedores_view_search" model="ir.ui.view">
+            <field name="name">grp.rupe.carga.proveedores.search</field>
+            <field name="model">carga.proveedores</field>
+            <field name="arch" type="xml">
+                <search string="Importar Proveedores">
+                    <field name="filename"/>
+                </search>
+            </field>
+        </record>
+
+        <record id="grp_rupe_carga_proveedores_action_view" model="ir.actions.act_window">
+            <field name="name">Importar proveedores</field>
+            <field name="res_model">carga.proveedores</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+         <record id="grp_rupe_carga_proveedores_error_form" model="ir.ui.view">
+            <field name="name">carga.proveedores.error</field>
+            <field name="model">carga.proveedores.error</field>
+            <field name="arch" type="xml">
+                <form string="Error Proveedores">
+                    <sheet>
+                        <group>
+                            <field name="numero" />
+                            <field name="nombre" />
+                            <field name="error"/>
+                        </group>
+
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+
+
+        <menuitem id="menu_carga_proveedores_rupe" action="grp_rupe_carga_proveedores_action_view" name="Importar proveedores"
+                  parent="grp_rupe_menu_proveedores"
+                  sequence="6"/>
+    </data>
+</openerp>

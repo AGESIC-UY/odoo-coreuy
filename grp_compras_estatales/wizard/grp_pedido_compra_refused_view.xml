@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <!--TODO: GAP 461 SPRING 6 -->
+        <record id="pedido_compra_refused_wizard_view" model="ir.ui.view">
+            <field name="name">grp.pedido.compra.refused.wizard.form</field>
+            <field name="model">grp.pedido.compra.refused.wizard</field>
+            <field name="arch" type="xml">
+            <form string="Rechazar" version="7.0">
+                <group col="4" colspan="2">
+                    <group >
+                        <field name="motive"/>
+                        <field name="note"/>
+                    </group>
+                </group>
+                <footer>
+                    <button name="save" string="Guardar" type="object" default_focus="1" class="oe_highlight"/>
+                    or
+                    <button string="Cancelar" class="oe_link" special="cancel" />
+                </footer>
+            </form>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="pedido_compra_refused_wizard_act">
+            <field name="name">Rechazar Compra</field>
+            <field name="res_model">grp.pedido.compra.refused.wizard</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="pedido_compra_refused_wizard_view"/>
+            <field name="target">new</field>
+        </record>
+
+    </data>
+</openerp>

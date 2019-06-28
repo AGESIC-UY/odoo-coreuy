@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record id="view_grp_solicitud_compra_uca_form" model="ir.ui.view">
+            <field name="name">Solicitud de Compra MSP</field>
+            <field name="model">grp.solicitud.compra</field>
+            <field name="inherit_id" ref="grp_compras_estatales.view_grp_solicitud_compra_form"/>
+            <field name="arch" type="xml">
+                <field name="solicitud_recursos_doc" position="after">
+                    <field name="sentencia_ordenanza" readonly="1"/>
+                </field>
+
+                <xpath expr="//form/sheet/notebook/page[@string='Solicitud']" position="after">
+                    <page string="UCA" attrs="{'invisible' : [('sentencia_ordenanza','!=','compra_uca')]}">
+                        <group cols="6" colspan="2">
+                            <group>
+                                <field name="provider_id" domain="[('supplier','=',True)]" style="width:50%%"/>
+                                <field name="number" style="width:25%%"/>
+                                <field name="number_uca" style="width:25%%" readonly="1"/>
+                            </group>
+                        </group>
+                    </page>
+                </xpath>
+
+            </field>
+        </record>
+
+    </data>
+</openerp>

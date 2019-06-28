@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+
+        <!-- Filtro y agrupador -->
+        <record id="view_retention_list_report_filter" model="ir.ui.view">
+            <field name="name">retention.lines.list.report.filter</field>
+            <field name="model">retention.lines.list.report</field>
+            <field name="arch" type="xml">
+                <search string="Buscar retenciones">
+                    <field name="numero_factura" string="Número Factura"/>
+                    <field name="no_interno_factura" string="Número interno factura"/>
+                    <field name="nro_obligacion"/>
+                    <field name="iva"/>
+                    <separator string="Estado facturas" colspan="2"/>
+                    <filter name="pagas" string="Pagas" domain="[('state','=','paid')]" help="Facturas Pagas"/>
+                    <filter name="open" string="Contabilizadas" domain="[('state','=','open')]"
+                            help="Facturas Contabilizadas"/>
+                    <filter name="open" string="Otros" domain="[('state','not in',('open','paid'))]"
+                            help="Facturas no contabilizadas"/>
+                    <filter icon="terp-gtk-go-back-rtl" name="fondo_rotatorio" string="Fondo Rotatorio" domain="[('fondo_rotatorio','=', True)]"/>
+                    <separator/>
+                    <field name="state"/>
+                    <field name="doc_type"/>
+                    <!--modificacion incidencia 121-->
+                    <group expand="0" string="Group By...">
+                        <filter string="Estado" icon="terp-stock_effects-object-colorize" domain="[]"
+                                context="{'group_by':'state'}"/>
+                        <filter string="Fecha" icon="terp-stock_effects-object-colorize" domain="[]"
+                                context="{'group_by':'date_invoice'}"/>
+                        <filter string="Tipo de Factura" icon="terp-stock_effects-object-colorize" domain="[]"
+                                context="{'group_by':'doc_type'}"/>
+                        <filter string="Proveedor" icon="terp-stock_effects-object-colorize" domain="[]"
+                                context="{'group_by':'partner_id'}"/>
+                        <filter string="Tipo de Retención" icon="terp-stock_effects-object-colorize" domain="[]"
+                                context="{'group_by':'iva'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record id="view_retention_list_report_tree" model="ir.ui.view">
+            <field name="name">retention.lines.list.report.tree</field>
+            <field name="model">retention.lines.list.report</field>
+            <field name="arch" type="xml">
+                <tree create="false" edit="false" delete="false"
+                      colors="blue:state == 'draft';grey:state == 'cancel';red:state not in ('cancel','paid','open')"
+                      string="Listado de retenciones">
+                    <field name="id" invisible="1"/>
+                    <field name="id_objeto" invisible="1"/>
+                    <field name="invoice_id" invisible="1"/>
+                    <field name="importe_total" invisible="1"/>
+                    <field name="partner_id" invisible="1"/>
+                    <field name="tipo" invisible="1"/>
+                    <field name="proveedor"/>
+                    <field name="rut"/>
+                    <field name="numero_factura" invisible="1"/>
+                    <field name="no_interno_factura"/>
+                    <field name="nro_obligacion"/>
+                    <field name="fondo_rotatorio" invisible="1"/>
+                    <field name="date_invoice"/>
+                    <field name="tipo_retencion"/>
+                    <field name="iva" string="Código Retención"/>
+                    <field name="base_impuesto"/>
+                    <field name="base_linea"/>
+                    <field name="monto_retencion"/>
+                    <field name="currency_id"/>
+                    <field name="importe_sin_iva" invisible="1"/>
+                    <field name="state" string="Estado factura"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="action_list_retention_tree" model="ir.actions.act_window">
+            <field name="name">Reporte de Retenciones</field>
+            <field name="res_model">retention.lines.list.report</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_mode">tree</field>
+            <field name="context">{}</field>
+            <field name="search_view_id" ref="view_retention_list_report_filter"/>
+        </record>
+
+        <record id="action_list_retention_tree_view" model="ir.actions.act_window.view">
+            <field eval="1" name="sequence"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="view_retention_list_report_tree"/>
+            <field name="act_window_id" ref="action_list_retention_tree"/>
+        </record>
+
+        <!--Listado de retenciones-->
+        <menuitem id="menu_finance_legal_statement" name="Reporte de Retenciones"
+                  parent="account.menu_finance_reports"/>
+        <menuitem action="action_list_retention_tree" id="menu_list_retention_tree"
+                  parent="menu_finance_legal_statement"/>
+
+    </data>
+</openerp>
