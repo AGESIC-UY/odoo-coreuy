@@ -161,7 +161,6 @@ ON
             if eval("'%s' %s %s" % (_voucher_state,operator,value)):
                 valid_ids.append(line['invoice_id'])
 
-
         # for line in self.search([('fecha_aprobacion','!=',False)]):
             # voucher_line = VoucherLine.search([('move_line_id.invoice', '=', line.id), ('amount', '!=', 0)], limit=1, order='date_original DESC, id DESC')
             # if not voucher_line:
